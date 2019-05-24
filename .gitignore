@@ -1,0 +1,10 @@
+/.mvn/
+/.git/
+/.settings/
+/.metadata/
+/RemoteSystemsTempFiles/
+/.classpath
+/.project
+
+publish.properties
+target
