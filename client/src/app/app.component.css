@@ -3,3 +3,21 @@ h1
     color: green;
     font-size: 350%;
 }
+
+.b
+{
+    background-color: blue;
+    margin: 0 auto;
+    
+    width:50%;
+    height: 68%;
+}
+
+
+.myAnimation
+{
+    width: 10px;
+    height: 20px;
+    position: absolute;
+    background: red;
+}

@@ -4,7 +4,25 @@
     Welcome To The Uline {{ title }} APP!
   </h1>
   <!--we can resize this if needed-->
-  <img src="assets/campus .jpg" width="50%" height="100%">
+  
+
+  <div class="b" style="">
+      <div class="myAnimation" id="myAnimation"></div>
+      <img src="assets/campus .jpg" width="100%" height="100%">
+    
+  </div>
+  
+  <p>Click the button to get your coordinates.</p>
+
+  <div id="demo"></div>
+
+  <!--these here will show the coordinates of the user and will animate box accross
+  screen. I need to now figure out how to map the coordinate to animation and 
+    have the animation follow those coordinates!-->
+  <button onclick="getLocation()">Location</button>
+  <button onclick="myMove()">animate</button>
+
+
 
   <app-side-nav> </app-side-nav>
 </div>
