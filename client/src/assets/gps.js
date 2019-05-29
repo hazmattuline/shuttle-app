@@ -1,4 +1,4 @@
-var myObj, myJSON;
+var myObj, myJSON, y;
 
 function getLocation()
    {
@@ -20,8 +20,8 @@ function showPosition(position)
   //also the variable for coordinates updates when the coordinate change
 
 
- //var y = position.coords.latitude;
-  //console.log(y);
+ y = position.coords.latitude;
+ console.log(y);
  //console.log("ldjflsj");
   document.getElementById("demo").innerHTML="Latitude: " + position.coords.latitude +
                            "<br>Longitude: " + position.coords.longitude;
@@ -42,6 +42,7 @@ function myMove()
     else
     {
       pos++;
+      console.log(pos)
       elem.style.top = pos + 'px';
       elem.style.left = pos + 'px';
     }
