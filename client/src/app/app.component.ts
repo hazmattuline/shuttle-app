@@ -1,11 +1,26 @@
 import { Component } from '@angular/core';
 
-@Component({
+declare var getLocation: any;
+declare var myMove: any;
+
+@Component
+({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'Tour of Heroes';
-  hero = 'Windstorm';
+export class AppComponent 
+{
+  title = 'Shuttle';
+
+  f()
+  {
+    new getLocation();
+  }
+  move()
+  {
+    new myMove();
+  }
+
+
 }
