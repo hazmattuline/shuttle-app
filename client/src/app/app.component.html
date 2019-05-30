@@ -1,11 +1,16 @@
-<!--The content below is only a placeholder and can be replaced.-->
+
+
 <div style="text-align:center">
   <h1>
     Welcome To The Uline {{ title }} APP!
   </h1>
-  <!--we can resize this if needed-->
   
 
+
+
+  
+    <!--we can resize this if needed
+    
   <div class="b">
     
       <div class="myAnimation" id="myAnimation"></div>
@@ -13,23 +18,68 @@
       <img src="assets/campus .jpg"  width="100%" height="100%">
     
   </div>
+    -->
+  
+  
+    <!--<div class="b">
+  
+        <div class="myAnimation" id="myAnimation"></div>
+        <img src="assets/campus .jpg" width="100%" height="100%">
+  
+    </div> -->
+  
+    
+  
+    <!--these here will show the coordinates of the user and will animate box accross
+    screen. I need to now figure out how to map the coordinate to animation and 
+      have the animation follow those coordinates!-->
+  
+    <div class= "background"><img src="assets/new_canvas.PNG" alt="picture" width = "900px" height = "600px"> 
+    <div class= "front"  id = "animate1"><img src="assets/red.png" alt="dot1"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate2"><img src="assets/red.png" alt="dot2"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate3"><img src="assets/red.png" alt="dot3"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate4"><img src="assets/red.png" alt="dot4"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate5"><img src="assets/red.png" alt="dot5"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate6"><img src="assets/red.png" alt="dot6"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate7"><img src="assets/red.png" alt="dot7"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate8"><img src="assets/red.png" alt="dot8"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate9"><img src="assets/red.png" alt="dot9"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate10"><img src="assets/red.png" alt="dot10"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate11"><img src="assets/red.png" alt="dot11"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate12"><img src="assets/red.png" alt="dot12"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate13"><img src="assets/red.png" alt="dot13"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate14"><img src="assets/red.png" alt="dot14"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate15"><img src="assets/red.png" alt="dot15"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate16"><img src="assets/red.png" alt="dot16"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate17"><img src="assets/red.png" alt="dot17"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate18"><img src="assets/red.png" alt="dot18"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate19"><img src="assets/red.png" alt="dot19"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate20"><img src="assets/red.png" alt="dot20"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate21"><img src="assets/red.png" alt="dot21"  width="2%" height="2%"> </div>
+    <div class= "front"  id = "animate22"><img src="assets/red.png" alt="dot22"  width="2%" height="2%"> </div>
+    </div>
+    <p>Click the button to get your coordinates.</p>
+    <div id="demo"></div>
 
   
-  <p>Click the button to get your coordinates.</p>
+    <button onclick="getLocation()">Location</button>
+    <button onclick="myMove()">animate</button>
 
-  <div id="demo"></div>
+  
+    </div>
+  
 
-  <!--these here will show the coordinates of the user and will animate box accross
-  screen. I need to now figure out how to map the coordinate to animation and 
-    have the animation follow those coordinates!-->
-  <button onclick="getLocation()">Location</button>
-  <button onclick="myMove()">animate</button>
+  
+  
+
+ 
 
 
 
-  <app-side-nav> </app-side-nav>
-</div>
 
-<!--this code here doesnt have to be here but 
-if we decide to do some routing later this could be useful to have-->
+  <!--<app-side-nav> </app-side-nav>-->
+<!--</div>-->
+
+
+
 <router-outlet></router-outlet>
