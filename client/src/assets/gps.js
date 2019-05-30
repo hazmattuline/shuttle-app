@@ -289,24 +289,28 @@ function myMove()
   var posxs = [];
   var posys = [];
   var H2boundary = 42.516;
+  var H2door = 42.514;
   var hwyboundary1 = 42.5175;
   var hwyboundary2 = 42.519;
   var H1boundary = 42.52;
 
   for (i = 0; i < lats.length; i++) {
     //fixed
-    if (lats[i] < H2boundary) {
-      var posx = (londists[i])/(maxlondist)*width - 96;
+    if (lats[i] < H2boundary && lats[i] > H2door) {
+      var posx = (londists[i])/(maxlondist)*width - 100;
     }
+    
     //fixed
     else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
-      var posx = (londists[i])/(maxlondist)*width - 40;
+      var posx = (londists[i])/(maxlondist)*width - 30;
     }
+    //fixed
     else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
-      var posx = (londists[i])/(maxlondist)*width;
+      var posx = (londists[i])/(maxlondist)*width- 40;
     }
+    //fixed
     else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
-      var posx = (londists[i])/(maxlondist)*width - 138;
+      var posx = (londists[i])/(maxlondist)*width - 135;
     }
     // else {
     //   console.log("heyyy");
