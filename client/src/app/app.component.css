@@ -18,6 +18,9 @@ h1
 {
     width: 10px;
     height: 20px;
-    position: absolute;
+    right: 420px;
+    top: 550px;
+    position: relative;
     background: red;
 }
+

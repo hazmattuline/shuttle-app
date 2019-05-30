@@ -1,5 +1,7 @@
 var myObj, myJSON, y;
 
+
+
 function getLocation()
    {
   if (navigator.geolocation)
@@ -31,20 +33,24 @@ function showPosition(position)
 function myMove()
  {
   var elem = document.getElementById("myAnimation");
-  var pos = 0;
-  var id = setInterval(frame, 10);
+  var pos = y;
+  var id = setInterval(frame, 15);
   function frame()
   {
-    if (pos == 350)
+    if (pos > 42.5)
     {
-      clearInterval(id);
+      console.log("here");
+      myAnimation.style.position = 'absolute';
+      myAnimation.style.coords
     }
     else
     {
-      pos++;
+      //pos++;
       console.log(pos)
-      elem.style.top = pos + 'px';
-      elem.style.left = pos + 'px';
+     // elem.style.top = pos + 'px';
+      //elem.style.left = pos + 'px';
+      //elem.style.right = pos + 'px';
+
     }
   }
 }

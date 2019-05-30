@@ -1,27 +1,59 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="!(isHandset$ | async)">
-      <mat-toolbar color = "primary"> Menu </mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item href="#"><b>Driver Login</b></a>
-      <a mat-list-item href="#">Ride Request</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list>
+  [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+  [mode]="(isHandset$ | async) ? 'over' : 'side'"
+  [opened]="!(isHandset$ | async)">
+  <mat-toolbar color = "primary"> Menu </mat-toolbar> 
+  <mat-nav-list>
+  <form action="action_page.php">
+  <!--<div class="imgcontainer">
+  <img src="img_avatar2.png" alt="Avatar" class="avatar">
+  </div>-->
+  <div class="instruction">
+  If you are a Shuttle Driver please sign in here
+  </div>
+  
+  
+  <div class="container">
+  <label for="uname"><b>Username</b></label>
+  <input type="text" placeholder="Enter Username" id="uname" required>
+  <label for="psw"><b>Password</b></label>
+  <input type="password" placeholder="Enter Password" id="psw" required>
+  <button type="submit" onclick="validate()">Login</button>
+  
+  
+  <!--<label>
+  <input type="checkbox" checked="checked" name="remember"> Remember me
+  </label>-->
+  </div>
+  <!--<div class="container" style="background-color:#fdfdfd">
+  <span class="psw">Forgot <a href="#">password?</a></span>
+  </div>--> 
+  
+  
+  </form>
+  
+  
+  <!--<input routerLink="/front" type="button" class="button5" value="to login"/>
+  <a mat-list-item href="#">Link 2</a>
+  <a mat-list-item href="#">Link 3</a>-->
+  <a href=""><button>link1</button></a>
+  <a href=""><button>link2</button></a>
+  
+  
+  </mat-nav-list>
   </mat-sidenav>
+  
+  
   <mat-sidenav-content>
-    
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      
-    <!-- Add Content Here -->
+  <button
+  type="button"
+  aria-label="Toggle sidenav"
+  mat-icon-button
+  (click)="drawer.toggle()"
+  *ngIf="isHandset$ | async">
+  <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <!-- Add Content Here -->
   </mat-sidenav-content>
-</mat-sidenav-container>
- 
+  </mat-sidenav-container>
