@@ -18,7 +18,7 @@
 	</parent>
 
 	<modules>
-		<module>configuration-management-client</module>
+		<module>shuttle-app-client</module>
 		<module>server</module>
 	</modules>
 

@@ -717,6 +717,10 @@ function myMove()
 //   }*/
 // }
 
+window.onresize = function(){
+  var img = document.getElementById('fullsize');
+  img.style.width = "100%";
+};
 
 
 
