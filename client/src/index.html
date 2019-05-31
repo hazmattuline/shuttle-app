@@ -10,7 +10,12 @@
 
   <script src="./assets/gps.js"></script>
 </head>
-<body>
+<body onresize="myFunction()">
+  <script>
+    function myFunction() {
+      myMove();
+    }
+    </script>
   <app-root></app-root>
 </body>
 </html>
