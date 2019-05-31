@@ -86,6 +86,8 @@ function myMove()
   var elem20 = document.getElementById("animate20");
   var elem21 = document.getElementById("animate21");
   var elem22 = document.getElementById("animate22");
+  var elem23 = document.getElementById("animate23");
+
 
   /*elem.style.top = '20px';
   elem.style.left = '300px'; */
@@ -250,6 +252,16 @@ function myMove()
  lats.push(lat2);
  lons.push(lon2);
 
+ // middle of lake in h2
+ 42.514977, -87.953649
+
+ var lat2 = 42.514977;
+ var lon2 = -87.953649;
+ lats.push(lat2);
+ lons.push(lon2);
+
+
+
 
 
   var height = 600;
@@ -294,20 +306,34 @@ function myMove()
   var hwyboundary2 = 42.519;
   var H1boundary = 42.52;
 
+  //42.515088
+  //-87.954471
+  var h2lonbound = -87.953;
+
   for (i = 0; i < lats.length; i++) {
     //fixed
-    if (lats[i] < H2boundary && lats[i] > H2door) {
+    if (lats[i] < H2boundary && lons[i] < h2lonbound) {
       var posx = (londists[i])/(maxlondist)*width - 100;
     }
     
+    else if ((lats[i] < H2boundary) && (lons[i] > h2lonbound)) {
+      var posx = (londists[i])/(maxlondist)*width - 18;
+    }
     //fixed
     else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
       var posx = (londists[i])/(maxlondist)*width - 30;
     }
+
     //fixed
     else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
       var posx = (londists[i])/(maxlondist)*width- 40;
     }
+
+    else if (lats[i] > hwyboundary2 && lons[i] > h2lonbound) {
+      var posx = (londists[i])/(maxlondist)*width - 60;
+    }
+
+ 
     //fixed
     else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
       var posx = (londists[i])/(maxlondist)*width - 135;
@@ -322,7 +348,7 @@ function myMove()
     //if (lats[i] < H2boundary) {
       if (lats[i] > H1boundary) {
         //one change here was 135 , 125
-        var posy = (latdists[i])/(maxlatdist)*height - 5 ;
+        var posy = (latdists[i])/(maxlatdist)*height - 6;
       }
       else {
         var posy = (latdists[i])/(maxlatdist)*height - 15 ;
@@ -419,7 +445,8 @@ function myMove()
   elem21.style.left = posxs[20] + 'px';
   elem22.style.top = posys[21] + 'px';
   elem22.style.left = posxs[21] + 'px';
-
+  elem22.style.top = posys[22] + 'px';
+  elem22.style.left = posxs[22] + 'px';
 
  // var lat = 42.521774;
  // var long =  -87.95953;
