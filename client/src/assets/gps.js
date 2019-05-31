@@ -253,10 +253,9 @@ function myMove()
  lons.push(lon2);
 
  // middle of lake in h2
- 42.514977, -87.953649
 
- var lat2 = 42.514977;
- var lon2 = -87.953649;
+ var lat2 = 42.514975;
+ var lon2 = -87.953780;
  lats.push(lat2);
  lons.push(lon2);
 
@@ -717,7 +716,6 @@ function myMove()
 //     }
 //   }*/
 // }
-
 
 
 
