@@ -308,6 +308,9 @@ function myMove()
   var hwyboundary2 = 42.519;
   var H1boundary = 42.52;
   var h2lonbound = -87.953;
+  var boundaryH1road_longitude = -87.956815;
+  var topcurve_bound1 = 42.521806;
+  var topcurve_bound2 = 42.521233;
 
   for (i = 0; i < lats.length; i++) {
      //fixed
@@ -337,13 +340,42 @@ function myMove()
       var offset = (20/900)*width;
       var posx = (londists[i])/(maxlondist)*width - offset - 40; // (2/3)*width; // -60
     }
-
+    // part of road near H1, top of curve
+    else if (lats[i] > topcurve_bound1 && lons[i] > boundaryH1road_longitude)  {
+      // Steinebrey comment - need to have part of offset be constant
+      var offset = (1/100000)*width;
+      var posx = (londists[i])/(maxlondist)*width - offset - 130;//- 105; //1.5*width; // -135
+      //console.log("off="+offset);
+      //console.log("posx="+posx);
+    }
+    // part of road near H1, middle of curve
+    else if (lats[i] > topcurve_bound2 && lons[i] > boundaryH1road_longitude)  {
+      // Steinebrey comment - need to have part of offset be constant
+      var offset = (40/900)*(width);
+      var posx = (londists[i])/(maxlondist)*width +offset - 140;//- 105; //1.5*width; // -135
+      //console.log("off="+offset);
+      //console.log("posx="+posx);
+    }
+    // part of road near H1, bottom of curve
+    else if (lats[i] > H1boundary && lons[i] > boundaryH1road_longitude)  {
+      // Steinebrey comment - need to have part of offset be constant
+      if (width < 750 && height < 500) {
+        var offset = (150/900)*width;
+      }
+      else {
+        var offset = (30/900)*width;
+      }
+      console.log(width, height);
+      var posx = (londists[i])/(maxlondist)*width + offset - 130;//- 105; //1.5*width; // -135
+      //console.log("off="+offset);
+      //console.log("posx="+posx);
+    }
  
     //fixed
     else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
       // Steinebrey comment - need to have part of offset be constant
       var offset = (30/900)*width;
-      var posx = (londists[i])/(maxlondist)*width - offset - 105; //1.5*width; // -135
+      var posx = (londists[i])/(maxlondist)*width - offset - 105;//- 105; //1.5*width; // -135
       //console.log("off="+offset);
       //console.log("posx="+posx);
     }
