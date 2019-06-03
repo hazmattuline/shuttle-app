@@ -1,6 +1,9 @@
-var myObj, myJSON, y;
 
+var myObj, myJSON,x, y;
 
+//import * as math from 'mathjs'
+
+//const math = require('mathjs');
 
 function getLocation()
    {
@@ -22,44 +25,16 @@ function showPosition(position)
   //also the variable for coordinates updates when the coordinate change
 
 
- y = position.coords.latitude;
+ //x = position.coords.latitude;
+
+ x = position.coords.latitude;
+ y = position.coords.longitude;
  console.log(y);
  //console.log("ldjflsj");
   document.getElementById("demo").innerHTML="Latitude: " + position.coords.latitude +
                            "<br>Longitude: " + position.coords.longitude;
 
 }
-/*
-function myMove()
- {
-  var elem = document.getElementById("myAnimation");
-  var pos = y;
-  var id = setInterval(frame, 15);
-  function frame()
-  {
-    if (pos > 42.5)
-    {
-      console.log("here");
-      myAnimation.style.position = 'absolute';
-      myAnimation.style.coords
-    }
-    else
-    {
-      //pos++;
-      console.log(pos)
-     // elem.style.top = pos + 'px';
-      //elem.style.left = pos + 'px';
-      //elem.style.right = pos + 'px';
-
-    }
-  }
-}
-*/
-
-
-
-
-
 
 function myMove()
  {
@@ -86,8 +61,24 @@ function myMove()
   var elem20 = document.getElementById("animate20");
   var elem21 = document.getElementById("animate21");
   var elem22 = document.getElementById("animate22");
-  var elem23 = document.getElementById("animate23");
 
+
+
+
+  var img1 = document.getElementById("img1");
+  var img13 = document.getElementById("img13");
+
+
+
+
+  console.log("img1 "+img1.clientHeight);
+  console.log("img1 "+img1.clientWidth);
+  console.log("img13 "+img13.clientHeight);
+  console.log("img13 "+img13.clientWidth);
+
+
+
+  
 
   /*elem.style.top = '20px';
   elem.style.left = '300px'; */
@@ -100,19 +91,28 @@ function myMove()
   var lat1 = 42.523300; // biggest latitude in image
   var lon1 = -87.971642; // smallest longitude in image
   var lat3 = 42.5130865; // smallest latitude in image
+  //var lon3 = -87.951281;
   var lon3 = -87.951814;  // biggest longitude in image
 
   var lats = [];
   var lons = [];
-
+/*
  //H1 left 42.522131, -87.960058
- var lat2 = 42.522131;
+
+ // top right corner 42.513184, -87.951877
+//  var lat2 = 42.513184; // TO DO 
+//  var lon2 = -87.951877;
+
+ var lat2 = 42.522131; // REAL LOCATION
  var lon2 = -87.960058; 
  lats.push(lat2);
  lons.push(lon2);
 
   //H1 pickup - 42.521301, -87.959559 
-  var lat2 = 42.521301;
+  // bottom right corner
+  // var lat2 = 42.523169;
+  // var lon2 = -87.952112;
+  var lat2 = 42.521301; // REAL LOCATION
   var lon2 =  -87.959559;
   lats.push(lat2);
   lons.push(lon2);
@@ -251,20 +251,31 @@ function myMove()
  var lon2 = -87.952399;
  lats.push(lat2);
  lons.push(lon2);
+*/
 
- // middle of lake in h2
+ 
+//42.520278, -87.952896
+var lat2 =42.520278;
+var lon2 =-87.952896;
+lats.push(lat2);
+lons.push(lon2);
 
- var lat2 = 42.514975;
- var lon2 = -87.953780;
- lats.push(lat2);
- lons.push(lon2);
+  var img = document.getElementById('maplook');
+  var width = img.clientWidth;
+  var height = img.clientHeight;
 
+  // if (total_width < width || total_height < height) {
+  //   width = 0.45 * total_width;
+  //   height = 0.65 * total_height;
+  // }
+  
+  //console.log("w="+width);
+  //console.log("h="+height);
+  // var height = 600;
+  // var width = 900;
+  // console.log(total_width);
+  // console.log(total_height);
 
-
-
-
-  var height = 600;
-  var width = 900;
   //var degree_length_lat = 69;
   //var degree_length_long_equator = 60; //69.172
 
@@ -275,9 +286,10 @@ function myMove()
 
   var londists = [];
   var latdists = [];
+ 
 
   for (i = 0; i < lats.length; i++) {
-    var londist = (lons[i]-lon1)*Math.cos(Math.abs(lats[i]));
+    var londist = (lons[i]-lon1)*Math.cos(lats[i]);
     // latitude is pretty constant
     var latdist = (lat1-lats[i]);
     latdists.push(latdist);
@@ -289,13 +301,20 @@ function myMove()
 
   //var maxlatdist = (lat1-lat3)*Math.cos((lon1+lon3)/2) * 69.172; //(lon1+lon3)/2
   var maxlatdist = (lat1-lat3); 
-  var maxlondist = (lon3-lon1)*(Math.cos(lat1)+Math.cos(lat3))/2; // (lat1+lat3)/2
+   // (lat1+lat3)/2
+  var maxlondist = (lon3-lon1)*(Math.cos(lat1)+Math.cos(lat3))/2;
+  // if (Math.abs(lats[i]-lat1) < Math.abs(lats[i]-lat3)) {
+  //   var maxlondist = (lon3-lon1)*(Math.cos(lat1));
+  // }
+  // else {
+  //   var maxlondist = (lon3-lon1)*(Math.cos(lat3));
+  // }
 
+  //var maxlondist = (lon3-lon1)*(Math.cos(lat1)+Math.cos(lat3))/2;
   // console.log("lon= "+londist);
   // console.log("lat= " +latdist);
   // console.log("maxlat= " + maxlatdist);
   // console.log("maxlon= " +maxlondist);
-
 
   var posxs = [];
   var posys = [];
@@ -304,38 +323,45 @@ function myMove()
   var hwyboundary1 = 42.5175;
   var hwyboundary2 = 42.519;
   var H1boundary = 42.52;
-
-  //42.515088
-  //-87.954471
   var h2lonbound = -87.953;
 
   for (i = 0; i < lats.length; i++) {
-    //fixed
-    if (lats[i] < H2boundary && lons[i] < h2lonbound) {
-      var posx = (londists[i])/(maxlondist)*width - 100;
+     //fixed
+     if (lats[i] < H2boundary && lons[i] < h2lonbound) {
+      var offset = (105/900)*width;
+      var posx = (londists[i])/(maxlondist)*width - offset + 10;  //(10/9)*width; // -100
+      //console.log("offset="+offset);
     }
     
     else if ((lats[i] < H2boundary) && (lons[i] > h2lonbound)) {
-      var posx = (londists[i])/(maxlondist)*width - 18;
+      var offset = (5/900)*width;
+      var posx = (londists[i])/(maxlondist)*width - offset - 3; //0.2*width; //-18
     }
     //fixed
     else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
-      var posx = (londists[i])/(maxlondist)*width - 30;
+      var offset = (20/900)*width;
+      var posx = (londists[i])/(maxlondist)*width - offset; //(1/3)*width; //-30
     }
 
     //fixed
     else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
-      var posx = (londists[i])/(maxlondist)*width- 40;
+      var offset = (1/900)*width;
+      var posx = (londists[i])/(maxlondist)*width - offset - 25; //(4/9)*width; // -40
     }
 
     else if (lats[i] > hwyboundary2 && lons[i] > h2lonbound) {
-      var posx = (londists[i])/(maxlondist)*width - 60;
+      var offset = (15/900)*width;
+      var posx = (londists[i])/(maxlondist)*width - offset - 40; // (2/3)*width; // -60
     }
 
  
     //fixed
     else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
-      var posx = (londists[i])/(maxlondist)*width - 135;
+      // Steinebrey comment - need to have part of offset be constant
+      var offset = (10/900)*width;
+      var posx = (londists[i])/(maxlondist)*width - offset - 105; //1.5*width; // -135
+      //console.log("off="+offset);
+      //console.log("posx="+posx);
     }
     // else {
     //   console.log("heyyy");
@@ -345,12 +371,48 @@ function myMove()
 
     //60*Math.pow(londist/maxlondist, 1.5); - 25*(latdists[i]/maxlatdist)
     //if (lats[i] < H2boundary) {
+      
+
+    //var posx = (londists[i])/(maxlondist)*width - 125;
+
+    // if (Math.abs(lats[i]-lat1) < Math.abs(lats[i]-lat3)) {
+    //   var posx = (londists[i])/(maxlondist)*width - 150;
+    // }
+    // else {
+    //   var posx = (londists[i])/(maxlondist)*width - 100;
+    // }
+   
+    // if (lats[i] < 42.521) {
+    //   var posx = (londists[i])/(maxlondist)*width + (1/3)*(1-(latdists[i]/maxlatdist))-75;
+    // }
+    // else {
+    //   var posx = (londists[i])/(maxlondist)*width - 100;
+    // }
+    
+    // if (lats[i] < H2boundary && lats[i] > H2door) {
+    //   var posx = (londists[i])/(maxlondist)*width - 100;
+    // }
+    // else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
+    //   var posx = (londists[i])/(maxlondist)*width - 30;
+    // }
+    // else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
+    //   var posx = (londists[i])/(maxlondist)*width - 40;
+    // }
+    // else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
+    //   var posx = (londists[i])/(maxlondist)*width - 135;
+    // }
+
+
+    //60*Math.pow(londist/maxlondist, 1.5); - 25*(latdists[i]/maxlatdist)
+    //if (lats[i] < H2boundary) {
       if (lats[i] > H1boundary) {
         //one change here was 135 , 125
-        var posy = (latdists[i])/(maxlatdist)*height - 6;
+        var offset = (10/600)*height;
+        var posy = (latdists[i])/(maxlatdist)*height - offset; //(1/10)*height; //-6
       }
       else {
-        var posy = (latdists[i])/(maxlatdist)*height - 15 ;
+        var offset = (45/600)*height;
+        var posy = (latdists[i])/(maxlatdist)*height - offset; //(1/4)*height; //-15
       }
       
     //}
@@ -444,8 +506,7 @@ function myMove()
   elem21.style.left = posxs[20] + 'px';
   elem22.style.top = posys[21] + 'px';
   elem22.style.left = posxs[21] + 'px';
-  elem22.style.top = posys[22] + 'px';
-  elem22.style.left = posxs[22] + 'px';
+
 
  // var lat = 42.521774;
  // var long =  -87.95953;
@@ -716,11 +777,3 @@ function myMove()
 //     }
 //   }*/
 // }
-
-window.onresize = function(){
-  var img = document.getElementById('fullsize');
-  img.style.width = "100%";
-};
-
-
-
