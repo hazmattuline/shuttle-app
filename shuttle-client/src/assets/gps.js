@@ -261,73 +261,37 @@ function myMove()
   var posxs = [];
   var posys = [];
   var H2boundary = 42.516;
-  var H2door = 42.514;
   var hwyboundary1 = 42.5175;
   var hwyboundary2 = 42.519;
   var H1boundary = 42.52;
-  var h2lonbound = -87.953;
 
   for (i = 0; i < lats.length; i++) {
-     //fixed
-     if (lats[i] < H2boundary && lons[i] < h2lonbound) {
-      var posx = (londists[i])/(maxlondist)*width - 100;  //(10/9)*width; // -100
-      //console.log("offset="+offset);
+
+    if (lats[i] < H2boundary) {
+      var posx = (londists[i])/(maxlondist)*width;
     }
-    
-    else if ((lats[i] < H2boundary) && (lons[i] > h2lonbound)) {
-      var posx = (londists[i])/(maxlondist)*width - 18; //0.2*width; //-18
-    }
-    //fixed
     else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
-      var posx = (londists[i])/(maxlondist)*width - 45; //(1/3)*width; //-30
+      var posx = (londists[i])/(maxlondist)*width - 10;
     }
-
-    //fixed
     else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
-      var posx = (londists[i])/(maxlondist)*width - 50; //(4/9)*width; // -40
+      var posx = (londists[i])/(maxlondist)*width - 19;
     }
-
-    else if (lats[i] > hwyboundary2 && lons[i] > h2lonbound) {
-      var posx = (londists[i])/(maxlondist)*width - 60; // (2/3)*width; // -60
-    } 
-    //fixed
     else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
-      var posx = (londists[i])/(maxlondist)*width - 135;
+      var posx = (londists[i])/(maxlondist)*width - 30;
     }
-
-
-  // var H2boundary = 42.516;
-  // var hwyboundary1 = 42.5175;
-  // var hwyboundary2 = 42.519;
-  // var H1boundary = 42.52;
-
-  // for (i = 0; i < lats.length; i++) {
-
-  //   if (lats[i] < H2boundary) {
-  //     var posx = (londists[i])/(maxlondist)*width;
-  //   }
-  //   else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
-  //     var posx = (londists[i])/(maxlondist)*width - 18;
-  //   }
-  //   else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
-  //     var posx = (londists[i])/(maxlondist)*width - 19;
-  //   }
-  //   else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
-  //     var posx = (londists[i])/(maxlondist)*width - 120;
-  //   }
-  //   // else {
-  //   //   console.log("heyyy");
-  //   //   var posx = (londists[i])/(maxlondist)*width - 25;
-  //   // }
+    // else {
+    //   console.log("heyyy");
+    //   var posx = (londists[i])/(maxlondist)*width - 25;
+    // }
 
 
     //60*Math.pow(londist/maxlondist, 1.5); - 25*(latdists[i]/maxlatdist)
     //if (lats[i] < H2boundary) {
       if (lats[i] > H1boundary) {
-        var posy = (latdists[i])/(maxlatdist)*height - 6;
+        var posy = (latdists[i])/(maxlatdist)*height + 135;
       }
       else {
-        var posy = (latdists[i])/(maxlatdist)*height - 15;
+        var posy = (latdists[i])/(maxlatdist)*height + 125;
       }
       
     //}
