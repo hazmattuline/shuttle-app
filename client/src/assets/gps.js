@@ -270,29 +270,29 @@ function myMove()
   for (i = 0; i < lats.length; i++) {
      //fixed
      if (lats[i] < H2boundary && lons[i] < h2lonbound) {
-      var posx = (londists[i])/(maxlondist)*width - 100;  //(10/9)*width; // -100
+      var posx = (londists[i])/(maxlondist)*width + 3;  //(10/9)*width; // -100
       //console.log("offset="+offset);
     }
     
     else if ((lats[i] < H2boundary) && (lons[i] > h2lonbound)) {
-      var posx = (londists[i])/(maxlondist)*width - 18; //0.2*width; //-18
+      var posx = (londists[i])/(maxlondist)*width + 3; //0.2*width; //-18
     }
     //fixed
     else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
-      var posx = (londists[i])/(maxlondist)*width - 45; //(1/3)*width; //-30
+      var posx = (londists[i])/(maxlondist)*width - 6; //(1/3)*width; //-30
     }
 
     //fixed
     else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
-      var posx = (londists[i])/(maxlondist)*width - 50; //(4/9)*width; // -40
+      var posx = (londists[i])/(maxlondist)*width - 15; //(4/9)*width; // -40
     }
 
     else if (lats[i] > hwyboundary2 && lons[i] > h2lonbound) {
-      var posx = (londists[i])/(maxlondist)*width - 60; // (2/3)*width; // -60
+      var posx = (londists[i])/(maxlondist)*width - 30; // (2/3)*width; // -60
     } 
     //fixed
     else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
-      var posx = (londists[i])/(maxlondist)*width - 135;
+      var posx = (londists[i])/(maxlondist)*width - 27;
     }
 
 
@@ -324,10 +324,10 @@ function myMove()
     //60*Math.pow(londist/maxlondist, 1.5); - 25*(latdists[i]/maxlatdist)
     //if (lats[i] < H2boundary) {
       if (lats[i] > H1boundary) {
-        var posy = (latdists[i])/(maxlatdist)*height - 6;
+        var posy = (latdists[i])/(maxlatdist)*height;
       }
       else {
-        var posy = (latdists[i])/(maxlatdist)*height - 15;
+        var posy = (latdists[i])/(maxlatdist)*height - 6;
       }
       
     //}
@@ -341,41 +341,6 @@ function myMove()
     posxs.push(posx);
     posys.push(posy);
   }
-  
-  
-  // PIECEWISE APPROACH
-  /*var maxlondist = (lon3-lon1)*Math.cos((lat1+lat3)/2); // (lat1+lat3)/2
-
-  console.log("lon= "+londist);
-  console.log("lat= " +latdist);
-  console.log("maxlat= " + maxlatdist);
-  console.log("maxlon= " +maxlondist);
-
-
-  if (lon2 > (lon1+lon3)/2) {
-    var posx = (londist)/(maxlondist)*width - 50*(londist/maxlondist);
-    if (posx > 700) {
-      console.log("entered 700");
-      posx = (londist)/(maxlondist)*width - 20*(latdist/maxlatdist);
-      //posx = (londist)/(maxlondist)*width - 40*(londist/maxlondist);
-    }
-  }
-  else {
-    var posx = (londist)/(maxlondist)*width - 25*(latdist/maxlatdist);//60*Math.pow(londist/maxlondist, 1.5);
-  }
-  if (lat2 > (lat1+lat3)/2) {
-    var posy = (latdist)/(maxlatdist)*height + 125;
-  }
-  else {
-    var posy = (latdist)/(maxlatdist)*height + 100;
-  }
-  */
-  
-
-  // console.log("posx="+posx)
-  // console.log("posy="+posy);
-  // console.log("posxs="+posxs);
-  // console.log("posys="+posys);
 
   elem1.style.top = posys[0] + 'px';
   elem1.style.left = posxs[0] + 'px';
@@ -421,67 +386,6 @@ function myMove()
   elem21.style.left = posxs[20] + 'px';
   elem22.style.top = posys[21] + 'px';
   elem22.style.left = posxs[21] + 'px';
-
-
- // var lat = 42.521774;
- // var long =  -87.95953;
-  
-  
-  /*var R = 6371e3; // metres
-  var φ1 = lat1.toRadians();
-  var φ2 = lat2.toRadians();
-  var Δφ = (lat2-lat1).toRadians();
-  var Δλ = (lon2-lon1).toRadians();
-
-  var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-          Math.cos(φ1) * Math.cos(φ2) *
-          Math.sin(Δλ/2) * Math.sin(Δλ/2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  var d = R * c;
-
-  var y = Math.sin(λ2-λ1) * Math.cos(φ2);
-  var x = Math.cos(φ1)*Math.sin(φ2) -
-        Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
-  var brng = Math.atan2(y, x).toDegrees();*/
-
-  /*lat = 42.515204;
-  long = -87.958983;
-  var posx = (long + 87.971868)/(87.971868 - 87.952148)*width;
-  var posy = 200 + (42.523278 - lat)/(42.523278 - 42.513038)*height;
-
-  console.log("posx="+posx)
-  console.log("posy="+posy);
-
-  elem.style.top = posy + 'px';
-  elem.style.left = posx + 'px';
-
-  */
-  /*
-  elem.style.top = posy + 'px';
-  elem.style.left = posx + 'px';
-  if (posx > 600 || posy < 900)
-  {
-      clearInterval(id);
-  }*/
-
-  /*var elem = document.getElementById("animate");
-  var posx = 0;
-  var posy = 200;
-  var id = setInterval(frame, 10);
-  function frame()
-  {
-    if (posx == 350 || posy == 350)
-    {
-      clearInterval(id);
-    }
-    else
-    {
-      posx++;
-      console.log(posx)
-      elem.style.top = posy + 'px';
-      elem.style.left = posx + 'px';
-    }
-  }*/
 }
 
 //ONLY ONE DOT

@@ -39,6 +39,7 @@ h1
   height: 3px;
   width: 3px;
   position: absolute;
+  /*controls dot size*/
 }
 
 .front {
