@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 
-declare var getLocation: any;
-declare var myMove: any;
-
 @Component
 ({
   selector: 'app-root',
@@ -12,15 +9,6 @@ declare var myMove: any;
 export class AppComponent 
 {
   title = 'Shuttle';
-
-  f()
-  {
-    new getLocation();
-  }
-  move()
-  {
-    new myMove();
-  }
 
 
 }
