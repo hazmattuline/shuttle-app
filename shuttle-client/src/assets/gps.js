@@ -20,9 +20,6 @@ function unmakeIdleDriver() {
   image.src = "red.png";
 }
 
-function inactivate() {
-  clearWatch(watchID);
-}
 
 function getLocation()
    {
@@ -69,13 +66,6 @@ function inactivate(button)
         console.log("disabled tracking")
         break;
     }
-
-  
- y = position.coords.latitude;
- console.log(y);
- //console.log("ldjflsj");
-  document.getElementById("demo").innerHTML="Latitude: " + position.coords.latitude +
-                           "<br>Longitude: " + position.coords.longitude;
 
 }
 
