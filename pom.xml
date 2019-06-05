@@ -5,11 +5,11 @@
 
 	<groupId>com.uline</groupId>
 	<artifactId>shuttle-app</artifactId>
-	<version>1.2.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>shuttle-app</name>
-	<description>Spring Boot with angular 4</description>
+	<description>Spring Boot with angular 7</description>
 
   <parent>
 		<groupId>com.uline.base</groupId>
@@ -18,7 +18,7 @@
 	</parent>
 
 	<modules>
-		<module>client</module>
+		<module>shuttle-client</module>
 		<module>server</module>
 	</modules>
 
