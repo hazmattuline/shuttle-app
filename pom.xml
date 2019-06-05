@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.uline</groupId>
-	<artifactId>configuration-management-app</artifactId>
+	<artifactId>shuttle-app</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>configuration-management-app</name>
+	<name>shuttle-app</name>
 	<description>Spring Boot with angular 7</description>
 
   <parent>

@@ -1,5 +1,5 @@
 
-var myObj, myJSON,x, y;
+var myObj, myJSON,x, y, watchID;
 
 //import * as math from 'mathjs'
 
@@ -9,9 +9,8 @@ function getLocation()
    {
   if (navigator.geolocation)
    {
-
-    navigator.geolocation.watchPosition(showPosition);
-
+    
+    watchID = navigator.geolocation.watchPosition(showPosition);
     }
     else
     {
@@ -25,15 +24,34 @@ function showPosition(position)
   //also the variable for coordinates updates when the coordinate change
 
 
- //x = position.coords.latitude;
 
  x = position.coords.latitude;
  y = position.coords.longitude;
+ console.log(x);
  console.log(y);
- //console.log("ldjflsj");
-  document.getElementById("demo").innerHTML="Latitude: " + position.coords.latitude +
-                           "<br>Longitude: " + position.coords.longitude;
+ 
 
+  //document.getElementById("demo").innerHTML="Latitude: " + position.coords.latitude +
+     //                      "<br>Longitude: " + position.coords.longitude;
+
+}
+
+function inactivate(button) 
+{  
+  switch (button.value) 
+    {
+        case "Activate":
+        getLocation();
+            
+        break;
+
+        case "Deactivate":
+        navigator.geolocation.clearWatch(watchID);
+        console.log("disabled tracking")
+        break;
+    }
+
+  
 }
 
 function myMove()
