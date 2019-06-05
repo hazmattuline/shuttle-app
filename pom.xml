@@ -11,7 +11,7 @@
 	<name>shuttle-app</name>
 	<description>Spring Boot with angular 7</description>
 
-  <parent>
+  	<parent>
 		<groupId>com.uline.base</groupId>
 		<artifactId>common-service-base</artifactId>
 		<version>4.11</version>
