@@ -16,11 +16,11 @@ const appRoutes: Routes =
 [
   { path: 'driver', component: DriverComponent },
   { path: 'user', component: UserComponent },
+  { path: 'user/request', component: RequestComponent },
   { path: '',
   redirectTo: '/user',
   pathMatch: 'full'
 },
- 
  
   //{ path: '**', component: PageNotFoundComponent }
 ];
@@ -31,6 +31,7 @@ const appRoutes: Routes =
     SideNavComponent,
     DriverComponent,
     UserComponent,
+    RequestComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes, {enableTracing:true}),

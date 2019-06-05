@@ -5,6 +5,25 @@ var myObj, myJSON,x, y, watchID;
 
 //const math = require('mathjs');
 
+
+
+
+// Steinebrey - Diontre, here are the functions you asked for
+
+function makeIdleDriver() {
+  var image = document.getElementById('animate1');
+  image.src = "blue.png";
+}
+
+function unmakeIdleDriver() {
+  var image = document.getElementById('animate1');
+  image.src = "red.png";
+}
+
+function inactivate() {
+  clearWatch(watchID);
+}
+
 function getLocation()
    {
   if (navigator.geolocation)
@@ -52,6 +71,75 @@ function inactivate(button)
     }
 
   
+ y = position.coords.latitude;
+ console.log(y);
+ //console.log("ldjflsj");
+  document.getElementById("demo").innerHTML="Latitude: " + position.coords.latitude +
+                           "<br>Longitude: " + position.coords.longitude;
+
+}
+
+// global variables
+var lat, long;
+function showPos(position)
+{
+  //the code below is just for debugging purposes
+  //also the variable for coordinates updates when the coordinate change
+  console.log("showpos");
+ lat = position.coords.latitude;
+ long = position.coords.longitude;
+ console.log(lat,long);
+ return;
+
+}
+
+
+function calculateH1Time() {
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(showPos);
+    var x = lat;
+    var y = long;
+    console.log("x1="+x);
+    console.log("y1="+y);
+    // need a way to factor in direction
+    if (x > 42.52) {
+      if (y > -87.956220) {
+        document.getElementById("H1time").innerHTML="Time to H1 is 2 minutes";
+
+      }
+      else {
+        document.getElementById("H1time").innerHTML="Time to H1 is <1 minute";
+      }
+    }
+    else { 
+      document.getElementById("H1time").innerHTML="Time to H1 is >2 minutes";
+    }
+
+  }
+}
+function calculateH2Time() {
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(showPos);
+    var x = lat;
+    var y = long;
+    
+    console.log("x2="+x);
+    console.log("y2="+y);
+    // need a way to factor in direction
+    if (x > 42.52) {
+      if (y > -87.956220) {
+        document.getElementById("H2time").innerHTML="Time to H2 is 2 minutes";
+
+      }
+      else {
+        document.getElementById("H2time").innerHTML="Time to H2 is <1 minute";
+      }
+    }
+    else { 
+      document.getElementById("H2time").innerHTML="Time to H2 is >2 minutes";
+    }
+
+  }
 }
 
 function myMove()
@@ -308,6 +396,15 @@ lons.push(lon2);
 
   for (i = 0; i < lats.length; i++) {
     var londist = (lons[i]-lon1)*Math.cos(lats[i]);
+
+  var height = 600;
+  var width = 900;
+  
+  var londists = [];
+  var latdists = [];
+
+  for (i = 0; i < lats.length; i++) {
+    var londist = (lons[i]-lon1)*Math.cos(Math.abs(lats[i]));
     // latitude is pretty constant
     var latdist = (lat1-lats[i]);
     latdists.push(latdist);
@@ -333,6 +430,8 @@ lons.push(lon2);
   // console.log("lat= " +latdist);
   // console.log("maxlat= " + maxlatdist);
   // console.log("maxlon= " +maxlondist);
+  var maxlatdist = (lat1-lat3); 
+  var maxlondist = (lon3-lon1)*(Math.cos(lat1)+Math.cos(lat3))/2; // (lat1+lat3)/2
 
   var posxs = [];
   var posys = [];
@@ -479,6 +578,39 @@ lons.push(lon2);
   // console.log("posy="+posy);
   // console.log("posxs="+posxs);
   // console.log("posys="+posys);
+    // x coordinate
+    if (lats[i] < H2boundary && lons[i] < h2lonbound) {
+      var posx = (londists[i])/(maxlondist)*width + 3; 
+      
+    }
+    else if ((lats[i] < H2boundary) && (lons[i] > h2lonbound)) {
+      var posx = (londists[i])/(maxlondist)*width + 3; 
+    }
+    else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
+      var posx = (londists[i])/(maxlondist)*width - 6; 
+    }
+    else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
+      var posx = (londists[i])/(maxlondist)*width - 15; 
+    }
+    else if (lats[i] > hwyboundary2 && lons[i] > h2lonbound) {
+      var posx = (londists[i])/(maxlondist)*width - 30; 
+    } 
+    else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
+      var posx = (londists[i])/(maxlondist)*width - 27;
+    }
+
+    // y coordinate
+    if (lats[i] > H1boundary) {
+      var posy = (latdists[i])/(maxlatdist)*height;
+    }
+    else {
+      var posy = (latdists[i])/(maxlatdist)*height - 6;
+    }
+      
+    
+    posxs.push(posx);
+    posys.push(posy);
+  }
 
   elem1.style.top = posys[0] + 'px';
   elem1.style.left = posxs[0] + 'px';
@@ -524,67 +656,6 @@ lons.push(lon2);
   elem21.style.left = posxs[20] + 'px';
   elem22.style.top = posys[21] + 'px';
   elem22.style.left = posxs[21] + 'px';
-
-
- // var lat = 42.521774;
- // var long =  -87.95953;
-  
-  
-  /*var R = 6371e3; // metres
-  var φ1 = lat1.toRadians();
-  var φ2 = lat2.toRadians();
-  var Δφ = (lat2-lat1).toRadians();
-  var Δλ = (lon2-lon1).toRadians();
-
-  var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-          Math.cos(φ1) * Math.cos(φ2) *
-          Math.sin(Δλ/2) * Math.sin(Δλ/2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  var d = R * c;
-
-  var y = Math.sin(λ2-λ1) * Math.cos(φ2);
-  var x = Math.cos(φ1)*Math.sin(φ2) -
-        Math.sin(φ1)*Math.cos(φ2)*Math.cos(λ2-λ1);
-  var brng = Math.atan2(y, x).toDegrees();*/
-
-  /*lat = 42.515204;
-  long = -87.958983;
-  var posx = (long + 87.971868)/(87.971868 - 87.952148)*width;
-  var posy = 200 + (42.523278 - lat)/(42.523278 - 42.513038)*height;
-
-  console.log("posx="+posx)
-  console.log("posy="+posy);
-
-  elem.style.top = posy + 'px';
-  elem.style.left = posx + 'px';
-
-  */
-  /*
-  elem.style.top = posy + 'px';
-  elem.style.left = posx + 'px';
-  if (posx > 600 || posy < 900)
-  {
-      clearInterval(id);
-  }*/
-
-  /*var elem = document.getElementById("animate");
-  var posx = 0;
-  var posy = 200;
-  var id = setInterval(frame, 10);
-  function frame()
-  {
-    if (posx == 350 || posy == 350)
-    {
-      clearInterval(id);
-    }
-    else
-    {
-      posx++;
-      console.log(posx)
-      elem.style.top = posy + 'px';
-      elem.style.left = posx + 'px';
-    }
-  }*/
 }
 
 //ONLY ONE DOT
