@@ -67,17 +67,6 @@ function newcell()
 }
 
 
-/*function prompt()
-{
-    var txt;
-    var r = confirm("ARE YOU SURE!");
-    if (r == true) {
-        // send something to database
-    } else {
-        // send nothing
-    }
-}
-*/
 
 function promptMe(button)
 {
