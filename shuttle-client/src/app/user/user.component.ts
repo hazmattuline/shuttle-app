@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+//these are my instance variable for my gps.js file
+
 declare var getLocation: any;
 declare var myMove: any;
 
@@ -21,6 +23,12 @@ export class UserComponent
   {
     new myMove();
   }
+
+  ngOnInit() 
+  {
+  
+  }
+
 
 
 }
