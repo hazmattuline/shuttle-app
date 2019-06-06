@@ -19,6 +19,6 @@ pipelineConfigs.emailRecipients = ["Renju.Jose@uline.com", "Rob Kenlay@uline.com
 
 pipelineConfigs.smokeTestSlackChannel = "g2_shuttle_app_pr_mon"
 
-//############################################ Trigger Common Jenkins Pipeline ##########################################
+//############################################ Trigger Client/Server Jenkins Pipeline ##########################################
 
 new PipelineBootstrap().createClientServerJenkinsPipeline().triggerClientServerProjectPipeline(pipelineConfigs)
