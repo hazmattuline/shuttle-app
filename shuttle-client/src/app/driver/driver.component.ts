@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-
 declare var toggle: any;
 declare var newtog: any;
 declare var newcell: any;
@@ -42,6 +41,10 @@ export class DriverComponent implements OnInit
     new fuel();
   }
   constructor() { }
+
+
+
+
 
   ngOnInit() 
   {
