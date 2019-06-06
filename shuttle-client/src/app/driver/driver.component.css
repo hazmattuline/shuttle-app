@@ -170,7 +170,7 @@ table
 font-family: arial, sans-serif;
 border-collapse: collapse;
 margin-top: 50px;
-width: 100%;
+right:40px;
 }
 
 td, th 
@@ -185,6 +185,6 @@ background-color: #dddddd;
 
 .box
 {
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
