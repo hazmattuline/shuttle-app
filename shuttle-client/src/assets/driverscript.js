@@ -57,7 +57,6 @@ function newcell()
 
             document.getElementById("myTable").deleteRow(0);
         }
-        console.log(count);
     } 
     else 
     {

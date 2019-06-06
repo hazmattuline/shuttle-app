@@ -31,8 +31,8 @@ function showPosition(position)
   
  x = position.coords.latitude;
  y = position.coords.longitude;
- console.log(x);
- console.log(y);
+ 
+
 
 
 myMove()
@@ -40,7 +40,6 @@ myMove()
 
 function showCoords() 
 {
-  console.log(x);
 return x;
 }
 
@@ -57,7 +56,6 @@ function inactivate(button)
 
         case "TURN ON":
         navigator.geolocation.clearWatch(watchID);
-        console.log("disabled tracking")
         break;
     }
 
@@ -68,10 +66,8 @@ var lat, long;
 function showPos(position)
 {
   
-  console.log("showpos");
  lat = position.coords.latitude;
  long = position.coords.longitude;
- console.log(lat,long);
  return;
 
 }
@@ -82,8 +78,7 @@ function calculateH1Time() {
     navigator.geolocation.watchPosition(showPos);
     var x = lat;
     var y = long;
-    console.log("x1="+x);
-    console.log("y1="+y);
+    
     // need a way to factor in direction
     if (x > 42.52) {
       if (y > -87.956220) {
@@ -106,8 +101,7 @@ function calculateH2Time() {
     var x = lat;
     var y = long;
     
-    console.log("x2="+x);
-    console.log("y2="+y);
+    
     // need a way to factor in direction
     if (x > 42.52) {
       if (y > -87.956220) {
@@ -129,7 +123,6 @@ function myMove()
  {
   
   var elem1 = document.getElementById("animate1");
-  console.log(elem1);
 
 
   var lat1 = 42.523300; // biggest latitude in image
@@ -143,11 +136,9 @@ function myMove()
 
  var lat2 = x;
  var lon2 = y; 
- console.log("lat="+lat2);
- console.log("lon="+lon2);
+
  lats.push(lat2);
  lons.push(lon2);
- console.log(lats);
 
   var height = 600;
   var width = 900;
@@ -156,7 +147,6 @@ function myMove()
   var latdists = [];
   
   for (i = 0; i < lats.length; i++) {
-    console.log(lats.length);
     var londist = (lons[i]-lon1)*Math.cos(Math.abs(lats[i]));
     // latitude is pretty constant
     var latdist = (lat1-lats[i]);
@@ -164,7 +154,6 @@ function myMove()
     londists.push(londist);
 
   }
-  console.log(latdists);
 
   var maxlatdist = (lat1-lat3); 
   var maxlondist = (lon3-lon1)*(Math.cos(lat1)+Math.cos(lat3))/2; // (lat1+lat3)/2
@@ -209,8 +198,7 @@ function myMove()
     posxs.push(posx);
     posys.push(posy);
   }
-  console.log(posys[0]);
-  console.log(posxs[0]);
+  
 
   elem1.style.top = posys[0] + 'px';
   elem1.style.left = posxs[0] + 'px';
