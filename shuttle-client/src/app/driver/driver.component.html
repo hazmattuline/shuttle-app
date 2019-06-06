@@ -1,24 +1,44 @@
+
 <body>
   <div style="text-align:center">
+    <p>PLEASE MAKE SURE YOU ARE ACTIVATED AND ENABLED VISIBILITY BEFORE LOGGING INFORMATION</p>
     <!--you can call two js function in here this will help later-->
-    <input type="button" class="button" value="Activate" onclick="newtog(this); inactivate(this); promptMe(this);">
+    <input type="button" class="button" value="TURN ON" onclick="newtog(this); inactivate(this); promptMe(this);">
     <div id="demo2"></div>
 
 
  <!-- this button needs to temporarily make car invisible or different color-->
+ <P><b>BREAK</b></P>
   <label class="switch" >
     <input type="checkbox" id="1" value="OFF" onclick="toggle(this);" >
     <span class="slider"></span>
   </label>
   <div id="demo"></div>
 
-  <table>
+
+
+
+  <form>
+      <textarea class="box" id="words" rows="10" cols="20">Enter Comments</textarea>
+      <br>
+      <input type="button" onclick="getwords()" value="Enter" /> 
+      <br>
+      <p id="id1"></p>
+  </form>
+
+  <input type="button" onclick="fuel()" value="Fuel Info" /> 
+
+  <p>Input the Number of Passengers</p>
+      
+  <div style="text-align:center">
+    <table id="myTable">
     <tbody id="tableToModify">
     <tr>
-      <th style="text-align:center">Passengers</th>
+   
     </tr>
     <tr id="rowToClone">
-      <td style="text-align:center"><select>
+      <td style="text-align:center">
+        <select id="mySelect">
         <option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -38,20 +58,20 @@
       <!--configure no response-->
 
       <!--Must work on prompt later-->
-      <td style="text-align:center"> <button onclick="newcell();">Submit</button> </td>
+      <td style="text-align:center"> <button onclick="">Edit</button> </td>
+      <td style="text-align:center"><button onclick="newcell();">Submit</button></td>
     </tr>
   </tbody>
   </table>
+</div>
+  
+  
 
-  <form>
-      <textarea class="box" id="words" rows="10" cols="20">Enter Comments</textarea>
-      <br>
-      <input type="button" onclick="getwords()" value="Enter" /> 
-      <br>
-      <p id="id1"></p>
-  </form>
 
-  <input type="button" onclick="fuel()" value="Fuel" /> 
+
+
+
 
 </div>
 </body>
+
