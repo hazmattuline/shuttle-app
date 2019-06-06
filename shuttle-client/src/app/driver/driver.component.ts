@@ -15,7 +15,7 @@ declare var fuel: any;
 })
 export class DriverComponent implements OnInit
  {
-  
+
   tog()
   {
     new toggle();

@@ -24,5 +24,11 @@ export class UserComponent
     new myMove();
   }
 
+  ngOnInit() 
+  {
+  
+  }
+
+
 
 }

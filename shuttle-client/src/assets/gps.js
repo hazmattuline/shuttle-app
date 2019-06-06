@@ -28,11 +28,10 @@ function getLocation()
 
 function showPosition(position)
 {
-  
+  //42.514959, -87.953800
  x = position.coords.latitude;
  y = position.coords.longitude;
  
-
 
 
 myMove()
@@ -42,7 +41,6 @@ function showCoords()
 {
 return x;
 }
-
 
 
 function inactivate(button) 
