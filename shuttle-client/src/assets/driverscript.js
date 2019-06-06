@@ -1,7 +1,7 @@
 
 function toggle(button) 
 {
-
+// comment
     switch (button.value) 
     {
         case "ON":
