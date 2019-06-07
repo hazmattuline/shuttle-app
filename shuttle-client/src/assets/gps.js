@@ -28,11 +28,11 @@ function getLocation()
 
 function showPosition(position)
 {
-  //42.514959, -87.953800
+ 
+ document.getElementById("demo").innerHTML = "latitude = " + position.coords.latitude + "<br> longitude = " + position.coords.longitude ;
  x = position.coords.latitude;
  y = position.coords.longitude;
  
-
 
 myMove()
 }
