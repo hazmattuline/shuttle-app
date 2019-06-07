@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ScriptService} from '../script.service';
 
 declare var toggle: any;
 declare var newtog: any;
@@ -40,15 +41,27 @@ export class DriverComponent implements OnInit
   {
     new fuel();
   }
+
   constructor() { }
-
-
-
-
-
   ngOnInit() 
   {
-    
+ 
+
+  }
+  //source;
+  //constructor(private scriptService: ScriptService) { }
+
+   /*ngOnInit() 
+  {
+    this.source = this.scriptService.print1;
+    console.log(this.source);
+
   }
 
+  have()
+  {
+    this.source = this.scriptService.print1;
+    console.log(this.source);
+
+  }*/
 }
