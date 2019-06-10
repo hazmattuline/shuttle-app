@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'; 
 import { ScriptService } from '../script.service';
+import { errorHandler } from '@angular/platform-browser/src/browser';
 
 
 
@@ -17,10 +18,23 @@ constructor(private supportService: ScriptService) {}
 
 ngOnInit() { }
 
+options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
 
 count: number = 0; 
 watchID; 
 
+
+errorHandler( err ) {
+   
+  if (err.code == 1) {
+     
+     // access is denied
+  }
+}
 
 toggle1(){
 this.count++;
@@ -51,6 +65,7 @@ var fuelCos = prompt("What was the cost of the fuel?"); }
 else{
 var vehicleResp = prompt("Please Enter The Vehicle you will be using today"); 
 var beginMi = prompt("What is the starting mileage please?"); }}
+
 inactivate(){if (this.count%2 == 0){
 navigator.geolocation.clearWatch(this.watchID); 
 console.log("disabled tracking")}
@@ -58,11 +73,21 @@ else{this.getLocation();}}
 
 
 getLocation(){if (navigator.geolocation){ 
-this.watchID = navigator.geolocation.watchPosition(this.showPosition);} 
+this.watchID = navigator.geolocation.watchPosition(this.showPosition,errorHandler,this.options);} 
 else{document.getElementById("demo").innerHTML= "Geolocation is not supported by this browser.";}} 
 showPosition(position){document.getElementById("demo3").innerHTML="Latitude: " + position.coords.latitude + 
 "<br>Longitude: " + position.coords.longitude; 
 var x = position.coords.latitude; 
 var y = position.coords.longitude; 
 console.log(x); 
-console.log(y);}}
+console.log(y);}
+
+fuel(){
+var fuelAm = prompt("Home much Fuel went in?");
+var fuelCos = prompt("What was the cost of the fuel?");}
+
+getwords()
+{
+ //send this response somewhere
+}
+}
