@@ -1,5 +1,5 @@
 
-    var count = 0;
+ /*   var count = 0;
 
 function toggle(button) 
 {
@@ -87,4 +87,4 @@ function fuel()
 {
     var fuelAm = prompt("Home much Fuel went in?");
     var fuelCos = prompt("What was the cost of the fuel?");
-}
+}*/

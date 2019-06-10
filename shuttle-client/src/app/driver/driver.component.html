@@ -2,13 +2,14 @@
 <body>
   <div style="text-align:center">
     <p>PLEASE MAKE SURE YOU ARE ACTIVATED AND ENABLED VISIBILITY BEFORE LOGGING INFORMATION</p>
-    <input type="button" class="button" value="TURN ON" onclick="newtog(this); inactivate(this); promptMe(this);" (click)='have()' >
+    <input type="button" class="button" (click)="newtog(); inactivate(); promptMe()" >
     <div id="demo2"></div>
-
+    <div id="demo3"></div>
+<!--onclick="newtog(this); inactivate(this); promptMe(this)-->
 
  <P><b>BREAK</b></P>
   <label class="switch" >
-    <input type="checkbox" id="1" value="OFF" onclick="toggle(this);" >
+    <input type="checkbox" id="1" value="OFF" (click)="toggle1();" >
     <span class="slider"></span>
   </label>
   <div id="demo"></div>
@@ -55,7 +56,7 @@
       </select></td>
       
       <td style="text-align:center"> <button onclick="">Edit</button> </td>
-      <td style="text-align:center"><button onclick="newcell();">Submit</button></td>
+      <td style="text-align:center"><button (click)="newcell()">Submit</button></td>
     </tr>
   </tbody>
   </table>

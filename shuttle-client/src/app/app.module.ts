@@ -8,6 +8,7 @@ import { RouterModule, Routes} from '@angular/router';
 import { DriverComponent } from './driver/driver.component';
 import { AppComponent } from './app.component';
 import { RequestComponent } from './request/request.component';
+import { ScriptService } from './script.service';
 
 
 const appRoutes: Routes = 
@@ -36,7 +37,7 @@ const appRoutes: Routes =
     BrowserAnimationsModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [ScriptService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
