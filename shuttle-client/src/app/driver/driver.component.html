@@ -2,7 +2,7 @@
 <body>
   <div style="text-align:center">
     <p>PLEASE MAKE SURE YOU ARE ACTIVATED AND ENABLED VISIBILITY BEFORE LOGGING INFORMATION</p>
-    <input type="button" class="button" (click)="newtog(); inactivate(); promptMe()" >
+    <input type="button" class="button" value="TURN ON" onclick="newtog(this); inactivate(this); promptMe(this);" (click)='have()' >
     <div id="demo2"></div>
     <div id="demo3"></div>
 <!--onclick="newtog(this); inactivate(this); promptMe(this)-->
@@ -56,7 +56,7 @@
       </select></td>
       
       <td style="text-align:center"> <button onclick="">Edit</button> </td>
-      <td style="text-align:center"><button (click)="newcell()">Submit</button></td>
+      <td style="text-align:center"><button onclick="newcell();">Submit</button></td>
     </tr>
   </tbody>
   </table>
