@@ -57,7 +57,6 @@
     
                 document.getElementById("myTable").deleteRow(0);
             }
-            console.log(count);
         } 
         else 
         {
@@ -67,17 +66,6 @@
     }
     
     
-    /*function prompt()
-    {
-        var txt;
-        var r = confirm("ARE YOU SURE!");
-        if (r == true) {
-            // send something to database
-        } else {
-            // send nothing
-        }
-    }
-    */
     
     function promptMe(button)
     {
