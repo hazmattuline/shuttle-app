@@ -8,6 +8,10 @@ import { RouterModule, Routes} from '@angular/router';
 import { DriverComponent } from './driver/driver.component';
 import { AppComponent } from './app.component';
 import { RequestComponent } from './request/request.component';
+import {TableModule} from 'primeng/table';
+import {DropdownModule} from 'primeng/dropdown';
+import {FormsModule} from '@angular/forms';
+import {ButtonModule} from 'primeng/button';
 
 
 const appRoutes: Routes = 
@@ -35,6 +39,10 @@ const appRoutes: Routes =
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    TableModule,
+    DropdownModule,
+    FormsModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

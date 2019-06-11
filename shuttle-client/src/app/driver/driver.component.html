@@ -24,11 +24,46 @@
       <br>
       <p id="id1"></p>
   </form>
-
+  
   <input type="button" onclick="fuel()" value="Fuel Info" /> 
+    
+  <h3 class="first">Input the Number of Passengers</h3>
 
-  <p>Input the Number of Passengers</p>
-      
+  <div class="passengerCount">
+    <div>
+      <label class = "passenger-label">Passengers</label>
+      <p-dropdown appendTo="body" [options]="passengerInputs" [(ngModel)]="passengerInput"></p-dropdown>
+    </div>
+    <div>
+        <label class = "passenger-label">Curb</label>
+        <p-dropdown appendTo="body" [options]="curbInputs" [(ngModel)]="curbInput"></p-dropdown>
+    </div>
+    <div>
+        <label class = "passenger-label"></label>
+        <button pButton  onclick="" label="Edit"></button>
+    </div>
+    <div>
+        <label class = "passenger-label"></label>
+        <button pButton (click)="newcell();" label = "Submit"></button>
+    </div>
+  </div>
+<!--<p-table [value]="info">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Passengers</th>
+            <th>Curb</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-info>
+        <tr>
+            <td><p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"></p-dropdown></td>
+            <td>Cell</td>
+            <p-dropdown appendTo="body" [options]="driverInputs" [(ngModel)]="selectedInput"></p-dropdown>
+        </tr>
+    </ng-template>
+</p-table>-->
+
+
   <div style="text-align:center">
     <table id="myTable">
     <tbody id="tableToModify">
