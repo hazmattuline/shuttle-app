@@ -40,7 +40,7 @@ export class DriverComponent implements OnInit {
   toggle1() {
     this.count++;
     console.log(this.count);
-    if (this.count % 2 === 0) { document.getElementById('demo').innerHTML = 'OFF'; 
+    if (this.count % 2 === 0) { document.getElementById('demo').innerHTML = 'OFF';
   } else { document.getElementById('demo').innerHTML = 'ON'; }
   }
 
@@ -60,7 +60,7 @@ export class DriverComponent implements OnInit {
   newcell() {
     const r = confirm('ARE YOU SURE!');
     if (r === true) {
-    }  else { /*send nothing*/ }// find row to copy 
+    }  else { /*send nothing*/ }// find row to copy
     /* send something to database*/
   }
 

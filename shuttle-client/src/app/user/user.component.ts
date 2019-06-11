@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ScriptService } from '../script.service';
-//these are my instance variable for my gps.js file
+// these are my instance variable for my gps.js file
 
 @Component
   ({
@@ -11,13 +11,16 @@ import { ScriptService } from '../script.service';
 
 export class UserComponent implements OnInit {
   title = 'Shuttle';
+
   watchID;
   x;
   y;
   posx;
   posy;
+
   posxs = [];
   posys = [];
+
   options = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -64,7 +67,7 @@ export class UserComponent implements OnInit {
     const lon3 = -87.951814;  // biggest longitude in image
     const lats = [];
     const lons = [];
-    // need to retrieve this from database later 
+    // need to retrieve this from database later
 
     const lat2 = this.x;
     const lon2 = this.y;
