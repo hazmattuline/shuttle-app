@@ -35,13 +35,15 @@
   <p>Click the button to get your coordinates.</p>
 
   <div id="demo"></div>
-
-  <button class="button" onclick="getLocation()">Location</button>
+  <div class="button-container">
+  <div class="button-spacing">
+      <button pButton onclick="getLocation()" label="Location"></button>
+      <button pButton (click)="calculateH1Time()" label="Time Until H1"></button>
+      <button pButton (click)="calculateH2Time()" label="Time Until H2"></button>
+  </div>
+</div>
+  
   <div id="demo"></div>
-
-  <br>
-  <button class = "button" onclick="calculateH1Time()">Time Until H1</button>
-  <button class = "button" onclick="calculateH2Time()">Time Until H2</button>
   <div id="H1time"></div>
   <div id="H2time"></div>
 

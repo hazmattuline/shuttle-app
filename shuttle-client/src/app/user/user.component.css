@@ -1,3 +1,17 @@
+.button-spacing {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  /*width: 400px;*/
+}
+
+.button-container {
+  text-align:center; 
+  margin: 0 auto; 
+  width: 656px;
+}
+
 h2 {
   color: #760;
   font-family: Arial, Helvetica, sans-serif;

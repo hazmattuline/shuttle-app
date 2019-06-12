@@ -67,7 +67,7 @@ function newcell()
 
 function promptMe(button)
 {
-    switch (button.value) 
+    switch (button.label) 
     {
         case "TURN OFF":
             var vehicleResp = prompt("Please Enter The Vehicle you will be using today");

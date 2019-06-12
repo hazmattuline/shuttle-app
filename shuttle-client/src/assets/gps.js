@@ -313,8 +313,9 @@ function myMove()
 }
 
 
-  var height = 600;
-  var width = 900;
+  var height = 316;//600;
+  var width = 407;//900;
+
   
   var londists = [];
   var latdists = [];
@@ -342,55 +343,65 @@ function myMove()
 
   for (i = 0; i < lats.length; i++) {
     // x coordinate
+    //phone
     if (lats[i] < H2boundary && lons[i] < h2lonbound) {
-        var posx = (londists[i])/(maxlondist)*width + 3 + 20; 
-        
-      }
-      else if ((lats[i] < H2boundary) && (lons[i] > h2lonbound)) {
-        var posx = (londists[i])/(maxlondist)*width + 3 + 18; 
-      }
-      else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
-        var posx = (londists[i])/(maxlondist)*width - 6 + 15; 
-      }
-      else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
-        var posx = (londists[i])/(maxlondist)*width - 15 + 15; 
-      }
-      else if (lats[i] > hwyboundary2 && lons[i] > h2lonbound) {
-        var posx = (londists[i])/(maxlondist)*width - 30 + 15; 
-      } 
-      else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
-        var posx = (londists[i])/(maxlondist)*width - 27 + 10;
-      }
-
-
-    // old offsets
-    // if (lats[i] < H2boundary && lons[i] < h2lonbound) {
-    //   var posx = (londists[i])/(maxlondist)*width + 3; 
+      var posx = (londists[i])/(maxlondist)*width + 250; 
       
-    // }
-    // else if ((lats[i] < H2boundary) && (lons[i] > h2lonbound)) {
-    //   var posx = (londists[i])/(maxlondist)*width + 3; 
-    // }
-    // else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
-    //   var posx = (londists[i])/(maxlondist)*width - 6; 
-    // }
-    // else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
-    //   var posx = (londists[i])/(maxlondist)*width - 15; 
-    // }
-    // else if (lats[i] > hwyboundary2 && lons[i] > h2lonbound) {
-    //   var posx = (londists[i])/(maxlondist)*width - 30; 
-    // } 
-    // else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
-    //   var posx = (londists[i])/(maxlondist)*width - 27;
-    // }
+    }
+    else if ((lats[i] < H2boundary) && (lons[i] > h2lonbound)) {
+      var posx = (londists[i])/(maxlondist)*width + 255; 
+    }
+    else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
+      var posx = (londists[i])/(maxlondist)*width + 250; 
+    }
+    else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
+      var posx = (londists[i])/(maxlondist)*width + 240; 
+    }
+    else if (lats[i] > hwyboundary2 && lons[i] > h2lonbound) {
+      var posx = (londists[i])/(maxlondist)*width + 20; 
+    } 
+    else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
+      var posx = (londists[i])/(maxlondist)*width + 236;
+    }
+    //desktop
+    // if (lats[i] < H2boundary && lons[i] < h2lonbound) {
+    //     var posx = (londists[i])/(maxlondist)*width + 3 + 20; 
+        
+    //   }
+    //   else if ((lats[i] < H2boundary) && (lons[i] > h2lonbound)) {
+    //     var posx = (londists[i])/(maxlondist)*width + 3 + 18; 
+    //   }
+    //   else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
+    //     var posx = (londists[i])/(maxlondist)*width - 6 + 15; 
+    //   }
+    //   else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
+    //     var posx = (londists[i])/(maxlondist)*width - 15 + 15; 
+    //   }
+    //   else if (lats[i] > hwyboundary2 && lons[i] > h2lonbound) {
+    //     var posx = (londists[i])/(maxlondist)*width - 30 + 15; 
+    //   } 
+    //   else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
+    //     var posx = (londists[i])/(maxlondist)*width - 27 + 10;
+    //   }
+
 
     // y coordinate
+
+    //phone
     if (lats[i] > H1boundary) {
-      var posy = (latdists[i])/(maxlatdist)*height;
+      var posy = (latdists[i])/(maxlatdist)*height + 24;
     }
     else {
       var posy = (latdists[i])/(maxlatdist)*height - 6;
     }
+
+    //desktop
+    // if (lats[i] > H1boundary) {
+    //   var posy = (latdists[i])/(maxlatdist)*height;
+    // }
+    // else {
+    //   var posy = (latdists[i])/(maxlatdist)*height - 6;
+    // }
       
     
     posxs.push(posx);

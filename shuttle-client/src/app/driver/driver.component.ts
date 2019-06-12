@@ -14,11 +14,103 @@ styleUrls: ['./driver.component.css'],
 
 export class DriverComponent implements OnInit
 {
+  count = 0;
+  watchID;
+  inputComment;
+  x;
+  y;
+
   info: DriverInfo[];
   passengerInputs: SelectItem[];
   curbInputs: SelectItem[];
   passengerInput: DriverInput;
   curbInput: DriverInput;
+  options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
+
+
+  errorHandler(err) {
+
+    if (err.code === 1) {
+
+      // access is denied
+    }
+  }
+
+  toggle1() {
+    this.count++;
+    console.log(this.count);
+    if (this.count % 2 === 0) { document.getElementById('demo').innerHTML = 'OFF';
+  } else { document.getElementById('demo').innerHTML = 'ON'; }
+  }
+
+
+  newtog() {
+    this.count++;
+    if (this.count % 2 === 0) {
+      alert('You are now inactive.');
+      document.getElementById('demo2').innerHTML = 'Inactive';
+    } else {
+      alert('You are now active.');
+      document.getElementById('demo2').innerHTML = 'Active';
+    }
+  }
+
+
+  newcell() {
+    const r = confirm('Are you sure?');
+    if (r === true) {
+    }  else { /*send nothing*/ }// find row to copy
+    /* send something to database*/
+  }
+
+  promptMe() {
+    if (this.count % 2 === 0) {
+      const endMi = prompt('What is the vehicle ending mileage?');
+      const endCond = prompt('What is the vehicle ending condition?');
+      // const fuelAm = prompt('How much fuel went in today?');
+      // const fuelCos = prompt('What was the cost of the fuel?');
+    } else {
+      const vehicleResp = prompt('Please enter the vehicle you will be using today.');
+      const beginMi = prompt('What is the vehicle starting mileage?');
+      const beginCond = prompt('What is the vehicle starting condition?');
+    }
+  }
+
+  inactivate() {
+    if (this.count % 2 === 0) {
+      navigator.geolocation.clearWatch(this.watchID);
+      console.log('disabled tracking');
+    } else { this.getLocation(); }
+  }
+
+
+  getLocation() {
+    if (navigator.geolocation) {
+      this.watchID = navigator.geolocation.watchPosition(this.showPosition, this.errorHandler, this.options);
+    } else { document.getElementById('demo').innerHTML = 'Geolocation is not supported by this browser.'; }
+  }
+
+  showPosition(position) {
+    document.getElementById('demo3').innerHTML = 'Latitude: ' + position.coords.latitude +
+      '<br>Longitude: ' + position.coords.longitude;
+    this.x = position.coords.latitude;
+    this.y = position.coords.longitude;
+    console.log(this.x);
+    console.log(this.y);
+  }
+
+  fuel() {
+    const fuelAm = prompt('How much fuel did you put in the vehicle?');
+    const fuelCos = prompt('What was the cost of the fuel?');
+  }
+
+  getwords() {
+    // send this response somewhere
+  }
 
 constructor(private supportService: ScriptService) {
   this.passengerInputs = [

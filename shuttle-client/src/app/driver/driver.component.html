@@ -1,34 +1,31 @@
 
 <body>
   <div style="text-align:center">
-    <p>PLEASE MAKE SURE YOU ARE ACTIVATED AND ENABLED VISIBILITY BEFORE LOGGING INFORMATION</p>
-    <input type="button" class="button" value="TURN ON" onclick="newtog(this); inactivate(this); promptMe(this);" (click)='have()' >
+    <h3>Driver Side</h3>
+    <label>PLEASE ACTIVATE YOUR VEHICLE BEFORE YOU BEGIN DRIVING</label>
+    <br>
+    <br>
+    <button pButton  (click)="newtog(this); inactivate(this); promptMe(this);"label="Shuttle Active"></button>
+
+    <!--ADD - BUTTON DOES NOT SWITCH TO SAY "TURN OFF"
+      <input type="button" class="button" value="TURN ON" onclick="newtog(this); inactivate(this); promptMe(this);" (click)='have()' >-->
     <div id="demo2"></div>
     <div id="demo3"></div>
 <!--onclick="newtog(this); inactivate(this); promptMe(this)-->
+<br>
 
- <P><b>BREAK</b></P>
+<button pButton (click)="toggle1();" label = "On Break/Off Break"></button>
+ <!-- ADD THAT BUTTON SWITCHES BETWEEN SAYING ON AND OFF
+    <P><b>BREAK</b></P>
   <label class="switch" >
     <input type="checkbox" id="1" value="OFF" (click)="toggle1();" >
     <span class="slider"></span>
   </label>
   <div id="demo"></div>
+ -->
 
-
-
-
-  <form>
-      <textarea class="box" id="words" rows="10" cols="20">Enter Comments</textarea>
-      <br>
-      <input type="button" onclick="getwords()" value="Enter" /> 
-      <br>
-      <p id="id1"></p>
-  </form>
-  
-  <input type="button" onclick="fuel()" value="Fuel Info" /> 
-    
   <h3 class="first">Input the Number of Passengers</h3>
-
+  <div class = "passenger-container">
   <div class="passengerCount">
     <div>
       <label class = "passenger-label">Passengers</label>
@@ -40,12 +37,36 @@
     </div>
     <div>
         <label class = "passenger-label"></label>
-        <button pButton  onclick="" label="Edit"></button>
+        <button pButton  (click)="newcell()" label="Edit"></button>
     </div>
     <div>
         <label class = "passenger-label"></label>
         <button pButton (click)="newcell();" label = "Submit"></button>
     </div>
+  </div>
+
+
+<br>
+<!--Should be able to submit comment-->
+<label class = "passenger-label">Comments</label>
+<input type="text" pInputText [(ngModel)]="inputComment" />
+
+ <!-- <form>
+      <textarea class="box" id="words" rows="10" cols="20">Enter Comments</textarea>
+      <br>
+      <input type="button" onclick="getwords()" value="Enter" /> 
+      <br>
+      <p id="id1"></p>
+  </form>-->
+  <br>
+  <br>
+  <button pButton  (click)="getwords()" label="Enter"></button>
+  <br>
+  <br>
+  
+  <button pButton (click)="fuel()" label="Fuel Info"> </button>
+    
+  
   </div>
 <!--<p-table [value]="info">
     <ng-template pTemplate="header">
@@ -62,40 +83,6 @@
         </tr>
     </ng-template>
 </p-table>-->
-
-
-  <div style="text-align:center">
-    <table id="myTable">
-    <tbody id="tableToModify">
-    <tr>
-   
-    </tr>
-    <tr id="rowToClone">
-      <td style="text-align:center">
-        <select id="mySelect">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-        <option value="14">14</option>
-      </select></td>
-      
-      <td style="text-align:center"> <button onclick="">Edit</button> </td>
-      <td style="text-align:center"><button onclick="newcell();">Submit</button></td>
-    </tr>
-  </tbody>
-  </table>
-</div>
 
 </div>
 </body>

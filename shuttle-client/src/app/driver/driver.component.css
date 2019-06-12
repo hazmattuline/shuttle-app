@@ -6,6 +6,12 @@
   /*width: 50px;*/
 }
 
+.passenger-container {
+  text-align:center; 
+  margin: 0 auto; 
+  width: 656px;
+}
+
 .passenger-label {
   display: block; 
   text-align: left;

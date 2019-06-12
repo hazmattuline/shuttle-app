@@ -12,6 +12,7 @@ import {TableModule} from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
 import {FormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
 
 
 const appRoutes: Routes = 
@@ -42,7 +43,8 @@ const appRoutes: Routes =
     TableModule,
     DropdownModule,
     FormsModule,
-    ButtonModule
+    ButtonModule,
+    InputTextModule
   ],
   providers: [],
   bootstrap: [AppComponent]
