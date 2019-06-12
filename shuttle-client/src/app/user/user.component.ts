@@ -13,13 +13,12 @@ export class UserComponent implements OnInit {
   title = 'Shuttle';
 
   watchID;
-  x;
+  x=0;
   y;
   posx;
   posy;
 
-  posxs = [];
-  posys = [];
+ 
 
   options = {
     enableHighAccuracy: true,
@@ -29,8 +28,6 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  constructor(private scriptService: ScriptService) { }
 
 
   errorHandler(err) {
@@ -52,53 +49,56 @@ export class UserComponent implements OnInit {
   showPosition(position) {
     document.getElementById('demo3').innerHTML = 'Latitude:' + position.coords.latitude +
       '<br>Longitude: ' + position.coords.longitude;
-    this.x = position.coords.latitude;
-    this.y = position.coords.longitude;
-    console.log(this.x);
-    console.log(this.y);
-    this.myMove();
+
+    this.myMove(position.coords.latitude, position.coords.longitude);
+
+
   }
 
   // this method animates the dots for us to see 
-  myMove() {
+  myMove(lat2, lon2) {
 
-    console.log('my move');
-    const elem1 = document.getElementById('animate1');
-    const lat1 = 42.523300; // biggest latitude in image
-    const lon1 = -87.971642; // smallest longitude in image
-    const lat3 = 42.5130865; // smallest latitude in image
-    const lon3 = -87.951814;  // biggest longitude in image
-    const lats = [];
-    const lons = [];
+
+
+    let elem1 = document.getElementById('animate1');
+    let lat1 = 42.523300; // biggest latitude in image
+    let lon1 = -87.971642; // smallest longitude in image
+    let lat3 = 42.5130865; // smallest latitude in image
+    let lon3 = -87.951814;  // biggest longitude in image
+    let lats = [];
+    let lons = [];
     // need to retrieve this from database later
 
-    let lat2 = this.x;
-    let lon2 = this.y;
+    
     lats.push(lat2);
     lons.push(lon2);
 
-    const height = 600;
-    const width = 900;
-    const londists = [];
-    const latdists = [];
+    console.log(lat2);
+
+    let height = 600;
+    let width = 900;
+    let londists = [];
+    let latdists = [];
 
     for (let i = 0; i < lats.length; i++) {
-      const londist = (lons[i] - lon1) * Math.cos(Math.abs(lats[i]));
-      // latitude is pretty constant
-      const latdist = (lat1 - lats[i]);
+      let londist = (lons[i] - lon1) * Math.cos(Math.abs(lats[i]));
+      // latitude is prett    letant
+      let latdist = (lat1 - lats[i]);
       latdists.push(latdist);
       londists.push(londist);
     }
 
-    const maxlatdist = (lat1 - lat3);
-    const maxlondist = (lon3 - lon1) * (Math.cos(lat1) + Math.cos(lat3)) / 2; // (lat1+lat3)/2
+    let maxlatdist = (lat1 - lat3);
+    let maxlondist = (lon3 - lon1) * (Math.cos(lat1) + Math.cos(lat3)) / 2; // (lat1+lat3)/2
 
-    const H2boundary = 42.516;
-    const H2door = 42.514;
-    const hwyboundary1 = 42.5175;
-    const hwyboundary2 = 42.519;
-    const H1boundary = 42.52;
-    const h2lonbound = -87.953;
+    let posxs = [];
+    let posys = [];
+    let H2boundary = 42.516;
+    let H2door = 42.514;
+    let hwyboundary1 = 42.5175;
+    let hwyboundary2 = 42.519;
+    let H1boundary = 42.52;
+    let h2lonbound = -87.953;
 
     for (let i = 0; i < lats.length; i++) {
       // x coordinate
@@ -120,10 +120,11 @@ export class UserComponent implements OnInit {
       } else {
         this.posy = (latdists[i]) / (maxlatdist) * height - 6;
       }
-      this.posxs.push(this.posx);
-      this.posys.push(this.posy);
+      posxs.push(this.posx);
+      posys.push(this.posy);
     }
-    elem1.style.top = this.posys[0] + 'px';
-    elem1.style.left = this.posxs[0] + 'px';
+    elem1.style.top = posys[0] + 'px';
+    elem1.style.left = posxs[0] + 'px';
+
   }
 }
