@@ -69,8 +69,8 @@ export class UserComponent implements OnInit {
     const lons = [];
     // need to retrieve this from database later
 
-    const lat2 = this.x;
-    const lon2 = this.y;
+    let lat2 = this.x;
+    let lon2 = this.y;
     lats.push(lat2);
     lons.push(lon2);
 
