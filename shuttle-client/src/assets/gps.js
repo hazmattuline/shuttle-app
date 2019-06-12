@@ -1,5 +1,5 @@
 
-var myObj, myJSON, x, y, watchID;
+/*var myObj, myJSON, x, y, watchID;
 
 
 function makeIdleDriver() {
@@ -201,4 +201,4 @@ function myMove()
   elem1.style.top = posys[0] + 'px';
   elem1.style.left = posxs[0] + 'px';
 }
-
+*/
