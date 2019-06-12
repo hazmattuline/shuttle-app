@@ -41,13 +41,14 @@ export class UserComponent implements OnInit {
     }
   }
 
-
+  // this method will initially grab our location and call showPosition
   getLocation() {
     if (navigator.geolocation) {
       this.watchID = navigator.geolocation.watchPosition(this.showPosition.bind(this), this.errorHandler, this.options);
     } else { document.getElementById('demo').innerHTML = 'Geolocation is not supported by this browser.'; }
   }
 
+  // this function will actually save those coords
   showPosition(position) {
     document.getElementById('demo3').innerHTML = 'Latitude:' + position.coords.latitude +
       '<br>Longitude: ' + position.coords.longitude;
@@ -57,6 +58,8 @@ export class UserComponent implements OnInit {
     console.log(this.y);
     this.myMove();
   }
+
+  // this method animates the dots for us to see 
   myMove() {
 
     console.log('my move');
