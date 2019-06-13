@@ -17,7 +17,7 @@ export class DriverComponent implements OnInit
   count = 0;
   watchID;
   inputComment;
-  x;
+  x: number;
   y;
 
   info: DriverInfo[];
@@ -25,6 +25,7 @@ export class DriverComponent implements OnInit
   curbInputs: SelectItem[];
   passengerInput: DriverInput;
   curbInput: DriverInput;
+
   options = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -98,9 +99,9 @@ export class DriverComponent implements OnInit
     document.getElementById('demo3').innerHTML = 'Latitude: ' + position.coords.latitude +
       '<br>Longitude: ' + position.coords.longitude;
     this.x = position.coords.latitude;
-    this.y = position.coords.longitude;
     console.log(this.x);
-    console.log(this.y);
+    console.log(position.coords.longitude);
+    
   }
 
   fuel() {
@@ -131,7 +132,7 @@ constructor(private supportService: ScriptService) {
     {label: '4', value: {id: 5}},
   ];
 }
-ngOnInit() { }
+ngOnInit() { this.x = 0; }
 
 }
 
