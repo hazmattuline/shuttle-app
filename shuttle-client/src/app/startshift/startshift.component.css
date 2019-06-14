@@ -1,0 +1,19 @@
+.shiftInfo {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    /*width: 50px;*/
+  }
+  
+  .info-container {
+    text-align:center; 
+    margin: 0 auto; 
+    width: 656px;
+  }
+  
+  .info-label {
+    display: block; 
+    text-align: left;
+    width: 100px;
+  }

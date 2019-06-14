@@ -1,6 +1,9 @@
 
 <body>
-  <div style="text-align:center">
+  <div *ngIf="showDriverShift">
+    <app-startshift (showShift)=getShowShift($event) [startShift] = "timeToStart"></app-startshift>
+  </div>
+  <div *ngIf="!showDriverShift"style="text-align:center">
     <h3>Driver Side</h3>
     <label>PLEASE ACTIVATE YOUR VEHICLE BEFORE YOU BEGIN DRIVING</label>
     <br>
@@ -85,5 +88,7 @@
 </p-table>-->
 
 </div>
+
+
 </body>
 

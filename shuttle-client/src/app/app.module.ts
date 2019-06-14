@@ -13,11 +13,13 @@ import {DropdownModule} from 'primeng/dropdown';
 import {FormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
+import { StartshiftComponent } from './startshift/startshift.component';
 
 
 const appRoutes: Routes = 
 [
   { path: 'driver', component: DriverComponent },
+  { path: 'driver', component: StartshiftComponent },
   { path: 'user', component: UserComponent },
   { path: 'user/request', component: RequestComponent },
   { path: '',
@@ -34,6 +36,7 @@ const appRoutes: Routes =
     DriverComponent,
     UserComponent,
     RequestComponent,
+    StartshiftComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes, {enableTracing:true}),

@@ -1,24 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { ScriptService } from '../script.service';
-import {SelectItem} from 'primeng/api';
+import { SelectItem } from 'primeng/api';
 import { NgModule } from '@angular/core';
 
 
 
 @Component
-({
-selector: 'app-driver',
-templateUrl: './driver.component.html',
-styleUrls: ['./driver.component.css'],
-})
+  ({
+    selector: 'app-driver',
+    templateUrl: './driver.component.html',
+    styleUrls: ['./driver.component.css'],
+  })
 
-export class DriverComponent implements OnInit
-{
+export class DriverComponent implements OnInit {
   count = 0;
   watchID;
   inputComment;
   x: number;
   y;
+  timeToStart: boolean;
+  showDriverShift = true;
 
   info: DriverInfo[];
   passengerInputs: SelectItem[];
@@ -32,6 +33,34 @@ export class DriverComponent implements OnInit
     maximumAge: 0
   };
 
+  constructor(private supportService: ScriptService) {
+    this.passengerInputs = [
+      { label: 'Select', value: null },
+      { label: '0', value: { id: 1 } },
+      { label: '1', value: { id: 2 } },
+      { label: '2', value: { id: 3 } },
+      { label: '3', value: { id: 4 } },
+      { label: '4', value: { id: 5 } },
+    ];
+
+    this.curbInputs = [
+      { label: 'Select', value: null },
+      { label: '0', value: { id: 1 } },
+      { label: '1', value: { id: 2 } },
+      { label: '2', value: { id: 3 } },
+      { label: '3', value: { id: 4 } },
+      { label: '4', value: { id: 5 } },
+    ];
+  }
+
+  ngOnInit() {
+    this.x = 0;
+    console.log('inside init' + this.x);
+  }
+
+
+
+
 
   errorHandler(err) {
 
@@ -44,8 +73,9 @@ export class DriverComponent implements OnInit
   toggle1() {
     this.count++;
     console.log(this.count);
-    if (this.count % 2 === 0) { document.getElementById('demo').innerHTML = 'OFF';
-  } else { document.getElementById('demo').innerHTML = 'ON'; }
+    if (this.count % 2 === 0) {
+      document.getElementById('demo').innerHTML = 'OFF';
+    } else { document.getElementById('demo').innerHTML = 'ON'; }
   }
 
 
@@ -64,7 +94,7 @@ export class DriverComponent implements OnInit
   newcell() {
     const r = confirm('Are you sure?');
     if (r === true) {
-    }  else { /*send nothing*/ }// find row to copy
+    } else { /*send nothing*/ }// find row to copy
     /* send something to database*/
   }
 
@@ -91,7 +121,8 @@ export class DriverComponent implements OnInit
 
   getLocation() {
     if (navigator.geolocation) {
-      this.watchID = navigator.geolocation.watchPosition(this.showPosition, this.errorHandler, this.options);
+      this.watchID = navigator.geolocation.watchPosition((pos) => this.showPosition(pos), this.errorHandler, this.options);
+      //navigator.geolocation.getCurrentPosition((pos) => this.showPosition(pos));
     } else { document.getElementById('demo').innerHTML = 'Geolocation is not supported by this browser.'; }
   }
 
@@ -101,7 +132,7 @@ export class DriverComponent implements OnInit
     this.x = position.coords.latitude;
     console.log(this.x);
     console.log(position.coords.longitude);
-    
+
   }
 
   fuel() {
@@ -113,29 +144,12 @@ export class DriverComponent implements OnInit
     // send this response somewhere
   }
 
-constructor(private supportService: ScriptService) {
-  this.passengerInputs = [
-    {label: 'Select', value: null},
-    {label: '0', value: {id: 1}},
-    {label: '1', value: {id: 2}},
-    {label: '2', value: {id: 3}},
-    {label: '3', value: {id: 4}},
-    {label: '4', value: {id: 5}},
-  ];
-
-  this.curbInputs = [
-    {label: 'Select', value: null},
-    {label: '0', value: {id: 1}},
-    {label: '1', value: {id: 2}},
-    {label: '2', value: {id: 3}},
-    {label: '3', value: {id: 4}},
-    {label: '4', value: {id: 5}},
-  ];
-}
-ngOnInit() { this.x = 0; }
+  getShowShift(showShift: boolean) {
+    console.log(showShift);
+    this.showDriverShift = showShift; 
+  }
 
 }
-
 export interface DriverInfo {
   numPassengers;
 }
@@ -144,14 +158,16 @@ interface DriverInput {
   numPassengers: number;
 }
 
+
+
 // export class DriverComponent {
 
 //   cities1: SelectItem[];
-  
+
 //   cities2: City[];
 
 //   selectedCity1: City;
-  
+
 //   selectedCity2: City;
 
 //   constructor() {
@@ -164,7 +180,7 @@ interface DriverInput {
 //           {label:'Istanbul', value:{id:4, name: 'Istanbul', code: 'IST'}},
 //           {label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}}
 //       ];
-      
+
 //       //An array of cities
 //       this.cities2 = [
 //           {name: 'New York', code: 'NY'},
