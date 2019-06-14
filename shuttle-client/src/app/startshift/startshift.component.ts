@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { ScriptService } from '../script.service';
 import {SelectItem} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ShiftRequest } from '../models/shift-request.model';
 
 
 @Component({
@@ -22,10 +24,12 @@ export class StartshiftComponent implements OnInit {
   milesInfo: MilesInfo[];
   inputMileage: number;
 
+  startShiftForm: FormGroup;
+
   @Output()
   showShift = new EventEmitter<boolean>();
 
-constructor(private supportService: ScriptService) {
+constructor(private supportService: ScriptService, private fb: FormBuilder) {
   this.driverOptions = [
     {label: 'Select', value: null},
     {label: 'Nadia Almanza', value: {id: 1}},
@@ -55,12 +59,29 @@ constructor(private supportService: ScriptService) {
   ];
 
 }
-ngOnInit() { }
+ngOnInit() {
+  this.setupForm();
+ }
+
+private setupForm() {
+  this.startShiftForm = this.fb.group({
+    driver: '',
+    vehicle: '',
+    mileage: ''
+  });
+}
 
 submitStartData(){
   console.log(this.driverInfo);
   console.log(this.vehicleInfo);
   console.log(this.inputMileage);
+  const shiftValue = this.startShiftForm.value;
+  const shiftRequest: ShiftRequest = {
+    driverId: shiftValue.driver.id,
+    vehicleId: shiftValue.vehicle.id,
+    mileage: shiftValue.mileage
+  }
+
   this.showShift.emit(false);
 }
 }

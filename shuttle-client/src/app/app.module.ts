@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { RequestComponent } from './request/request.component';
 import {TableModule} from 'primeng/table';
 import {DropdownModule} from 'primeng/dropdown';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import { StartshiftComponent } from './startshift/startshift.component';
@@ -47,7 +47,8 @@ const appRoutes: Routes =
     DropdownModule,
     FormsModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

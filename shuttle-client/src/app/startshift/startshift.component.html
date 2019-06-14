@@ -1,20 +1,23 @@
 <h3 class="first">Start Shift</h3>
-<div class = "info-container">
-<div class="shiftInfo">
-  <div>
-    <label class = "info-label">Driver</label>
-    <p-dropdown appendTo="body" [options]="driverOptions" [(ngModel)]="driverInfo"></p-dropdown>
-  </div>
-  <div>
-      <label class = "info-label">Vehicle</label>
-      <p-dropdown appendTo="body" [options]="vehicleOptions" [(ngModel)]="vehicleInfo"></p-dropdown>
-  </div>
-  <div>
-      <label class = "info-label">Mileage</label>
-      <input type="text" pInputText [(ngModel)]="inputMileage" />
-  </div>
-  <div>
-      <label class = "info-label"></label>
-      <button pButton (click)="submitStartData();" label = "Submit"></button>
-  </div>
+<div class="info-container">
+  <form [formGroup]="startShiftForm">
+    <div class="shiftInfo">
+      <div>
+        <label class="info-label">Driver</label>
+        <p-dropdown appendTo="body" formControlName="driver" [options]="driverOptions"></p-dropdown>
+      </div>
+      <div>
+        <label class="info-label">Vehicle</label>
+        <p-dropdown appendTo="body" formControlName="vehicle" [options]="vehicleOptions"></p-dropdown>
+      </div>
+      <div>
+        <label class="info-label">Mileage</label>
+        <input type="text" formControlName="mileage" pInputText />
+      </div>
+      <div>
+        <label class="info-label"></label>
+        <button pButton (click)="submitStartData();" label="Submit"></button>
+      </div>
+    </div>
+  </form>
 </div>
