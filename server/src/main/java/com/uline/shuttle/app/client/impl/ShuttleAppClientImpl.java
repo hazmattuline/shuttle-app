@@ -22,13 +22,12 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   @Value("${shuttle.service.base.url}")
   private String baseUrl;
 
-  @Value("${shuttle.service.rc.url}")
-  private String communicationUrl;
-
-
   private UlineRestTemplate restTemplate;
 
-  private ShiftResponse SR = new ShiftResponse();
+
+  @Value("${shuttle.service.rc.url}")
+  private String shuttleServiceUrl;
+
 
   @Autowired
   public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
@@ -38,7 +37,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   @Override
   public CoordResponse enRoute(CoordRequest coordRequest) {
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + communicationUrl);
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceUrl);
 
     return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(coordRequest),
         new ParameterizedTypeReference<CoordResponse>() {}).getBody();
@@ -47,6 +46,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   @Override
   public ShiftResponse startShift(ShiftRequest shiftRequest) {
 
-    return SR;
+    return null;
   }
 }

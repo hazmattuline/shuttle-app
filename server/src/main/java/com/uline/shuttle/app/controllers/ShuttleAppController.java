@@ -1,11 +1,15 @@
 package com.uline.shuttle.app.controllers;
 
-import com.uline.shuttle.app.services.ShuttleAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.uline.common.metrics.ExecutionTime;
+import com.uline.shuttle.app.services.ShuttleAppService;
+
+import io.swagger.annotations.ApiOperation;
 import rest.models.requests.CoordRequest;
 import rest.models.requests.ShiftRequest;
 import rest.models.response.CoordResponse;
@@ -22,16 +26,16 @@ public class ShuttleAppController {
     this.shuttleAppService = shuttleAppService;
   }
 
+  @ExecutionTime("ShuttleAppService.enRoute")
+  @ApiOperation(value = "posting the coordinates that we get from driver view and storing in a database")
   @PostMapping(value = "/enRoute")
   public CoordResponse enRoute(@RequestBody CoordRequest coordRequest) {
-    System.err.println("Coords");
     return shuttleAppService.enRoute(coordRequest);
   }
 
   @PostMapping(value = "/startShift")
   public ShiftResponse startShift(@RequestBody ShiftRequest shiftRequest) {
-    System.err.println("here");
-    // System.err.println(SR.toString());
+
     return shuttleAppService.startShift(shiftRequest);
   }
 }
