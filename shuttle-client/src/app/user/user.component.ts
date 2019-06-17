@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ScriptService } from '../script.service';
-// these are my instance variable for my gps.js file
 
 @Component
   ({
@@ -12,6 +11,7 @@ import { ScriptService } from '../script.service';
 export class UserComponent implements OnInit {
   title = 'Shuttle';
 
+  // here are global variable to be used for tracking 
   watchID;
   x=0;
   y;
@@ -21,9 +21,9 @@ export class UserComponent implements OnInit {
  
 
   options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
+    enableHighAccuracy: true, // uses the gps chip when true
+    timeout: 5000, // telling the api to send me information every 5 seconds
+    maximumAge: 0 // telling api to not use the cache when finding location
   };
 
   ngOnInit() {
@@ -67,14 +67,13 @@ export class UserComponent implements OnInit {
     let lon3 = -87.951814;  // biggest longitude in image
     let lats = [];
     let lons = [];
-    // need to retrieve this from database later
+   
 
-    
+     // need to retrieve lat2 and lon2 from database later
     lats.push(lat2);
     lons.push(lon2);
 
-    console.log(lat2);
-
+    // set picture width and height so we can animate accordingly
     let height = 600;
     let width = 900;
     let londists = [];
@@ -88,6 +87,7 @@ export class UserComponent implements OnInit {
       londists.push(londist);
     }
 
+    //these here are for testing the offsets of the image 
     let maxlatdist = (lat1 - lat3);
     let maxlondist = (lon3 - lon1) * (Math.cos(lat1) + Math.cos(lat3)) / 2; // (lat1+lat3)/2
 
@@ -100,8 +100,9 @@ export class UserComponent implements OnInit {
     let H1boundary = 42.52;
     let h2lonbound = -87.953;
 
+
+    // this for loop will account for the offsets of the image
     for (let i = 0; i < lats.length; i++) {
-      // x coordinate
       if (lats[i] < H2boundary && lons[i] < h2lonbound) {
         this.posx = (londists[i]) / (maxlondist) * width + 3;
       } else if ((lats[i] < H2boundary) && (lons[i] > h2lonbound)) {
