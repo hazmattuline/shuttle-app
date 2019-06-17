@@ -1,13 +1,11 @@
 package com.uline.shuttle.app.controllers;
 
+import com.uline.shuttle.app.services.ShuttleAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.uline.shuttle.app.services.ShuttleAppService;
-
 import rest.models.requests.CoordRequest;
 import rest.models.requests.ShiftRequest;
 import rest.models.response.CoordResponse;
@@ -18,8 +16,6 @@ import rest.models.response.ShiftResponse;
 public class ShuttleAppController {
 
   private ShuttleAppService shuttleAppService;
-
-
 
   @Autowired
   public ShuttleAppController(ShuttleAppService shuttleAppService) {
