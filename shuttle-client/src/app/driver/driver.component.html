@@ -8,7 +8,7 @@
     <label>PLEASE ACTIVATE YOUR VEHICLE BEFORE YOU BEGIN DRIVING</label>
     <br>
     <br>
-    <button pButton  (click)="newtog(this); inactivate(this); promptMe(this);"label="Shuttle Active"></button>
+    <button id = "activeButton" pButton  (click)="changeActive()" [label]="(locationService.isActive | async) ? 'Deactivate Shuttle' : 'Activate Shuttle'"></button> <!--newtog(this); inactivate(this); promptMe(this);-->
 
     <!--ADD - BUTTON DOES NOT SWITCH TO SAY "TURN OFF"
       <input type="button" class="button" value="TURN ON" onclick="newtog(this); inactivate(this); promptMe(this);" (click)='have()' >-->

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ScriptService } from '../script.service';
 import { SelectItem } from 'primeng/api';
 import { NgModule } from '@angular/core';
+import { CoordsRequest } from '../models/coords-request.model';
+import { LocationService } from '../services/location.service';
 
 
 
@@ -10,15 +12,16 @@ import { NgModule } from '@angular/core';
     selector: 'app-driver',
     templateUrl: './driver.component.html',
     styleUrls: ['./driver.component.css'],
-  })
-
+    providers: [LocationService]
+    })
 export class DriverComponent implements OnInit {
   count = 0;
-  watchID;
+ // watchID;
   inputComment;
-  x: number;
-  y;
+  // x: number;
+  // y;
   timeToStart: boolean;
+  isActive = false;
   showDriverShift = true;
 
   info: DriverInfo[];
@@ -27,13 +30,13 @@ export class DriverComponent implements OnInit {
   passengerInput: DriverInput;
   curbInput: DriverInput;
 
-  options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-  };
+  // options = {
+  //   enableHighAccuracy: true,
+  //   timeout: 5000,
+  //   maximumAge: 0
+  // };
 
-  constructor(private supportService: ScriptService) {
+  constructor(private supportService: ScriptService, private locationService: LocationService) {
     this.passengerInputs = [
       { label: 'Select', value: null },
       { label: '0', value: { id: 1 } },
@@ -41,6 +44,16 @@ export class DriverComponent implements OnInit {
       { label: '2', value: { id: 3 } },
       { label: '3', value: { id: 4 } },
       { label: '4', value: { id: 5 } },
+      { label: '5', value: { id: 6 } },
+      { label: '6', value: { id: 7 } },
+      { label: '7', value: { id: 8 } },
+      { label: '8', value: { id: 9 } },
+      { label: '9', value: { id: 10 } },
+      { label: '10', value: { id: 11 } },
+      { label: '11', value: { id: 12 } },
+      { label: '12', value: { id: 13 } },
+      { label: '13', value: { id: 14 } },
+      { label: '14', value: { id: 15 } },
     ];
 
     this.curbInputs = [
@@ -54,21 +67,43 @@ export class DriverComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.x = 0;
-    console.log('inside init' + this.x);
+    // this.x = 0;
   }
 
-
-
-
-
-  errorHandler(err) {
-
-    if (err.code === 1) {
-
-      // access is denied
+  changeActive() {
+    if (this.locationService.getIsActive()) {
+      this.locationService.stopTracking();
+    } else {
+      this.locationService.startTracking();
     }
+    
+    // this.count++;
+    // if (this.count % 2 === 0) {
+    //   this.isActive = false;
+    //   document.getElementById('activeButton').innerHTML = 'ACTIVATE SHUTTLE';
+    // } else {
+    //   this.isActive = true;
+    //   //this.getLocation();
+    //   //console.log(this.x, this.y);
+    //   document.getElementById('activeButton').innerHTML = 'DEACTIVATE SHUTTLE';
+    // }
   }
+
+  // sendCoords(coords: Coordinates) {
+  //   const coordsRequest: CoordsRequest = {
+  //     // latitudeCoords: this.x,
+  //     // longitudeCoords: this.y
+  //   }
+  // }
+
+
+  // errorHandler(err) {
+
+  //   if (err.code === 1) {
+
+  //     // access is denied
+  //   }
+  // }
 
   toggle1() {
     this.count++;
@@ -84,6 +119,7 @@ export class DriverComponent implements OnInit {
     if (this.count % 2 === 0) {
       alert('You are now inactive.');
       document.getElementById('demo2').innerHTML = 'Inactive';
+  
     } else {
       alert('You are now active.');
       document.getElementById('demo2').innerHTML = 'Active';
@@ -111,29 +147,27 @@ export class DriverComponent implements OnInit {
     }
   }
 
-  inactivate() {
-    if (this.count % 2 === 0) {
-      navigator.geolocation.clearWatch(this.watchID);
-      console.log('disabled tracking');
-    } else { this.getLocation(); }
-  }
+  // inactivate() {
+  //   if (this.count % 2 === 0) {
+  //     navigator.geolocation.clearWatch(this.watchID);
+  //     console.log('disabled tracking');
+  //   } else { this.getLocation(); }
+  // }
 
 
-  getLocation() {
-    if (navigator.geolocation) {
-      this.watchID = navigator.geolocation.watchPosition((pos) => this.showPosition(pos), this.errorHandler, this.options);
-      //navigator.geolocation.getCurrentPosition((pos) => this.showPosition(pos));
-    } else { document.getElementById('demo').innerHTML = 'Geolocation is not supported by this browser.'; }
-  }
+  // getLocation() {
+  //   if (navigator.geolocation) {
+  //     this.watchID = navigator.geolocation.watchPosition((pos) => this.showPosition(pos), this.errorHandler, this.options);
+  //     //navigator.geolocation.getCurrentPosition((pos) => this.showPosition(pos));
+  //   } else { document.getElementById('demo').innerHTML = 'Geolocation is not supported by this browser.'; }
+  // }
 
-  showPosition(position) {
-    document.getElementById('demo3').innerHTML = 'Latitude: ' + position.coords.latitude +
-      '<br>Longitude: ' + position.coords.longitude;
-    this.x = position.coords.latitude;
-    console.log(this.x);
-    console.log(position.coords.longitude);
-
-  }
+  // showPosition(position) {
+  //   // document.getElementById('demo3').innerHTML = 'Latitude: ' + position.coords.latitude +
+  //   //   '<br>Longitude: ' + position.coords.longitude;
+  //   this.x = position.coords.latitude;
+  //   this.y = position.coords.longitude;
+  // }
 
   fuel() {
     const fuelAm = prompt('How much fuel did you put in the vehicle?');
