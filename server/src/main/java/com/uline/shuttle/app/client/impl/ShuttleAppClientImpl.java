@@ -11,9 +11,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.uline.ha.rest.UlineRestTemplate;
 import com.uline.shuttle.app.client.ShuttleAppClient;
 
-import rest.models.requests.CoordRequest;
+import rest.models.requests.CoordinateRequest;
 import rest.models.requests.ShiftRequest;
-import rest.models.response.CoordResponse;
+import rest.models.response.CoordinateResponse;
 import rest.models.response.ShiftResponse;
 
 @Service
@@ -24,10 +24,11 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
   private UlineRestTemplate restTemplate;
 
+  @Value("${shuttle.service.rc.url.for.coords}")
+  private String shuttleServiceForGet;
 
   @Value("${shuttle.service.rc.url}")
   private String shuttleServiceUrl;
-
 
   @Autowired
   public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
@@ -35,12 +36,21 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public CoordResponse enRoute(CoordRequest coordRequest) {
+  public CoordinateResponse enRoute(CoordinateRequest coordinateRequest) {
 
     UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceUrl);
 
-    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(coordRequest),
-        new ParameterizedTypeReference<CoordResponse>() {}).getBody();
+    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(coordinateRequest),
+        new ParameterizedTypeReference<CoordinateResponse>() {}).getBody();
+  }
+
+  @Override
+  public CoordinateResponse getCoordinates() {
+
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForGet);
+
+    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.GET, new HttpEntity<>(null),
+        new ParameterizedTypeReference<CoordinateResponse>() {}).getBody();
   }
 
   @Override
