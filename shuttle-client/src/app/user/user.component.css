@@ -36,8 +36,8 @@ h1
 }
 
 .dot {
-  height: 4px;
-  width: 4px;
+  height: 15px;
+  width: 15px;
   position: absolute;
   /*controls dot size*/
 }

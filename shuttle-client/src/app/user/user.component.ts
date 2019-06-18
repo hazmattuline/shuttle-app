@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ScriptService } from '../script.service';
+import {ButtonModule} from 'primeng/button';
 // these are my instance variable for my gps.js file
 
 @Component
@@ -26,7 +27,10 @@ export class UserComponent implements OnInit {
     maximumAge: 0
   };
 
+
+
   ngOnInit() {
+    this.myMove();
   }
 
 
@@ -271,23 +275,23 @@ var height = 694;//600;
    // x coordinate
    //phone
    if (lats[i] < H2boundary && lons[i] < h2lonbound) {
-     var posx = (londists[i])/(maxlondist)*width + 215;
+     var posx = (londists[i])/(maxlondist)*width + 206.5;
 
    }
    else if ((lats[i] < H2boundary) && (lons[i] > h2lonbound)) {
-     var posx = (londists[i])/(maxlondist)*width + 215.5;
+     var posx = (londists[i])/(maxlondist)*width + 209;
    }
    else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
-     var posx = (londists[i])/(maxlondist)*width + 212;
+     var posx = (londists[i])/(maxlondist)*width + 205.5;
    }
    else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
-     var posx = (londists[i])/(maxlondist)*width + 202;
+     var posx = (londists[i])/(maxlondist)*width + 196;
    }
    else if (lats[i] > hwyboundary2 && lons[i] > h2lonbound) {
-     var posx = (londists[i])/(maxlondist)*width + 197;
+     var posx = (londists[i])/(maxlondist)*width + 191;
    }
    else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
-     var posx = (londists[i])/(maxlondist)*width + 195;
+     var posx = (londists[i])/(maxlondist)*width + 189.3;
    }
    //desktop
    // if (lats[i] < H2boundary && lons[i] < h2lonbound) {
@@ -315,10 +319,10 @@ var height = 694;//600;
 
    //phone
    if (lats[i] > H1boundary) {
-     var posy = (latdists[i])/(maxlatdist)*height - 2;
+     var posy = (latdists[i])/(maxlatdist)*height - 4.5;
    }
    else {
-     var posy = (latdists[i])/(maxlatdist)*height + 0;
+     var posy = (latdists[i])/(maxlatdist)*height - 6;
    }
 
    //desktop
@@ -378,6 +382,7 @@ elem1.style.top = posys[0] + 'px';
  elem22.style.top = posys[21] + 'px';
  elem22.style.left = posxs[21] + 'px';
 }
+
 
   // this method animates the dots for us to see 
   /* myMove(lat2, lon2) {
@@ -452,3 +457,5 @@ elem1.style.top = posys[0] + 'px';
 
   } */
 }
+
+
