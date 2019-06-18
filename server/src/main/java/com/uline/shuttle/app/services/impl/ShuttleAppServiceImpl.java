@@ -1,11 +1,9 @@
 package com.uline.shuttle.app.services.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.uline.shuttle.app.client.ShuttleAppClient;
 import com.uline.shuttle.app.services.ShuttleAppService;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.ShiftRequest;
 import rest.models.response.CoordinateResponse;

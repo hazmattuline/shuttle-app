@@ -1,5 +1,7 @@
 package com.uline.shuttle.app.client.impl;
 
+import com.uline.ha.rest.UlineRestTemplate;
+import com.uline.shuttle.app.client.ShuttleAppClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -7,10 +9,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import com.uline.ha.rest.UlineRestTemplate;
-import com.uline.shuttle.app.client.ShuttleAppClient;
-
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.ShiftRequest;
 import rest.models.response.CoordinateResponse;
@@ -40,17 +38,28 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
     UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceUrl);
 
-    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(coordinateRequest),
-        new ParameterizedTypeReference<CoordinateResponse>() {}).getBody();
+    return restTemplate
+        .exchange(
+            builder.build().toUriString(),
+            HttpMethod.POST,
+            new HttpEntity<>(coordinateRequest),
+            new ParameterizedTypeReference<CoordinateResponse>() {})
+        .getBody();
   }
 
   @Override
   public CoordinateResponse getCoordinates() {
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForGet);
+    UriComponentsBuilder builder =
+        UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForGet);
 
-    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.GET, new HttpEntity<>(null),
-        new ParameterizedTypeReference<CoordinateResponse>() {}).getBody();
+    return restTemplate
+        .exchange(
+            builder.build().toUriString(),
+            HttpMethod.GET,
+            new HttpEntity<>(null),
+            new ParameterizedTypeReference<CoordinateResponse>() {})
+        .getBody();
   }
 
   @Override
