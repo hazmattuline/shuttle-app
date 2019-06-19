@@ -11,7 +11,6 @@ import { RequestComponent } from './request/request.component';
 import { ScriptService } from './script.service';
 import {AccordionModule} from 'primeng/accordion';
 import {ButtonModule} from 'primeng/button';
-import {DropdownModule} from 'primeng/dropdown';
 
 
 const appRoutes: Routes = 
