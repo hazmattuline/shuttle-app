@@ -9,14 +9,14 @@ import { DriverComponent } from './driver/driver.component';
 import { AppComponent } from './app.component';
 import { RequestComponent } from './request/request.component';
 import { ScriptService } from './script.service';
-import {AccordionModule} from 'primeng/accordion';
-import {ButtonModule} from 'primeng/button';
+import { LoginComponent } from './login/login.component';
 
 
 const appRoutes: Routes = 
 [
   { path: 'driver', component: DriverComponent },
   { path: 'user', component: UserComponent },
+  { path: 'login', component: LoginComponent},
   { path: 'user/request', component: RequestComponent },
   { path: '',
   redirectTo: '/user',
@@ -32,14 +32,13 @@ const appRoutes: Routes =
     DriverComponent,
     UserComponent,
     RequestComponent,
+    LoginComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes, {enableTracing:true}),
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AccordionModule,
-    ButtonModule,
   ],
   providers: [ScriptService],
   bootstrap: [AppComponent]
