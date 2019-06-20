@@ -11,7 +11,7 @@ pipelineConfigs.skipTesting = false
 
 pipelineConfigs.skipSonar = false
 
-pipelineConfigs.bumpArtifactVersion = false
+pipelineConfigs.bumpArtifactVersion = true
 
 pipelineConfigs.failBuildOnSmokeTestFailure = false
 
