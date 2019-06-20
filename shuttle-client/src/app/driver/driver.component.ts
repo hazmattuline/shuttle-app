@@ -19,8 +19,7 @@ export class DriverComponent implements OnInit {
 
   count = 0;
   watchID;
-  x;
-  y;
+ 
 
   constructor(private supportService: ScriptService) { }
 
@@ -92,10 +91,10 @@ export class DriverComponent implements OnInit {
   showPosition(position) {
     document.getElementById('demo3').innerHTML = 'Latitude: ' + position.coords.latitude +
       '<br>Longitude: ' + position.coords.longitude;
-    this.x = position.coords.latitude;
-    this.y = position.coords.longitude;
-    console.log(this.x);
-    console.log(this.y);
+     let x = position.coords.latitude;
+     let y = position.coords.longitude;
+    console.log(x);
+    console.log(y);
   }
 
   fuel() {
