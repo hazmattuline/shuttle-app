@@ -40,6 +40,7 @@ public class ShuttleAppController {
   @GetMapping(value = "/receiveCoords/{vehicleName}")
   public CoordinateResponse receiveCoordinates(@PathVariable("vehicleName") String vehicleName) {
     return this.shuttleAppService.getCoordinates(vehicleName);
+
   }
 
   @PostMapping(value = "/startShift")
