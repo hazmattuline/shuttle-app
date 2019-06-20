@@ -1,10 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Shuttle } from '../models/shuttle.model';
 import { Subject, Observable } from 'rxjs';
+import { ShuttleApiService } from './shuttle-api.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ShuttleTrackingService implements OnDestroy {
 
   private _shuttles: Subject<Shuttle[]> = new Subject();
@@ -12,22 +11,31 @@ export class ShuttleTrackingService implements OnDestroy {
 
   private shuttleLocationTimer = null;
 
-  constructor() { }
+  constructor(private shuttleApi: ShuttleApiService) { }
 
   private startTimer() {
     this.shuttleLocationTimer = setInterval(() => {
-      // GET DATA FROM SERVICE
+      this.shuttleApi.getShuttles().subscribe(shuttles => {
+        shuttles.forEach(shuttle => {
+          shuttle = this.calculateXYPixelCoordinates(shuttle);
+        });
+        this._shuttles.next(shuttles);
+      });
     }, 1000);
   }
 
   public startShuttleTracking() {
-
+    this.startTimer();
   }
 
   private stopShuttleTracking() {
     if (this.shuttleLocationTimer) {
       clearInterval(this.shuttleLocationTimer);
     }
+  }
+
+  calculateXYPixelCoordinates(shuttle: Shuttle): Shuttle {
+    return null;
   }
 
   ngOnDestroy() {
