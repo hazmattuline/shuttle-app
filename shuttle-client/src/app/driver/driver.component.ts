@@ -3,7 +3,7 @@ import { ScriptService } from '../script.service';
 import { SelectItem } from 'primeng/api';
 import { NgModule } from '@angular/core';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import { LocationService } from '../services/location.service';
+import { GPSService } from '../services/gps.service';
 
 
 
@@ -12,7 +12,7 @@ import { LocationService } from '../services/location.service';
     selector: 'app-driver',
     templateUrl: './driver.component.html',
     styleUrls: ['./driver.component.css'],
-    providers: [LocationService]
+    providers: [GPSService]
     })
 export class DriverComponent implements OnInit {
   count = 0;
@@ -27,7 +27,7 @@ export class DriverComponent implements OnInit {
   passengerInput: DriverInput;
   curbInput: DriverInput;
 
-  constructor(private supportService: ScriptService, private locationService: LocationService) {
+  constructor(private supportService: ScriptService, private gpsService: GPSService) {
     this.passengerInputs = [
       { label: 'Select', value: null },
       { label: '0', value: { id: 1 } },
@@ -61,10 +61,10 @@ export class DriverComponent implements OnInit {
   }
 
   changeActive() {
-    if (this.locationService.getIsActive()) {
-      this.locationService.stopTracking();
+    if (this.gpsService.getIsGPSActive()) {
+      this.gpsService.stopGPSTracking();
     } else {
-      this.locationService.startTracking();
+      this.gpsService.startGPSTracking();
     }
   }
 
