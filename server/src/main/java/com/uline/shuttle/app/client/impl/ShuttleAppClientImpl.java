@@ -2,6 +2,8 @@ package com.uline.shuttle.app.client.impl;
 
 import com.uline.ha.rest.UlineRestTemplate;
 import com.uline.shuttle.app.client.ShuttleAppClient;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -41,23 +43,26 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
     return restTemplate
         .exchange(
             builder.build().toUriString(),
-            HttpMethod.POST,
+            HttpMethod.PATCH,
             new HttpEntity<>(coordinateRequest),
             new ParameterizedTypeReference<CoordinateResponse>() {})
         .getBody();
   }
 
   @Override
-  public CoordinateResponse getCoordinates() {
+  public CoordinateResponse getCoordinates(String vehicleName) {
+
+    Map<String, String> params = new HashMap<>();
+    params.put("vehicleName", vehicleName);
 
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForGet);
 
     return restTemplate
         .exchange(
-            builder.build().toUriString(),
+            builder.buildAndExpand(params).toUriString(),
             HttpMethod.GET,
-            new HttpEntity<>(null),
+            new HttpEntity<>(null, null),
             new ParameterizedTypeReference<CoordinateResponse>() {})
         .getBody();
   }

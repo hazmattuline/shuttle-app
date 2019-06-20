@@ -1,9 +1,11 @@
 package com.uline.shuttle.app.services.impl;
 
-import com.uline.shuttle.app.client.ShuttleAppClient;
-import com.uline.shuttle.app.services.ShuttleAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.uline.shuttle.app.client.ShuttleAppClient;
+import com.uline.shuttle.app.services.ShuttleAppService;
+
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.ShiftRequest;
 import rest.models.response.CoordinateResponse;
@@ -12,7 +14,6 @@ import rest.models.response.ShiftResponse;
 @Service
 public class ShuttleAppServiceImpl implements ShuttleAppService {
 
-  // this class will handle any manipulations we need done with the data
 
   private ShuttleAppClient shuttleAppClient;
 
@@ -27,8 +28,8 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public CoordinateResponse getCoordinates() {
-    return shuttleAppClient.getCoordinates();
+  public CoordinateResponse getCoordinates(String vehicleName) {
+    return shuttleAppClient.getCoordinates(vehicleName);
   }
 
   @Override

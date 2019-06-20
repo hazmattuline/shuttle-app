@@ -2,22 +2,31 @@ package rest.models.response;
 
 public class CoordinateResponse {
 
-  private double latitudeCoordinates;
-  private double longitudeCoordinates;
+  private Double latitudeCoordinates;
+  private Double longitudeCoordinates;
+  private String vehicleName;
 
-  public double getLatitudeCoordinates() {
+  public Double getLatitudeCoordinates() {
     return latitudeCoordinates;
   }
 
-  public double getLongitudeCoordinates() {
+  public Double getLongitudeCoordinates() {
     return longitudeCoordinates;
   }
 
-  public void setLatitudeCoordinates(double latitudeCoordinates) {
+  public String getVehicleName() {
+    return vehicleName;
+  }
+
+  public void setLatitudeCoordinates(Double latitudeCoordinates) {
     this.latitudeCoordinates = latitudeCoordinates;
   }
 
-  public void setLongitudeCoordinates(double longitudeCoordinates) {
+  public void setLongitudeCoordinates(Double longitudeCoordinates) {
     this.longitudeCoordinates = longitudeCoordinates;
+  }
+
+  public void setVehicleName(String vehicleName) {
+    this.vehicleName = vehicleName;
   }
 }
