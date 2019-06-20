@@ -71,8 +71,6 @@ export class UserComponent implements OnInit {
     lats.push(lat2);
     lons.push(lon2);
 
-    console.log(lat2);
-
     let height = 694;
     let width = 500;
     let londists = [];
@@ -126,7 +124,7 @@ export class UserComponent implements OnInit {
     elem1.style.top = posys[0] + 'px';
     elem1.style.left = posxs[0] + 'px';
 
-  } 
+  }
 }
 
 
