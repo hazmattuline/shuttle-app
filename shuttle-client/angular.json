@@ -20,10 +20,19 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/common-component-lib/assets/images",
+                "output": "./assets/images"
+            }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/primeicons/primeicons.css",  
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/common-component-lib/assets/styles/ucctheme.css"
             ],
             "scripts": [],
             "baseHref": "/shuttle-app/ui/",
@@ -82,12 +91,21 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/primeicons/primeicons.css",  
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/common-component-lib/assets/styles/ucctheme.css"
             ],
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/common-component-lib/assets/images",
+                "output": "./assets/images"
+            }
             ]
           }
         },

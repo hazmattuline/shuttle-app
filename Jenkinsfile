@@ -11,13 +11,13 @@ pipelineConfigs.skipTesting = false
 
 pipelineConfigs.skipSonar = false
 
-pipelineConfigs.failBuildOnSmokeTestFailure = false
-
 pipelineConfigs.bumpArtifactVersion = true
 
-pipelineConfigs.smokeTestSlackChannel = "oss_smoketest"
+pipelineConfigs.failBuildOnSmokeTestFailure = false
 
-pipelineConfigs.emailRecipients = ["George.Gutt@uline.com","Charles.Pechous@uline.com","Talab.Omar@uline.com","vijaya.peddareddy@uline.com"]
+pipelineConfigs.emailRecipients = ["Renju.Jose@uline.com", "Rob.Kenlay@uline.com", "Arun.Thakur@uline.com"]
+
+pipelineConfigs.smokeTestSlackChannel = "g2_shuttle_app_pr_mon"
 
 //############################################ Trigger Client/Server Jenkins Pipeline ##########################################
 

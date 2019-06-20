@@ -26,7 +26,10 @@ export class UserComponent implements OnInit {
     maximumAge: 0 // telling api to not use the cache when finding location
   };
 
+
+  // have the location be displayed on page load
   ngOnInit() {
+    this.getLocation();
   }
 
 
@@ -47,22 +50,17 @@ export class UserComponent implements OnInit {
 
   // this function will actually save those coords
   showPosition(position) {
-    document.getElementById('demo3').innerHTML = 'Latitude:' + position.coords.latitude +
-      '<br>Longitude: ' + position.coords.longitude;
-
     this.myMove(position.coords.latitude, position.coords.longitude);
-
-
   }
 
   // this method animates the dots for us to see 
-  myMove(lat2, lon2) {
+   myMove(lat2, lon2) {
 
 
 
     let elem1 = document.getElementById('animate1');
-    let lat1 = 42.523300; // biggest latitude in image
-    let lon1 = -87.971642; // smallest longitude in image
+    let lat1 = 42.524072; // biggest latitude in image
+    let lon1 = -87.962551; // smallest longitude in image
     let lat3 = 42.5130865; // smallest latitude in image
     let lon3 = -87.951814;  // biggest longitude in image
     let lats = [];
@@ -73,15 +71,14 @@ export class UserComponent implements OnInit {
     lats.push(lat2);
     lons.push(lon2);
 
-    // set picture width and height so we can animate accordingly
-    let height = 600;
-    let width = 900;
+    let height = 694;
+    let width = 500;
     let londists = [];
     let latdists = [];
 
     for (let i = 0; i < lats.length; i++) {
       let londist = (lons[i] - lon1) * Math.cos(Math.abs(lats[i]));
-      // latitude is prett    letant
+      // latitude is relatively constant
       let latdist = (lat1 - lats[i]);
       latdists.push(latdist);
       londists.push(londist);
@@ -104,22 +101,22 @@ export class UserComponent implements OnInit {
     // this for loop will account for the offsets of the image
     for (let i = 0; i < lats.length; i++) {
       if (lats[i] < H2boundary && lons[i] < h2lonbound) {
-        this.posx = (londists[i]) / (maxlondist) * width + 3;
+        this.posx = (londists[i]) / (maxlondist) * width + 204;
       } else if ((lats[i] < H2boundary) && (lons[i] > h2lonbound)) {
-        this.posx = (londists[i]) / (maxlondist) * width + 3;
+        this.posx = (londists[i]) / (maxlondist) * width + 206.25;
       } else if ((lats[i] >= H2boundary) && (lats[i] <= hwyboundary1)) {
-        this.posx = (londists[i]) / (maxlondist) * width - 6;
+        this.posx = (londists[i]) / (maxlondist) * width + 202.5;
       } else if (lats[i] > hwyboundary1 && lats[i] < hwyboundary2) {
-        this.posx = (londists[i]) / (maxlondist) * width - 15;
+        this.posx = (londists[i]) / (maxlondist) * width + 193.75;
       } else if (lats[i] > hwyboundary2 && lons[i] > h2lonbound) {
-        this.posx = (londists[i]) / (maxlondist) * width - 30;
+        this.posx = (londists[i]) / (maxlondist) * width + 188;
       } else {
-        this.posx = (londists[i]) / (maxlondist) * width - 27;
+        this.posx = (londists[i]) / (maxlondist) * width + 187;
       }
       if (lats[i] > H1boundary) {
-        this.posy = (latdists[i]) / (maxlatdist) * height;
+        this.posy = (latdists[i]) / (maxlatdist) * height - 5.5;
       } else {
-        this.posy = (latdists[i]) / (maxlatdist) * height - 6;
+        this.posy = (latdists[i]) / (maxlatdist) * height - 8.25;
       }
       posxs.push(this.posx);
       posys.push(this.posy);
@@ -129,3 +126,5 @@ export class UserComponent implements OnInit {
 
   }
 }
+
+
