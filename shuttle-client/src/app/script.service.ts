@@ -1,18 +1,25 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
-})
-
+  providedIn: 'root',
+}
+)
 export class ScriptService {
 
+  xy: number;
+
   constructor() { }
-  x;
-  print1()
-  {
-    this.x=7;
-    console.log(this.x) ;
+
+  print1(x)
+  {    
+    this.xy = x;
+    console.log(this.xy); 
   }
+  printx(): number
+  {
+    return this.xy; 
+  }
+  
 
 
 }

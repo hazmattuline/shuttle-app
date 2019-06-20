@@ -1,5 +1,5 @@
 
-var myObj, myJSON, x, y, watchID;
+/*var myObj, myJSON, x, y, watchID;
 
 
 function makeIdleDriver() {
@@ -361,7 +361,7 @@ function myMove()
       var posx = (londists[i])/(maxlondist)*width + 20; 
     } 
     else /*(lats[i] > hwyboundary1 && lats[i] < H1boundary)*/ {
-      var posx = (londists[i])/(maxlondist)*width + 236;
+      // var posx = (londists[i])/(maxlondist)*width + 236;
     }
     //desktop
     // if (lats[i] < H2boundary && lons[i] < h2lonbound) {
@@ -385,71 +385,71 @@ function myMove()
     //   }
 
 
-    // y coordinate
+//     // y coordinate
 
-    //phone
-    if (lats[i] > H1boundary) {
-      var posy = (latdists[i])/(maxlatdist)*height + 24;
-    }
-    else {
-      var posy = (latdists[i])/(maxlatdist)*height - 6;
-    }
+//     //phone
+//     if (lats[i] > H1boundary) {
+//       var posy = (latdists[i])/(maxlatdist)*height + 24;
+//     }
+//     else {
+//       var posy = (latdists[i])/(maxlatdist)*height - 6;
+//     }
 
-    //desktop
-    // if (lats[i] > H1boundary) {
-    //   var posy = (latdists[i])/(maxlatdist)*height;
-    // }
-    // else {
-    //   var posy = (latdists[i])/(maxlatdist)*height - 6;
-    // }
+//     //desktop
+//     // if (lats[i] > H1boundary) {
+//     //   var posy = (latdists[i])/(maxlatdist)*height;
+//     // }
+//     // else {
+//     //   var posy = (latdists[i])/(maxlatdist)*height - 6;
+//     // }
       
     
-    posxs.push(posx);
-    posys.push(posy);
-  }
+//     posxs.push(posx);
+//     posys.push(posy);
+//   }
 
-  elem1.style.top = posys[0] + 'px';
-  elem1.style.left = posxs[0] + 'px';
-  elem2.style.top = posys[1] + 'px';
-  elem2.style.left = posxs[1] + 'px';
-  elem3.style.top = posys[2] + 'px';
-  elem3.style.left = posxs[2] + 'px';
-  elem4.style.top = posys[3] + 'px';
-  elem4.style.left = posxs[3] + 'px';
-  elem5.style.top = posys[4] + 'px';
-  elem5.style.left = posxs[4] + 'px';
-  elem6.style.top = posys[5] + 'px';
-  elem6.style.left = posxs[5] + 'px';
-  elem7.style.top = posys[6] + 'px';
-  elem7.style.left = posxs[6] + 'px';
-  elem8.style.top = posys[7] + 'px';
-  elem8.style.left = posxs[7] + 'px';
-  elem9.style.top = posys[8] + 'px';
-  elem9.style.left = posxs[8] + 'px';
-  elem10.style.top = posys[9] + 'px';
-  elem10.style.left = posxs[9] + 'px';
-  elem11.style.top = posys[10] + 'px';
-  elem11.style.left = posxs[10] + 'px';
-  elem12.style.top = posys[11] + 'px';
-  elem12.style.left = posxs[11] + 'px';
-  elem13.style.top = posys[12] + 'px';
-  elem13.style.left = posxs[12] + 'px';
-  elem14.style.top = posys[13] + 'px';
-  elem14.style.left = posxs[13] + 'px';
-  elem15.style.top = posys[14] + 'px';
-  elem15.style.left = posxs[14] + 'px';
-  elem16.style.top = posys[15] + 'px';
-  elem16.style.left = posxs[15] + 'px';
-  elem17.style.top = posys[16] + 'px';
-  elem17.style.left = posxs[16] + 'px';
-  elem18.style.top = posys[17] + 'px';
-  elem18.style.left = posxs[17] + 'px';
-  elem19.style.top = posys[18] + 'px';
-  elem19.style.left = posxs[18] + 'px';
-  elem20.style.top = posys[19] + 'px';
-  elem20.style.left = posxs[19] + 'px';
-  elem21.style.top = posys[20] + 'px';
-  elem21.style.left = posxs[20] + 'px';
-  elem22.style.top = posys[21] + 'px';
-  elem22.style.left = posxs[21] + 'px';
-}
+//   elem1.style.top = posys[0] + 'px';
+//   elem1.style.left = posxs[0] + 'px';
+//   elem2.style.top = posys[1] + 'px';
+//   elem2.style.left = posxs[1] + 'px';
+//   elem3.style.top = posys[2] + 'px';
+//   elem3.style.left = posxs[2] + 'px';
+//   elem4.style.top = posys[3] + 'px';
+//   elem4.style.left = posxs[3] + 'px';
+//   elem5.style.top = posys[4] + 'px';
+//   elem5.style.left = posxs[4] + 'px';
+//   elem6.style.top = posys[5] + 'px';
+//   elem6.style.left = posxs[5] + 'px';
+//   elem7.style.top = posys[6] + 'px';
+//   elem7.style.left = posxs[6] + 'px';
+//   elem8.style.top = posys[7] + 'px';
+//   elem8.style.left = posxs[7] + 'px';
+//   elem9.style.top = posys[8] + 'px';
+//   elem9.style.left = posxs[8] + 'px';
+//   elem10.style.top = posys[9] + 'px';
+//   elem10.style.left = posxs[9] + 'px';
+//   elem11.style.top = posys[10] + 'px';
+//   elem11.style.left = posxs[10] + 'px';
+//   elem12.style.top = posys[11] + 'px';
+//   elem12.style.left = posxs[11] + 'px';
+//   elem13.style.top = posys[12] + 'px';
+//   elem13.style.left = posxs[12] + 'px';
+//   elem14.style.top = posys[13] + 'px';
+//   elem14.style.left = posxs[13] + 'px';
+//   elem15.style.top = posys[14] + 'px';
+//   elem15.style.left = posxs[14] + 'px';
+//   elem16.style.top = posys[15] + 'px';
+//   elem16.style.left = posxs[15] + 'px';
+//   elem17.style.top = posys[16] + 'px';
+//   elem17.style.left = posxs[16] + 'px';
+//   elem18.style.top = posys[17] + 'px';
+//   elem18.style.left = posxs[17] + 'px';
+//   elem19.style.top = posys[18] + 'px';
+//   elem19.style.left = posxs[18] + 'px';
+//   elem20.style.top = posys[19] + 'px';
+//   elem20.style.left = posxs[19] + 'px';
+//   elem21.style.top = posys[20] + 'px';
+//   elem21.style.left = posxs[20] + 'px';
+//   elem22.style.top = posys[21] + 'px';
+//   elem22.style.left = posxs[21] + 'px';
+// }

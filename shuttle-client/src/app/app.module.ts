@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { UserComponent } from './user/user.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -8,19 +8,20 @@ import { RouterModule, Routes} from '@angular/router';
 import { DriverComponent } from './driver/driver.component';
 import { AppComponent } from './app.component';
 import { RequestComponent } from './request/request.component';
-import {TableModule} from 'primeng/table';
-import {DropdownModule} from 'primeng/dropdown';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ButtonModule} from 'primeng/button';
-import {InputTextModule} from 'primeng/inputtext';
+import { ScriptService } from './script.service';
+import { LoginComponent } from './login/login.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
 import { StartshiftComponent } from './startshift/startshift.component';
 
-
-const appRoutes: Routes = 
+const appRoutes: Routes =
 [
   { path: 'driver', component: DriverComponent },
   { path: 'driver', component: StartshiftComponent },
   { path: 'user', component: UserComponent },
+  { path: 'login', component: LoginComponent},
   { path: 'user/request', component: RequestComponent },
   { path: '',
   redirectTo: '/user',
@@ -36,7 +37,8 @@ const appRoutes: Routes =
     DriverComponent,
     UserComponent,
     RequestComponent,
-    StartshiftComponent,
+    LoginComponent,
+    StartshiftComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes, {enableTracing:true}),
@@ -50,7 +52,7 @@ const appRoutes: Routes =
     InputTextModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ScriptService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
