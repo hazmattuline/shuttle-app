@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ScriptService } from '../script.service';
 import { SelectItem } from 'primeng/api';
 import { NgModule } from '@angular/core';
-import { CoordsRequest } from '../models/coords-request.model';
+import { CoordinatesRequest } from '../models/coordinates-request.model';
 import { LocationService } from '../services/location.service';
 
 
