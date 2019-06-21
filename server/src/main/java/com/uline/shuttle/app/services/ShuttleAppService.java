@@ -9,7 +9,7 @@ public interface ShuttleAppService {
 
   CoordinateResponse enRoute(CoordinateRequest coordinateRequest);
 
-  CoordinateResponse getCoordinates(String vehicleName);
+  CoordinateResponse getCoordinates(int vehicleID);
 
   ShiftResponse startShift(ShiftRequest shiftRequest);
 }

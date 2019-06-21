@@ -50,10 +50,10 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public CoordinateResponse getCoordinates(String vehicleName) {
+  public CoordinateResponse getCoordinates(int vehicleID) {
 
-    Map<String, String> params = new HashMap<>();
-    params.put("vehicleName", vehicleName);
+    Map<String, Integer> params = new HashMap<>();
+    params.put("vehicleID", vehicleID);
 
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForGet);
