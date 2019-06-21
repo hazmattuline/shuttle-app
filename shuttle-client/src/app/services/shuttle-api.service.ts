@@ -11,6 +11,6 @@ export class ShuttleApiService {
   constructor(private http: HttpClient) { }
 
   getShuttles(): Observable<Shuttle[]> {
-    return this.http.get<Shuttle[]>('URL');
+    return this.http.get<Shuttle[]>('/URL');
   }
 }

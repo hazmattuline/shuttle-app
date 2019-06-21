@@ -56,12 +56,6 @@ h1
   /*controls dot size*/
 }
 
-.front {
-    position: absolute;
-    /*top: 125px;
-    left: 0px;*/
-}
-
 .button 
 {
 background-color:rgb(44, 18, 188);

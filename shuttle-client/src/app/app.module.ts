@@ -15,6 +15,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { StartshiftComponent } from './startshift/startshift.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ApiPrefixInterceptor } from './core/api-prefix.interceptor';
 
 const appRoutes: Routes =
 [
@@ -50,9 +52,13 @@ const appRoutes: Routes =
     FormsModule,
     ButtonModule,
     InputTextModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [ScriptService],
+  providers: [
+    ScriptService,
+    { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
