@@ -50,7 +50,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public CoordinateResponse getCoordinates(int vehicleID) {
+  public CoordinateResponse getCoordinates(Integer vehicleID) {
 
     Map<String, Integer> params = new HashMap<>();
     params.put("vehicleID", vehicleID);

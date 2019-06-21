@@ -4,7 +4,7 @@ public class CoordinateRequest {
 
   private Double latitudeCoordinates;
   private Double longitudeCoordinates;
-  private String vehicleName;
+  private Integer vehicleID;
 
   public Double getLatitudeCoordinates() {
     return latitudeCoordinates;
@@ -14,8 +14,8 @@ public class CoordinateRequest {
     return longitudeCoordinates;
   }
 
-  public String getVehicleName() {
-    return vehicleName;
+  public Integer getvehicleID() {
+    return vehicleID;
   }
 
   public void setLatitudeCoordinates(Double latitudeCoordinates) {
@@ -26,7 +26,7 @@ public class CoordinateRequest {
     this.longitudeCoordinates = longitudeCoordinates;
   }
 
-  public void setVehicleName(String vehicleName) {
-    this.vehicleName = vehicleName;
+  public void setVehicleID(Integer vehicleID) {
+    this.vehicleID = vehicleID;
   }
 }
