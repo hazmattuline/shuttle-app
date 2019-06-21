@@ -12,10 +12,7 @@ import { Shuttle } from '../models/shuttle.model';
   })
 
 export class UserComponent implements OnInit {
-  title = 'Shuttle';
-
-  posx;
-  posy;
+  //title = 'Shuttle';
 
   shuttles: Shuttle[] = [];
 
@@ -24,18 +21,17 @@ export class UserComponent implements OnInit {
   // have the location be displayed on page load
   ngOnInit() {
     this.shuttleTrackingService.startShuttleTracking();
-    this.shuttleTrackingService.calculateXYPixelCoordinates();
   }
 
-  // this function will actually save those coords
-  showPosition(position) {
-    for (let shuttle of this.shuttles) {
-      let shuttleXYCoordinates = this.shuttleTrackingService.calculateXYPixelCoordinates(shuttle);
-      this.shuttleTrackingService.showShuttle(shuttleXYCoordinates);
-    }
-  }
+  // // this function will actually save those coords
+  // showPosition(position) {
+  //   for (let shuttle of this.shuttles) {
+  //     let shuttleXYCoordinates = this.shuttleTrackingService.calculateXYPixelCoordinates(shuttle);
+  //     this.shuttleTrackingService.showShuttle(shuttleXYCoordinates);
+  //   }
+  // }
 
-  // this method animates the dots for us to see 
+  // // this method animates the dots for us to see 
 
 }
 
