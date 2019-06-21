@@ -68,55 +68,29 @@ export class DriverComponent implements OnInit {
     }
   }
 
-  toggle1() {
-    this.count++;
-    console.log(this.count);
-    if (this.count % 2 === 0) {
-      document.getElementById('demo').innerHTML = 'OFF';
-    } else { document.getElementById('demo').innerHTML = 'ON'; }
+  changeBreak() {
+    // add code to change between On Break and Off Break
+    return null;
   }
 
 
-  // newtog() {
-  //   this.count1++;
-  //   if (this.count % 2 === 0) {
-  //     alert('You are now inactive.');
-  //     document.getElementById('demo2').innerHTML = 'Inactive';
-  
-  //   } else {
-  //     alert('You are now active.');
-  //     document.getElementById('demo2').innerHTML = 'Active';
-  //   }
-  // }
+  makeNewRow() {
+    // allow drivers to submit number of passengers in shuttle and left at curb again
+   return null;
+  }
 
+  recordFuel() {
+    const fuelAm = prompt('How much fuel did you put in the vehicle?');
+    const fuelCos = prompt('What was the cost of the fuel?');
+  }
 
-  // newcell() {
-  //   const r = confirm('Are you sure?');
-  //   if (r === true) {
-  //   } else { /*send nothing*/ }// find row to copy
-  //   /* send something to database*/
-  // }
-
-  // promptMe() {
-  //   if (this.count % 2 === 0) {
-  //     const endMi = prompt('What is the vehicle ending mileage?');
-  //     const endCond = prompt('What is the vehicle ending condition?');
-  //     // const fuelAm = prompt('How much fuel went in today?');
-  //     // const fuelCos = prompt('What was the cost of the fuel?');
-  //   } else {
-  //     const vehicleResp = prompt('Please enter the vehicle you will be using today.');
-  //     const beginMi = prompt('What is the vehicle starting mileage?');
-  //     const beginCond = prompt('What is the vehicle starting condition?');
-  //   }
-  // }
-
-  // fuel() {
-  //   const fuelAm = prompt('How much fuel did you put in the vehicle?');
-  //   const fuelCos = prompt('What was the cost of the fuel?');
-  // }
+  recordComments() {
+    // keep track of comments entered
+    return null;
+  }
 
   getShowShift(showShift: boolean) {
-    console.log(showShift);
+    // console.log(showShift);
     this.showDriverShift = showShift;
   }
 

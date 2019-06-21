@@ -8,24 +8,11 @@
     <label>PLEASE ACTIVATE YOUR VEHICLE BEFORE YOU BEGIN DRIVING</label>
     <br>
     <br>
-    <button id = "activeButton" pButton  (click)="changeActive()" [label]="(gpsService.isActive | async) ? 'Deactivate Shuttle' : 'Activate Shuttle'"></button> <!--newtog(this); inactivate(this); promptMe(this);-->
-
-    <!--ADD - BUTTON DOES NOT SWITCH TO SAY "TURN OFF"
-      <input type="button" class="button" value="TURN ON" onclick="newtog(this); inactivate(this); promptMe(this);" (click)='have()' >-->
-    <div id="demo2"></div>
+    <button id = "activeButton" pButton  (click)="changeActive()" [label]="(gpsService.isActive | async) ? 'Deactivate Shuttle' : 'Activate Shuttle'"></button> 
     <div id="demo3"></div>
-<!--onclick="newtog(this); inactivate(this); promptMe(this)-->
-<br>
+  <br>
 
-<button pButton (click)="toggle1();" label = "On Break/Off Break"></button>
- <!-- ADD THAT BUTTON SWITCHES BETWEEN SAYING ON AND OFF
-    <P><b>BREAK</b></P>
-  <label class="switch" >
-    <input type="checkbox" id="1" value="OFF" (click)="toggle1();" >
-    <span class="slider"></span>
-  </label>
-  <div id="demo"></div>
- -->
+<button pButton (click)="changeBreak();" label = "On Break/Off Break"></button>
 
   <h3 class="first">Input the Number of Passengers</h3>
   <div class = "passenger-container">
@@ -40,53 +27,28 @@
     </div>
     <div>
         <label class = "passenger-label"></label>
-        <button pButton  (click)="newcell()" label="Edit"></button>
+        <button pButton  (click)="makeNewRow()" label="Edit"></button>
     </div>
     <div>
         <label class = "passenger-label"></label>
-        <button pButton (click)="newcell();" label = "Submit"></button>
+        <button pButton (click)="makeNewRow();" label = "Submit"></button>
     </div>
   </div>
 
 
 <br>
-<!--Should be able to submit comment-->
 <label class = "passenger-label">Comments</label>
 <input type="text" pInputText [(ngModel)]="inputComment" />
-
- <!-- <form>
-      <textarea class="box" id="words" rows="10" cols="20">Enter Comments</textarea>
-      <br>
-      <input type="button" (click)="getwords(); reference.value=''" id="clear" value="Enter" /> 
-      <br>
-      <p id="id1"></p>
-  </form>-->
   <br>
   <br>
-  <button pButton  (click)="getwords()" label="Enter"></button>
+  <button pButton  (click)="recordComments()" label="Enter"></button>
   <br>
   <br>
   
-  <button pButton (click)="fuel()" label="Fuel Info"> </button>
+  <button pButton (click)="recordFuel()" label="Fuel Info"> </button>
     
   
   </div>
-<!--<p-table [value]="info">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Passengers</th>
-            <th>Curb</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-info>
-        <tr>
-            <td><p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"></p-dropdown></td>
-            <td>Cell</td>
-            <p-dropdown appendTo="body" [options]="driverInputs" [(ngModel)]="selectedInput"></p-dropdown>
-        </tr>
-    </ng-template>
-</p-table>-->
-
 </div>
 
 
