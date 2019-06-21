@@ -77,43 +77,43 @@ export class DriverComponent implements OnInit {
   }
 
 
-  newtog() {
-    this.count++;
-    if (this.count % 2 === 0) {
-      alert('You are now inactive.');
-      document.getElementById('demo2').innerHTML = 'Inactive';
+  // newtog() {
+  //   this.count1++;
+  //   if (this.count % 2 === 0) {
+  //     alert('You are now inactive.');
+  //     document.getElementById('demo2').innerHTML = 'Inactive';
   
-    } else {
-      alert('You are now active.');
-      document.getElementById('demo2').innerHTML = 'Active';
-    }
-  }
+  //   } else {
+  //     alert('You are now active.');
+  //     document.getElementById('demo2').innerHTML = 'Active';
+  //   }
+  // }
 
 
-  newcell() {
-    const r = confirm('Are you sure?');
-    if (r === true) {
-    } else { /*send nothing*/ }// find row to copy
-    /* send something to database*/
-  }
+  // newcell() {
+  //   const r = confirm('Are you sure?');
+  //   if (r === true) {
+  //   } else { /*send nothing*/ }// find row to copy
+  //   /* send something to database*/
+  // }
 
-  promptMe() {
-    if (this.count % 2 === 0) {
-      const endMi = prompt('What is the vehicle ending mileage?');
-      const endCond = prompt('What is the vehicle ending condition?');
-      // const fuelAm = prompt('How much fuel went in today?');
-      // const fuelCos = prompt('What was the cost of the fuel?');
-    } else {
-      const vehicleResp = prompt('Please enter the vehicle you will be using today.');
-      const beginMi = prompt('What is the vehicle starting mileage?');
-      const beginCond = prompt('What is the vehicle starting condition?');
-    }
-  }
+  // promptMe() {
+  //   if (this.count % 2 === 0) {
+  //     const endMi = prompt('What is the vehicle ending mileage?');
+  //     const endCond = prompt('What is the vehicle ending condition?');
+  //     // const fuelAm = prompt('How much fuel went in today?');
+  //     // const fuelCos = prompt('What was the cost of the fuel?');
+  //   } else {
+  //     const vehicleResp = prompt('Please enter the vehicle you will be using today.');
+  //     const beginMi = prompt('What is the vehicle starting mileage?');
+  //     const beginCond = prompt('What is the vehicle starting condition?');
+  //   }
+  // }
 
-  fuel() {
-    const fuelAm = prompt('How much fuel did you put in the vehicle?');
-    const fuelCos = prompt('What was the cost of the fuel?');
-  }
+  // fuel() {
+  //   const fuelAm = prompt('How much fuel did you put in the vehicle?');
+  //   const fuelCos = prompt('What was the cost of the fuel?');
+  // }
 
   getShowShift(showShift: boolean) {
     console.log(showShift);
