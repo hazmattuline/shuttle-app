@@ -18,6 +18,7 @@ export class DriverComponent implements OnInit {
   };
 
   count = 0;
+  count1 = 0;
   watchID;
  
 
@@ -38,14 +39,13 @@ export class DriverComponent implements OnInit {
 
   toggle1() {
     this.count++;
-    console.log(this.count);
     if (this.count % 2 === 0) { document.getElementById('demo').innerHTML = 'OFF';
   } else { document.getElementById('demo').innerHTML = 'ON'; }
   }
 
 
   newtog() {
-    this.count++;
+    this.count1++;
     if (this.count % 2 === 0) {
       alert('YOU ARE NOW INACTIVE');
       document.getElementById('demo2').innerHTML = 'Inactive';
@@ -77,7 +77,6 @@ export class DriverComponent implements OnInit {
   inactivate() {
     if (this.count % 2 === 0) {
       navigator.geolocation.clearWatch(this.watchID);
-      console.log('disabled tracking');
     } else { this.getLocation(); }
   }
 
