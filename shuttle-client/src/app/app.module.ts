@@ -18,20 +18,20 @@ import { StartshiftComponent } from './startshift/startshift.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './core/api-prefix.interceptor';
 
-const appRoutes: Routes =
-[
-  { path: 'driver', component: DriverComponent },
-  { path: 'driver', component: StartshiftComponent },
-  { path: 'user', component: UserComponent },
-  { path: 'login', component: LoginComponent},
-  { path: 'user/request', component: RequestComponent },
-  { path: '',
-  redirectTo: '/user',
-  pathMatch: 'full'
-},
+// const appRoutes: Routes =
+// [
+//   { path: 'driver', component: DriverComponent },
+//   { path: 'driver', component: StartshiftComponent },
+//   { path: 'user', component: UserComponent },
+//   { path: 'login', component: LoginComponent},
+//   { path: 'user/request', component: RequestComponent },
+//   { path: '',
+//   redirectTo: '/user',
+//   pathMatch: 'full'
+// },
  
   //{ path: '**', component: PageNotFoundComponent }
-];
+// ];
 
 @NgModule({
   declarations: [
@@ -43,7 +43,7 @@ const appRoutes: Routes =
     StartshiftComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes, {enableTracing:true}),
+    //RouterModule.forRoot(appRoutes, {enableTracing:true}),
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
