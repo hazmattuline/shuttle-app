@@ -18,9 +18,9 @@ export class DriverComponent implements OnInit {
   };
 
   count = 0;
+  count1 = 0;
   watchID;
-  x;
-  y;
+ 
 
   constructor(private supportService: ScriptService) { }
 
@@ -39,14 +39,13 @@ export class DriverComponent implements OnInit {
 
   toggle1() {
     this.count++;
-    console.log(this.count);
     if (this.count % 2 === 0) { document.getElementById('demo').innerHTML = 'OFF';
   } else { document.getElementById('demo').innerHTML = 'ON'; }
   }
 
 
   newtog() {
-    this.count++;
+    this.count1++;
     if (this.count % 2 === 0) {
       alert('YOU ARE NOW INACTIVE');
       document.getElementById('demo2').innerHTML = 'Inactive';
@@ -78,7 +77,6 @@ export class DriverComponent implements OnInit {
   inactivate() {
     if (this.count % 2 === 0) {
       navigator.geolocation.clearWatch(this.watchID);
-      console.log('disabled tracking');
     } else { this.getLocation(); }
   }
 
@@ -92,10 +90,10 @@ export class DriverComponent implements OnInit {
   showPosition(position) {
     document.getElementById('demo3').innerHTML = 'Latitude: ' + position.coords.latitude +
       '<br>Longitude: ' + position.coords.longitude;
-    this.x = position.coords.latitude;
-    this.y = position.coords.longitude;
-    console.log(this.x);
-    console.log(this.y);
+     let x = position.coords.latitude;
+     let y = position.coords.longitude;
+    console.log(x);
+    console.log(y);
   }
 
   fuel() {

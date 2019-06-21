@@ -4,15 +4,13 @@ import com.uline.shuttle.app.client.ShuttleAppClient;
 import com.uline.shuttle.app.services.ShuttleAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import rest.models.requests.CoordRequest;
+import rest.models.requests.CoordinateRequest;
 import rest.models.requests.ShiftRequest;
-import rest.models.response.CoordResponse;
+import rest.models.response.CoordinateResponse;
 import rest.models.response.ShiftResponse;
 
 @Service
 public class ShuttleAppServiceImpl implements ShuttleAppService {
-
-  // this class will handle any manipulations we need done with the data
 
   private ShuttleAppClient shuttleAppClient;
 
@@ -22,8 +20,13 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public CoordResponse enRoute(CoordRequest coordRequest) {
-    return shuttleAppClient.enRoute(coordRequest);
+  public CoordinateResponse enRoute(CoordinateRequest coordinateRequest) {
+    return shuttleAppClient.enRoute(coordinateRequest);
+  }
+
+  @Override
+  public CoordinateResponse getCoordinates(Integer vehicleID) {
+    return shuttleAppClient.getCoordinates(vehicleID);
   }
 
   @Override
