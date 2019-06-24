@@ -4,14 +4,12 @@ import { DriverComponent } from './driver/driver.component';
 import { UserComponent } from './user/user.component';
 import { RequestComponent } from './request/request.component';
 import { StartshiftComponent } from './startshift/startshift.component';
-import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes =
 [
   { path: 'driver', component: DriverComponent },
   { path: 'driver', component: StartshiftComponent },
   { path: 'user', component: UserComponent },
-  { path: 'login', component: LoginComponent},
   { path: 'user/request', component: RequestComponent },
   { path: '',
   redirectTo: '/user',

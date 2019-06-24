@@ -9,7 +9,6 @@ import { DriverComponent } from './driver/driver.component';
 import { AppComponent } from './app.component';
 import { RequestComponent } from './request/request.component';
 import { ScriptService } from './script.service';
-import { LoginComponent } from './login/login.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -24,7 +23,6 @@ import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
     DriverComponent,
     UserComponent,
     RequestComponent,
-    LoginComponent,
     StartshiftComponent
   ],
   imports: [

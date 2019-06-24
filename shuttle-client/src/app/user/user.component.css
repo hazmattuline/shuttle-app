@@ -1,44 +1,8 @@
-.button-spacing {
-  display: flex;
-  text-align: center;
-  justify-content: space-between;
-  align-items: center;
-  /*width: 400px;*/
-}
 
-.button-container {
-  text-align:center; 
-  margin: 0 auto; 
-  width: 656px;
-}
-
-h2 {
-  color: #760;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 150%;
-}
 h1
 {
     color: rgb(104, 146, 184);
     font-size: 350%;
-}
-
-.b
-{
-    background-color: blue;
-    margin: 0 auto;
-    position: absolute;
-    width:50%;
-    height: 68%;
-}
-
-
-.myAnimation
-{
-    width: 10px;
-    height: 20px;
-    position: absolute;
-    background: red;
 }
 
 .background {
@@ -54,25 +18,4 @@ h1
   width: 25px;
   position: absolute;
   /*controls dot size*/
-}
-
-.button 
-{
-background-color:rgb(44, 18, 188);
-border: none;
-color: white;
-padding: 15px 32px;
-text-align: center;
-text-decoration: none;
-display: inline-block;
-font-size: 16px;
-margin: 4px 2px;
-cursor: pointer;
-}
-
-
-.button:hover 
-{
-background-color: rgb(124, 133, 204);
-color: white;
 }
