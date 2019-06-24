@@ -7,10 +7,11 @@ import { Shuttle } from '../models/shuttle.model';
   providedIn: 'root'
 })
 export class ShuttleApiService {
+  vehicleId: number;
 
   constructor(private http: HttpClient) { }
 
   getShuttles(): Observable<Shuttle[]> {
-    return this.http.get<Shuttle[]>('/URL');
+    return this.http.get<Shuttle[]>('/receiveCoords/${vehicleId}');
   }
 }
