@@ -8,3 +8,4 @@ target/
 /.settings/
 /.factorypath
 /publish.properties
+/.apt_generated_tests/

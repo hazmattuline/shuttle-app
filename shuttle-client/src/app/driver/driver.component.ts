@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ScriptService } from '../script.service';
+import { SelectItem } from 'primeng/api';
+import { NgModule } from '@angular/core';
+import { CoordinatesRequest } from '../models/coordinates-request.model';
+import { GPSService } from '../services/gps.service';
 
 
 
@@ -7,101 +11,94 @@ import { ScriptService } from '../script.service';
   ({
     selector: 'app-driver',
     templateUrl: './driver.component.html',
-    styleUrls: ['./driver.component.css']
-  })
+    styleUrls: ['./driver.component.css'],
+    providers: [GPSService]
+    })
 export class DriverComponent implements OnInit {
-
-  options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-  };
-
   count = 0;
-  count1 = 0;
-  watchID;
- 
+  inputComment;
+  timeToStart: boolean;
+  isActive = false;
+  showDriverShift = true;
 
-  constructor(private supportService: ScriptService) { }
+  info: DriverInfo[];
+  passengerInputs: SelectItem[];
+  curbInputs: SelectItem[];
+  passengerInput: DriverInput;
+  curbInput: DriverInput;
 
+  constructor(private supportService: ScriptService, private gpsService: GPSService) {
+    this.passengerInputs = [
+      { label: 'Select', value: null },
+      { label: '0', value: { id: 1 } },
+      { label: '1', value: { id: 2 } },
+      { label: '2', value: { id: 3 } },
+      { label: '3', value: { id: 4 } },
+      { label: '4', value: { id: 5 } },
+      { label: '5', value: { id: 6 } },
+      { label: '6', value: { id: 7 } },
+      { label: '7', value: { id: 8 } },
+      { label: '8', value: { id: 9 } },
+      { label: '9', value: { id: 10 } },
+      { label: '10', value: { id: 11 } },
+      { label: '11', value: { id: 12 } },
+      { label: '12', value: { id: 13 } },
+      { label: '13', value: { id: 14 } },
+      { label: '14', value: { id: 15 } },
+    ];
 
-  ngOnInit() { }
-
-
-
-  errorHandler(err) {
-
-    if (err.code === 1) {
-
-      // access is denied
-    }
+    this.curbInputs = [
+      { label: 'Select', value: null },
+      { label: '0', value: { id: 1 } },
+      { label: '1', value: { id: 2 } },
+      { label: '2', value: { id: 3 } },
+      { label: '3', value: { id: 4 } },
+      { label: '4', value: { id: 5 } },
+    ];
   }
 
-  toggle1() {
-    this.count++;
-    if (this.count % 2 === 0) { document.getElementById('demo').innerHTML = 'OFF';
-  } else { document.getElementById('demo').innerHTML = 'ON'; }
+  ngOnInit() {
   }
 
-
-  newtog() {
-    this.count1++;
-    if (this.count % 2 === 0) {
-      alert('YOU ARE NOW INACTIVE');
-      document.getElementById('demo2').innerHTML = 'Inactive';
+  changeActive() {
+    if (this.gpsService.getIsGPSActive()) {
+      this.gpsService.stopGPSTracking();
     } else {
-      alert('YOU ARE NOW ACTIVE');
-      document.getElementById('demo2').innerHTML = 'Active';
+      this.gpsService.startGPSTracking();
     }
   }
 
-
-  newcell() {
-    const r = confirm('ARE YOU SURE!');
-    if (r === true) {
-    }  else { /*send nothing*/ }// find row to copy
-    /* send something to database*/
-  }
-
-  promptMe() {
-    if (this.count % 2 === 0) {
-      const endMi = prompt('What is the ending Mileage pleaase?');
-      const fuelAm = prompt('Home much Fuel went in today?');
-      const fuelCos = prompt('What was the cost of the fuel?');
-    } else {
-      const vehicleResp = prompt('Please Enter The Vehicle you will be using today');
-      const beginMi = prompt('What is the starting mileage please?');
-    }
-  }
-
-  inactivate() {
-    if (this.count % 2 === 0) {
-      navigator.geolocation.clearWatch(this.watchID);
-    } else { this.getLocation(); }
+  changeBreak() {
+    // add code to change between On Break and Off Break
+    return null;
   }
 
 
-  getLocation() {
-    if (navigator.geolocation) {
-      this.watchID = navigator.geolocation.watchPosition(this.showPosition, this.errorHandler, this.options);
-    } else { document.getElementById('demo').innerHTML = 'Geolocation is not supported by this browser.'; }
+  makeNewRow() {
+    // allow drivers to submit number of passengers in shuttle and left at curb again
+   return null;
   }
 
-  showPosition(position) {
-    document.getElementById('demo3').innerHTML = 'Latitude: ' + position.coords.latitude +
-      '<br>Longitude: ' + position.coords.longitude;
-     let x = position.coords.latitude;
-     let y = position.coords.longitude;
-    console.log(x);
-    console.log(y);
-  }
-
-  fuel() {
-    const fuelAm = prompt('Home much Fuel went in?');
+  recordFuel() {
+    const fuelAm = prompt('How much fuel did you put in the vehicle?');
     const fuelCos = prompt('What was the cost of the fuel?');
   }
 
-  getwords() {
-    // send this response somewhere
+  recordComments() {
+    // keep track of comments entered
+    return null;
   }
+
+  getShowShift(showShift: boolean) {
+    // console.log(showShift);
+    this.showDriverShift = showShift;
+  }
+
+}
+export interface DriverInfo {
+  numPassengers;
+}
+
+interface DriverInput {
+  numPassengers: number;
 }

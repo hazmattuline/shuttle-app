@@ -1,3 +1,23 @@
+.passengerCount {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  /*width: 50px;*/
+}
+
+.passenger-container {
+  text-align:center; 
+  margin: 0 auto; 
+  width: 656px;
+}
+
+.passenger-label {
+  display: block; 
+  text-align: left;
+  width: 100px;
+}
+
 .switch {
     position: relative;
     display: inline-block;
@@ -123,7 +143,7 @@ table
 }
 
 input:checked + .slider {
-  background-color: rgb(33, 243, 121);
+  background-color: rgb(62, 0, 206);
 }
 
 input:focus + .slider {
@@ -185,6 +205,6 @@ background-color: #dddddd;
 
 .box
 {
-  margin-top: 40px;
+margin-top: 40px;
 }
 

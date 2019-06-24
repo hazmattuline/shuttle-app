@@ -1,74 +1,56 @@
 
 <body>
-  <div style="text-align:center">
-    <p>PLEASE MAKE SURE YOU ARE ACTIVATED AND ENABLED VISIBILITY BEFORE LOGGING INFORMATION</p>
-    <input type="button" class="button" (click)="newtog(); inactivate(); promptMe()" value="ON/OFF">
-    <div id="demo2"></div>
+  <div *ngIf="showDriverShift">
+    <app-startshift (showShift)=getShowShift($event) [startShift] = "timeToStart"></app-startshift>
+  </div>
+  <div *ngIf="!showDriverShift"style="text-align:center">
+    <h3>Driver Side</h3>
+    <label>PLEASE ACTIVATE YOUR VEHICLE BEFORE YOU BEGIN DRIVING</label>
+    <br>
+    <br>
+    <button id = "activeButton" pButton  (click)="changeActive()" [label]="(gpsService.isActive | async) ? 'Deactivate Shuttle' : 'Activate Shuttle'"></button> 
     <div id="demo3"></div>
-<!--onclick="newtog(this); inactivate(this); promptMe(this)-->
+  <br>
 
- <P><b>BREAK</b></P>
-  <label class="switch" >
-    <input type="checkbox" id="1" value="OFF" (click)="toggle1();" >
-    <span class="slider"></span>
-  </label>
-  <div id="demo"></div>
+<button pButton (click)="changeBreak();" label = "On Break/Off Break"></button>
+
+  <h3 class="first">Input the Number of Passengers</h3>
+  <div class = "passenger-container">
+  <div class="passengerCount">
+    <div>
+      <label class = "passenger-label">Passengers</label>
+      <p-dropdown appendTo="body" [options]="passengerInputs" [(ngModel)]="passengerInput"></p-dropdown>
+    </div>
+    <div>
+        <label class = "passenger-label">Curb</label>
+        <p-dropdown appendTo="body" [options]="curbInputs" [(ngModel)]="curbInput"></p-dropdown>
+    </div>
+    <div>
+        <label class = "passenger-label"></label>
+        <button pButton  (click)="makeNewRow()" label="Edit"></button>
+    </div>
+    <div>
+        <label class = "passenger-label"></label>
+        <button pButton (click)="makeNewRow();" label = "Submit"></button>
+    </div>
+  </div>
 
 
-
-
-  <form>
-      <textarea class="box" id="words" rows="10" cols="20" placeholder="Enter Comments" #reference></textarea>
-      <br>
-      <input type="button" (click)="getwords(); reference.value=''" id="clear" value="Enter" /> 
-      <br>
-      <p id="id1"></p>
-  </form>
-
-  <input type="button" (click)="fuel()" value="Fuel Info" /> 
-
-  <p>Input the Number of Passengers</p>
-      
-  <div style="text-align:center">
-    <table id="myTable">
-    <tbody id="tableToModify">
-    <tr>
-   
-    </tr>
-    <tr id="rowToClone">
-      <td style="text-align:center">
-        <select id="mySelect">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-        <option value="14">14</option>
-      </select></td>
-      
-      <td style="text-align:center"> <button onclick="">Edit</button> </td>
-      <td style="text-align:center"><button (click)="newcell()">Submit</button></td>
-    </tr>
-  </tbody>
-  </table>
-</div>
+<br>
+<label class = "passenger-label">Comments</label>
+<input type="text" pInputText [(ngModel)]="inputComment" />
+  <br>
+  <br>
+  <button pButton  (click)="recordComments()" label="Enter"></button>
+  <br>
+  <br>
   
+  <button pButton (click)="recordFuel()" label="Fuel Info"> </button>
+    
   
-
-
-
-
-
-
+  </div>
 </div>
+
+
 </body>
 
