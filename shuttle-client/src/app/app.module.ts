@@ -16,22 +16,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { StartshiftComponent } from './startshift/startshift.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ApiPrefixInterceptor } from './core/api-prefix.interceptor';
-
-// const appRoutes: Routes =
-// [
-//   { path: 'driver', component: DriverComponent },
-//   { path: 'driver', component: StartshiftComponent },
-//   { path: 'user', component: UserComponent },
-//   { path: 'login', component: LoginComponent},
-//   { path: 'user/request', component: RequestComponent },
-//   { path: '',
-//   redirectTo: '/user',
-//   pathMatch: 'full'
-// },
- 
-  //{ path: '**', component: PageNotFoundComponent }
-// ];
+import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
 
 @NgModule({
   declarations: [
@@ -43,7 +28,6 @@ import { ApiPrefixInterceptor } from './core/api-prefix.interceptor';
     StartshiftComponent
   ],
   imports: [
-    //RouterModule.forRoot(appRoutes, {enableTracing:true}),
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,

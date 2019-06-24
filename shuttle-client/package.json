@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start-dev": "ng serve --configuration=dev"
+    "start-dev": "ng serve --configuration=dev",
+    "start-local": "ng serve --configuration=local"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +25,7 @@
     "common-component-lib": "http://artifactory.ulinedm.com/artifactory/npm-local/common-component-lib/-/common-component-lib-1.2.0.tgz",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
+    "lodash": "^4.17.11",
     "mathjs": "^5.10.3",
     "primeicons": "^1.0.0",
     "primeng": "^7.0.5",

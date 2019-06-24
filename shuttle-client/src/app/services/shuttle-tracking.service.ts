@@ -6,8 +6,8 @@ import { ShuttleApiService } from './shuttle-api.service';
 @Injectable()
 export class ShuttleTrackingService implements OnDestroy {
 
-  private _shuttles: Subject<Shuttle[]> = new Subject();
-  public shuttles: Observable<Shuttle[]> = this._shuttles.asObservable();
+  private _shuttles: Subject<Shuttle> = new Subject();
+  public shuttles: Observable<Shuttle> = this._shuttles.asObservable();
 
   private shuttleLocationTimer = null;
 
@@ -15,13 +15,11 @@ export class ShuttleTrackingService implements OnDestroy {
 
   private startTimer() {
     this.shuttleLocationTimer = setInterval(() => {
-      this.shuttleApi.getShuttles().subscribe(shuttles => {
-        shuttles.forEach(shuttle => {
-          shuttle = this.calculateXYPixelCoordinates(shuttle);
-        });
-        this._shuttles.next(shuttles);
+      this.shuttleApi.getShuttles().subscribe(shuttle => {
+        shuttle = this.calculateXYPixelCoordinates(shuttle);
+        this._shuttles.next(shuttle);
       });
-    }, 1000);
+    }, 2000);
   }
 
   public startShuttleTracking() {

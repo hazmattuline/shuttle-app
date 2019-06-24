@@ -28,12 +28,10 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   private listenForShuttleMarkers() {
-    this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttles => {
+    this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttle => {
       if (this.markerContainer) {
         this.currentShuttleMarkers = this.removeAllMarkers(this.currentShuttleMarkers);
-        shuttles.forEach(shuttle => {
-            this.addShuttleMarker(shuttle);
-        });
+        this.addShuttleMarker(shuttle);
       }
     });
   }

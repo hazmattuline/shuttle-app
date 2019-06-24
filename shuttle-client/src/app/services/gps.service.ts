@@ -1,10 +1,13 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { ShuttleApiService } from './shuttle-api.service';
+import { CoordinatesRequest } from '../models/coordinates-request.model';
+import * as isEqual from 'lodash/isEqual';
 
 @Injectable()
 export class GPSService implements OnDestroy {
 
-  private latestCoordinates = null;
+  private latestCoordinates: Coordinates = null;
 
   private _isActive: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isActive: Observable<boolean> = this._isActive.asObservable();
@@ -19,7 +22,7 @@ export class GPSService implements OnDestroy {
 
   private gpsLocationTimer: any = null;
 
-  constructor() { }
+  constructor(private shuttleService: ShuttleApiService) { }
 
   stopGPSTracking() {
     navigator.geolocation.clearWatch(this.watchId);
@@ -33,19 +36,29 @@ export class GPSService implements OnDestroy {
     if (navigator.geolocation) {
       this.watchId = navigator.geolocation.watchPosition((pos) => this.updateGPSPostion(pos), this.errorHandler, this.options);
       this._isActive.next(true);
-    } else { 
-      document.getElementById('demo').innerHTML = 'Geolocation is not supported by this browser.'; 
+      this.startGPSUpdateTimer();
     }
   }
 
-  updateGPSPostion(position: Position) {
+  private updateGPSPostion(position: Position) {
     this.latestCoordinates = position.coords;
   }
 
   private startGPSUpdateTimer() {
     this.gpsLocationTimer = setInterval(() => {
-      // SEND DATA TO SERVICE
-    }, 1000);
+      this.sendShuttleCoordinates();
+    }, 2000);
+  }
+
+  private sendShuttleCoordinates() {
+    if (this.latestCoordinates) {
+      const coordinateRequest: CoordinatesRequest = {
+        vehicleID: 1, // TODO - Hard coded for now - Get this from service
+        latitudeCoordinates: this.latestCoordinates.latitude,
+        longitudeCoordinates: this.latestCoordinates.longitude
+      }
+      this.shuttleService.sendShuttleCoordinates(coordinateRequest).subscribe();
+    }
   }
 
   getIsGPSActive(): boolean {

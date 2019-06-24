@@ -1,6 +1,6 @@
 export interface CoordinatesRequest {
-    latitudeCoords: number;
-    longitudeCoords: number;
-    vehicleName: string;
+    latitudeCoordinates: number;
+    longitudeCoordinates: number;
+    vehicleID: number;
 
 }

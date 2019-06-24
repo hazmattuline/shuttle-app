@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: '/shuttle-app'
+  apiUrl: '/shuttle-app/api'
 };
 
 /*
