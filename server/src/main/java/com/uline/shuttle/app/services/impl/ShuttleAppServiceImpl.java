@@ -7,9 +7,9 @@ import com.uline.shuttle.app.client.ShuttleAppClient;
 import com.uline.shuttle.app.services.ShuttleAppService;
 
 import rest.models.requests.CoordinateRequest;
-import rest.models.requests.ShiftRequest;
+import rest.models.requests.StartRequest;
 import rest.models.response.CoordinateResponse;
-import rest.models.response.ShiftResponse;
+import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
 
 @Service
@@ -37,8 +37,8 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
 		return shuttleAppClient.getVehicleOptions();
 	}
 
-	@Override
-	public ShiftResponse startShift(ShiftRequest shiftRequest) {
-		return shuttleAppClient.startShift(shiftRequest);
-	}
+  @Override
+  public StartResponse startShift(StartRequest startRequest) {
+    return shuttleAppClient.startShift(startRequest);
+  }
 }

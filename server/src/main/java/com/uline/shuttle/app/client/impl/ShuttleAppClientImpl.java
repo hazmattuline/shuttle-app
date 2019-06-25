@@ -15,10 +15,10 @@ import com.uline.ha.rest.UlineRestTemplate;
 import com.uline.shuttle.app.client.ShuttleAppClient;
 
 import rest.models.requests.CoordinateRequest;
-import rest.models.requests.ShiftRequest;
+import rest.models.requests.StartRequest;
 import rest.models.response.CoordinateResponse;
-import rest.models.response.ShiftResponse;
 import rest.models.response.VehicleOptionsResponse;
+import rest.models.response.StartResponse;
 
 @Service
 public class ShuttleAppClientImpl implements ShuttleAppClient {
@@ -45,6 +45,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 	@Override
 	public CoordinateResponse enRoute(CoordinateRequest coordinateRequest) {
 
+<<<<<<< HEAD
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceUrl);
 
 		return restTemplate
@@ -55,6 +56,16 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 						new ParameterizedTypeReference<CoordinateResponse>() {})
 				.getBody();
 	}
+=======
+  @Value("${shuttle.service.rc.url.get.coordinates}")
+  private String shuttleServiceForGet;
+
+  @Value("${shuttle.service.rc.url.post.startOfShift}")
+  private String ShuttleServiceStartOfShift;
+
+  @Value("${shuttle.service.rc.url.post.coordinates}")
+  private String shuttleServiceUrl;
+>>>>>>> Diontre-Sprint-2
 
 	@Override
 	public CoordinateResponse getCoordinates(Integer vehicleID) {
@@ -65,6 +76,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 		UriComponentsBuilder builder =
 				UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForGet);
 
+<<<<<<< HEAD
 		return restTemplate
 				.exchange(
 						builder.buildAndExpand(params).toUriString(),
@@ -73,6 +85,11 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 						new ParameterizedTypeReference<CoordinateResponse>() {})
 				.getBody();
 	}
+=======
+    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.PATCH, new HttpEntity<>(coordinateRequest),
+        new ParameterizedTypeReference<CoordinateResponse>() {}).getBody();
+  }
+>>>>>>> Diontre-Sprint-2
 
 
 	@Override
@@ -80,6 +97,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 		UriComponentsBuilder builder =
 				UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForVehicleOptions);
 
+<<<<<<< HEAD
 		return restTemplate
 				.exchange(
 						builder.build().toUriString(),
@@ -95,4 +113,20 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
 		return null;
 	}
+=======
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForGet);
+
+    return restTemplate.exchange(builder.buildAndExpand(params).toUriString(), HttpMethod.GET,
+        new HttpEntity<>(null, null), new ParameterizedTypeReference<CoordinateResponse>() {}).getBody();
+  }
+
+  @Override
+  public StartResponse startShift(StartRequest startRequest) {
+
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + ShuttleServiceStartOfShift);
+
+    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(startRequest),
+        new ParameterizedTypeReference<StartResponse>() {}).getBody();
+  }
+>>>>>>> Diontre-Sprint-2
 }
