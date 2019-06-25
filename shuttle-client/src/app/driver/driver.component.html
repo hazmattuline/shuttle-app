@@ -8,8 +8,7 @@
     <label>PLEASE ACTIVATE YOUR VEHICLE BEFORE YOU BEGIN DRIVING</label>
     <br>
     <br>
-    <button id = "activeButton" pButton  (click)="changeActive()" [label]="(gpsService.isActive | async) ? 'Deactivate Shuttle' : 'Activate Shuttle'"></button> 
-    <div id="demo3"></div>
+    <button id = "activeButton" pButton  (click)="changeActive()" [label]="(gpsService.isActive | async) ? 'Deactivate Shuttle' : 'Activate Shuttle'"></button>
   <br>
 
 <button pButton (click)="changeBreak();" label = "On Break/Off Break"></button>
