@@ -1,4 +1,4 @@
-export interface StartRequest {
+export interface StartInfo {
     startDriverId: number;
     startVehicleId: number;
     startConditionId: number;

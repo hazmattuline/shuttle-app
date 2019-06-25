@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import { Enroute, ReceiveCoords, StartInfo } from '../core/constants/endpoints.constant';
-import { StartRequest } from '../models/start-request.model';
+import { Enroute, ReceiveCoords, storeStartInfo } from '../core/constants/endpoints.constant';
+import { StartInfo } from '../models/start-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class ShuttleApiService {
     return this.http.patch<Shuttle>(Enroute, coordinates);
   }
 
-  sendStartingInfo(startRequest: StartRequest): Observable<StartRequest> {
-    return this.http.post<StartRequest>(StartInfo, startRequest);
+  sendStartInfo(startRequest: StartInfo): Observable<StartInfo> {
+    return this.http.post<StartInfo>(storeStartInfo, startRequest);
   }
 }
