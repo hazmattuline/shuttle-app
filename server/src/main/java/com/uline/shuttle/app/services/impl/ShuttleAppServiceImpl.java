@@ -1,13 +1,15 @@
 package com.uline.shuttle.app.services.impl;
 
-import com.uline.shuttle.app.client.ShuttleAppClient;
-import com.uline.shuttle.app.services.ShuttleAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.uline.shuttle.app.client.ShuttleAppClient;
+import com.uline.shuttle.app.services.ShuttleAppService;
+
 import rest.models.requests.CoordinateRequest;
-import rest.models.requests.ShiftRequest;
+import rest.models.requests.StartRequest;
 import rest.models.response.CoordinateResponse;
-import rest.models.response.ShiftResponse;
+import rest.models.response.StartResponse;
 
 @Service
 public class ShuttleAppServiceImpl implements ShuttleAppService {
@@ -30,7 +32,7 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public ShiftResponse startShift(ShiftRequest shiftRequest) {
-    return shuttleAppClient.startShift(shiftRequest);
+  public StartResponse startShift(StartRequest startRequest) {
+    return shuttleAppClient.startShift(startRequest);
   }
 }

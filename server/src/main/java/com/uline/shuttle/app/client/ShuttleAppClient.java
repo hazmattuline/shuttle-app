@@ -1,9 +1,9 @@
 package com.uline.shuttle.app.client;
 
 import rest.models.requests.CoordinateRequest;
-import rest.models.requests.ShiftRequest;
+import rest.models.requests.StartRequest;
 import rest.models.response.CoordinateResponse;
-import rest.models.response.ShiftResponse;
+import rest.models.response.StartResponse;
 
 public interface ShuttleAppClient {
 
@@ -11,5 +11,5 @@ public interface ShuttleAppClient {
 
   CoordinateResponse getCoordinates(Integer vehicleID);
 
-  ShiftResponse startShift(ShiftRequest shiftRequest);
+  StartResponse startShift(StartRequest startRequest);
 }
