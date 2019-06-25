@@ -15,10 +15,12 @@ import com.uline.ha.rest.UlineRestTemplate;
 import com.uline.shuttle.app.client.ShuttleAppClient;
 
 import rest.models.requests.CoordinateRequest;
+import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
 import rest.models.response.CoordinateResponse;
-import rest.models.response.VehicleOptionsResponse;
+import rest.models.response.PassengerResponse;
 import rest.models.response.StartResponse;
+import rest.models.response.VehicleOptionsResponse;
 
 @Service
 public class ShuttleAppClientImpl implements ShuttleAppClient {
@@ -31,14 +33,17 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 	@Value("${shuttle.service.rc.url.for.vehicle.options}")
 	private String shuttleServiceForVehicleOptions;
 
-	 @Value("${shuttle.service.rc.url.get.coordinates}")
-  private String shuttleServiceForGet;
+	@Value("${shuttle.service.rc.url.post.passenger.data}")
+	private String shuttleServiceForPassenger;
 
-  @Value("${shuttle.service.rc.url.post.startOfShift}")
-  private String ShuttleServiceStartOfShift;
+	@Value("${shuttle.service.rc.url.get.coordinates}")
+	private String shuttleServiceForGet;
 
-  @Value("${shuttle.service.rc.url.post.coordinates}")
-  private String shuttleServiceUrl;
+	@Value("${shuttle.service.rc.url.post.startOfShift}")
+	private String ShuttleServiceStartOfShift;
+
+	@Value("${shuttle.service.rc.url.post.coordinates}")
+	private String shuttleServiceUrl;
 
 	@Autowired
 	public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
@@ -87,18 +92,27 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 				.exchange(
 						builder.build().toUriString(),
 						HttpMethod.GET,
-						new HttpEntity<>(null, null),
+						new HttpEntity<>(null),
 						new ParameterizedTypeReference<VehicleOptionsResponse>() {})
 				.getBody();
 
 	}
 
-  @Override
-  public StartResponse startShift(StartRequest startRequest) {
+	@Override
+	public StartResponse startShift(StartRequest startRequest) {
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + ShuttleServiceStartOfShift);
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + ShuttleServiceStartOfShift);
 
-    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(startRequest),
-        new ParameterizedTypeReference<StartResponse>() {}).getBody();
-  }
+		return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(startRequest),
+				new ParameterizedTypeReference<StartResponse>() {}).getBody();
+	}
+
+	@Override
+	public PassengerResponse storePassengers(PassengerRequest passengerRequest) {
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForPassenger);
+
+		return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(passengerRequest),
+				new ParameterizedTypeReference<PassengerResponse>() {}).getBody();
+	}
 }
