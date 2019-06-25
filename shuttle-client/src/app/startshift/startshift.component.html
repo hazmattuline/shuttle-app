@@ -15,6 +15,10 @@
         <input type="text" formControlName="mileage" pInputText />
       </div>
       <div>
+        <label class="info-label">Condition</label>
+        <p-dropdown appendTo="body" formControlName="condition" [options]="conditionOptions"></p-dropdown>
+      </div>
+      <div>
         <label class="info-label"></label>
         <button pButton (click)="submitStartData();" label="Submit"></button>
       </div>
