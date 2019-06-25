@@ -86,13 +86,13 @@ export class ShuttleTrackingService implements OnDestroy {
       return shuttle;
     }
 
-  showShuttles(shuttle: Shuttle) {
-    const elem1 = document.getElementById('animate1');
-    const shuttleLatitude = shuttle.latitudeCoordinates;
-    const shuttleLongitude = shuttle.longitudeCoordinates;
-    elem1.style.top = shuttleLatitude + 'px';
-    elem1.style.left = shuttleLongitude + 'px';
-  }
+  // showShuttles(shuttle: Shuttle) {
+  //   const elem1 = document.getElementById('animate1');
+  //   const shuttleLatitude = shuttle.latitudeCoordinates;
+  //   const shuttleLongitude = shuttle.longitudeCoordinates;
+  //   elem1.style.top = shuttleLatitude + 'px';
+  //   elem1.style.left = shuttleLongitude + 'px';
+  // }
 
   ngOnDestroy() {
     this.stopShuttleTracking();
