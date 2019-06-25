@@ -1,9 +1,8 @@
 package com.uline.shuttle.app.client.impl;
 
-import com.uline.ha.rest.UlineRestTemplate;
-import com.uline.shuttle.app.client.ShuttleAppClient;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -11,65 +10,89 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import com.uline.ha.rest.UlineRestTemplate;
+import com.uline.shuttle.app.client.ShuttleAppClient;
+
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.ShiftRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.ShiftResponse;
+import rest.models.response.VehicleOptionsResponse;
 
 @Service
 public class ShuttleAppClientImpl implements ShuttleAppClient {
 
-  @Value("${shuttle.service.base.url}")
-  private String baseUrl;
+	@Value("${shuttle.service.base.url}")
+	private String baseUrl;
 
-  private UlineRestTemplate restTemplate;
+	private UlineRestTemplate restTemplate;
 
-  @Value("${shuttle.service.rc.url.for.coords}")
-  private String shuttleServiceForGet;
+	@Value("${shuttle.service.rc.url.for.coords}")
+	private String shuttleServiceForGet;
 
-  @Value("${shuttle.service.rc.url}")
-  private String shuttleServiceUrl;
+	@Value("${shuttle.service.rc.url.for.vehicle.options}")
+	private String shuttleServiceForVehicleOptions;
 
-  @Autowired
-  public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
-    this.restTemplate = restTemplate;
-  }
+	@Value("${shuttle.service.rc.url}")
+	private String shuttleServiceUrl;
 
-  @Override
-  public CoordinateResponse enRoute(CoordinateRequest coordinateRequest) {
+	@Autowired
+	public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceUrl);
+	@Override
+	public CoordinateResponse enRoute(CoordinateRequest coordinateRequest) {
 
-    return restTemplate
-        .exchange(
-            builder.build().toUriString(),
-            HttpMethod.PATCH,
-            new HttpEntity<>(coordinateRequest),
-            new ParameterizedTypeReference<CoordinateResponse>() {})
-        .getBody();
-  }
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceUrl);
 
-  @Override
-  public CoordinateResponse getCoordinates(Integer vehicleID) {
+		return restTemplate
+				.exchange(
+						builder.build().toUriString(),
+						HttpMethod.PATCH,
+						new HttpEntity<>(coordinateRequest),
+						new ParameterizedTypeReference<CoordinateResponse>() {})
+				.getBody();
+	}
 
-    Map<String, Integer> params = new HashMap<>();
-    params.put("vehicleID", vehicleID);
+	@Override
+	public CoordinateResponse getCoordinates(Integer vehicleID) {
 
-    UriComponentsBuilder builder =
-        UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForGet);
+		Map<String, Integer> params = new HashMap<>();
+		params.put("vehicleID", vehicleID);
 
-    return restTemplate
-        .exchange(
-            builder.buildAndExpand(params).toUriString(),
-            HttpMethod.GET,
-            new HttpEntity<>(null, null),
-            new ParameterizedTypeReference<CoordinateResponse>() {})
-        .getBody();
-  }
+		UriComponentsBuilder builder =
+				UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForGet);
 
-  @Override
-  public ShiftResponse startShift(ShiftRequest shiftRequest) {
+		return restTemplate
+				.exchange(
+						builder.buildAndExpand(params).toUriString(),
+						HttpMethod.GET,
+						new HttpEntity<>(null, null),
+						new ParameterizedTypeReference<CoordinateResponse>() {})
+				.getBody();
+	}
 
-    return null;
-  }
+
+	@Override
+	public VehicleOptionsResponse getVehicleOptions() {
+		UriComponentsBuilder builder =
+				UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForVehicleOptions);
+
+		return restTemplate
+				.exchange(
+						builder.build().toUriString(),
+						HttpMethod.GET,
+						new HttpEntity<>(null, null),
+						new ParameterizedTypeReference<VehicleOptionsResponse>() {})
+				.getBody();
+
+	}
+
+	@Override
+	public ShiftResponse startShift(ShiftRequest shiftRequest) {
+
+		return null;
+	}
 }

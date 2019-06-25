@@ -1,5 +1,5 @@
 package rest.models.response;
 
-public class VehicleResponse {
+public class VehicleOptionsResponse {
 
 }

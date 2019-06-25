@@ -17,7 +17,7 @@ import rest.models.requests.CoordinateRequest;
 import rest.models.requests.ShiftRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.ShiftResponse;
-import rest.models.response.VehicleResponse;
+import rest.models.response.VehicleOptionsResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -46,9 +46,9 @@ public class ShuttleAppController {
 
 	@ApiOperation(
 			value = "fetching vehicles from database")
-	@GetMapping(value = "/receiveVehicles")
-	public VehicleResponse receiveVehicles() {
-		return shuttleAppService.recieveVehicles();
+	@GetMapping(value = "/receiveVehicleOptions")
+	public VehicleOptionsResponse receiveVehicleOptions() {
+		return shuttleAppService.getVehicleOptions();
 	}
 
 	@PostMapping(value = "/startShift")
