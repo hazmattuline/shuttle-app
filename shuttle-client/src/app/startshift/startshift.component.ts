@@ -3,15 +3,14 @@ import { ScriptService } from '../script.service';
 import {SelectItem} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { StartRequest } from '../models/start-request.model';
-import { RecordStartService } from '../services/record-start.service';
+import { ShuttleService } from '../services/shuttle.service';
 
 
 @Component({
   selector: 'app-startshift',
   templateUrl: './startshift.component.html',
   styleUrls: ['./startshift.component.css'],
-  providers: [RecordStartService]
+  providers: [ShuttleService]
 })
 export class StartshiftComponent implements OnInit {
   @Input()
@@ -33,7 +32,7 @@ export class StartshiftComponent implements OnInit {
   @Output()
   showShift = new EventEmitter<boolean>();
 
-constructor(private supportService: ScriptService, private fb: FormBuilder, private startService: RecordStartService) {
+constructor(private supportService: ScriptService, private fb: FormBuilder, private shuttleService: ShuttleService) {
   this.driverOptions = [
     {label: 'Select', value: null},
     {label: 'Nadia Almanza', value: {id: 1}},
@@ -85,7 +84,7 @@ private setupForm() {
 
 submitStartData(){
   const shiftValue = this.startShiftForm.value;
-  this.startService.createStartRequest(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
+  this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
   this.showShift.emit(false);
 }
 }

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ShuttleApiService } from './shuttle-api.service';
+import { StartInfo } from '../models/start-info.model';
 
 @Injectable()
 export class ShuttleService {
 
   constructor(private shuttleApi: ShuttleApiService) { }
 
-  createStartRequest(driverId: number, vehicleId: number, mileage: number, conditionId: number) {
-    const startRequest: StartInfo = {
+  createStartInfo(driverId: number, vehicleId: number, mileage: number, conditionId: number) {
+    const startInfo: StartInfo = {
       startDriverId: driverId,
       startVehicleId: vehicleId,
       startMileage: mileage,
@@ -17,6 +18,6 @@ export class ShuttleService {
     console.log(vehicleId);
     console.log(mileage);
     console.log(conditionId);
-    this.shuttleApi.sendStartInfo(startRequest);
+    this.shuttleApi.sendStartInfo(startInfo).subscribe();
   }
 }
