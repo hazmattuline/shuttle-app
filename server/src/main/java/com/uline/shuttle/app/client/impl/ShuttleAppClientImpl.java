@@ -15,17 +15,23 @@ import com.uline.ha.rest.UlineRestTemplate;
 import com.uline.shuttle.app.client.ShuttleAppClient;
 
 import rest.models.requests.CoordinateRequest;
+import rest.models.requests.FuelRequest;
 import rest.models.requests.StartRequest;
 import rest.models.response.CoordinateResponse;
+import rest.models.response.FuelResponse;
 import rest.models.response.StartResponse;
 
 @Service
 public class ShuttleAppClientImpl implements ShuttleAppClient {
 
+  FuelResponse fr = new FuelResponse();
   @Value("${shuttle.service.base.url}")
   private String baseUrl;
 
   private UlineRestTemplate restTemplate;
+
+  @Value("${shuttle.service.rc.url.post.fuel}")
+  private String shuttleServiceForFuel;
 
   @Value("${shuttle.service.rc.url.get.coordinates}")
   private String shuttleServiceForGet;
@@ -69,5 +75,13 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
     return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(startRequest),
         new ParameterizedTypeReference<StartResponse>() {}).getBody();
+  }
+
+  @Override
+  public FuelResponse storeFuel(FuelRequest fuelRequest) {
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForFuel);
+
+    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(fuelRequest),
+        new ParameterizedTypeReference<FuelResponse>() {}).getBody();
   }
 }

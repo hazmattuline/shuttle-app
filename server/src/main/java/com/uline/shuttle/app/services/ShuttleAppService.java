@@ -11,9 +11,9 @@ public interface ShuttleAppService {
 
   CoordinateResponse enRoute(CoordinateRequest coordinateRequest);
 
-  FuelResponse fuelResponse(FuelRequest fuelRequest);
-
   CoordinateResponse getCoordinates(Integer vehicleID);
 
   StartResponse startShift(StartRequest startRequest);
+
+  FuelResponse storeFuel(FuelRequest fuelRequest);
 }
