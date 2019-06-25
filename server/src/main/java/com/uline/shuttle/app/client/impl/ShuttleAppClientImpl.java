@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.uline.shuttle.app.client.impl;
 
 import java.util.HashMap;

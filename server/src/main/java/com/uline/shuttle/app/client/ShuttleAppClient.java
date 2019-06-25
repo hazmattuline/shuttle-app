@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.uline.shuttle.app.client;
 
 import rest.models.requests.CoordinateRequest;
