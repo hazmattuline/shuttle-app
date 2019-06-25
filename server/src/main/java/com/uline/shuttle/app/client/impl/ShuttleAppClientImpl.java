@@ -31,6 +31,13 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   @Value("${shuttle.service.rc.url.post.fuel}")
   private String shuttleServiceForFuel;
 
+  @Value("${shuttle.service.rc.url.for.vehicle.options}")
+	private String shuttleServiceForVehicleOptions;
+
+	@Value("${shuttle.service.rc.url.post.passenger.data}")
+	private String shuttleServiceForPassenger;
+
+
   @Value("${shuttle.service.rc.url.get.coordinates}")
   private String shuttleServiceForGet;
 
@@ -105,4 +112,26 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             new ParameterizedTypeReference<FuelResponse>() {})
         .getBody();
   }
+  @Override
+	public VehicleOptionsResponse getVehicleOptions() {
+		UriComponentsBuilder builder =
+				UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForVehicleOptions);
+
+		return restTemplate
+				.exchange(
+						builder.build().toUriString(),
+						HttpMethod.GET,
+						new HttpEntity<>(null),
+						new ParameterizedTypeReference<VehicleOptionsResponse>() {})
+				.getBody();
+
+	}
+		@Override
+	public PassengerResponse storePassengers(PassengerRequest passengerRequest) {
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForPassenger);
+
+		return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(passengerRequest),
+				new ParameterizedTypeReference<PassengerResponse>() {}).getBody();
+	}
 }
