@@ -19,5 +19,4 @@ public class FuelResponse {
   public void setFuelQuantity(Double fuelQuantity) {
     this.fuelQuantity = fuelQuantity;
   }
-
 }

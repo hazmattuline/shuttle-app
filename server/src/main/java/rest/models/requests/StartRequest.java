@@ -3,16 +3,16 @@ package rest.models.requests;
 public class StartRequest {
 
   private Integer startConditionID;
-  private Integer startdriverID;
-  private Double startmileage;
-  private Integer startvehicleID;
+  private Integer startDriverID;
+  private Double startMileage;
+  private Integer startVehicleID;
 
   public long getDriverID() {
-    return startdriverID;
+    return startDriverID;
   }
 
   public Double getMiles() {
-    return startmileage;
+    return startMileage;
   }
 
   public Integer getStartConditionID() {
@@ -20,15 +20,15 @@ public class StartRequest {
   }
 
   public long getVehicleID() {
-    return startvehicleID;
+    return startVehicleID;
   }
 
   public void setDriverID(Integer driverID) {
-    this.startdriverID = driverID;
+    this.startDriverID = driverID;
   }
 
   public void setMiles(Double mileage) {
-    this.startmileage = mileage;
+    this.startMileage = mileage;
   }
 
   public void setStartConditionID(Integer startConditionID) {
@@ -36,7 +36,6 @@ public class StartRequest {
   }
 
   public void setVehicleID(Integer vehicleID) {
-    this.startvehicleID = vehicleID;
+    this.startVehicleID = vehicleID;
   }
-
 }

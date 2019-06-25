@@ -1,5 +1,8 @@
 package com.uline.shuttle.app.controllers;
 
+import com.uline.common.metrics.ExecutionTime;
+import com.uline.shuttle.app.services.ShuttleAppService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -8,11 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.uline.common.metrics.ExecutionTime;
-import com.uline.shuttle.app.services.ShuttleAppService;
-
-import io.swagger.annotations.ApiOperation;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
@@ -27,6 +25,7 @@ import rest.models.response.VehicleOptionsResponse;
 @RequestMapping("/api")
 public class ShuttleAppController {
 
+	<<<<<<< HEAD
 	private ShuttleAppService shuttleAppService;
 
 	@Autowired

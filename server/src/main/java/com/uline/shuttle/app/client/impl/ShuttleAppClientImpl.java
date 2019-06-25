@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.uline.shuttle.app.client.impl;
 
 import java.util.HashMap;
@@ -15,9 +16,11 @@ import com.uline.ha.rest.UlineRestTemplate;
 import com.uline.shuttle.app.client.ShuttleAppClient;
 
 import rest.models.requests.CoordinateRequest;
+import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
 import rest.models.response.CoordinateResponse;
+import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
@@ -44,6 +47,9 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
 	@Value("${shuttle.service.rc.url.post.coordinates}")
 	private String shuttleServiceUrl;
+
+	@Value("${shuttle.service.rc.url.post.fuel}")
+	private String shuttleServiceForFuel;
 
 	@Autowired
 	public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
@@ -105,6 +111,14 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
 		return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(startRequest),
 				new ParameterizedTypeReference<StartResponse>() {}).getBody();
+	}
+
+	@Override
+	public FuelResponse storeFuel(FuelRequest fuelRequest) {
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForFuel);
+
+		return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(fuelRequest),
+				new ParameterizedTypeReference<FuelResponse>() {}).getBody();
 	}
 
 	@Override
