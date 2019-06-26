@@ -14,10 +14,6 @@ export class ShuttleService {
       startMileage: mileage,
       startConditionId: conditionId
     }
-    console.log(driverId);
-    console.log(vehicleId);
-    console.log(mileage);
-    console.log(conditionId);
     this.shuttleApi.sendStartInfo(startInfo).subscribe();
   }
 }
