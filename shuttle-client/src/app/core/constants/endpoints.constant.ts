@@ -1,4 +1,4 @@
 export const Enroute = '/enRoute';
 export const ReceiveCoords = '/receiveCoords';
 export const storeStartInfo = '/storeStartInformation';
-export const storeEndInfo = '/storeEndInfo';
+export const storeEndInfo = '/storeEndInformation';
