@@ -1,7 +1,8 @@
 
 <body>
+  <div class = "bringUp">
     <app-startshift (showShift)=getShowShift($event) [startShift] = "timeToStart"></app-startshift>
-  
+  </div>
   <div style="text-align:center">
     <h3>Driver Side</h3>
     <label>PLEASE ACTIVATE YOUR VEHICLE BEFORE YOU BEGIN DRIVING</label>
@@ -45,8 +46,9 @@
   <br>
   
   <button pButton (click)="recordFuel()" label="Fuel Info"> </button>
-  
+  <div class = "bringDown">
   <app-endshift (showShift)=getShowShift($event) [startShift] = "timeToStart"></app-endshift>
+</div>
   </div>
 </div>
 

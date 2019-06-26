@@ -15,10 +15,10 @@ export class ShuttleService {
       startMileage: mileage,
       startConditionId: conditionId
     };
-
-    createEndInfo(enddriverId: number, endvehicleId: number, endmileage: number, endconditionId: number); {
+    
+    createEndInfo(driverId: number, vehicleId: number, mileage: number, conditionId: number); {
     const endInfo: EndInfo = {
-      endDriverId: enddriverId,
+      endDriverId: driverId,
       endVehicleId: vehicleId,
       endMileage: mileage,
       endConditionId: conditionId

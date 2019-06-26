@@ -16,17 +16,14 @@ import { ShuttleService } from '../services/shuttle.service';
 
 export class EndshiftComponent implements OnInit {
   @Input()
-  startShift: DriverComponent;
+  endShift: DriverComponent;
 
   driverOptions: SelectItem[];
   vehicleOptions: SelectItem[];
   milesOptions: SelectItem[];
   conditionOptions: SelectItem[];
 
-  // driverInfo: DriverInfo;
-  // vehicleInfo: VehicleInfo;
-  // milesInfo: MilesInfo;
-  // conditionInfo: ConditionInfo;
+ 
   inputMileage: number;
 
   endShiftForm: FormGroup;
@@ -84,9 +81,9 @@ private setupForm() {
   });
 }
 
-submitStartData(){
+submitEndData(){
   const shiftValue = this.endShiftForm.value;
-  this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
+  this.shuttleService.createEndInfo(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
   this.showShift.emit(false);
 }
 }
