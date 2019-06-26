@@ -15,21 +15,26 @@ export class ShuttleService {
       startMileage: mileage,
       startConditionId: conditionId
     };
-    
-    createEndInfo(driverId: number, vehicleId: number, mileage: number, conditionId: number); {
-    const endInfo: EndInfo = {
-      endDriverId: driverId,
-      endVehicleId: vehicleId,
-      endMileage: mileage,
-      endConditionId: conditionId
-    };
-  }
     console.log(driverId);
     console.log(vehicleId);
     console.log(mileage);
     console.log(conditionId);
 
     this.shuttleApi.sendStartInfo(startInfo).subscribe();
+  }
+
+    createEndInfo(driverId: number, vehicleId: number, mileage: number, conditionId: number) {
+    const endInfo: EndInfo = {
+      endDriverId: driverId,
+      endVehicleId: vehicleId,
+      endMileage: mileage,
+      endConditionId: conditionId
+    };
+    console.log(driverId);
+    console.log(vehicleId);
+    console.log(mileage);
+    console.log(conditionId);
+     
     this.shuttleApi.sendEndInfo(endInfo).subscribe();
   }
 }

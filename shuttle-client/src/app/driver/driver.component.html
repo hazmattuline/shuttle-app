@@ -1,56 +1,59 @@
 
 <body>
-  <div class = "bringUp">
-    <app-startshift (showShift)=getShowShift($event) [startShift] = "timeToStart"></app-startshift>
-  </div>
-  <div style="text-align:center">
-    <h3>Driver Side</h3>
-    <label>PLEASE ACTIVATE YOUR VEHICLE BEFORE YOU BEGIN DRIVING</label>
-    <br>
-    <br>
-    <button id = "activeButton" pButton  (click)="changeActive()" [label]="(gpsService.isActive | async) ? 'Deactivate Shuttle' : 'Activate Shuttle'"></button> 
-    <div id="demo3"></div>
-  <br>
-
-<button pButton (click)="changeBreak();" label = "On Break/Off Break"></button>
-
-  <h3 class="first">Input the Number of Passengers</h3>
-  <div class = "passenger-container">
-  <div class="passengerCount">
-    <div>
-      <label class = "passenger-label">Passengers</label>
-      <p-dropdown appendTo="body" [options]="passengerInputs" [(ngModel)]="passengerInput"></p-dropdown>
+    <div class = "bringUp">
+      <app-startshift (showShift)=getShowShift($event) [startShift] = "timeToStart"></app-startshift>
     </div>
-    <div>
-        <label class = "passenger-label">Curb</label>
-        <p-dropdown appendTo="body" [options]="curbInputs" [(ngModel)]="curbInput"></p-dropdown>
-    </div>
-    <div>
-        <label class = "passenger-label"></label>
-        <button pButton  (click)="makeNewRow()" label="Edit"></button>
-    </div>
-    <div>
-        <label class = "passenger-label"></label>
-        <button pButton (click)="makeNewRow();" label = "Submit"></button>
-    </div>
-  </div>
-
-
-<br>
-<label class = "passenger-label">Comments</label>
-<input type="text" pInputText [(ngModel)]="inputComment" />
-  <br>
-  <br>
-  <button pButton  (click)="recordComments()" label="Enter"></button>
-  <br>
-  <br>
   
-  <button pButton (click)="recordFuel()" label="Fuel Info"> </button>
-  <div class = "bringDown">
-  <app-endshift (showShift)=getShowShift($event) [startShift] = "timeToStart"></app-endshift>
-</div>
+    <div style="text-align:center">
+      <label><b>PLEASE ACTIVATE YOUR VEHICLE BEFORE YOU BEGIN DRIVING</b></label>
+      <br>
+      <br>
+      <button id = "activeButton" pButton  (click)="changeActive()" [label]="(gpsService.isActive | async) ? 'Deactivate Shuttle' : 'Activate Shuttle'"></button> 
+      <div id="demo3"></div>
+    <br>
+  
+  <button pButton (click)="changeBreak();" label = "On Break/Off Break"></button>
+  
+    <h3 class="first">Input the Number of Passengers</h3>
+    <div class = "passenger-container">
+    <div class="passengerCount">
+      <div>
+        <label class = "passenger-label">Passengers</label>
+        <p-dropdown appendTo="body" [options]="passengerInputs" [(ngModel)]="passengerInput"></p-dropdown>
+      </div>
+      <div>
+          <label class = "passenger-label">Curb</label>
+          <p-dropdown appendTo="body" [options]="curbInputs" [(ngModel)]="curbInput"></p-dropdown>
+      </div>
+      <!--<div>
+          <label class = "passenger-label"></label>
+          <button pButton  (click)="makeNewRow()" label="Edit"></button>
+      </div>-->
+      <div>
+          <label class = "passenger-label"></label>
+          <button pButton (click)="makeNewRow();" label = "Submit"></button>
+      </div>
+    </div>
+  
+  
+  <br>
+  <label class = "passenger-label">Comments</label>
+  <input type="text" pInputText [(ngModel)]="inputComment" />
+    <br>
+    <br>
+    <button pButton  (click)="recordComments()" label="Enter"></button>
+    <br>
+    <br>
+    
+    <button pButton (click)="recordFuel()" label="Fuel Info"> </button>
+  
+    <div class = "bringDown">
+    <app-endshift (showShift)=getShowShift($event) [endShift] = "timeToStart"></app-endshift>
+    </div>
+  
+    </div>
   </div>
-</div>
-
-</body>
-
+  
+  </body>
+  
+  
