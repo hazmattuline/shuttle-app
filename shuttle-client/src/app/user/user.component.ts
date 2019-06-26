@@ -40,8 +40,8 @@ export class UserComponent implements OnInit, OnDestroy {
     const shuttleMarker = this.renderer.createElement('img');
     this.renderer.setProperty(shuttleMarker, 'src', 'assets/shuttle_icon.png');
     this.renderer.addClass(shuttleMarker, 'dot');
-    this.renderer.setStyle(shuttleMarker, 'top', `${shuttle.yPixelCoordinate}px`)
-    this.renderer.setStyle(shuttleMarker, 'left', `${shuttle.xPixelCoordinate}px`)
+    this.renderer.setStyle(shuttleMarker, 'top', `${shuttle.yPixelCoordinate - 25}px`)
+    this.renderer.setStyle(shuttleMarker, 'left', `${shuttle.xPixelCoordinate - 25}px`)
     this.renderer.appendChild(this.markerContainer.nativeElement, shuttleMarker);
     this.currentShuttleMarkers.push(shuttleMarker);
   }
