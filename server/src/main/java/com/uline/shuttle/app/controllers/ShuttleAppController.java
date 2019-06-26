@@ -42,7 +42,7 @@ public class ShuttleAppController {
 
   @ExecutionTime("ShuttleAppService.receiveCoordinates")
   @ApiOperation("fetching coordinates from the database")
-  @GetMapping(value = "/receiveCoordinates/{vehicleID}")
+  @GetMapping(value = "/receiveCoords/{vehicleID}")
   public CoordinateResponse receiveCoordinates(@PathVariable("vehicleID") Integer vehicleID) {
     return this.shuttleAppService.getCoordinates(vehicleID);
   }
