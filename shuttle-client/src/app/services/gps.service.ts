@@ -8,6 +8,8 @@ import * as isEqual from 'lodash/isEqual';
 export class GPSService implements OnDestroy {
 
   private latestCoordinates: Coordinates = null;
+  private previousCoordinates: Coordinates;
+  private hasNotMoved = false;
 
   private _isActive: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isActive: Observable<boolean> = this._isActive.asObservable();
@@ -41,6 +43,7 @@ export class GPSService implements OnDestroy {
   }
 
   private updateGPSPostion(position: Position) {
+    this.previousCoordinates = this.latestCoordinates;
     this.latestCoordinates = position.coords;
   }
 
@@ -51,7 +54,11 @@ export class GPSService implements OnDestroy {
   }
 
   private sendShuttleCoordinates() {
-    if (this.latestCoordinates) {
+    if (this.latestCoordinates && this.previousCoordinates) {
+      this.hasNotMoved = (this.previousCoordinates.latitude === this.latestCoordinates.latitude) && 
+      (this.previousCoordinates.longitude === this.latestCoordinates.longitude);
+    }
+    if (this.latestCoordinates && !this.hasNotMoved) {
       const coordinateRequest: CoordinatesRequest = {
         vehicleID: 1, // TODO - Hard coded for now - Get this from service
         latitudeCoordinates: this.latestCoordinates.latitude,

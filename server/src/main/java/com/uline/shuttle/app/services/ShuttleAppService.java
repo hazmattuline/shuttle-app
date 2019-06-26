@@ -1,9 +1,14 @@
 package com.uline.shuttle.app.services;
 
 import rest.models.requests.CoordinateRequest;
-import rest.models.requests.ShiftRequest;
+import rest.models.requests.FuelRequest;
+import rest.models.requests.PassengerRequest;
+import rest.models.requests.StartRequest;
 import rest.models.response.CoordinateResponse;
-import rest.models.response.ShiftResponse;
+import rest.models.response.FuelResponse;
+import rest.models.response.PassengerResponse;
+import rest.models.response.StartResponse;
+import rest.models.response.VehicleOptionsResponse;
 
 public interface ShuttleAppService {
 
@@ -11,5 +16,11 @@ public interface ShuttleAppService {
 
   CoordinateResponse getCoordinates(Integer vehicleID);
 
-  ShiftResponse startShift(ShiftRequest shiftRequest);
+  VehicleOptionsResponse getVehicleOptions();
+
+  StartResponse startShift(StartRequest startRequest);
+
+  FuelResponse storeFuel(FuelRequest fuelRequest);
+
+  PassengerResponse storePassengers(PassengerRequest passengerRequest);
 }

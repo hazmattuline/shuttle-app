@@ -5,9 +5,14 @@ import com.uline.shuttle.app.services.ShuttleAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rest.models.requests.CoordinateRequest;
-import rest.models.requests.ShiftRequest;
+import rest.models.requests.FuelRequest;
+import rest.models.requests.PassengerRequest;
+import rest.models.requests.StartRequest;
 import rest.models.response.CoordinateResponse;
-import rest.models.response.ShiftResponse;
+import rest.models.response.FuelResponse;
+import rest.models.response.PassengerResponse;
+import rest.models.response.StartResponse;
+import rest.models.response.VehicleOptionsResponse;
 
 @Service
 public class ShuttleAppServiceImpl implements ShuttleAppService {
@@ -30,7 +35,22 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public ShiftResponse startShift(ShiftRequest shiftRequest) {
-    return shuttleAppClient.startShift(shiftRequest);
+  public VehicleOptionsResponse getVehicleOptions() {
+    return shuttleAppClient.getVehicleOptions();
+  }
+
+  @Override
+  public StartResponse startShift(StartRequest startRequest) {
+    return shuttleAppClient.startShift(startRequest);
+  }
+
+  @Override
+  public FuelResponse storeFuel(FuelRequest fuelRequest) {
+    return shuttleAppClient.storeFuel(fuelRequest);
+  }
+
+  @Override
+  public PassengerResponse storePassengers(PassengerRequest passengerRequest) {
+    return shuttleAppClient.storePassengers(passengerRequest);
   }
 }

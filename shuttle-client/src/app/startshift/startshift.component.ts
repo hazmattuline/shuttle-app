@@ -3,13 +3,14 @@ import { ScriptService } from '../script.service';
 import {SelectItem} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ShiftRequest } from '../models/shift-request.model';
+import { ShuttleService } from '../services/shuttle.service';
 
 
 @Component({
   selector: 'app-startshift',
   templateUrl: './startshift.component.html',
-  styleUrls: ['./startshift.component.css']
+  styleUrls: ['./startshift.component.css'],
+  providers: [ShuttleService]
 })
 export class StartshiftComponent implements OnInit {
   @Input()
@@ -18,10 +19,7 @@ export class StartshiftComponent implements OnInit {
   driverOptions: SelectItem[];
   vehicleOptions: SelectItem[];
   milesOptions: SelectItem[];
-
-  driverInfo: DriverInfo[];
-  vehicleInfo: VehicleInfo[];
-  milesInfo: MilesInfo[];
+  conditionOptions: SelectItem[];
   inputMileage: number;
 
   startShiftForm: FormGroup;
@@ -29,7 +27,7 @@ export class StartshiftComponent implements OnInit {
   @Output()
   showShift = new EventEmitter<boolean>();
 
-constructor(private supportService: ScriptService, private fb: FormBuilder) {
+constructor(private supportService: ScriptService, private fb: FormBuilder, private shuttleService: ShuttleService) {
   this.driverOptions = [
     {label: 'Select', value: null},
     {label: 'Nadia Almanza', value: {id: 1}},
@@ -58,6 +56,13 @@ constructor(private supportService: ScriptService, private fb: FormBuilder) {
     {label: '4', value: {id: 5}},
   ];
 
+  this.conditionOptions = [
+    {label: 'Select', value: null},
+    {label: 'Good', value: {id: 1}},
+    {label: 'Fair', value: {id: 2}},
+    {label: 'Poor', value: {id: 3}},
+  ];
+
 }
 ngOnInit() {
   this.setupForm();
@@ -67,21 +72,14 @@ private setupForm() {
   this.startShiftForm = this.fb.group({
     driver: '',
     vehicle: '',
-    mileage: ''
+    mileage: '',
+    condition: ''
   });
 }
 
 submitStartData(){
-  console.log(this.driverInfo);
-  console.log(this.vehicleInfo);
-  console.log(this.inputMileage);
   const shiftValue = this.startShiftForm.value;
-  const shiftRequest: ShiftRequest = {
-    driverId: shiftValue.driver.id,
-    vehicleId: shiftValue.vehicle.id,
-    mileage: shiftValue.mileage
-  }
-
+  this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
   this.showShift.emit(false);
 }
 }
@@ -98,6 +96,11 @@ export interface VehicleInfo {
 
 export interface MilesInfo {
   mileage: number;
+  id: number;
+}
+
+interface ConditionInfo {
+  condition: string;
   id: number;
 }
 
