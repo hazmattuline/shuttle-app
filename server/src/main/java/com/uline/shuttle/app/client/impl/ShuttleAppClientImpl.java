@@ -42,7 +42,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 	private String shuttleServiceForGet;
 
 	@Value("${shuttle.service.rc.url.post.startOfShift}")
-	private String ShuttleServiceStartOfShift;
+	private String shuttleServiceStartOfShift;
 
 	@Value("${shuttle.service.rc.url.post.coordinates}")
 	private String shuttleServiceUrl;
@@ -87,7 +87,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 				.getBody();
 	}
 
-
 	@Override
 	public VehicleOptionsResponse getVehicleOptions() {
 		UriComponentsBuilder builder =
@@ -97,35 +96,52 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 				.exchange(
 						builder.build().toUriString(),
 						HttpMethod.GET,
-						new HttpEntity<>(null),
+						null,
 						new ParameterizedTypeReference<VehicleOptionsResponse>() {})
 				.getBody();
-
 	}
 
 	@Override
 	public StartResponse startShift(StartRequest startRequest) {
 
-		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + ShuttleServiceStartOfShift);
+		UriComponentsBuilder builder =
+				UriComponentsBuilder.fromUriString(baseUrl + ShuttleServiceStartOfShift);
 
-		return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(startRequest),
-				new ParameterizedTypeReference<StartResponse>() {}).getBody();
+		return restTemplate
+				.exchange(
+						builder.build().toUriString(),
+						HttpMethod.POST,
+						new HttpEntity<>(startRequest),
+						new ParameterizedTypeReference<StartResponse>() {})
+				.getBody();
 	}
 
 	@Override
 	public FuelResponse storeFuel(FuelRequest fuelRequest) {
-		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForFuel);
+		UriComponentsBuilder builder =
+				UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForFuel);
 
-		return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(fuelRequest),
-				new ParameterizedTypeReference<FuelResponse>() {}).getBody();
+		return restTemplate
+				.exchange(
+						builder.build().toUriString(),
+						HttpMethod.POST,
+						new HttpEntity<>(fuelRequest),
+						new ParameterizedTypeReference<FuelResponse>() {})
+				.getBody();
 	}
 
 	@Override
 	public PassengerResponse storePassengers(PassengerRequest passengerRequest) {
 
-		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForPassenger);
+		UriComponentsBuilder builder =
+				UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForPassenger);
 
-		return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new HttpEntity<>(passengerRequest),
-				new ParameterizedTypeReference<PassengerResponse>() {}).getBody();
+		return restTemplate
+				.exchange(
+						builder.build().toUriString(),
+						HttpMethod.POST,
+						new HttpEntity<>(passengerRequest),
+						new ParameterizedTypeReference<PassengerResponse>() {})
+				.getBody();
 	}
 }
