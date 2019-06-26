@@ -12,16 +12,15 @@ import rest.models.response.VehicleOptionsResponse;
 
 public interface ShuttleAppService {
 
-	CoordinateResponse enRoute(CoordinateRequest coordinateRequest);
+  CoordinateResponse enRoute(CoordinateRequest coordinateRequest);
 
-	CoordinateResponse getCoordinates(Integer vehicleID);
+  CoordinateResponse getCoordinates(Integer vehicleID);
 
-	VehicleOptionsResponse getVehicleOptions();
+  VehicleOptionsResponse getVehicleOptions();
 
-	StartResponse startShift(StartRequest startRequest);
+  StartResponse startShift(StartRequest startRequest);
 
-	FuelResponse storeFuel(FuelRequest fuelRequest);
+  FuelResponse storeFuel(FuelRequest fuelRequest);
 
-	PassengerResponse storePassengers(PassengerRequest passengerRequest);
+  PassengerResponse storePassengers(PassengerRequest passengerRequest);
 }
-
