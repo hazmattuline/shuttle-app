@@ -2,7 +2,9 @@ package com.uline.shuttle.app.client.impl;
 
 import com.uline.ha.rest.UlineRestTemplate;
 import com.uline.shuttle.app.client.ShuttleAppClient;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -89,13 +91,27 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForVehicleOptions);
 
-    return restTemplate
-        .exchange(
-            builder.build().toUriString(),
-            HttpMethod.GET,
-            null,
-            new ParameterizedTypeReference<VehicleOptionsResponse>() {})
-        .getBody();
+    VehicleOptionsResponse vor = new VehicleOptionsResponse();
+    List<Integer> ids = new ArrayList<Integer>();
+    ids.add(1);
+    ids.add(2);
+    ids.add(3);
+    vor.setIds(ids);
+    List<String> names = new ArrayList<String>();
+    names.add("a");
+    names.add("b");
+    names.add("c");
+    vor.setVehicleNames(names);
+
+    return vor;
+
+    //    return restTemplate
+    //        .exchange(
+    //            builder.build().toUriString(),
+    //            HttpMethod.GET,
+    //            null,
+    //            new ParameterizedTypeReference<VehicleOptionsResponse>() {})
+    //        .getBody();
   }
 
   @Override
@@ -133,12 +149,18 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForPassenger);
 
-    return restTemplate
-        .exchange(
-            builder.build().toUriString(),
-            HttpMethod.POST,
-            new HttpEntity<>(passengerRequest),
-            new ParameterizedTypeReference<PassengerResponse>() {})
-        .getBody();
+    PassengerResponse pr = new PassengerResponse();
+    pr.setCurbCount(passengerRequest.getCurbCount());
+    pr.setPassengerCount(passengerRequest.getPassengerCount());
+    pr.setVehicleId(passengerRequest.getVehicleId());
+    return pr;
+
+    //    return restTemplate
+    //        .exchange(
+    //            builder.build().toUriString(),
+    //            HttpMethod.POST,
+    //            new HttpEntity<>(passengerRequest),
+    //            new ParameterizedTypeReference<PassengerResponse>() {})
+    //        .getBody();
   }
 }
