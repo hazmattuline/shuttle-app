@@ -17,5 +17,8 @@ h1
   height: 50px;
   width: 50px;
   position: absolute;
+  transition-property: all;
+  transition-duration: 2.2s;
+  transition-timing-function: linear;
   /*controls dot size*/
 }
