@@ -5,8 +5,10 @@ import com.uline.shuttle.app.services.ShuttleAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rest.models.requests.CoordinateRequest;
+import rest.models.requests.EndRequest;
 import rest.models.requests.ShiftRequest;
 import rest.models.response.CoordinateResponse;
+import rest.models.response.EndResponse;
 import rest.models.response.ShiftResponse;
 
 @Service
@@ -17,6 +19,11 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   @Autowired
   public ShuttleAppServiceImpl(ShuttleAppClient shuttleAppClient) {
     this.shuttleAppClient = shuttleAppClient;
+  }
+
+  @Override
+  public EndResponse endShift(EndRequest endRequest) {
+    return shuttleAppClient.endShift(endRequest);
   }
 
   @Override

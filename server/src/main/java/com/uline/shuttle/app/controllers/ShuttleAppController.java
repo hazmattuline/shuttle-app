@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rest.models.requests.CoordinateRequest;
+import rest.models.requests.EndRequest;
 import rest.models.requests.ShiftRequest;
 import rest.models.response.CoordinateResponse;
+import rest.models.response.EndResponse;
 import rest.models.response.ShiftResponse;
 
 @RestController
@@ -25,6 +27,12 @@ public class ShuttleAppController {
   @Autowired
   public ShuttleAppController(ShuttleAppService shuttleAppService) {
     this.shuttleAppService = shuttleAppService;
+  }
+
+  @ApiOperation(value = "posting the ending conditions of the vehicle")
+  @PostMapping(value = "/storeEndInformation")
+  public EndResponse endShift(@RequestBody EndRequest endRequest) {
+    return shuttleAppService.endShift(endRequest);
   }
 
   @ExecutionTime("ShuttleAppService.enRoute")
