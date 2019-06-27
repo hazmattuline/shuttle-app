@@ -4,6 +4,7 @@ import { SelectItem } from 'primeng/api';
 import { NgModule } from '@angular/core';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
 import { GPSService } from '../services/gps.service';
+import { ShuttleService } from '../services/shuttle.service';
 
 
 
@@ -93,7 +94,7 @@ export class DriverComponent implements OnInit {
     // console.log(showShift);
     this.showDriverShift = showShift;
   }
-
+ 
 }
 export interface DriverInfo {
   numPassengers;

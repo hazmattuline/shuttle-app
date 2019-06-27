@@ -4,6 +4,8 @@ import {SelectItem} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
+import { getVehicleOptions } from '../core/constants/endpoints.constant';
+import { VehicleDropDown } from '../models/shuttleDropdownModel';
 
 @Component({
   selector: 'app-endshift',
@@ -17,13 +19,13 @@ import { ShuttleService } from '../services/shuttle.service';
 export class EndshiftComponent implements OnInit {
   @Input()
   endShift: DriverComponent;
-
+  vehicleDrop: VehicleDropDown;
   driverOptions: SelectItem[];
   vehicleOptions: SelectItem[];
   milesOptions: SelectItem[];
   conditionOptions: SelectItem[];
 
- 
+
   inputMileage: number;
 
   endShiftForm: FormGroup;
@@ -39,16 +41,6 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, priv
     {label: 'Ariel Gauslow', value: {id: 3}},
     {label: 'Heather Iwinski', value: {id: 4}},
     {label: 'Melissa Zaugra', value: {id: 5}},
-  ];
-
-  this.vehicleOptions = [
-    {label: 'Select', value: null},
-    {label: 'Bailey', value: {id: 1}},
-    {label: 'Bailey Rental', value: {id: 2}},
-    {label: 'Dixie', value: {id: 3}},
-    {label: 'Dixie Rental', value: {id: 4}},
-    {label: 'Holly', value: {id: 5}},
-    {label: 'Holly Rental', value: {id: 6}},
   ];
 
   this.milesOptions = [
@@ -70,6 +62,7 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, priv
 }
 ngOnInit() {
   this.setupForm();
+  this.getVehicles();
  }
 
 private setupForm() {
@@ -81,12 +74,37 @@ private setupForm() {
   });
 }
 
-submitEndData(){
+submitEndData() {
   const shiftValue = this.endShiftForm.value;
   this.shuttleService.createEndInfo(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
   this.showShift.emit(false);
 }
+getVehicles() {
+  this.vehicleOptions = EndshiftComponent.buildSelectItemsForDropdown(this.shuttleService.vehicleOptionsC(), 'name', 'id');
 }
+
+static buildSelectItemsForDropdown(data: any[], labelFieldName: string, valueFieldName?: string): SelectItem[] {
+  let selectItems = [];
+  if (data && data.length > 0) {
+    selectItems = data.map(dataItem => {
+      return {label: dataItem[labelFieldName], value: valueFieldName ? dataItem[valueFieldName] : dataItem};
+    });
+    selectItems.unshift({label: '', value: null});
+  }
+  return selectItems ;
+}
+
+test(f)
+{
+console.log(f);
+}
+}
+
+
+
+
+
+
 
 export interface DriverInfo {
   name: string;

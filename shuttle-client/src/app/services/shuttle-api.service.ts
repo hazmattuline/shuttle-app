@@ -3,9 +3,10 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import { Enroute, ReceiveCoords, storeStartInfo, storeEndInfo } from '../core/constants/endpoints.constant';
+import { Enroute, ReceiveCoords, storeStartInfo, storeEndInfo, getVehicleOptions } from '../core/constants/endpoints.constant';
 import { StartInfo } from '../models/start-info.model';
 import { EndInfo } from '../models/end-info';
+import { VehicleDropDown } from '../models/shuttleDropdownModel';
 
 @Injectable({
   providedIn: 'root'
@@ -31,4 +32,7 @@ export class ShuttleApiService {
     return this.http.post<EndInfo>(storeEndInfo, endRequest);
   }
 
+  responseForVehicleOptions(): Observable<VehicleDropDown> {
+    return this.http.get<VehicleDropDown>(getVehicleOptions);
+  }
 }
