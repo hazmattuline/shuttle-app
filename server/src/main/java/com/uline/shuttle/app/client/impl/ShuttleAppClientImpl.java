@@ -2,7 +2,9 @@ package com.uline.shuttle.app.client.impl;
 
 import com.uline.ha.rest.UlineRestTemplate;
 import com.uline.shuttle.app.client.ShuttleAppClient;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -89,13 +91,13 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForVehicleOptions);
 
-    return restTemplate
-        .exchange(
-            builder.build().toUriString(),
-            HttpMethod.GET,
-            null,
-            new ParameterizedTypeReference<VehicleOptionsResponse>() {})
-        .getBody();
+        return restTemplate
+            .exchange(
+                builder.build().toUriString(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<VehicleOptionsResponse>() {})
+            .getBody();
   }
 
   @Override
@@ -133,12 +135,12 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForPassenger);
 
-    return restTemplate
-        .exchange(
-            builder.build().toUriString(),
-            HttpMethod.POST,
-            new HttpEntity<>(passengerRequest),
-            new ParameterizedTypeReference<PassengerResponse>() {})
-        .getBody();
+        return restTemplate
+            .exchange(
+                builder.build().toUriString(),
+                HttpMethod.POST,
+                new HttpEntity<>(passengerRequest),
+                new ParameterizedTypeReference<PassengerResponse>() {})
+            .getBody();
   }
 }
