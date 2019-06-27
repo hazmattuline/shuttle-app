@@ -14,8 +14,7 @@ import { Subscription } from 'rxjs';
 
 export class UserComponent implements OnInit, OnDestroy {
 
-  shuttles: Shuttle[] = [];
-  currentShuttleMarkers: Map<number, ElementRef[]> = new Map();
+  currentShuttleMarkers: Map<number, ElementRef> = new Map();
   private shuttleSubscription: Subscription;
   @ViewChild('markerContainer') markerContainer: ElementRef;
 
@@ -34,20 +33,9 @@ export class UserComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  // private addShuttleMarker(shuttle: Shuttle) {
-  //   const shuttleMarker = this.renderer.createElement('img');
-  //   this.renderer.setProperty(shuttleMarker, 'src', 'assets/shuttle_icon.png');
-  //   this.renderer.addClass(shuttleMarker, 'dot');
-  //   this.renderer.setStyle(shuttleMarker, 'top', `${shuttle.yPixelCoordinate - 25}px`)
-  //   this.renderer.setStyle(shuttleMarker, 'left', `${shuttle.xPixelCoordinate - 25}px`)
-  //   this.renderer.appendChild(this.markerContainer.nativeElement, shuttleMarker);
-  //   this.currentShuttleMarkers.push(shuttleMarker);
-  // }
-
   private addOrUpdateShuttleMarker(shuttle: Shuttle) {
-    let marker;
-    if ((marker === this.currentShuttleMarkers.get(shuttle.vehicleID))) {
+    if (this.currentShuttleMarkers.get(shuttle.vehicleID)) {
+      const marker: ElementRef<any> = this.currentShuttleMarkers.get(shuttle.vehicleID);
       this.renderer.setStyle(marker, 'top', `${shuttle.yPixelCoordinate - 25}px`);
       this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - 25}px`);
     } else {
