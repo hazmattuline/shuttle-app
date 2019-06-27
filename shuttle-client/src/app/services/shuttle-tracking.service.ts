@@ -52,34 +52,11 @@ export class ShuttleTrackingService implements OnDestroy {
       const maxLongitudeDistanceFromTopLeft = (bottomRightLongitude - topLeftLongitude) *
                                               (Math.cos(topLeftLatitude) + Math.cos(bottomRightLatitude)) / 2;
 
-      const boundaryOfH2Latitude = 42.516;
-      const doorOfH2Latitude = 42.514;
-      const firstHighwayBoundaryLatitude = 42.5175;
-      const secondHighwayBoundaryLatitude = 42.519;
-      const boundaryOfH1Latitude = 42.52;
-      const boundaryHighwayLongitude = -87.953;
-
       let posx: number;
       let posy: number;
 
-      if (shuttleLatitude < boundaryOfH2Latitude && shuttleLongitude < boundaryHighwayLongitude) {
-        posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth;
-      } else if ((shuttleLatitude < boundaryOfH2Latitude) && (shuttleLongitude > boundaryHighwayLongitude)) {
-        posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth;
-      } else if ((shuttleLatitude >= boundaryOfH2Latitude) && (shuttleLatitude <= firstHighwayBoundaryLatitude)) {
-        posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth;
-      } else if (shuttleLatitude > firstHighwayBoundaryLatitude && shuttleLatitude < secondHighwayBoundaryLatitude) {
-        posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth;
-      } else if (shuttleLatitude > secondHighwayBoundaryLatitude && shuttleLongitude > boundaryHighwayLongitude) {
-        posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth;
-      } else {
-        posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth;
-      }
-      if (shuttleLatitude > boundaryOfH1Latitude) {
-        posy = (latitudeDistanceFromTopLeft) / (maxLatitudeDistanceFromTopLeft) * imageHeight;
-      } else {
-        posy = (latitudeDistanceFromTopLeft) / (maxLatitudeDistanceFromTopLeft) * imageHeight;
-      }
+      posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth;
+      posy = (latitudeDistanceFromTopLeft) / (maxLatitudeDistanceFromTopLeft) * imageHeight;
 
       shuttle.xPixelCoordinate = posx;  // make new shuttle object or fine to just add to it?
       shuttle.yPixelCoordinate = posy;
