@@ -24,6 +24,6 @@ export class ShuttleService {
       passengerCount: pCount,
       curbCount: cCount
     };
-    this.shuttleApi.sendPassengerInfo().subscribe();
+    this.shuttleApi.sendPassengerInfo(passengerInfo).subscribe();
   }
 }

@@ -27,7 +27,7 @@ export class ShuttleApiService {
     return this.http.post<StartInfo>(storeStartInfo, startRequest);
   }
 
-  sendPassengerInfo(): Observable<PassengerInfo> {
-    return this.http.get<PassengerInfo>(storePassengers);
+  sendPassengerInfo(passengerInfo: PassengerInfo): Observable<PassengerInfo> {
+    return this.http.post<PassengerInfo>(storePassengers);
   }
 }

@@ -4,6 +4,7 @@ import { SelectItem } from 'primeng/api';
 import { NgModule } from '@angular/core';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
 import { GPSService } from '../services/gps.service';
+import { ShuttleService } from '../services/shuttle.service';
 
 
 
@@ -12,7 +13,7 @@ import { GPSService } from '../services/gps.service';
     selector: 'app-driver',
     templateUrl: './driver.component.html',
     styleUrls: ['./driver.component.css'],
-    providers: [GPSService]
+    providers: [GPSService, ShuttleService]
     })
 export class DriverComponent implements OnInit {
   count = 0;
@@ -27,7 +28,7 @@ export class DriverComponent implements OnInit {
   passengerInput: DriverInput;
   curbInput: DriverInput;
 
-  constructor(private supportService: ScriptService, private gpsService: GPSService) {
+  constructor(private supportService: ScriptService, private gpsService: GPSService, private shuttleService: ShuttleService) {
     this.passengerInputs = [
       { label: 'Select', value: null },
       { label: '0', value: { id: 1 } },
@@ -72,7 +73,12 @@ export class DriverComponent implements OnInit {
     // add code to change between On Break and Off Break
     return null;
   }
+  
+  submitPassengerInfo() {
+    // TODO - submit info from new UI
+    this.shuttleService.createPassengerInfo(1, 1, 1);
 
+  }
 
   makeNewRow() {
     // allow drivers to submit number of passengers in shuttle and left at curb again
