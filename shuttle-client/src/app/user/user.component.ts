@@ -14,8 +14,7 @@ import { Subscription } from 'rxjs';
 
 export class UserComponent implements OnInit, OnDestroy {
 
-  shuttles: Shuttle[] = [];
-  currentShuttleMarkers: ElementRef[] = [];
+  currentShuttleMarkers: Map<number, ElementRef> = new Map();
   private shuttleSubscription: Subscription;
   @ViewChild('markerContainer') markerContainer: ElementRef;
 
@@ -30,20 +29,27 @@ export class UserComponent implements OnInit, OnDestroy {
   private listenForShuttleMarkers() {
     this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttle => {
       if (this.markerContainer) {
-        this.currentShuttleMarkers = this.removeAllMarkers(this.currentShuttleMarkers);
-        this.addShuttleMarker(shuttle);
+        this.addOrUpdateShuttleMarker(shuttle);
       }
     });
   }
+  private addOrUpdateShuttleMarker(shuttle: Shuttle) {
+    if (this.currentShuttleMarkers.get(shuttle.vehicleID)) {
+      const marker: ElementRef<any> = this.currentShuttleMarkers.get(shuttle.vehicleID);
+      this.setPlacement(marker, shuttle);
+    } else {
+      const shuttleMarker = this.renderer.createElement('img');
+      this.renderer.setProperty(shuttleMarker, 'src', 'assets/shuttle_icon.png');
+      this.renderer.addClass(shuttleMarker, 'dot');
+      this.setPlacement(shuttleMarker, shuttle);
+      this.renderer.appendChild(this.markerContainer.nativeElement, shuttleMarker);
+      this.currentShuttleMarkers.set(shuttle.vehicleID, shuttleMarker);
+    }
+  }
 
-  private addShuttleMarker(shuttle: Shuttle) {
-    const shuttleMarker = this.renderer.createElement('img');
-    this.renderer.setProperty(shuttleMarker, 'src', 'assets/shuttle_icon.png');
-    this.renderer.addClass(shuttleMarker, 'dot');
-    this.renderer.setStyle(shuttleMarker, 'top', `${shuttle.yPixelCoordinate - 25}px`)
-    this.renderer.setStyle(shuttleMarker, 'left', `${shuttle.xPixelCoordinate - 25}px`)
-    this.renderer.appendChild(this.markerContainer.nativeElement, shuttleMarker);
-    this.currentShuttleMarkers.push(shuttleMarker);
+  private setPlacement(marker: ElementRef<any>, shuttle:Shuttle) {
+    this.renderer.setStyle(marker, 'top', `${shuttle.yPixelCoordinate - 25}px`);
+    this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - 25}px`);
   }
 
   private removeAllMarkers(markers: ElementRef[]): ElementRef[] {
