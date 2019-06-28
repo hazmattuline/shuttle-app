@@ -36,17 +36,20 @@ export class UserComponent implements OnInit, OnDestroy {
   private addOrUpdateShuttleMarker(shuttle: Shuttle) {
     if (this.currentShuttleMarkers.get(shuttle.vehicleID)) {
       const marker: ElementRef<any> = this.currentShuttleMarkers.get(shuttle.vehicleID);
-      this.renderer.setStyle(marker, 'top', `${shuttle.yPixelCoordinate - 25}px`);
-      this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - 25}px`);
+      this.setPlacement(marker, shuttle);
     } else {
       const shuttleMarker = this.renderer.createElement('img');
       this.renderer.setProperty(shuttleMarker, 'src', 'assets/shuttle_icon.png');
       this.renderer.addClass(shuttleMarker, 'dot');
-      this.renderer.setStyle(shuttleMarker, 'top', `${shuttle.yPixelCoordinate - 25}px`);
-      this.renderer.setStyle(shuttleMarker, 'left', `${shuttle.xPixelCoordinate - 25}px`);
+      this.setPlacement(shuttleMarker, shuttle);
       this.renderer.appendChild(this.markerContainer.nativeElement, shuttleMarker);
       this.currentShuttleMarkers.set(shuttle.vehicleID, shuttleMarker);
     }
+  }
+
+  private setPlacement(marker: ElementRef<any>, shuttle:Shuttle) {
+    this.renderer.setStyle(marker, 'top', `${shuttle.yPixelCoordinate - 25}px`);
+    this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - 25}px`);
   }
 
   private removeAllMarkers(markers: ElementRef[]): ElementRef[] {
