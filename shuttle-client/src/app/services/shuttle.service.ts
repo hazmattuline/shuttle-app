@@ -62,8 +62,8 @@ export class ShuttleService {
 
   }
   getAllVehicles(vehicleDropDown: VehicleDropDown) {
-    this.vehicleDropDown.vehicleID.push(1, 2, 3);
-    this.vehicleDropDown.vehicleName.push("emz", "pete", "trizzle");
+    // this.vehicleDropDown.vehicleID.push(1, 2, 3);
+    // this.vehicleDropDown.vehicleName.push("emz", "pete", "trizzle");
 
     for (let i = 0 ; i < this.vehicleDropDown.vehicleName.length; i++ )
     {

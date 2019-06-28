@@ -28,7 +28,7 @@ export class DriverComponent implements OnInit {
   passengerInput: DriverInput;
   curbInput: DriverInput;
 
-  constructor(private supportService: ScriptService, private gpsService: GPSService) {
+  constructor(private supportService: ScriptService, public gpsService: GPSService) {
     this.passengerInputs = [
       { label: 'Select', value: null },
       { label: '0', value: { id: 1 } },
