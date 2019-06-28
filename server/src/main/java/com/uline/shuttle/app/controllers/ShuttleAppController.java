@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rest.models.requests.CoordinateRequest;
+import rest.models.requests.EndRequest;
 import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
 import rest.models.response.CoordinateResponse;
+import rest.models.response.EndResponse;
 import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
-import rest.models.response.EndResponse;
-import rest.models.requests.EndRequest;
 
 @RestController
 @RequestMapping("/api")
@@ -77,13 +77,10 @@ public class ShuttleAppController {
     return shuttleAppService.storePassengers(passengerRequest);
   }
 
-    @ExecutionTime("ShuttleAppService.endShift")
+  @ExecutionTime("ShuttleAppService.endShift")
   @ApiOperation(value = "posting the ending conditions of the vehicle")
   @PostMapping(value = "/storeEndInformation")
   public EndResponse endShift(@RequestBody EndRequest endRequest) {
     return shuttleAppService.endShift(endRequest);
   }
 }
-
-
-

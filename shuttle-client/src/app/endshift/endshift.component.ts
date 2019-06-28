@@ -17,21 +17,6 @@ import { VehicleDropDown } from '../models/shuttleDropdownModel';
 
 
 export class EndshiftComponent implements OnInit {
-  @Input()
-  endShift: DriverComponent;
-  vehicleDrop: VehicleDropDown;
-  driverOptions: SelectItem[];
-  vehicleOptions: SelectItem[];
-  milesOptions: SelectItem[];
-  conditionOptions: SelectItem[];
-
-
-  inputMileage: number;
-
-  endShiftForm: FormGroup;
-
-  @Output()
-  showShift = new EventEmitter<boolean>();
 
 constructor(private supportService: ScriptService, private fb: FormBuilder, private shuttleService: ShuttleService) {
   this.driverOptions = [
@@ -60,6 +45,32 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, priv
   ];
 
 }
+  @Input()
+  endShift: DriverComponent;
+  vehicleDrop: VehicleDropDown;
+  driverOptions: SelectItem[];
+  vehicleOptions: SelectItem[];
+  milesOptions: SelectItem[];
+  conditionOptions: SelectItem[];
+
+
+  inputMileage: number;
+
+  endShiftForm: FormGroup;
+
+  @Output()
+  showShift = new EventEmitter<boolean>();
+
+static buildSelectItemsForDropdown(data: any[], labelFieldName: string, valueFieldName?: string): SelectItem[] {
+  let selectItems = [];
+  if (data && data.length > 0) {
+    selectItems = data.map(dataItem => {
+      return {label: dataItem[labelFieldName], value: valueFieldName ? dataItem[valueFieldName] : dataItem};
+    });
+    selectItems.unshift({label: '', value: null});
+  }
+  return selectItems ;
+}
 ngOnInit() {
   this.setupForm();
   this.getVehicles();
@@ -83,26 +94,11 @@ getVehicles() {
   this.vehicleOptions = EndshiftComponent.buildSelectItemsForDropdown(this.shuttleService.vehicleOptionsC(), 'name', 'id');
 }
 
-static buildSelectItemsForDropdown(data: any[], labelFieldName: string, valueFieldName?: string): SelectItem[] {
-  let selectItems = [];
-  if (data && data.length > 0) {
-    selectItems = data.map(dataItem => {
-      return {label: dataItem[labelFieldName], value: valueFieldName ? dataItem[valueFieldName] : dataItem};
-    });
-    selectItems.unshift({label: '', value: null});
-  }
-  return selectItems ;
-}
-
 test(f)
 {
 console.log(f);
 }
 }
-
-
-
-
 
 
 
