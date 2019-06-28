@@ -20,6 +20,8 @@ import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
+import rest.models.response.EndResponse;
+import rest.models.requests.EndRequest;
 
 @RestController
 @RequestMapping("/api")
@@ -74,4 +76,14 @@ public class ShuttleAppController {
   public PassengerResponse storePassengers(@RequestBody PassengerRequest passengerRequest) {
     return shuttleAppService.storePassengers(passengerRequest);
   }
+
+    @ExecutionTime("ShuttleAppService.endShift")
+  @ApiOperation(value = "posting the ending conditions of the vehicle")
+  @PostMapping(value = "/storeEndInformation")
+  public EndResponse endShift(@RequestBody EndRequest endRequest) {
+    return shuttleAppService.endShift(endRequest);
+  }
 }
+
+
+

@@ -9,12 +9,16 @@ import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
+import rest.models.response.EndResponse;
+import rest.models.requests.EndRequest;
 
 public interface ShuttleAppService {
 
   CoordinateResponse enRoute(CoordinateRequest coordinateRequest);
 
   CoordinateResponse getCoordinates(Integer vehicleID);
+
+  EndResponse endShift(EndRequest endRequest);
 
   VehicleOptionsResponse getVehicleOptions();
 

@@ -5,6 +5,7 @@ import com.uline.shuttle.app.client.ShuttleAppClient;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,6 +43,9 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
   @Value("${shuttle.service.rc.url.post.startOfShift}")
   private String shuttleServiceStartOfShift;
+
+  @Value("${shuttle.service.rc.url.end.of.shift}")
+  private String endShiftUrl;
 
   @Value("${shuttle.service.rc.url.post.coordinates}")
   private String shuttleServiceUrl;
@@ -84,6 +88,15 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             new HttpEntity<>(null, null),
             new ParameterizedTypeReference<CoordinateResponse>() {})
         .getBody();
+  }
+
+  @Override
+  public EndResponse endShift(EndRequest endRequest) {
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + endShiftUrl);
+
+    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new
+    HttpEntity<>(endRequest),
+    new ParameterizedTypeReference<EndResponse>() {}).getBody();
   }
 
   @Override

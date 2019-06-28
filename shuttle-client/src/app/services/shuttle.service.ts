@@ -8,6 +8,7 @@ import { stringify } from '@angular/core/src/render3/util';
 import { Subject } from 'rxjs';
 import { getVehicleOptions } from '../core/constants/endpoints.constant';
 import { FuelInfo } from '../models/fuel.model';
+import { PassengerInfo } from '../models/record-passengers.model';
 
 @Injectable()
 export class ShuttleService {
@@ -83,5 +84,15 @@ export class ShuttleService {
     this.shuttleApi.sendFuelInfo(fuelInfo).subscribe();
   }
 
-}
+  createPassengerInfo(pvehicleId: number, pCount: number, cCount: number) {
+    const passengerInfo: PassengerInfo = {
+      vehicleId: pvehicleId,
+      passengerCount: pCount,
+      curbCount: cCount
+    };
+    this.shuttleApi.sendPassengerInfo().subscribe();
+  }
+  }
+
+
 
