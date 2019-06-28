@@ -14,12 +14,17 @@ export class ShuttleTrackingService implements OnDestroy {
   constructor(private shuttleApi: ShuttleApiService) { }
 
   private startTimer() {
+    this.showShuttle();
     this.shuttleLocationTimer = setInterval(() => {
-      this.shuttleApi.getShuttles().subscribe(shuttle => {
-        shuttle = this.calculateXYPixelCoordinates(shuttle);
-        this._shuttles.next(shuttle);
-      });
+      this.showShuttle();
     }, 2000);
+  }
+
+  private showShuttle() {
+    this.shuttleApi.getShuttles().subscribe(shuttle => {
+      shuttle = this.calculateXYPixelCoordinates(shuttle);
+      this._shuttles.next(shuttle);
+    });
   }
 
   public startShuttleTracking() {
@@ -52,47 +57,16 @@ export class ShuttleTrackingService implements OnDestroy {
       const maxLongitudeDistanceFromTopLeft = (bottomRightLongitude - topLeftLongitude) *
                                               (Math.cos(topLeftLatitude) + Math.cos(bottomRightLatitude)) / 2;
 
-      const boundaryOfH2Latitude = 42.516;
-      const doorOfH2Latitude = 42.514;
-      const firstHighwayBoundaryLatitude = 42.5175;
-      const secondHighwayBoundaryLatitude = 42.519;
-      const boundaryOfH1Latitude = 42.52;
-      const boundaryHighwayLongitude = -87.953;
-
       let posx: number;
       let posy: number;
 
-      if (shuttleLatitude < boundaryOfH2Latitude && shuttleLongitude < boundaryHighwayLongitude) {
-        posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth + 204;
-      } else if ((shuttleLatitude < boundaryOfH2Latitude) && (shuttleLongitude > boundaryHighwayLongitude)) {
-        posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth + 206.25;
-      } else if ((shuttleLatitude >= boundaryOfH2Latitude) && (shuttleLatitude <= firstHighwayBoundaryLatitude)) {
-        posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth + 202.5;
-      } else if (shuttleLatitude > firstHighwayBoundaryLatitude && shuttleLatitude < secondHighwayBoundaryLatitude) {
-        posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth + 193.75;
-      } else if (shuttleLatitude > secondHighwayBoundaryLatitude && shuttleLongitude > boundaryHighwayLongitude) {
-        posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth + 188;
-      } else {
-        posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth + 187;
-      }
-      if (shuttleLatitude > boundaryOfH1Latitude) {
-        posy = (latitudeDistanceFromTopLeft) / (maxLatitudeDistanceFromTopLeft) * imageHeight - 5.5;
-      } else {
-        posy = (latitudeDistanceFromTopLeft) / (maxLatitudeDistanceFromTopLeft) * imageHeight - 8.25;
-      }
+      posx = (longitudeDistanceFromTopLeft) / (maxLongitudeDistanceFromTopLeft) * imageWidth;
+      posy = (latitudeDistanceFromTopLeft) / (maxLatitudeDistanceFromTopLeft) * imageHeight;
 
       shuttle.xPixelCoordinate = posx;  // make new shuttle object or fine to just add to it?
       shuttle.yPixelCoordinate = posy;
       return shuttle;
     }
-
-  // showShuttles(shuttle: Shuttle) {
-  //   const elem1 = document.getElementById('animate1');
-  //   const shuttleLatitude = shuttle.latitudeCoordinates;
-  //   const shuttleLongitude = shuttle.longitudeCoordinates;
-  //   elem1.style.top = shuttleLatitude + 'px';
-  //   elem1.style.left = shuttleLongitude + 'px';
-  // }
 
   ngOnDestroy() {
     this.stopShuttleTracking();

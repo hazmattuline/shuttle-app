@@ -20,11 +20,6 @@ export class StartshiftComponent implements OnInit {
   vehicleOptions: SelectItem[];
   milesOptions: SelectItem[];
   conditionOptions: SelectItem[];
-
-  // driverInfo: DriverInfo;
-  // vehicleInfo: VehicleInfo;
-  // milesInfo: MilesInfo;
-  // conditionInfo: ConditionInfo;
   inputMileage: number;
 
   startShiftForm: FormGroup;

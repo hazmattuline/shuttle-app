@@ -7,6 +7,7 @@ import { Vehicle } from '../models/vehicle.model';
 import { stringify } from '@angular/core/src/render3/util';
 import { Subject } from 'rxjs';
 import { getVehicleOptions } from '../core/constants/endpoints.constant';
+import { FuelInfo } from '../models/fuel.model';
 
 @Injectable()
 export class ShuttleService {
@@ -71,11 +72,16 @@ export class ShuttleService {
       };
       this.vehicles.push(vehicle);
     }
-   
     //return this.vehicles;
     //console.log(this.vehicles);
-
-
+  }
+  createFuelInfo(quantity: number, cost: number) {
+    const fuelInfo: FuelInfo = {
+      fuelCost: cost,
+      fuelQuantity: quantity
+    }
+    this.shuttleApi.sendFuelInfo(fuelInfo).subscribe();
+  }
 
 }
-}
+
