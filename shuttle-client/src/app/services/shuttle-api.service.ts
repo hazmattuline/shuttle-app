@@ -28,6 +28,6 @@ export class ShuttleApiService {
   }
 
   sendPassengerInfo(passengerInfo: PassengerInfo): Observable<PassengerInfo> {
-    return this.http.post<PassengerInfo>(storePassengers);
+    return this.http.post<PassengerInfo>(storePassengers, passengerInfo);
   }
 }

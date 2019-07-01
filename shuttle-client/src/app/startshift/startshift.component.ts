@@ -77,7 +77,7 @@ private setupForm() {
   });
 }
 
-submitStartData(){
+submitStartData() {
   const shiftValue = this.startShiftForm.value;
   this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
   this.showShift.emit(false);

@@ -16,7 +16,7 @@ import { ShuttleService } from '../services/shuttle.service';
     providers: [GPSService, ShuttleService]
     })
 export class DriverComponent implements OnInit {
-  count = 0;
+  count = 0;SS
   inputComment;
   timeToStart: boolean;
   isActive = false;
@@ -76,6 +76,7 @@ export class DriverComponent implements OnInit {
   
   submitPassengerInfo() {
     // TODO - submit info from new UI
+
     this.shuttleService.createPassengerInfo(1, 1, 1);
 
   }
