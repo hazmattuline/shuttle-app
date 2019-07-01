@@ -1,24 +1,22 @@
 package rest.models.response;
 
-import java.util.List;
-
 public class VehicleOptionsResponse {
-  private List<String> vehicleNames;
-  private List<Integer> ids;
+  private Integer id;
+  private String vehicleName;
 
-  public List<Integer> getIds() {
-    return ids;
+  public Integer getId() {
+    return id;
   }
 
-  public List<String> getVehicleNames() {
-    return vehicleNames;
+  public String getVehicleName() {
+    return vehicleName;
   }
 
-  public void setIds(List<Integer> ids) {
-    this.ids = ids;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
-  public void setVehicleNames(List<String> vehicleNames) {
-    this.vehicleNames = vehicleNames;
+  public void setVehicleName(String vehicleName) {
+    this.vehicleName = vehicleName;
   }
 }

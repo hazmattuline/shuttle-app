@@ -3,6 +3,7 @@ package com.uline.shuttle.app.client.impl;
 import com.uline.ha.rest.UlineRestTemplate;
 import com.uline.shuttle.app.client.ShuttleAppClient;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -103,7 +104,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public VehicleOptionsResponse getVehicleOptions() {
+  public List<VehicleOptionsResponse> getVehicleOptions() {
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForVehicleOptions);
 
@@ -112,7 +113,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             builder.build().toUriString(),
             HttpMethod.GET,
             null,
-            new ParameterizedTypeReference<VehicleOptionsResponse>() {})
+            new ParameterizedTypeReference<List<VehicleOptionsResponse>>() {})
         .getBody();
   }
 

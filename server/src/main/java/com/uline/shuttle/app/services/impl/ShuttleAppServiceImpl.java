@@ -2,6 +2,7 @@ package com.uline.shuttle.app.services.impl;
 
 import com.uline.shuttle.app.client.ShuttleAppClient;
 import com.uline.shuttle.app.services.ShuttleAppService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rest.models.requests.CoordinateRequest;
@@ -42,7 +43,7 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public VehicleOptionsResponse getVehicleOptions() {
+  public List<VehicleOptionsResponse> getVehicleOptions() {
     return shuttleAppClient.getVehicleOptions();
   }
 

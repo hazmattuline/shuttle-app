@@ -3,6 +3,7 @@ package com.uline.shuttle.app.controllers;
 import com.uline.common.metrics.ExecutionTime;
 import com.uline.shuttle.app.services.ShuttleAppService;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -34,6 +35,13 @@ public class ShuttleAppController {
     this.shuttleAppService = shuttleAppService;
   }
 
+  @ExecutionTime("ShuttleAppService.endShift")
+  @ApiOperation(value = "posting the ending conditions of the vehicle")
+  @PostMapping(value = "/storeEndInformation")
+  public EndResponse endShift(@RequestBody EndRequest endRequest) {
+    return shuttleAppService.endShift(endRequest);
+  }
+
   @ExecutionTime("ShuttleAppService.enRoute")
   @ApiOperation(
       value = "posting the coordinates that we get from driver view and storing in a database")
@@ -52,7 +60,7 @@ public class ShuttleAppController {
   @ExecutionTime("ShuttleAppService.receiveVehicleOptions")
   @ApiOperation(value = "fetching vehicles from database")
   @GetMapping(value = "/receiveVehicleOptions")
-  public VehicleOptionsResponse receiveVehicleOptions() {
+  public List<VehicleOptionsResponse> receiveVehicleOptions() {
     return shuttleAppService.getVehicleOptions();
   }
 
@@ -75,12 +83,5 @@ public class ShuttleAppController {
   @PostMapping(value = "/storePassengers")
   public PassengerResponse storePassengers(@RequestBody PassengerRequest passengerRequest) {
     return shuttleAppService.storePassengers(passengerRequest);
-  }
-
-  @ExecutionTime("ShuttleAppService.endShift")
-  @ApiOperation(value = "posting the ending conditions of the vehicle")
-  @PostMapping(value = "/storeEndInformation")
-  public EndResponse endShift(@RequestBody EndRequest endRequest) {
-    return shuttleAppService.endShift(endRequest);
   }
 }

@@ -1,5 +1,6 @@
 package com.uline.shuttle.app.client;
 
+import java.util.List;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.EndRequest;
 import rest.models.requests.FuelRequest;
@@ -20,7 +21,7 @@ public interface ShuttleAppClient {
 
   CoordinateResponse getCoordinates(Integer vehicleID);
 
-  VehicleOptionsResponse getVehicleOptions();
+  List<VehicleOptionsResponse> getVehicleOptions();
 
   StartResponse startShift(StartRequest startRequest);
 
