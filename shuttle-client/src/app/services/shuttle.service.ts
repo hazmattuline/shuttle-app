@@ -5,20 +5,35 @@ import { EndInfo } from '../models/end-info';
 import { VehicleDropDown } from '../models/shuttleDropdownModel';
 import { Vehicle } from '../models/vehicle.model';
 import { stringify } from '@angular/core/src/render3/util';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { getVehicleOptions } from '../core/constants/endpoints.constant';
 import { FuelInfo } from '../models/fuel.model';
 import { PassengerInfo } from '../models/record-passengers.model';
+import { SelectItem } from 'primeng/api';
 
 @Injectable()
 export class ShuttleService {
 
   constructor(private shuttleApi: ShuttleApiService) { }
-  vehicles: Vehicle[] = [];
-  private vehicleTimer = null;
-  private _vehicleDropDown: Subject<VehicleDropDown> = new Subject();
-  vehicleDropDown: VehicleDropDown = { vehicleID: [], vehicleName: []};
 
+ 
+  vehicles: Vehicle[] = [];
+  private _vehicleDropDown: Subject<SelectItem[]> = new Subject();
+  public vehicleDropDown: Observable<SelectItem[]> = this._vehicleDropDown.asObservable();
+
+  static buildSelectItemsForDropdown(data: any[], labelFieldName: string, valueFieldName?: string): SelectItem[] {
+    let selectItems = [];
+      console.log(data);
+    if (data && data.length > 0) {
+      selectItems = data.map(dataItem => {
+        return {label: dataItem[labelFieldName], value: valueFieldName ? dataItem[valueFieldName] : dataItem};
+      });
+  
+      selectItems.unshift({label: '', value: null});
+    }
+    return selectItems;
+  }
+  
   createStartInfo(driverId: number, vehicleId: number, mileage: number, conditionId: number) {
     const startInfo: StartInfo = {
       startDriverId: driverId,
@@ -28,6 +43,8 @@ export class ShuttleService {
     };
     console.log(driverId);
     console.log(vehicleId);
+
+
     console.log(mileage);
     console.log(conditionId);
 
@@ -50,32 +67,29 @@ export class ShuttleService {
   }
 
   
-  vehicleOptionsC() {// (vehicleDropDown: VehicleDropDown) {
-
+  vehicleOptionsC() {
     this.shuttleApi.responseForVehicleOptions().subscribe(vehicleDropDown =>{
-        this.getAllVehicles(vehicleDropDown);
+      this._vehicleDropDown.next(ShuttleService.buildSelectItemsForDropdown(vehicleDropDown, 'vehicleName', 'id'));
     });
-    this.getAllVehicles(this.vehicleDropDown);
-    console.log(this.vehicles);
-
-    return this.vehicles;
-
   }
-  getAllVehicles(vehicleDropDown: VehicleDropDown) {
-    // this.vehicleDropDown.vehicleID.push(1, 2, 3);
-    // this.vehicleDropDown.vehicleName.push("emz", "pete", "trizzle");
 
-    for (let i = 0 ; i < this.vehicleDropDown.vehicleName.length; i++ )
+  getAllVehicles(vehicleDropDown: VehicleDropDown) {
+
+    for (let i = 0 ; i < vehicleDropDown.vehicleNames.length; i++)
     {
+
       const vehicle: Vehicle =  {
-        'name': this.vehicleDropDown.vehicleName[i],
-        'id': this.vehicleDropDown.vehicleID[i]
+
+        'name': vehicleDropDown.vehicleNames[i],
+        'id': vehicleDropDown.ids[i]
       };
       this.vehicles.push(vehicle);
     }
-    //return this.vehicles;
-    //console.log(this.vehicles);
+    
+    return this.vehicles;
+  
   }
+  
   createFuelInfo(quantity: number, cost: number) {
     const fuelInfo: FuelInfo = {
       fuelCost: cost,

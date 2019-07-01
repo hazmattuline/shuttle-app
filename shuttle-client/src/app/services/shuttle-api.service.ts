@@ -21,26 +21,22 @@ export class ShuttleApiService {
   getShuttles(): Observable<Shuttle> {
     return this.http.get<Shuttle>(ReceiveCoords + '/' + 1); // TODO - remove hard coding id
   }
-
   sendShuttleCoordinates(coordinates: CoordinatesRequest): Observable<Shuttle> {
     return this.http.patch<Shuttle>(Enroute, coordinates);
   }
-
   sendStartInfo(startRequest: StartInfo): Observable<StartInfo> {
     return this.http.post<StartInfo>(storeStartInfo, startRequest);
   }
-
   sendEndInfo(endRequest: EndInfo): Observable<EndInfo> {
     return this.http.post<EndInfo>(storeEndInfo, endRequest);
   }
-
-  responseForVehicleOptions(): Observable<VehicleDropDown> {
-    return this.http.get<VehicleDropDown>(getVehicleOptions);
+  responseForVehicleOptions(): Observable<VehicleDropDown[]> {
+    return this.http.get<VehicleDropDown[]>(getVehicleOptions);
   }
   sendFuelInfo(fuelRequest: FuelInfo): Observable<FuelInfo> {
     return this.http.post<FuelInfo>(storeFuelInfo, fuelRequest);
-}
-sendPassengerInfo(): Observable<PassengerInfo> {
-  return this.http.get<PassengerInfo>(storePassengers);
-}
-}
+  }
+  sendPassengerInfo(): Observable<PassengerInfo> {
+    return this.http.get<PassengerInfo>(storePassengers);
+  }
+  }

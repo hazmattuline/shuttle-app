@@ -8,7 +8,7 @@
       </div>
       <div>
         <label class="info-label">Vehicle</label>
-        <p-dropdown appendTo="body" (onClick)="test(endShiftForm.get('vehicle').value)" formControlName="vehicle" [options]="vehicleOptions"></p-dropdown>
+        <p-dropdown appendTo="body" formControlName="vehicle" [options]="shuttleService.vehicleDropDown | async"></p-dropdown>
       </div>
       <div>
         <label class="info-label">Mileage</label>

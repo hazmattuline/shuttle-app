@@ -7,6 +7,7 @@ import { ShuttleService } from '../services/shuttle.service';
 import { getVehicleOptions } from '../core/constants/endpoints.constant';
 import { VehicleDropDown } from '../models/shuttleDropdownModel';
 
+
 @Component({
   selector: 'app-endshift',
   templateUrl: './endshift.component.html',
@@ -18,7 +19,7 @@ import { VehicleDropDown } from '../models/shuttleDropdownModel';
 
 export class EndshiftComponent implements OnInit {
 
-constructor(private supportService: ScriptService, private fb: FormBuilder, private shuttleService: ShuttleService) {
+constructor(private supportService: ScriptService, private fb: FormBuilder, public shuttleService: ShuttleService) {
   this.driverOptions = [
     {label: 'Select', value: null},
     {label: 'Nadia Almanza', value: {id: 1}},
@@ -52,8 +53,6 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, priv
   vehicleOptions: SelectItem[];
   milesOptions: SelectItem[];
   conditionOptions: SelectItem[];
-
-
   inputMileage: number;
 
   endShiftForm: FormGroup;
@@ -61,16 +60,13 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, priv
   @Output()
   showShift = new EventEmitter<boolean>();
 
-static buildSelectItemsForDropdown(data: any[], labelFieldName: string, valueFieldName?: string): SelectItem[] {
-  let selectItems = [];
-  if (data && data.length > 0) {
-    selectItems = data.map(dataItem => {
-      return {label: dataItem[labelFieldName], value: valueFieldName ? dataItem[valueFieldName] : dataItem};
-    });
-    selectItems.unshift({label: '', value: null});
+ 
+
+
+ getVehicles() {
+  this.shuttleService.vehicleOptionsC();
   }
-  return selectItems ;
-}
+
 ngOnInit() {
   this.setupForm();
   this.getVehicles();
@@ -90,9 +86,7 @@ submitEndData() {
   this.shuttleService.createEndInfo(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
   this.showShift.emit(false);
 }
-getVehicles() {
-  this.vehicleOptions = EndshiftComponent.buildSelectItemsForDropdown(this.shuttleService.vehicleOptionsC(), 'name', 'id');
-}
+
 
 test(f)
 {

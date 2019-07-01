@@ -95,7 +95,7 @@ submitStartData(){
   this.showShift.emit(false);
 }
 getVehicles() {
-  this.vehicleOptions = StartshiftComponent.buildSelectItemsForDropdown(this.shuttleService.vehicleOptionsC(), 'name', 'id');
+  //this.vehicleOptions = StartshiftComponent.buildSelectItemsForDropdown(this.shuttleService.vehicleOptionsC(), 'name', 'id');
 }
 }
 
