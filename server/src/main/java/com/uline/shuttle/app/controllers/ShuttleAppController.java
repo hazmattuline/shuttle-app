@@ -65,7 +65,7 @@ public class ShuttleAppController {
 
   @ExecutionTime("ShuttleAppService.startShift")
   @ApiOperation(value = "posting the start of shift details to the database")
-  @PostMapping(value = "/storeStartInformation")
+  @PostMapping(value = "/days/start")
   public StartResponse startShift(@RequestBody StartRequest startRequest) {
     return shuttleAppService.startShift(startRequest);
   }
