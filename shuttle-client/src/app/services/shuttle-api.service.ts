@@ -31,13 +31,7 @@ export class ShuttleApiService {
   sendShuttleCoordinates(coordinates: CoordinatesRequest, id: number): Observable<Shuttle> {
     return this.http.patch<Shuttle>(Shuttles + '/' + id + Coordinates, coordinates);
   }
-  // getShuttles(): Observable<Shuttle> {
-  //   return this.http.get<Shuttle>(ReceiveCoords + '/' + 2); // TODO - remove hard coding id
-  // }
-
-  // sendShuttleCoordinates(coordinates: CoordinatesRequest): Observable<Shuttle> {
-  //   return this.http.patch<Shuttle>(Enroute, coordinates);
-  // }
+  
   sendStartInfo(startRequest: StartInfo): Observable<StartInfo> {
     return this.http.post<StartInfo>(Start, startRequest);
   }

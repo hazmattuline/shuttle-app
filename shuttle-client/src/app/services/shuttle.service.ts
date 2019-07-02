@@ -112,7 +112,6 @@ export class ShuttleService {
 
   deleteMarker() {
     this.currentShuttleMarkers.clear();
-    //console.log(this.currentShuttleMarkers);
   }
 
   
