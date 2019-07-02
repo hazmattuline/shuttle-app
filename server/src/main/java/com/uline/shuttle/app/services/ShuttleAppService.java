@@ -12,7 +12,7 @@ import rest.models.response.VehicleOptionsResponse;
 
 public interface ShuttleAppService {
 
-  CoordinateResponse enRoute(CoordinateRequest coordinateRequest);
+  CoordinateResponse enRoute(Integer vehicleId, CoordinateRequest coordinateRequest);
 
   CoordinateResponse getCoordinates(Integer vehicleID);
 

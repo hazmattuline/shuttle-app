@@ -33,11 +33,12 @@ public class ShuttleAppController {
   }
 
   @ExecutionTime("ShuttleAppService.enRoute")
-  @ApiOperation(
-      value = "posting the coordinates that we get from driver view and storing in a database")
-  @PatchMapping(value = "/enRoute")
-  public CoordinateResponse enRoute(@RequestBody CoordinateRequest coordinateRequest) {
-    return shuttleAppService.enRoute(coordinateRequest);
+  @ApiOperation(value = "posting the coordinates and storing in a database")
+  @PatchMapping(value = "/shuttles/{vehicleID}/coordinates")
+  public CoordinateResponse enRoute(
+      @PathVariable("vehicleID") Integer vehicleID,
+      @RequestBody CoordinateRequest coordinateRequest) {
+    return shuttleAppService.enRoute(vehicleID, coordinateRequest);
   }
 
   @ExecutionTime("ShuttleAppService.receiveCoordinates")
@@ -55,7 +56,7 @@ public class ShuttleAppController {
   }
 
   @ExecutionTime("ShuttleAppService.startShift")
-  @ApiOperation(value = "posting the start of shift details to the database")
+  @ApiOperation(value = "posting the start of day details to the database")
   @PostMapping(value = "/days/start")
   public StartResponse startShift(@RequestBody StartRequest startRequest) {
     return shuttleAppService.startShift(startRequest);
