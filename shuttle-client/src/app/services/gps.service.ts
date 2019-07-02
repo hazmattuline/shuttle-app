@@ -28,6 +28,7 @@ export class GPSService implements OnDestroy {
 
   stopGPSTracking() {
     navigator.geolocation.clearWatch(this.watchId);
+    
     this._isActive.next(false);
     if (this.gpsLocationTimer) {
       clearInterval(this.gpsLocationTimer);
@@ -82,6 +83,7 @@ export class GPSService implements OnDestroy {
   }
 
   ngOnDestroy() {
+    
     this.stopGPSTracking();
   }
 }

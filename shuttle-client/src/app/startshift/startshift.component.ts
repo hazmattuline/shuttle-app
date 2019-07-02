@@ -4,6 +4,8 @@ import {SelectItem} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
+import { Vehicles } from '../core/constants/endpoints.constant';
+import { VehicleDropDown } from '../models/shuttleDropdownModel';
 
 
 @Component({
@@ -11,23 +13,13 @@ import { ShuttleService } from '../services/shuttle.service';
   templateUrl: './startshift.component.html',
   styleUrls: ['./startshift.component.css'],
   providers: [ShuttleService]
+
 })
+
+
 export class StartshiftComponent implements OnInit {
-  @Input()
-  startShift: DriverComponent;
 
-  driverOptions: SelectItem[];
-  vehicleOptions: SelectItem[];
-  milesOptions: SelectItem[];
-  conditionOptions: SelectItem[];
-  inputMileage: number;
-
-  startShiftForm: FormGroup;
-
-  @Output()
-  showShift = new EventEmitter<boolean>();
-
-constructor(private supportService: ScriptService, private fb: FormBuilder, private shuttleService: ShuttleService) {
+constructor(private supportService: ScriptService, private fb: FormBuilder, public shuttleService: ShuttleService) {
   this.driverOptions = [
     {label: 'Select', value: null},
     {label: 'Nadia Almanza', value: {id: 1}},
@@ -36,16 +28,6 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, priv
     {label: 'Heather Iwinski', value: {id: 4}},
     {label: 'Melissa Zaugra', value: {id: 5}},
   ];
-
-  // this.vehicleOptions = [
-  //   {label: 'Select', value: null},
-  //   {label: 'Bailey', value: {id: 1}},
-  //   {label: 'Bailey Rental', value: {id: 2}},
-  //   {label: 'Dixie', value: {id: 3}},
-  //   {label: 'Dixie Rental', value: {id: 4}},
-  //   {label: 'Holly', value: {id: 5}},
-  //   {label: 'Holly Rental', value: {id: 6}},
-  // ];
 
   this.milesOptions = [
     {label: 'Select', value: null},
@@ -64,20 +46,30 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, priv
   ];
 
 }
-static buildSelectItemsForDropdown(data: any[], labelFieldName: string, valueFieldName?: string): SelectItem[] {
-  let selectItems = [];
-  if (data && data.length > 0) {
-    selectItems = data.map(dataItem => {
-      return {label: dataItem[labelFieldName], value: valueFieldName ? dataItem[valueFieldName] : dataItem};
-    });
-    selectItems.unshift({label: '', value: null});
+  @Input()
+  startShift: DriverComponent;
+  vehicleDrop: VehicleDropDown;
+  driverOptions: SelectItem[];
+  vehicleOptions: SelectItem[];
+  milesOptions: SelectItem[];
+  conditionOptions: SelectItem[];
+  inputMileage: number;
+
+  startShiftForm: FormGroup;
+
+  @Output()
+  showShift = new EventEmitter<boolean>();
+
+ 
+
+
+ getVehicles() {
+  this.shuttleService.vehicleOptionsC();
   }
-  return selectItems ;
-}
+
 ngOnInit() {
   this.setupForm();
   this.getVehicles();
-
  }
 
 private setupForm() {
@@ -89,15 +81,20 @@ private setupForm() {
   });
 }
 
-submitStartData(){
+submitstartData() {
   const shiftValue = this.startShiftForm.value;
   this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
   this.showShift.emit(false);
 }
-getVehicles() {
-  //this.vehicleOptions = StartshiftComponent.buildSelectItemsForDropdown(this.shuttleService.vehicleOptionsC(), 'name', 'id');
+
+
+test(f)
+{
+console.log(f);
 }
 }
+
+
 
 export interface DriverInfo {
   name: string;
@@ -123,5 +120,6 @@ interface DriverInput {
   numPassengers: number;
   id: number;
 }
+
 
 

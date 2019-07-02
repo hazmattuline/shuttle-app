@@ -32,6 +32,10 @@ export class ShuttleTrackingService implements OnDestroy {
     });
   }
 
+  private dontShowShuttle(){
+    
+  }
+
   public startShuttleTracking() {
     this.startTimer();
   }

@@ -4,7 +4,7 @@ import {SelectItem} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
-import { getVehicleOptions } from '../core/constants/endpoints.constant';
+import { Vehicles } from '../core/constants/endpoints.constant';
 import { VehicleDropDown } from '../models/shuttleDropdownModel';
 
 

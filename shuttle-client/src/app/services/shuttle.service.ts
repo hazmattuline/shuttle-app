@@ -6,7 +6,7 @@ import { VehicleDropDown } from '../models/shuttleDropdownModel';
 import { Vehicle } from '../models/vehicle.model';
 import { stringify } from '@angular/core/src/render3/util';
 import { Subject, Observable } from 'rxjs';
-import { getVehicleOptions } from '../core/constants/endpoints.constant';
+import { Vehicles } from '../core/constants/endpoints.constant';
 import { FuelInfo } from '../models/fuel.model';
 import { PassengerInfo } from '../models/record-passengers.model';
 import { SelectItem } from 'primeng/api';

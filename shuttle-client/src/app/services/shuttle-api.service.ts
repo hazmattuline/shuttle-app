@@ -21,15 +21,12 @@ export class ShuttleApiService {
   getShuttleCoordinates(id: number): Observable<Shuttle> {
     return this.http.get<Shuttle>(Shuttles + '/' +  id + Coordinates); // TODO - remove hard coding id
   }
-
   getShuttles(): Observable<Shuttle> {
     return this.http.get<Shuttle>(Shuttles);
   }
-  
   getShuttle(id: number) {
     return this.http.get<Shuttle>(Shuttles + '/' + id);
   }
-
   sendShuttleCoordinates(coordinates: CoordinatesRequest, id: number): Observable<Shuttle> {
     return this.http.patch<Shuttle>(Shuttles + '/' + id + Coordinates, coordinates);
   }
