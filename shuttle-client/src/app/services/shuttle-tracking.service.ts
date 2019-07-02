@@ -14,12 +14,22 @@ export class ShuttleTrackingService implements OnDestroy {
   constructor(private shuttleApi: ShuttleApiService) { }
 
   private startTimer() {
+    this.showShuttle();
     this.shuttleLocationTimer = setInterval(() => {
-      this.shuttleApi.getShuttles().subscribe(shuttle => {
-        shuttle = this.calculateXYPixelCoordinates(shuttle);
-        this._shuttles.next(shuttle);
-      });
+      this.showShuttle();
     }, 2000);
+  }
+
+  private showShuttle() {
+    this.shuttleApi.getShuttleCoordinates(1).subscribe(shuttle => {  // hardcoded 1 as the shuttle for now
+      if (shuttle.latitudeCoordinates <= 42.524072 && shuttle.latitudeCoordinates >= 42.5130865
+         && shuttle.longitudeCoordinates >= -87.962551 && shuttle.longitudeCoordinates ) {
+          shuttle = this.calculateXYPixelCoordinates(shuttle);
+          this._shuttles.next(shuttle);
+      } else {
+        console.log('off the map');
+      }
+    });
   }
 
   public startShuttleTracking() {
@@ -62,14 +72,6 @@ export class ShuttleTrackingService implements OnDestroy {
       shuttle.yPixelCoordinate = posy;
       return shuttle;
     }
-
-  showShuttles(shuttle: Shuttle) {
-    const elem1 = document.getElementById('animate1');
-    const shuttleLatitude = shuttle.latitudeCoordinates;
-    const shuttleLongitude = shuttle.longitudeCoordinates;
-    elem1.style.top = shuttleLatitude + 'px';
-    elem1.style.left = shuttleLongitude + 'px';
-  }
 
   ngOnDestroy() {
     this.stopShuttleTracking();

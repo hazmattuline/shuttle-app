@@ -3,8 +3,9 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import { Enroute, ReceiveCoords, storeStartInfo, storePassengers } from '../core/constants/endpoints.constant';
+import { Shuttles, Coordinates,  Start, Fuel, Passengers } from '../core/constants/endpoints.constant';
 import { StartInfo } from '../models/start-info.model';
+import { FuelInfo } from '../models/fuel.model';
 import { PassengerInfo } from '../models/record-passengers.model';
 
 @Injectable({
@@ -15,19 +16,31 @@ export class ShuttleApiService {
 
   constructor(private http: HttpClient) { }
 
-  getShuttles(): Observable<Shuttle> {
-    return this.http.get<Shuttle>(ReceiveCoords + '/' + 1); // TODO - remove hard coding id
+  getShuttleCoordinates(id: number): Observable<Shuttle> {
+    return this.http.get<Shuttle>(Shuttles + '/' +  id + Coordinates); // TODO - remove hard coding id
   }
 
-  sendShuttleCoordinates(coordinates: CoordinatesRequest): Observable<Shuttle> {
-    return this.http.patch<Shuttle>(Enroute, coordinates);
+  getShuttles(): Observable<Shuttle> {
+    return this.http.get<Shuttle>(Shuttles);
+  }
+  
+  getShuttle(id: number) {
+    return this.http.get<Shuttle>(Shuttles + '/' + id);
+  }
+
+  sendShuttleCoordinates(coordinates: CoordinatesRequest, id: number): Observable<Shuttle> {
+    return this.http.patch<Shuttle>(Shuttles + '/' + id + Coordinates, coordinates);
   }
 
   sendStartInfo(startRequest: StartInfo): Observable<StartInfo> {
-    return this.http.post<StartInfo>(storeStartInfo, startRequest);
+    return this.http.post<StartInfo>(Start, startRequest);
+  }
+
+  sendFuelInfo(fuelRequest: FuelInfo): Observable<FuelInfo> {
+    return this.http.post<FuelInfo>(Fuel, fuelRequest);
   }
 
   sendPassengerInfo(passengerInfo: PassengerInfo): Observable<PassengerInfo> {
-    return this.http.post<PassengerInfo>(storePassengers, passengerInfo);
+    return this.http.post<PassengerInfo>(Passengers, passengerInfo);
   }
 }

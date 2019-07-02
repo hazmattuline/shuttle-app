@@ -21,7 +21,7 @@ import rest.models.response.PassengerResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
 import rest.models.response.EndResponse;
-import rest.models.requests.EndRequest;
+import rest.models.response.EndRequest;
 
 @RestController
 @RequestMapping("/api")
@@ -35,36 +35,37 @@ public class ShuttleAppController {
   }
 
   @ExecutionTime("ShuttleAppService.enRoute")
-  @ApiOperation(
-      value = "posting the coordinates that we get from driver view and storing in a database")
-  @PatchMapping(value = "/enRoute")
-  public CoordinateResponse enRoute(@RequestBody CoordinateRequest coordinateRequest) {
-    return shuttleAppService.enRoute(coordinateRequest);
+  @ApiOperation(value = "posting the coordinates and storing in a database")
+  @PatchMapping(value = "/shuttles/{vehicleID}/coordinates")
+  public CoordinateResponse enRoute(
+      @PathVariable("vehicleID") Integer vehicleID,
+      @RequestBody CoordinateRequest coordinateRequest) {
+    return shuttleAppService.enRoute(vehicleID, coordinateRequest);
   }
 
   @ExecutionTime("ShuttleAppService.endShift")
   @ApiOperation(value = "posting the ending conditions of the vehicle")
-  @PostMapping(value = "/storeEndInformation")
+  @PostMapping(value = "/days/end")
   public EndResponse endShift(@RequestBody EndRequest endRequest) {
     return shuttleAppService.endShift(endRequest);
   }
 
   @ExecutionTime("ShuttleAppService.receiveCoordinates")
   @ApiOperation("fetching coordinates from the database")
-  @GetMapping(value = "/receiveCoords/{vehicleID}")
+  @GetMapping(value = "/shuttles/{vehicleID}/coordinates")
   public CoordinateResponse receiveCoordinates(@PathVariable("vehicleID") Integer vehicleID) {
     return this.shuttleAppService.getCoordinates(vehicleID);
   }
 
   @ExecutionTime("ShuttleAppService.receiveVehicleOptions")
   @ApiOperation(value = "fetching vehicles from database")
-  @GetMapping(value = "/receiveVehicleOptions")
-  public VehicleOptionsResponse receiveVehicleOptions() {
-    return shuttleAppService.getVehicleOptions();
+  @GetMapping(value = "/vehicles")
+  public VehicleOptionsResponse receiveVehicles() {
+    return shuttleAppService.getVehicles();
   }
 
   @ExecutionTime("ShuttleAppService.startShift")
-  @ApiOperation(value = "posting the start of shift details to the database")
+  @ApiOperation(value = "posting the start of day details to the database")
   @PostMapping(value = "/days/start")
   public StartResponse startShift(@RequestBody StartRequest startRequest) {
     return shuttleAppService.startShift(startRequest);
@@ -72,7 +73,7 @@ public class ShuttleAppController {
 
   @ExecutionTime("ShuttleAppService.storeFuel")
   @ApiOperation(value = "posting the fuel details to the database")
-  @PostMapping(value = "/storeFuel")
+  @PostMapping(value = "/days/fuel")
   public FuelResponse storeFuel(@RequestBody FuelRequest fuelRequest) {
     return shuttleAppService.storeFuel(fuelRequest);
   }

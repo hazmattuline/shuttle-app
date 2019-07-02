@@ -14,13 +14,13 @@ import rest.models.requests.EndRequest;
 
 public interface ShuttleAppService {
 
-  CoordinateResponse enRoute(CoordinateRequest coordinateRequest);
+  CoordinateResponse enRoute(Integer vehicleId, CoordinateRequest coordinateRequest);
 
   CoordinateResponse getCoordinates(Integer vehicleID);
 
-  EndResponse endShift(EndRequest endRequest);
+  VehicleOptionsResponse getVehicles();
 
-  VehicleOptionsResponse getVehicleOptions();
+  EndResponse endShift(EndRequest endRequest);
 
   StartResponse startShift(StartRequest startRequest);
 

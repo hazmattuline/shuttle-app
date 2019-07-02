@@ -27,14 +27,14 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
+  public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
+    return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
+  }
+
   public EndResponse endShift(EndRequest endRequest) {
     return shuttleAppClient.endShift(endRequest);
   }
 
-  @Override
-  public CoordinateResponse enRoute(CoordinateRequest coordinateRequest) {
-    return shuttleAppClient.enRoute(coordinateRequest);
-  }
 
   @Override
   public CoordinateResponse getCoordinates(Integer vehicleID) {
@@ -42,8 +42,8 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public VehicleOptionsResponse getVehicleOptions() {
-    return shuttleAppClient.getVehicleOptions();
+  public VehicleOptionsResponse getVehicles() {
+    return shuttleAppClient.getVehicles();
   }
 
   @Override

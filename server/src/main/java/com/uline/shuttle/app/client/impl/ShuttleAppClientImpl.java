@@ -20,6 +20,8 @@ import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
+import rest.models.response.EndResponse;
+import rest.models.response.EndRequest;
 
 @Service
 public class ShuttleAppClientImpl implements ShuttleAppClient {
@@ -41,11 +43,8 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   @Value("${shuttle.service.rc.url.post.startOfShift}")
   private String shuttleServiceStartOfShift;
 
-  @Value("${shuttle.service.rc.url.end.of.shift}")
-  private String endShiftUrl;
-
   @Value("${shuttle.service.rc.url.post.coordinates}")
-  private String shuttleServiceUrl;
+  private String shuttlePostCoordinates;
 
   @Value("${shuttle.service.rc.url.post.fuel}")
   private String shuttleServiceForFuel;
@@ -56,17 +55,30 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public CoordinateResponse enRoute(CoordinateRequest coordinateRequest) {
+  public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceUrl);
+    Map<String, Integer> params = new HashMap<>();
+    params.put("vehicleID", vehicleID);
+
+    UriComponentsBuilder builder =
+        UriComponentsBuilder.fromUriString(baseUrl + shuttlePostCoordinates);
 
     return restTemplate
         .exchange(
-            builder.build().toUriString(),
+            builder.buildAndExpand(params).toUriString(),
             HttpMethod.PATCH,
             new HttpEntity<>(coordinateRequest),
             new ParameterizedTypeReference<CoordinateResponse>() {})
         .getBody();
+  }
+
+    @Override
+  public EndResponse endShift(EndRequest endRequest) {
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + endShiftUrl);
+
+    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new
+    HttpEntity<>(endRequest),
+    new ParameterizedTypeReference<EndResponse>() {}).getBody();
   }
 
   @Override
@@ -88,18 +100,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public EndResponse endShift(EndRequest endRequest) {
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + endShiftUrl);
-
-    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new
-    HttpEntity<>(endRequest),
-    new ParameterizedTypeReference<EndResponse>() {}).getBody();
-
-    return x;
-  }
-
-  @Override
-  public VehicleOptionsResponse getVehicleOptions() {
+  public VehicleOptionsResponse getVehicles() {
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForVehicleOptions);
 
