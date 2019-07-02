@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 import { ShuttleApiService } from './shuttle-api.service';
 import { StartInfo } from '../models/start-info.model';
 import { EndInfo } from '../models/end-info';
 import { VehicleDropDown } from '../models/shuttleDropdownModel';
 import { Vehicle } from '../models/vehicle.model';
 import { stringify } from '@angular/core/src/render3/util';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, Subscription } from 'rxjs';
 import { Vehicles } from '../core/constants/endpoints.constant';
 import { FuelInfo } from '../models/fuel.model';
 import { PassengerInfo } from '../models/record-passengers.model';
@@ -66,12 +66,11 @@ export class ShuttleService {
     this.shuttleApi.sendEndInfo(endInfo).subscribe();
   }
 
-  
-  vehicleOptionsC() {
-    this.shuttleApi.responseForVehicleOptions().subscribe(vehicleDropDown =>{
-      this._vehicleDropDown.next(ShuttleService.buildSelectItemsForDropdown(vehicleDropDown, 'vehicleName', 'id'));
-    });
-  }
+  //   vehicleOptionsC() {
+  //   this.shuttleApi.responseForVehicleOptions().subscribe(vehicleDropDown =>{
+  //     this._vehicleDropDown.next(ShuttleService.buildSelectItemsForDropdown(vehicleDropDown, 'vehicleName', 'id'));
+  //   });
+  // }
 
   getAllVehicles(vehicleDropDown: VehicleDropDown) {
 
@@ -81,7 +80,8 @@ export class ShuttleService {
       const vehicle: Vehicle =  {
 
         'name': vehicleDropDown.vehicleNames[i],
-        'id': vehicleDropDown.ids[i]
+        'id': vehicleDropDown.ids[i] //,
+        //'status': vehicleDropDown.statuses[i]
       };
       this.vehicles.push(vehicle);
     }
@@ -89,6 +89,8 @@ export class ShuttleService {
     return this.vehicles;
   
   }
+
+
   
   createFuelInfo(quantity: number, cost: number) {
     const fuelInfo: FuelInfo = {
@@ -106,6 +108,20 @@ export class ShuttleService {
     };
     this.shuttleApi.sendPassengerInfo().subscribe();
   }
+  currentShuttleMarkers: Map<number, ElementRef> = new Map();
+
+  deleteMarker() {
+    this.currentShuttleMarkers.clear();
+    //console.log(this.currentShuttleMarkers);
+  }
+
+  
+   stopListenForShuttleMarkers(sub: Subscription) {
+    if (sub) {
+      sub.unsubscribe();
+    }
+  }
+
   }
 
 

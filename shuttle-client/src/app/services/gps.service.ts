@@ -28,7 +28,6 @@ export class GPSService implements OnDestroy {
 
   stopGPSTracking() {
     navigator.geolocation.clearWatch(this.watchId);
-    
     this._isActive.next(false);
     if (this.gpsLocationTimer) {
       clearInterval(this.gpsLocationTimer);
@@ -38,6 +37,7 @@ export class GPSService implements OnDestroy {
   startGPSTracking() {
     if (navigator.geolocation) {
       this.watchId = navigator.geolocation.watchPosition((pos) => this.updateGPSPostion(pos), this.errorHandler, this.options);
+
       this._isActive.next(true);
       this.startGPSUpdateTimer();
     }
@@ -50,6 +50,7 @@ export class GPSService implements OnDestroy {
 
   private startGPSUpdateTimer() {
     this.gpsLocationTimer = setInterval(() => {
+    
       this.sendShuttleCoordinates();
     }, 2000);
   }
@@ -61,11 +62,11 @@ export class GPSService implements OnDestroy {
     }
     if (this.latestCoordinates && !this.hasNotMoved) {
       const coordinateRequest: CoordinatesRequest = {
-        vehicleID: 1, // TODO - Hard coded for now - Get this from service
+        vehicleID: 2, // TODO - Hard coded for now - Get this from service
         latitudeCoordinates: this.latestCoordinates.latitude,
         longitudeCoordinates: this.latestCoordinates.longitude
       }
-      this.shuttleApiService.sendShuttleCoordinates(coordinateRequest, 1).subscribe(); // hardcoded 1 as the shuttle
+      this.shuttleApiService.sendShuttleCoordinates(coordinateRequest).subscribe(); // hardcoded 1 as the shuttle
     }
   }
 

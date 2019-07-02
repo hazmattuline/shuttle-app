@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import { Shuttles, Coordinates,  Start, End, Vehicles, Fuel, Passengers } from '../core/constants/endpoints.constant';
+import { Shuttles, Coordinates,  Start, End, Vehicles, Fuel, Passengers, ReceiveCoords, Enroute } from '../core/constants/endpoints.constant';
 import { StartInfo } from '../models/start-info.model';
 import { EndInfo } from '../models/end-info';
 import { VehicleDropDown } from '../models/shuttleDropdownModel';
@@ -18,17 +18,24 @@ export class ShuttleApiService {
 
   constructor(private http: HttpClient) { }
 
-  getShuttleCoordinates(id: number): Observable<Shuttle> {
-    return this.http.get<Shuttle>(Shuttles + '/' +  id + Coordinates); // TODO - remove hard coding id
-  }
+  // getShuttleCoordinates(id: number): Observable<Shuttle> {
+  //   return this.http.get<Shuttle>(Shuttles + '/' +  id + Coordinates); // TODO - remove hard coding id
+  // }
+  // getShuttles(): Observable<Shuttle> {
+  //   return this.http.get<Shuttle>(Shuttles);
+  // }
+  // getShuttle(id: number) {
+  //   return this.http.get<Shuttle>(Shuttles + '/' + id);
+  // }
+  // sendShuttleCoordinates(coordinates: CoordinatesRequest, id: number): Observable<Shuttle> {
+  //   return this.http.patch<Shuttle>(Shuttles + '/' + id + Coordinates, coordinates);
+  // }
   getShuttles(): Observable<Shuttle> {
-    return this.http.get<Shuttle>(Shuttles);
+    return this.http.get<Shuttle>(ReceiveCoords + '/' + 2); // TODO - remove hard coding id
   }
-  getShuttle(id: number) {
-    return this.http.get<Shuttle>(Shuttles + '/' + id);
-  }
-  sendShuttleCoordinates(coordinates: CoordinatesRequest, id: number): Observable<Shuttle> {
-    return this.http.patch<Shuttle>(Shuttles + '/' + id + Coordinates, coordinates);
+
+  sendShuttleCoordinates(coordinates: CoordinatesRequest): Observable<Shuttle> {
+    return this.http.patch<Shuttle>(Enroute, coordinates);
   }
   sendStartInfo(startRequest: StartInfo): Observable<StartInfo> {
     return this.http.post<StartInfo>(Start, startRequest);
@@ -36,9 +43,9 @@ export class ShuttleApiService {
   sendEndInfo(endRequest: EndInfo): Observable<EndInfo> {
     return this.http.post<EndInfo>(End, endRequest);
   }
-  responseForVehicleOptions(): Observable<VehicleDropDown[]> {
-    return this.http.get<VehicleDropDown[]>(Vehicles);
-  }
+  //responseForVehicleOptions(): Observable<VehicleDropDown[]> {
+    //return this.http.get<VehicleDropDown[]>(Vehicles);
+  //}
   sendFuelInfo(fuelRequest: FuelInfo): Observable<FuelInfo> {
     return this.http.post<FuelInfo>(Fuel, fuelRequest);
   }

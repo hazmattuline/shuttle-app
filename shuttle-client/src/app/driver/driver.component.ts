@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
-
+import { UserComponent } from '../user/user.component';
 
 
 @Component
@@ -13,7 +13,7 @@ import { ShuttleService } from '../services/shuttle.service';
     selector: 'app-driver',
     templateUrl: './driver.component.html',
     styleUrls: ['./driver.component.css'],
-    providers: [GPSService]
+    providers: [GPSService , ShuttleService]
     })
 export class DriverComponent implements OnInit {
   count = 0;
@@ -27,8 +27,8 @@ export class DriverComponent implements OnInit {
   curbInputs: SelectItem[];
   passengerInput: DriverInput;
   curbInput: DriverInput;
-
-  constructor(private supportService: ScriptService, public gpsService: GPSService) {
+  use: UserComponent;
+  constructor(private supportService: ScriptService, public gpsService: GPSService, private shuttleService: ShuttleService) {
     this.passengerInputs = [
       { label: 'Select', value: null },
       { label: '0', value: { id: 1 } },
@@ -64,7 +64,10 @@ export class DriverComponent implements OnInit {
   changeActive() {
     if (this.gpsService.getIsGPSActive()) {
       this.gpsService.stopGPSTracking();
+      this.shuttleService.deleteMarker();
+     // this.shuttleService.stopListenForShuttleMarkers(this.use.shuttleSubscription);
     } else {
+
       this.gpsService.startGPSTracking();
     }
   }
