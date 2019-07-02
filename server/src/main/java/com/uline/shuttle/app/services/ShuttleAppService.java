@@ -17,11 +17,11 @@ public interface ShuttleAppService {
 
   EndResponse endShift(EndRequest endRequest);
 
-  CoordinateResponse enRoute(CoordinateRequest coordinateRequest);
+  CoordinateResponse enRoute(Integer vehicleId, CoordinateRequest coordinateRequest);
 
   CoordinateResponse getCoordinates(Integer vehicleID);
 
-  List<VehicleOptionsResponse> getVehicleOptions();
+  List<VehicleOptionsResponse> getVehicles();
 
   StartResponse startShift(StartRequest startRequest);
 

@@ -1,7 +1,8 @@
-export const Enroute = '/enRoute';
-export const ReceiveCoords = '/receiveCoords';
-export const storeStartInfo = '/storeStartInformation';
-export const storeEndInfo = '/storeEndInformation';
-export const getVehicleOptions = '/receiveVehicleOptions';
-export const storeFuelInfo = '/storeFuel';
-export const storePassengers = '/storePassengers';
+export const Start = '/days/start';
+export const End = '/days/end';
+export const Fuel = '/days/fuel';
+export const Days = '/days';
+export const Shuttles = '/shuttles';
+export const Coordinates = '/coordinates';
+
+export const Vehicles = '/vehicles';

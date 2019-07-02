@@ -24,7 +24,7 @@ export class GPSService implements OnDestroy {
 
   private gpsLocationTimer: any = null;
 
-  constructor(private shuttleService: ShuttleApiService) { }
+  constructor(private shuttleApiService: ShuttleApiService) { }
 
   stopGPSTracking() {
     navigator.geolocation.clearWatch(this.watchId);
@@ -64,7 +64,7 @@ export class GPSService implements OnDestroy {
         latitudeCoordinates: this.latestCoordinates.latitude,
         longitudeCoordinates: this.latestCoordinates.longitude
       }
-      this.shuttleService.sendShuttleCoordinates(coordinateRequest).subscribe();
+      this.shuttleApiService.sendShuttleCoordinates(coordinateRequest, 1).subscribe(); // hardcoded 1 as the shuttle
     }
   }
 
