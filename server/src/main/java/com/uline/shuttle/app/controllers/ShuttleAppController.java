@@ -3,6 +3,7 @@ package com.uline.shuttle.app.controllers;
 import com.uline.common.metrics.ExecutionTime;
 import com.uline.shuttle.app.services.ShuttleAppService;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -12,16 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rest.models.requests.CoordinateRequest;
+import rest.models.requests.EndRequest;
 import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
-import rest.models.requests.EndRequest;
 import rest.models.response.CoordinateResponse;
+import rest.models.response.EndResponse;
 import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
-import rest.models.response.EndResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -33,7 +34,7 @@ public class ShuttleAppController {
   public ShuttleAppController(ShuttleAppService shuttleAppService) {
     this.shuttleAppService = shuttleAppService;
   }
-  
+
   @ExecutionTime("ShuttleAppService.endShift")
   @ApiOperation(value = "posting the ending conditions of the vehicle")
   @PostMapping(value = "/storeEndInformation")
@@ -60,7 +61,7 @@ public class ShuttleAppController {
   @ExecutionTime("ShuttleAppService.receiveVehicleOptions")
   @ApiOperation(value = "fetching vehicles from database")
   @GetMapping(value = "/vehicles")
-  public VehicleOptionsResponse receiveVehicles() {
+  public List<VehicleOptionsResponse> receiveVehicles() {
     return shuttleAppService.getVehicles();
   }
 
@@ -80,7 +81,7 @@ public class ShuttleAppController {
 
   @ExecutionTime("ShuttleAppService.recordPassenger")
   @ApiOperation(value = "posting the passenger amount details to the database")
-  @PostMapping(value = "/storePassengers")
+  @PostMapping(value = "/days/passengers")
   public PassengerResponse storePassengers(@RequestBody PassengerRequest passengerRequest) {
     return shuttleAppService.storePassengers(passengerRequest);
   }

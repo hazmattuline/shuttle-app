@@ -71,7 +71,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
         .getBody();
   }
 
-@Override
+  @Override
   public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
 
     Map<String, Integer> params = new HashMap<>();
@@ -89,7 +89,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
         .getBody();
   }
 
-  
   @Override
   public CoordinateResponse getCoordinates(Integer vehicleID) {
 
@@ -109,7 +108,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public VehicleOptionsResponse getVehicles() {
+  public List<VehicleOptionsResponse> getVehicles() {
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForVehicleOptions);
 
@@ -118,10 +117,9 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             builder.build().toUriString(),
             HttpMethod.GET,
             null,
-            new ParameterizedTypeReference<VehicleOptionsResponse>() {})
+            new ParameterizedTypeReference<List<VehicleOptionsResponse>>() {})
         .getBody();
   }
-
 
   @Override
   public StartResponse startShift(StartRequest startRequest) {
@@ -138,7 +136,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
         .getBody();
   }
 
-@Override
+  @Override
   public FuelResponse storeFuel(FuelRequest fuelRequest) {
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForFuel);
@@ -167,29 +165,3 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
         .getBody();
   }
 }
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-
-
- 
-
-  
-
-
-  
-
-
-

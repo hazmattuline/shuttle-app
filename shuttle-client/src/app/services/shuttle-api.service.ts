@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import { Shuttles, Coordinates,  Start } from '../core/constants/endpoints.constant';
+import { Shuttles, Coordinates,  Start, End, Vehicles, Fuel, Passengers } from '../core/constants/endpoints.constant';
 import { StartInfo } from '../models/start-info.model';
 import { EndInfo } from '../models/end-info';
 import { VehicleDropDown } from '../models/shuttleDropdownModel';
@@ -37,15 +37,15 @@ export class ShuttleApiService {
     return this.http.post<StartInfo>(Start, startRequest);
   }
   sendEndInfo(endRequest: EndInfo): Observable<EndInfo> {
-    return this.http.post<EndInfo>(storeEndInfo, endRequest);
+    return this.http.post<EndInfo>(End, endRequest);
   }
   responseForVehicleOptions(): Observable<VehicleDropDown[]> {
-    return this.http.get<VehicleDropDown[]>(getVehicleOptions);
+    return this.http.get<VehicleDropDown[]>(Vehicles);
   }
   sendFuelInfo(fuelRequest: FuelInfo): Observable<FuelInfo> {
-    return this.http.post<FuelInfo>(storeFuelInfo, fuelRequest);
+    return this.http.post<FuelInfo>(Fuel, fuelRequest);
   }
   sendPassengerInfo(): Observable<PassengerInfo> {
-    return this.http.get<PassengerInfo>(storePassengers);
+    return this.http.get<PassengerInfo>(Passengers);
   }
   }
