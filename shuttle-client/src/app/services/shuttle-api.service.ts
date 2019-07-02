@@ -3,8 +3,9 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import { Shuttles, Coordinates,  Start } from '../core/constants/endpoints.constant';
+import { Shuttles, Coordinates,  Start, Fuel } from '../core/constants/endpoints.constant';
 import { StartInfo } from '../models/start-info.model';
+import { FuelInfo } from '../models/fuel.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,9 @@ export class ShuttleApiService {
 
   sendStartInfo(startRequest: StartInfo): Observable<StartInfo> {
     return this.http.post<StartInfo>(Start, startRequest);
+  }
+
+  sendFuelInfo(fuelRequest: FuelInfo): Observable<FuelInfo> {
+    return this.http.post<FuelInfo>(Fuel, fuelRequest);
   }
 }
