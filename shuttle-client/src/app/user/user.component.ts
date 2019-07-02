@@ -5,6 +5,9 @@ import { Shuttle } from '../models/shuttle.model';
 import { Subscription } from 'rxjs';
 import { ShuttleService } from '../services/shuttle.service';
 import { GPSService } from '../services/gps.service';
+import { Vehicle } from '../models/vehicle.model';
+import { ShuttleApiService } from '../services/shuttle-api.service';
+import { VehicleDropDown } from '../models/shuttleDropdownModel';
 
 @Component
   ({
@@ -19,8 +22,9 @@ export class UserComponent implements OnInit, OnDestroy {
   
   private shuttleSubscription: Subscription;
   @ViewChild('markerContainer') markerContainer: ElementRef;
+  currentShuttleMarkers: Map<number, ElementRef> = new Map();
 
-  constructor(private shuttleTrackingService: ShuttleTrackingService, private renderer: Renderer2, private vcRef: ViewContainerRef, private shuttleService: ShuttleService, private gpsService: GPSService) {}
+  constructor(private shuttleTrackingService: ShuttleTrackingService, private renderer: Renderer2, private vcRef: ViewContainerRef, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService, private gpsService: GPSService) {}
 
   // have the location be displayed on page load
   ngOnInit() {
@@ -28,17 +32,26 @@ export class UserComponent implements OnInit, OnDestroy {
     this.listenForShuttleMarkers();
   }
 
-  private listenForShuttleMarkers() {
-    this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttle => {
-      //console.log(this.gpsService.getIsGPSActive());
-      
-      if (this.markerContainer) {
-    
-        this.addOrUpdateShuttleMarker(shuttle);
-      }
-    });
+  
+  ngOnDestroy() {
+    if (this.shuttleSubscription) {
+      this.shuttleSubscription.unsubscribe();
+    }
   }
 
+
+    
+  private showVehicle(vehicle: Vehicle) {
+    if (vehicle.status === "A") {
+      return true;
+    }
+    else {
+      return false;
+    }
+
+  }
+
+  
   private addOrUpdateShuttleMarker(shuttle: Shuttle) {
     console.log(this.shuttleService.currentShuttleMarkers)
     if (this.shuttleService.currentShuttleMarkers.get(shuttle.vehicleID)) {
@@ -59,14 +72,27 @@ export class UserComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - 25}px`);
   }
 
+  
 
-
-  ngOnDestroy() {
-    if (this.shuttleSubscription) {
-      this.shuttleSubscription.unsubscribe();
-    }
+  deleteAllMarkers() {
+    this.currentShuttleMarkers.clear();
+    //console.log(this.currentShuttleMarkers);
   }
 
+
+  private listenForShuttleMarkers() {
+    this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttle => {
+      //console.log(this.gpsService.getIsGPSActive());
+      this.shuttleApiService.responseForVehicleOptions().subscribe(vehicleList => {
+        //let vehicles: Vehicle[] = this.shuttleService.getAllVehicles(vddList);
+        for(let v of vehicleList) {
+          if (this.markerContainer && this.showVehicle(v)) {
+            this.addOrUpdateShuttleMarker(shuttle);
+          } else {
+              this.deleteAllMarkers();
+          }
+        }
+      });
+  });
 }
-
-
+}

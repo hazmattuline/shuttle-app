@@ -66,11 +66,11 @@ export class ShuttleService {
     this.shuttleApi.sendEndInfo(endInfo).subscribe();
   }
 
-  //   vehicleOptionsC() {
-  //   this.shuttleApi.responseForVehicleOptions().subscribe(vehicleDropDown =>{
-  //     this._vehicleDropDown.next(ShuttleService.buildSelectItemsForDropdown(vehicleDropDown, 'vehicleName', 'id'));
-  //   });
-  // }
+    vehicleOptionsC() {
+    this.shuttleApi.responseForVehicleOptions().subscribe(vehicleDropDown =>{
+      this._vehicleDropDown.next(ShuttleService.buildSelectItemsForDropdown(vehicleDropDown, 'vehicleName', 'id'));
+    });
+  }
 
   getAllVehicles(vehicleDropDown: VehicleDropDown) {
 
@@ -80,8 +80,8 @@ export class ShuttleService {
       const vehicle: Vehicle =  {
 
         'name': vehicleDropDown.vehicleNames[i],
-        'id': vehicleDropDown.ids[i] //,
-        //'status': vehicleDropDown.statuses[i]
+        'id': vehicleDropDown.ids[i],
+        'status': vehicleDropDown.statuses[i]
       };
       this.vehicles.push(vehicle);
     }

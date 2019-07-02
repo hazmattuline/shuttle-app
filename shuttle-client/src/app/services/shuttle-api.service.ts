@@ -9,6 +9,7 @@ import { EndInfo } from '../models/end-info';
 import { VehicleDropDown } from '../models/shuttleDropdownModel';
 import { FuelInfo } from '../models/fuel.model';
 import { PassengerInfo } from '../models/record-passengers.model';
+import { Vehicle } from '../models/vehicle.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,34 +19,34 @@ export class ShuttleApiService {
 
   constructor(private http: HttpClient) { }
 
-  // getShuttleCoordinates(id: number): Observable<Shuttle> {
-  //   return this.http.get<Shuttle>(Shuttles + '/' +  id + Coordinates); // TODO - remove hard coding id
-  // }
-  // getShuttles(): Observable<Shuttle> {
-  //   return this.http.get<Shuttle>(Shuttles);
-  // }
-  // getShuttle(id: number) {
-  //   return this.http.get<Shuttle>(Shuttles + '/' + id);
-  // }
-  // sendShuttleCoordinates(coordinates: CoordinatesRequest, id: number): Observable<Shuttle> {
-  //   return this.http.patch<Shuttle>(Shuttles + '/' + id + Coordinates, coordinates);
-  // }
+  getShuttleCoordinates(id: number): Observable<Shuttle> {
+    return this.http.get<Shuttle>(Shuttles + '/' +  id + Coordinates); // TODO - remove hard coding id
+  }
   getShuttles(): Observable<Shuttle> {
-    return this.http.get<Shuttle>(ReceiveCoords + '/' + 2); // TODO - remove hard coding id
+    return this.http.get<Shuttle>(Shuttles);
   }
+  getShuttle(id: number) {
+    return this.http.get<Shuttle>(Shuttles + '/' + id);
+  }
+  sendShuttleCoordinates(coordinates: CoordinatesRequest, id: number): Observable<Shuttle> {
+    return this.http.patch<Shuttle>(Shuttles + '/' + id + Coordinates, coordinates);
+  }
+  // getShuttles(): Observable<Shuttle> {
+  //   return this.http.get<Shuttle>(ReceiveCoords + '/' + 2); // TODO - remove hard coding id
+  // }
 
-  sendShuttleCoordinates(coordinates: CoordinatesRequest): Observable<Shuttle> {
-    return this.http.patch<Shuttle>(Enroute, coordinates);
-  }
+  // sendShuttleCoordinates(coordinates: CoordinatesRequest): Observable<Shuttle> {
+  //   return this.http.patch<Shuttle>(Enroute, coordinates);
+  // }
   sendStartInfo(startRequest: StartInfo): Observable<StartInfo> {
     return this.http.post<StartInfo>(Start, startRequest);
   }
   sendEndInfo(endRequest: EndInfo): Observable<EndInfo> {
     return this.http.post<EndInfo>(End, endRequest);
   }
-  //responseForVehicleOptions(): Observable<VehicleDropDown[]> {
-    //return this.http.get<VehicleDropDown[]>(Vehicles);
-  //}
+  responseForVehicleOptions(): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(Vehicles);
+  }
   sendFuelInfo(fuelRequest: FuelInfo): Observable<FuelInfo> {
     return this.http.post<FuelInfo>(Fuel, fuelRequest);
   }

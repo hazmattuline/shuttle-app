@@ -63,13 +63,13 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, publ
  
 
 
-//  getVehicles() {
-//   this.shuttleService.vehicleOptionsC();
-//   }
+ getVehicles() {
+  this.shuttleService.vehicleOptionsC();
+  }
 
 ngOnInit() {
   this.setupForm();
-  //this.getVehicles();
+  this.getVehicles();
  }
 
 private setupForm() {

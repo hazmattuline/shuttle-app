@@ -66,7 +66,7 @@ export class GPSService implements OnDestroy {
         latitudeCoordinates: this.latestCoordinates.latitude,
         longitudeCoordinates: this.latestCoordinates.longitude
       }
-      this.shuttleApiService.sendShuttleCoordinates(coordinateRequest).subscribe(); // hardcoded 1 as the shuttle
+      this.shuttleApiService.sendShuttleCoordinates(coordinateRequest,2).subscribe(); // hardcoded 1 as the shuttle
     }
   }
 
