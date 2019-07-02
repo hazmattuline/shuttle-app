@@ -21,9 +21,14 @@ export class ShuttleTrackingService implements OnDestroy {
   }
 
   private showShuttle() {
-    this.shuttleApi.getShuttles().subscribe(shuttle => {
-      shuttle = this.calculateXYPixelCoordinates(shuttle);
-      this._shuttles.next(shuttle);
+    this.shuttleApi.getShuttleCoordinates(1).subscribe(shuttle => {  // hardcoded 1 as the shuttle for now
+      if (shuttle.latitudeCoordinates <= 42.524072 && shuttle.latitudeCoordinates >= 42.5130865
+         && shuttle.longitudeCoordinates >= -87.962551 && shuttle.longitudeCoordinates ) {
+          shuttle = this.calculateXYPixelCoordinates(shuttle);
+          this._shuttles.next(shuttle);
+      } else {
+        console.log('off the map');
+      }
     });
   }
 

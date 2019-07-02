@@ -16,7 +16,7 @@ public interface ShuttleAppClient {
 
   CoordinateResponse getCoordinates(Integer vehicleID);
 
-  VehicleOptionsResponse getVehicleOptions();
+  VehicleOptionsResponse getVehicles();
 
   StartResponse startShift(StartRequest startRequest);
 

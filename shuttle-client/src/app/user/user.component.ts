@@ -52,13 +52,6 @@ export class UserComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - 25}px`);
   }
 
-  private removeAllMarkers(markers: ElementRef[]): ElementRef[] {
-    markers.forEach(marker => {
-      this.renderer.removeChild(this.markerContainer, marker);
-    })
-    return [];
-  }
-
   ngOnDestroy() {
     if (this.shuttleSubscription) {
       this.shuttleSubscription.unsubscribe();

@@ -35,8 +35,8 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public VehicleOptionsResponse getVehicleOptions() {
-    return shuttleAppClient.getVehicleOptions();
+  public VehicleOptionsResponse getVehicles() {
+    return shuttleAppClient.getVehicles();
   }
 
   @Override
