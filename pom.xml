@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -22,4 +23,30 @@
 		<module>server</module>
 	</modules>
 
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.uline</groupId>
+	<artifactId>shuttle-app</artifactId>
+	<version>1.0.13-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>shuttle-app</name>
+	<description>Spring Boot with angular 7</description>
+
+  <parent>
+		<groupId>com.uline.base</groupId>
+		<artifactId>common-service-base</artifactId>
+		<version>4.16</version>
+	</parent>
+
+	<modules>
+		<module>shuttle-client</module>
+		<module>server</module>
+	</modules>
+
+>>>>>>> origin/master
 </project>
