@@ -7,7 +7,6 @@ import { ShuttleService } from '../services/shuttle.service';
 import { GPSService } from '../services/gps.service';
 import { Vehicle } from '../models/vehicle.model';
 import { ShuttleApiService } from '../services/shuttle-api.service';
-import { VehicleDropDown } from '../models/shuttleDropdownModel';
 
 @Component
   ({
@@ -76,15 +75,12 @@ export class UserComponent implements OnInit, OnDestroy {
 
   deleteAllMarkers() {
     this.currentShuttleMarkers.clear();
-    //console.log(this.currentShuttleMarkers);
   }
 
 
   private listenForShuttleMarkers() {
     this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttle => {
-      //console.log(this.gpsService.getIsGPSActive());
       this.shuttleApiService.responseForVehicleOptions().subscribe(vehicleList => {
-        //let vehicles: Vehicle[] = this.shuttleService.getAllVehicles(vddList);
         for(let v of vehicleList) {
           if (this.markerContainer && this.showVehicle(v)) {
             this.addOrUpdateShuttleMarker(shuttle);

@@ -5,7 +5,6 @@ import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
 import { Vehicles } from '../core/constants/endpoints.constant';
-import { VehicleDropDown } from '../models/shuttleDropdownModel';
 
 
 @Component({
@@ -48,7 +47,6 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, publ
 }
   @Input()
   startShift: DriverComponent;
-  vehicleDrop: VehicleDropDown;
   driverOptions: SelectItem[];
   vehicleOptions: SelectItem[];
   milesOptions: SelectItem[];
@@ -81,17 +79,13 @@ private setupForm() {
   });
 }
 
-submitstartData() {
+submitStartData() {
   const shiftValue = this.startShiftForm.value;
-  this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
+  this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id);
   this.showShift.emit(false);
 }
 
 
-test(f)
-{
-console.log(f);
-}
 }
 
 

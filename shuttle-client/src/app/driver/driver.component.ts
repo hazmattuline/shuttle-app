@@ -94,7 +94,6 @@ export class DriverComponent implements OnInit {
   }
 
   getShowShift(showShift: boolean) {
-    // console.log(showShift);
     this.showDriverShift = showShift;
   }
  

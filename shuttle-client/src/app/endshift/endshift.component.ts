@@ -26,7 +26,6 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, publ
     {label: 'Heather Iwinski', value: {id: 4}},
     {label: 'Melissa Zaugra', value: {id: 5}},
   ];
-
   this.milesOptions = [
     {label: 'Select', value: null},
     {label: '0', value: {id: 1}},
@@ -47,12 +46,13 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, publ
   @Input()
   endShift: DriverComponent;
   driverOptions: SelectItem[];
-  vehicleOptions: SelectItem[];
   milesOptions: SelectItem[];
   conditionOptions: SelectItem[];
+
   inputMileage: number;
 
   endShiftForm: FormGroup;
+
 
   @Output()
   showShift = new EventEmitter<boolean>();
@@ -80,7 +80,7 @@ private setupForm() {
 
 submitEndData() {
   const shiftValue = this.endShiftForm.value;
-  this.shuttleService.createEndInfo(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
+  this.shuttleService.createEndInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id);
   this.showShift.emit(false);
 }}
 

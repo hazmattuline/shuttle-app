@@ -15,7 +15,7 @@ export class ShuttleService {
   private _vehicleDropDown: Subject<SelectItem[]> = new Subject();
   public vehicleDropDown: Observable<SelectItem[]> = this._vehicleDropDown.asObservable();
 
-  static buildSelectItemsForDropdown(data: any[], labelFieldName: string, valueFieldName?: string): SelectItem[] {
+   static buildSelectItemsForDropdown(data: any[], labelFieldName: string, valueFieldName?: string): SelectItem[] {
     let selectItems = [];
       console.log(data);
     if (data && data.length > 0) {
