@@ -22,9 +22,11 @@ export class ShuttleTrackingService implements OnDestroy {
   }
 
   private showShuttle() {
-    this.shuttleApi.getShuttles().subscribe(shuttle => {
-      shuttle = this.calculateXYPixelCoordinates(shuttle);
-      this._shuttles.next(shuttle);
+    this.shuttleApi.getActiveShuttles().subscribe(shuttleList => {
+      for (let shuttle of shuttleList) {
+        shuttle = this.calculateXYPixelCoordinates(shuttle);
+        this._shuttles.next(shuttle);
+      }
     });
   }
 
