@@ -60,7 +60,7 @@ public class ShuttleAppController {
 
   @ExecutionTime("ShuttleAppService.receiveVehicleOptions")
   @ApiOperation(value = "fetching vehicles from database")
-  @GetMapping(value = "/vehicles")
+  @GetMapping(value = "/shuttles")
   public List<VehicleOptionsResponse> receiveVehicles() {
     return shuttleAppService.getVehicles();
   }

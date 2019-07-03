@@ -64,7 +64,7 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, publ
 
 
  getVehicles() {
-  this.shuttleService.vehicleOptionsC();
+  this.shuttleService.vehicleOptions();
   }
 
 ngOnInit() {

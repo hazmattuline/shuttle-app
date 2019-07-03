@@ -7,4 +7,3 @@ export const Coordinates = '/coordinates';
 export const Passengers = '/days/passengers';
 export const Vehicles = '/vehicles';
 export const ReceiveCoords = '/receiveCoords';
-export const Enroute = '/enRoute'

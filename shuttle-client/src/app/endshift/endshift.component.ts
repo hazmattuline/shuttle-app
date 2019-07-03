@@ -4,8 +4,6 @@ import {SelectItem} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
-import { Vehicles } from '../core/constants/endpoints.constant';
-import { VehicleDropDown } from '../models/shuttleDropdownModel';
 
 
 @Component({
@@ -48,7 +46,6 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, publ
 }
   @Input()
   endShift: DriverComponent;
-  vehicleDrop: VehicleDropDown;
   driverOptions: SelectItem[];
   vehicleOptions: SelectItem[];
   milesOptions: SelectItem[];
@@ -64,12 +61,12 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, publ
 
 
  getVehicles() {
-  this.shuttleService.vehicleOptionsC();
+  this.shuttleService.vehicleOptions();
   }
 
 ngOnInit() {
   this.setupForm();
- this.getVehicles();
+  this.getVehicles();
  }
 
 private setupForm() {
@@ -85,41 +82,8 @@ submitEndData() {
   const shiftValue = this.endShiftForm.value;
   this.shuttleService.createEndInfo(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
   this.showShift.emit(false);
-}
+}}
 
-
-test(f)
-{
-console.log(f);
-}
-}
-
-
-
-export interface DriverInfo {
-  name: string;
-  id: number;
-}
-
-export interface VehicleInfo {
-  name: string;
-  id: number;
-}
-
-export interface MilesInfo {
-  mileage: number;
-  id: number;
-}
-
-interface ConditionInfo {
-  condition: string;
-  id: number;
-}
-
-interface DriverInput {
-  numPassengers: number;
-  id: number;
-}
 
 
 

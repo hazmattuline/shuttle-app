@@ -2,11 +2,7 @@ import { Injectable, ElementRef } from '@angular/core';
 import { ShuttleApiService } from './shuttle-api.service';
 import { StartInfo } from '../models/start-info.model';
 import { EndInfo } from '../models/end-info';
-import { VehicleDropDown } from '../models/shuttleDropdownModel';
-import { Vehicle } from '../models/vehicle.model';
-import { stringify } from '@angular/core/src/render3/util';
 import { Subject, Observable, Subscription } from 'rxjs';
-import { Vehicles } from '../core/constants/endpoints.constant';
 import { FuelInfo } from '../models/fuel.model';
 import { PassengerInfo } from '../models/record-passengers.model';
 import { SelectItem } from 'primeng/api';
@@ -16,8 +12,6 @@ export class ShuttleService {
 
   constructor(private shuttleApi: ShuttleApiService) { }
 
- 
-  vehicles: Vehicle[] = [];
   private _vehicleDropDown: Subject<SelectItem[]> = new Subject();
   public vehicleDropDown: Observable<SelectItem[]> = this._vehicleDropDown.asObservable();
 
@@ -65,33 +59,12 @@ export class ShuttleService {
 
     this.shuttleApi.sendEndInfo(endInfo).subscribe();
   }
-
-    vehicleOptionsC() {
+    vehicleOptions() {
     this.shuttleApi.responseForVehicleOptions().subscribe(vehicleDropDown =>{
       this._vehicleDropDown.next(ShuttleService.buildSelectItemsForDropdown(vehicleDropDown, 'vehicleName', 'id'));
     });
   }
 
-  getAllVehicles(vehicleDropDown: VehicleDropDown) {
-
-    for (let i = 0 ; i < vehicleDropDown.vehicleNames.length; i++)
-    {
-
-      const vehicle: Vehicle =  {
-
-        'name': vehicleDropDown.vehicleNames[i],
-        'id': vehicleDropDown.ids[i],
-        'status': vehicleDropDown.statuses[i]
-      };
-      this.vehicles.push(vehicle);
-    }
-    
-    return this.vehicles;
-  
-  }
-
-
-  
   createFuelInfo(quantity: number, cost: number) {
     const fuelInfo: FuelInfo = {
       fuelCost: cost,
