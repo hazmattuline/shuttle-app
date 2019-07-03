@@ -50,6 +50,11 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
 	}
 
 	@Override
+	public ShuttleResponse markActive(Integer id) {
+		return shuttleAppClient.markActive(id);
+	}
+
+	@Override
 	public StartResponse startShift(StartRequest startRequest) {
 		return shuttleAppClient.startShift(startRequest);
 	}

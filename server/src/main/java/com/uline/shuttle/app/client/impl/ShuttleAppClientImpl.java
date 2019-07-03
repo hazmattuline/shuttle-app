@@ -55,6 +55,9 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 	@Value("shuttle.service.rc.url.get.active.shuttles")
 	private String activeShuttlesURL;
 
+	@Value("shuttle.service.rc.url.mark.active")
+	private String markActiveURL;
+
 
 	@Autowired
 	public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
@@ -116,6 +119,24 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 						HttpMethod.GET,
 						null,
 						new ParameterizedTypeReference<VehicleOptionsResponse>() {})
+				.getBody();
+	}
+
+	@Override
+	public ShuttleResponse markActive(Integer id) {
+
+		Map<String, Integer> params = new HashMap<>();
+		params.put("id", id);
+
+		UriComponentsBuilder builder =
+				UriComponentsBuilder.fromUriString(baseUrl + markActiveURL);
+
+		return restTemplate
+				.exchange(
+						builder.buildAndExpand(params).toUriString(),
+						HttpMethod.GET,
+						new HttpEntity<>(null, null),
+						new ParameterizedTypeReference<ShuttleResponse>() {})
 				.getBody();
 	}
 

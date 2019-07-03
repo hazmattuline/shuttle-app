@@ -46,10 +46,17 @@ public class ShuttleAppController {
 	}
 
 	@ExecutionTime("ShuttleAppService.getActiveShuttles")
-	@ApiOperation(value = "posting the coordinates and storing in a database")
+	@ApiOperation(value = "getting the active shuttles")
 	@PatchMapping(value = "/shuttles/active")
 	public List<ShuttleResponse> getActiveShuttles() {
 		return shuttleAppService.getActiveShuttles();
+	}
+
+	@ExecutionTime("ShuttleAppService.markActive")
+	@ApiOperation(value = "mark shuttle as active")
+	@PatchMapping(value = "/shuttles/{id}/active")
+	public ShuttleResponse markActive(@PathVariable("id") Integer id) {
+		return shuttleAppService.markActive();
 	}
 
 	@ExecutionTime("ShuttleAppService.receiveCoordinates")
