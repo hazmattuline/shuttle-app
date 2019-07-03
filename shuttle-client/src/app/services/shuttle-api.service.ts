@@ -40,7 +40,7 @@ export class ShuttleApiService {
   sendFuelInfo(fuelRequest: FuelInfo): Observable<FuelInfo> {
     return this.http.post<FuelInfo>(Fuel, fuelRequest);
   }
-  sendPassengerInfo(): Observable<PassengerInfo> {
-    return this.http.get<PassengerInfo>(Passengers);
+  sendPassengerInfo(passengerInfo: PassengerInfo): Observable<PassengerInfo> {
+    return this.http.post<PassengerInfo>(Passengers, passengerInfo);
   }
-  }
+}

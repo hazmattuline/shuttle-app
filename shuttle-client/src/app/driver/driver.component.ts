@@ -16,7 +16,7 @@ import { UserComponent } from '../user/user.component';
     providers: [GPSService , ShuttleService]
     })
 export class DriverComponent implements OnInit {
-  count = 0;
+  count = 0;SS
   inputComment;
   timeToStart: boolean;
   isActive = false;
@@ -76,7 +76,13 @@ export class DriverComponent implements OnInit {
     // add code to change between On Break and Off Break
     return null;
   }
+  
+  submitPassengerInfo() {
+    // TODO - submit info from new UI
 
+    this.shuttleService.createPassengerInfo(1, 1, 1);
+
+  }
 
   makeNewRow() {
     // allow drivers to submit number of passengers in shuttle and left at curb again

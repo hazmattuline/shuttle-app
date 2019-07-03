@@ -23,6 +23,8 @@ import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
+import rest.models.response.EndResponse;
+import rest.models.response.EndRequest;
 
 @Service
 public class ShuttleAppClientImpl implements ShuttleAppClient {
@@ -87,6 +89,15 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             new HttpEntity<>(coordinateRequest),
             new ParameterizedTypeReference<CoordinateResponse>() {})
         .getBody();
+  }
+
+    @Override
+  public EndResponse endShift(EndRequest endRequest) {
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + endShiftUrl);
+
+    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new
+    HttpEntity<>(endRequest),
+    new ParameterizedTypeReference<EndResponse>() {}).getBody();
   }
 
   @Override

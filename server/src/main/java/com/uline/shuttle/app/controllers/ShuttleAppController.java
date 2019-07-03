@@ -37,7 +37,7 @@ public class ShuttleAppController {
 
   @ExecutionTime("ShuttleAppService.endShift")
   @ApiOperation(value = "posting the ending conditions of the vehicle")
-  @PostMapping(value = "/storeEndInformation")
+  @PostMapping(value = "/days/end")
   public EndResponse endShift(@RequestBody EndRequest endRequest) {
     return shuttleAppService.endShift(endRequest);
   }

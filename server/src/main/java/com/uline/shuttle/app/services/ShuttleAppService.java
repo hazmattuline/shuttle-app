@@ -23,6 +23,8 @@ public interface ShuttleAppService {
 
   List<VehicleOptionsResponse> getVehicles();
 
+  EndResponse endShift(EndRequest endRequest);
+
   StartResponse startShift(StartRequest startRequest);
 
   FuelResponse storeFuel(FuelRequest fuelRequest);

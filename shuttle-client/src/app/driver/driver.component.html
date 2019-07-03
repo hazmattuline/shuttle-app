@@ -1,5 +1,4 @@
 
-<body>
     <div class = "bringUp">
       <app-startshift (showShift)=getShowShift($event) [startShift] = "timeToStart"></app-startshift>
     </div>
@@ -53,10 +52,11 @@
     <div class = "bringDown">
     <app-endshift (showShift)=getShowShift($event) [endShift] = "timeToStart"></app-endshift>
     </div>
-  
+    <div>
+        <label class = "passenger-label"></label>
+        <button pButton (click)="submitPassengerInfo();" label = "Submit"></button>
     </div>
   </div>
   
-  </body>
   
   
