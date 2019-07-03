@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ShuttleApiService } from './shuttle-api.service';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
 import * as isEqual from 'lodash/isEqual';
+import { Shuttle } from '../models/shuttle.model';
 
 @Injectable()
 export class GPSService implements OnDestroy {
@@ -10,6 +11,7 @@ export class GPSService implements OnDestroy {
   private latestCoordinates: Coordinates = null;
   private previousCoordinates: Coordinates;
   private hasNotMoved = false;
+  private shuttle: Shuttle;
 
   private _isActive: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isActive: Observable<boolean> = this._isActive.asObservable();
@@ -32,11 +34,13 @@ export class GPSService implements OnDestroy {
     if (this.gpsLocationTimer) {
       clearInterval(this.gpsLocationTimer);
     }
+    // TODO: mark shuttle as inactive
   }
 
   startGPSTracking() {
     if (navigator.geolocation) {
       this.watchId = navigator.geolocation.watchPosition((pos) => this.updateGPSPostion(pos), this.errorHandler, this.options);
+      // TODO : mark shuttle as active
       this._isActive.next(true);
       this.startGPSUpdateTimer();
     }
@@ -83,5 +87,6 @@ export class GPSService implements OnDestroy {
 
   ngOnDestroy() {
     this.stopGPSTracking();
+    // TODO: mark shuttle as inactive
   }
 }
