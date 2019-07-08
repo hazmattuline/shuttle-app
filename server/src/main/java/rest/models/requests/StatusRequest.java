@@ -2,14 +2,13 @@ package rest.models.requests;
 
 public class StatusRequest {
 
-	String statusCode;
+  String statusCode;
 
-	public String getStatusCode() {
-		return statusCode;
-	}
+  public String getStatusCode() {
+    return statusCode;
+  }
 
-	public void setStatusCode(String statusCode) {
-		this.statusCode = statusCode;
-	}
-
+  public void setStatusCode(String statusCode) {
+    this.statusCode = statusCode;
+  }
 }
