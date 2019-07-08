@@ -34,13 +34,13 @@ export class GPSService implements OnDestroy {
     if (this.gpsLocationTimer) {
       clearInterval(this.gpsLocationTimer);
     }
-    this.shuttleApiService.markInactive(this.shuttle.vehicleID).subscribe();
+    this.shuttleApiService.changeStatus("I", this.shuttle.vehicleID).subscribe();
   }
 
   startGPSTracking() {
     if (navigator.geolocation) {
       this.watchId = navigator.geolocation.watchPosition((pos) => this.updateGPSPostion(pos), this.errorHandler, this.options);
-      this.shuttleApiService.markActive(1).subscribe(shuttle => {
+      this.shuttleApiService.changeStatus("A", 1).subscribe(shuttle => {
         this.shuttle = shuttle;
         this._isActive.next(true);
         this.startGPSUpdateTimer();
@@ -89,6 +89,6 @@ export class GPSService implements OnDestroy {
 
   ngOnDestroy() {
     this.stopGPSTracking();
-    this.shuttleApiService.markInactive(this.shuttle.vehicleID).subscribe();
+    this.shuttleApiService.changeStatus("I", this.shuttle.vehicleID).subscribe();
   }
 }
