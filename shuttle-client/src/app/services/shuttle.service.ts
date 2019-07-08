@@ -28,34 +28,34 @@ export class ShuttleService {
     return selectItems;
   }
   
-  createStartInfo(driverId: number, vehicleId: number, mileage: number, conditionId: number) {
+  createStartInfo(driverId: number, vehicleId: number, mileage: number, condition: string) {
     const startInfo: StartInfo = {
       startDriverId: driverId,
       startVehicleId: vehicleId,
       startMileage: mileage,
-      startConditionId: conditionId
+      startCondition: condition
     };
     console.log(driverId);
     console.log(vehicleId);
 
 
     console.log(mileage);
-    console.log(conditionId);
+    console.log(condition);
 
     this.shuttleApi.sendStartInfo(startInfo).subscribe();
   }
 
-    createEndInfo(driverId: number, vehicleId: number, mileage: number, conditionId: number) {
+    createEndInfo(driverId: number, vehicleId: number, mileage: number, condition: string) {
     const endInfo: EndInfo = {
       endDriverId: driverId,
       endVehicleId: vehicleId,
       endMileage: mileage,
-      endConditionId: conditionId
+      endCondition: condition
     };
     console.log(driverId);
     console.log(vehicleId);
     console.log(mileage);
-    console.log(conditionId);
+    console.log(condition);
 
     this.shuttleApi.sendEndInfo(endInfo).subscribe();
   }

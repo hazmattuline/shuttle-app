@@ -2,7 +2,7 @@ package rest.models.requests;
 
 public class StartRequest {
 
-  private Integer startConditionID;
+  private String startCondition;
   private Integer startDriverID;
   private Double startMileage;
   private Integer startVehicleID;
@@ -15,8 +15,8 @@ public class StartRequest {
     return startMileage;
   }
 
-  public Integer getStartConditionID() {
-    return startConditionID;
+  public String getStartConditionID() {
+    return startCondition;
   }
 
   public long getVehicleID() {
@@ -31,8 +31,8 @@ public class StartRequest {
     this.startMileage = mileage;
   }
 
-  public void setStartConditionID(Integer startConditionID) {
-    this.startConditionID = startConditionID;
+  public void setStartCondition(String startCondition) {
+    this.startCondition = startCondition;
   }
 
   public void setVehicleID(Integer vehicleID) {

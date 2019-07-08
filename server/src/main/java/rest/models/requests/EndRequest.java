@@ -1,14 +1,13 @@
 package rest.models.requests;
 
 public class EndRequest {
-
-  private Integer endConditionId;
+  private String endCondition;
   private Integer endDriverId;
   private Double endMileage;
-  private Integer startVehicleId;
+  private Integer endVehicleId;
 
-  public Integer getEndConditionId() {
-    return endConditionId;
+  public String getEndCondition() {
+    return endCondition;
   }
 
   public Integer getEndDriverId() {
@@ -19,12 +18,12 @@ public class EndRequest {
     return endMileage;
   }
 
-  public Integer getStartVehicleId() {
-    return startVehicleId;
+  public Integer getEndVehicleId() {
+    return endVehicleId;
   }
 
-  public void setEndConditionId(Integer endConditionId) {
-    this.endConditionId = endConditionId;
+  public void setEndConditionId(String endCondition) {
+    this.endCondition = endCondition;
   }
 
   public void setEndDriverId(Integer endDriverId) {
@@ -35,7 +34,7 @@ public class EndRequest {
     this.endMileage = endMileage;
   }
 
-  public void setStartVehicleId(Integer startVehicleId) {
-    this.startVehicleId = startVehicleId;
+  public void setEndVehicleId(Integer endVehicleId) {
+    this.endVehicleId = endVehicleId;
   }
 }

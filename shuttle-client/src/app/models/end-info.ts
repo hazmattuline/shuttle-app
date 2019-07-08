@@ -1,6 +1,6 @@
 export interface EndInfo {
     endDriverId: number;
     endVehicleId: number;
-    endConditionId: number;
+    endCondition: string;
     endMileage: number;
 }

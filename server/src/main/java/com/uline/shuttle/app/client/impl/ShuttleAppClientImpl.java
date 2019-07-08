@@ -23,8 +23,6 @@ import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
-import rest.models.response.EndResponse;
-import rest.models.response.EndRequest;
 
 @Service
 public class ShuttleAppClientImpl implements ShuttleAppClient {
@@ -36,6 +34,9 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   private String endShiftUrl;
 
   private UlineRestTemplate restTemplate;
+
+  @Value("${shuttle.service.rc.url.post.coordinates}")
+  private String shuttlePostCoordinates;
 
   @Value("${shuttle.service.rc.url.post.fuel}")
   private String shuttleServiceForFuel;
@@ -51,9 +52,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
   @Value("${shuttle.service.rc.url.post.startOfShift}")
   private String shuttleServiceStartOfShift;
-
-  @Value("${shuttle.service.rc.url.post.coordinates}")
-  private String shuttlePostCoordinates;
 
   @Autowired
   public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
@@ -89,15 +87,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             new HttpEntity<>(coordinateRequest),
             new ParameterizedTypeReference<CoordinateResponse>() {})
         .getBody();
-  }
-
-    @Override
-  public EndResponse endShift(EndRequest endRequest) {
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + endShiftUrl);
-
-    return restTemplate.exchange(builder.build().toUriString(), HttpMethod.POST, new
-    HttpEntity<>(endRequest),
-    new ParameterizedTypeReference<EndResponse>() {}).getBody();
   }
 
   @Override

@@ -16,7 +16,7 @@ import { UserComponent } from '../user/user.component';
     providers: [GPSService , ShuttleService]
     })
 export class DriverComponent implements OnInit {
-  count = 0;SS
+  count = 0;
   inputComment;
   timeToStart: boolean;
   isActive = false;

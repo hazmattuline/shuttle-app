@@ -1,14 +1,13 @@
 package rest.models.response;
 
 public class EndResponse {
-
-  private Integer endConditionId;
+  private String endCondition;
   private Integer endDriverId;
   private Double endMileage;
   private Integer endVehicleId;
 
-  public Integer getEndConditionId() {
-    return endConditionId;
+  public String getEndCondition() {
+    return endCondition;
   }
 
   public Integer getEndDriverId() {
@@ -23,8 +22,8 @@ public class EndResponse {
     return endVehicleId;
   }
 
-  public void setEndConditionId(Integer endConditionId) {
-    this.endConditionId = endConditionId;
+  public void setEndConditionId(String endCondition) {
+    this.endCondition = endCondition;
   }
 
   public void setEndDriverId(Integer endDriverId) {

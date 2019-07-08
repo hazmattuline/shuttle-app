@@ -62,11 +62,11 @@ export class GPSService implements OnDestroy {
     }
     if (this.latestCoordinates && !this.hasNotMoved) {
       const coordinateRequest: CoordinatesRequest = {
-        vehicleID: 2, // TODO - Hard coded for now - Get this from service
+        vehicleID: 1, // TODO - Hard coded for now - Get this from service
         latitudeCoordinates: this.latestCoordinates.latitude,
         longitudeCoordinates: this.latestCoordinates.longitude
       }
-      this.shuttleApiService.sendShuttleCoordinates(coordinateRequest,2).subscribe(); // hardcoded 1 as the shuttle
+      this.shuttleApiService.sendShuttleCoordinates(coordinateRequest,1).subscribe(); // hardcoded 1 as the shuttle
     }
   }
 

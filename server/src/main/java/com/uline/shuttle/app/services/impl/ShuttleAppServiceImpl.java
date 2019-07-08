@@ -31,6 +31,7 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
     return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
   }
+
   @Override
   public EndResponse endShift(EndRequest endRequest) {
     return shuttleAppClient.endShift(endRequest);
