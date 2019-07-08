@@ -12,6 +12,7 @@ export class GPSService implements OnDestroy {
   private previousCoordinates: Coordinates;
   private hasNotMoved = false;
   private shuttle: Shuttle;
+  private shuttleId: number = 1;
 
   private _isActive: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isActive: Observable<boolean> = this._isActive.asObservable();
@@ -34,14 +35,17 @@ export class GPSService implements OnDestroy {
     if (this.gpsLocationTimer) {
       clearInterval(this.gpsLocationTimer);
     }
-    this.shuttleApiService.changeStatus("I", this.shuttle.vehicleID).subscribe();
+    console.log("change to inactive" + this.shuttle);
+    this.shuttleApiService.changeStatus("I", this.shuttleId).subscribe(newShuttle => {
+      this.shuttle = newShuttle;
+    });
   }
 
   startGPSTracking() {
     if (navigator.geolocation) {
       this.watchId = navigator.geolocation.watchPosition((pos) => this.updateGPSPostion(pos), this.errorHandler, this.options);
-      this.shuttleApiService.changeStatus("A", 1).subscribe(shuttle => {
-        this.shuttle = shuttle;
+      this.shuttleApiService.changeStatus("A", this.shuttleId).subscribe(newShuttle => {
+        this.shuttle = newShuttle;
         this._isActive.next(true);
         this.startGPSUpdateTimer();
       });
@@ -60,13 +64,14 @@ export class GPSService implements OnDestroy {
   }
 
   private sendShuttleCoordinates() {
-    if (this.latestCoordinates && this.previousCoordinates) {
-      this.hasNotMoved = (this.previousCoordinates.latitude === this.latestCoordinates.latitude) && 
-      (this.previousCoordinates.longitude === this.latestCoordinates.longitude);
-    }
+    // if (this.latestCoordinates && this.previousCoordinates) {
+    //   this.hasNotMoved = (this.previousCoordinates.latitude === this.latestCoordinates.latitude) && 
+    //   (this.previousCoordinates.longitude === this.latestCoordinates.longitude);
+    // }
+    this.hasNotMoved = false;
     if (this.latestCoordinates && !this.hasNotMoved) {
       const coordinateRequest: CoordinatesRequest = {
-        vehicleID: this.shuttle.vehicleID, // TODO - Hard coded for now - Get this from service
+        vehicleID: this.shuttleId, // TODO - Hard coded for now - Get this from service
         latitudeCoordinates: this.latestCoordinates.latitude,
         longitudeCoordinates: this.latestCoordinates.longitude
       }
@@ -89,6 +94,8 @@ export class GPSService implements OnDestroy {
 
   ngOnDestroy() {
     this.stopGPSTracking();
-    this.shuttleApiService.changeStatus("I", this.shuttle.vehicleID).subscribe();
+    this.shuttleApiService.changeStatus("I", this.shuttleId).subscribe(newShuttle => {
+      this.shuttle = newShuttle;
+    });
   }
 }
