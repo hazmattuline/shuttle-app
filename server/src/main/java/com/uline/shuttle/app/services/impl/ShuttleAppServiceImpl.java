@@ -9,6 +9,7 @@ import rest.models.requests.CoordinateRequest;
 import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
+import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
@@ -24,6 +25,11 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   @Autowired
   public ShuttleAppServiceImpl(ShuttleAppClient shuttleAppClient) {
     this.shuttleAppClient = shuttleAppClient;
+  }
+
+  @Override
+  public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
+    return shuttleAppClient.changeStatus(statusRequest, id);
   }
 
   @Override
@@ -44,16 +50,6 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   @Override
   public VehicleOptionsResponse getVehicleOptions() {
     return shuttleAppClient.getVehicleOptions();
-  }
-
-  @Override
-  public ShuttleResponse markActive(Integer id) {
-    return shuttleAppClient.markActive(id);
-  }
-
-  @Override
-  public ShuttleResponse markInactive(Integer id) {
-    return shuttleAppClient.markInactive(id);
   }
 
   @Override

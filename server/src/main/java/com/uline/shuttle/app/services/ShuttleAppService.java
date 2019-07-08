@@ -5,6 +5,7 @@ import rest.models.requests.CoordinateRequest;
 import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
+import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
@@ -14,6 +15,8 @@ import rest.models.response.VehicleOptionsResponse;
 
 public interface ShuttleAppService {
 
+  ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id);
+
   CoordinateResponse enRoute(CoordinateRequest coordinateRequest);
 
   List<ShuttleResponse> getActiveShuttles();
@@ -21,10 +24,6 @@ public interface ShuttleAppService {
   CoordinateResponse getCoordinates(Integer vehicleID);
 
   VehicleOptionsResponse getVehicleOptions();
-
-  ShuttleResponse markActive(Integer id);
-
-  ShuttleResponse markInactive(Integer id);
 
   StartResponse startShift(StartRequest startRequest);
 
