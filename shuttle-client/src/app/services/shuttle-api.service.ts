@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import { Enroute, ReceiveCoords, storeStartInfo, Active } from '../core/constants/endpoints.constant';
+import { Enroute, ReceiveCoords, storeStartInfo, Active, ActiveShuttles, Shuttles, Inactive } from '../core/constants/endpoints.constant';
 import { StartInfo } from '../models/start-info.model';
 
 @Injectable({
@@ -27,6 +27,14 @@ export class ShuttleApiService {
   }
 
   getActiveShuttles(): Observable<Shuttle[]> {
-    return this.http.get<Shuttle[]>(Active);
+    return this.http.get<Shuttle[]>(ActiveShuttles);
+  }
+
+  markActive(id: number): Observable<Shuttle> {
+    return this.http.patch<Shuttle>(Shuttles + '/' + id + Active, null);
+  }
+
+  markInactive(id: number): Observable<Shuttle> {
+    return this.http.patch<Shuttle>(Shuttles + '/' + id + Inactive, null);
   }
 }
