@@ -1,49 +1,49 @@
 package rest.models.response;
 
 public class ShuttleResponse {
-  private Integer id;
-  private String name;
-  private String status;
-  private Double latitudeCoordinates;
-  private Double longitudeCoordinates;
+	private Integer vehicleID;
+	private String name;
+	private String status;
+	private Double latitudeCoordinates;
+	private Double longitudeCoordinates;
 
-  public Integer getId() {
-    return id;
-  }
+	public Double getLatitudeCoordinates() {
+		return latitudeCoordinates;
+	}
 
-  public Double getLatitudeCoordinates() {
-    return latitudeCoordinates;
-  }
+	public Double getLongitudeCoordinates() {
+		return longitudeCoordinates;
+	}
 
-  public Double getLongitudeCoordinates() {
-    return longitudeCoordinates;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public String getName() {
-    return name;
-  }
+	public String getStatus() {
+		return status;
+	}
 
-  public String getStatus() {
-    return status;
-  }
+	public Integer getVehicleID() {
+		return vehicleID;
+	}
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+	public void setLatitudeCoordinates(Double latitudeCoordinates) {
+		this.latitudeCoordinates = latitudeCoordinates;
+	}
 
-  public void setLatitudeCoordinates(Double latitudeCoordinates) {
-    this.latitudeCoordinates = latitudeCoordinates;
-  }
+	public void setLongitudeCoordinates(Double longitudeCoordinates) {
+		this.longitudeCoordinates = longitudeCoordinates;
+	}
 
-  public void setLongitudeCoordinates(Double longitudeCoordinates) {
-    this.longitudeCoordinates = longitudeCoordinates;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-  public void setStatus(String status) {
-    this.status = status;
-  }
+	public void setVehicleID(Integer vehicleID) {
+		this.vehicleID = vehicleID;
+	}
 }
