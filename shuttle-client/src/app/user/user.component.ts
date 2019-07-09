@@ -3,6 +3,7 @@ import { ScriptService } from '../script.service';
 import { ShuttleTrackingService } from '../services/shuttle-tracking.service';
 import { Shuttle } from '../models/shuttle.model';
 import { Subscription } from 'rxjs';
+import { GPSService } from '../../app/services/gps.service';
 
 @Component
   ({
@@ -26,6 +27,10 @@ export class UserComponent implements OnInit, OnDestroy {
     this.listenForShuttleMarkers();
   }
 
+  deleteMarker() {
+    this.currentShuttleMarkers.clear();
+  }
+
   private listenForShuttleMarkers() {
     this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttle => {
       if (this.markerContainer) {
@@ -33,6 +38,7 @@ export class UserComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   private addOrUpdateShuttleMarker(shuttle: Shuttle) {
     if (this.currentShuttleMarkers.get(shuttle.vehicleID)) {
       const marker: ElementRef<any> = this.currentShuttleMarkers.get(shuttle.vehicleID);
@@ -47,7 +53,7 @@ export class UserComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setPlacement(marker: ElementRef<any>, shuttle:Shuttle) {
+  private setPlacement(marker: ElementRef<any>, shuttle: Shuttle) {
     this.renderer.setStyle(marker, 'top', `${shuttle.yPixelCoordinate - 25}px`);
     this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - 25}px`);
   }

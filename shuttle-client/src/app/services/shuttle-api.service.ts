@@ -23,7 +23,7 @@ export class ShuttleApiService {
   getShuttles(): Observable<Shuttle> {
     return this.http.get<Shuttle>(Shuttles);
   }
-  
+
   getShuttle(id: number) {
     return this.http.get<Shuttle>(Shuttles + '/' + id);
   }

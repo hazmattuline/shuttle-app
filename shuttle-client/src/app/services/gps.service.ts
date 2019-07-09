@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ShuttleApiService } from './shuttle-api.service';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
+import { UserComponent } from '../user/user.component';
 import * as isEqual from 'lodash/isEqual';
 
 @Injectable()
@@ -55,7 +56,7 @@ export class GPSService implements OnDestroy {
 
   private sendShuttleCoordinates() {
     if (this.latestCoordinates && this.previousCoordinates) {
-      this.hasNotMoved = (this.previousCoordinates.latitude === this.latestCoordinates.latitude) && 
+      this.hasNotMoved = (this.previousCoordinates.latitude === this.latestCoordinates.latitude) &&
       (this.previousCoordinates.longitude === this.latestCoordinates.longitude);
     }
     if (this.latestCoordinates && !this.hasNotMoved) {
@@ -63,7 +64,7 @@ export class GPSService implements OnDestroy {
         vehicleID: 1, // TODO - Hard coded for now - Get this from service
         latitudeCoordinates: this.latestCoordinates.latitude,
         longitudeCoordinates: this.latestCoordinates.longitude
-      }
+      };
       this.shuttleApiService.sendShuttleCoordinates(coordinateRequest, 1).subscribe(); // hardcoded 1 as the shuttle
     }
   }
