@@ -100,10 +100,14 @@ export class GPSService implements OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  stop() {
     this.stopGPSTracking();
     this.shuttleApiService.changeStatus("I", this.shuttle.vehicleID).subscribe(newShuttle => {
       this.shuttle = newShuttle;
     });
+  }
+
+  ngOnDestroy() {
+    this.stop();
   }
 }
