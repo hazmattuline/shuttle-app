@@ -3,6 +3,7 @@ package com.uline.shuttle.app.controllers;
 import com.uline.common.metrics.ExecutionTime;
 import com.uline.shuttle.app.services.ShuttleAppService;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,9 +16,11 @@ import rest.models.requests.CoordinateRequest;
 import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
+import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
+import rest.models.response.ShuttleResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
 
@@ -32,12 +35,27 @@ public class ShuttleAppController {
     this.shuttleAppService = shuttleAppService;
   }
 
+  @ExecutionTime("ShuttleAppService.changeStatus")
+  @ApiOperation(value = "change shuttle's status")
+  @PatchMapping(value = "/shuttles/{id}/status")
+  public ShuttleResponse changeStatus(
+      @RequestBody StatusRequest statusRequest, @PathVariable("id") Integer id) {
+    return shuttleAppService.changeStatus(statusRequest, id);
+  }
+
   @ExecutionTime("ShuttleAppService.enRoute")
   @ApiOperation(
       value = "posting the coordinates that we get from driver view and storing in a database")
   @PatchMapping(value = "/enRoute")
   public CoordinateResponse enRoute(@RequestBody CoordinateRequest coordinateRequest) {
     return shuttleAppService.enRoute(coordinateRequest);
+  }
+
+  @ExecutionTime("ShuttleAppService.getActiveShuttles")
+  @ApiOperation(value = "getting the active shuttles")
+  @GetMapping(value = "/shuttles/active")
+  public List<ShuttleResponse> getActiveShuttles() {
+    return shuttleAppService.getActiveShuttles();
   }
 
   @ExecutionTime("ShuttleAppService.receiveCoordinates")

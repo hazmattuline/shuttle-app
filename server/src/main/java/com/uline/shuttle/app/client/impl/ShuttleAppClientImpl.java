@@ -3,6 +3,7 @@ package com.uline.shuttle.app.client.impl;
 import com.uline.ha.rest.UlineRestTemplate;
 import com.uline.shuttle.app.client.ShuttleAppClient;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,9 +16,11 @@ import rest.models.requests.CoordinateRequest;
 import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
+import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
+import rest.models.response.ShuttleResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
 
@@ -47,9 +50,32 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   @Value("${shuttle.service.rc.url.post.fuel}")
   private String shuttleServiceForFuel;
 
+  @Value("${shuttle.service.rc.url.get.active.shuttles}")
+  private String activeShuttlesURL;
+
+  @Value("${shuttle.service.rc.url.change.status}")
+  private String changeStatusURL;
+
   @Autowired
   public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
     this.restTemplate = restTemplate;
+  }
+
+  @Override
+  public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
+
+    Map<String, Integer> params = new HashMap<>();
+    params.put("id", id);
+
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + changeStatusURL);
+
+    return restTemplate
+        .exchange(
+            builder.buildAndExpand(params).toUriString(),
+            HttpMethod.PATCH,
+            new HttpEntity<>(statusRequest),
+            new ParameterizedTypeReference<ShuttleResponse>() {})
+        .getBody();
   }
 
   @Override
@@ -67,6 +93,19 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
+  public List<ShuttleResponse> getActiveShuttles() {
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + activeShuttlesURL);
+
+    return restTemplate
+        .exchange(
+            builder.build().toUriString(),
+            HttpMethod.GET,
+            new HttpEntity<>(null, null),
+            new ParameterizedTypeReference<List<ShuttleResponse>>() {})
+        .getBody();
+  }
+
+  @Override
   public CoordinateResponse getCoordinates(Integer vehicleID) {
 
     Map<String, Integer> params = new HashMap<>();
@@ -74,7 +113,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForGet);
-
     return restTemplate
         .exchange(
             builder.buildAndExpand(params).toUriString(),

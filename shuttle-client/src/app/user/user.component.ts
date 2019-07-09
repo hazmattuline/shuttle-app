@@ -1,8 +1,8 @@
 import { Component, OnInit, Renderer2, ElementRef, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
-import { ScriptService } from '../script.service';
 import { ShuttleTrackingService } from '../services/shuttle-tracking.service';
 import { Shuttle } from '../models/shuttle.model';
 import { Subscription } from 'rxjs';
+import { MaximumLatitude, MinimumLatitude, MaximumLongitude, MinimumLongitude } from '../core/constants/coordinates.constant';
 
 @Component
   ({
@@ -18,18 +18,56 @@ export class UserComponent implements OnInit, OnDestroy {
   private shuttleSubscription: Subscription;
   @ViewChild('markerContainer') markerContainer: ElementRef;
 
+
   constructor(private shuttleTrackingService: ShuttleTrackingService, private renderer: Renderer2, private vcRef: ViewContainerRef) {}
 
-  // have the location be displayed on page load
   ngOnInit() {
     this.shuttleTrackingService.startShuttleTracking();
     this.listenForShuttleMarkers();
   }
 
+  private isOutsideBounds(latitude: number, longitude: number) {
+    const latitudeTooBig: boolean = (latitude > MaximumLatitude);
+    const latitudeTooSmall: boolean = (latitude < MinimumLatitude);
+    const longitudeTooBig: boolean = (longitude > MaximumLongitude);
+    const longitudeTooSmall: boolean = (longitude < MinimumLongitude);
+    if (latitudeTooBig || latitudeTooSmall || longitudeTooBig || longitudeTooSmall) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private hide(shuttle: Shuttle) {
+    if (this.currentShuttleMarkers.get(shuttle.vehicleID)) {
+      const marker = this.currentShuttleMarkers.get(shuttle.vehicleID);
+      this.renderer.removeChild(this.markerContainer.nativeElement, marker);
+      this.currentShuttleMarkers.delete(shuttle.vehicleID);
+    }
+  }
+
+  private removeInactiveShuttles(shuttleList: Shuttle[]) {
+    const activeVehicleIds = shuttleList.map(shuttle => shuttle.vehicleID);
+    for (let key of Array.from(this.currentShuttleMarkers.keys())) {
+      if (!activeVehicleIds.includes(key)) {
+        const marker = this.currentShuttleMarkers.get(key);
+        this.renderer.removeChild(this.markerContainer.nativeElement, marker);
+        this.currentShuttleMarkers.delete(key);
+      }
+    }
+  }
+
   private listenForShuttleMarkers() {
-    this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttle => {
+    this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttleList => {
       if (this.markerContainer) {
-        this.addOrUpdateShuttleMarker(shuttle);
+        for (let shuttle of shuttleList) {
+          if (!this.isOutsideBounds(shuttle.latitudeCoordinates, shuttle.longitudeCoordinates)) {
+            this.addOrUpdateShuttleMarker(shuttle);
+          } else {
+            this.hide(shuttle);
+          }
+        }
+        this.removeInactiveShuttles(shuttleList);
       }
     });
   }
@@ -52,17 +90,11 @@ export class UserComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - 25}px`);
   }
 
-  private removeAllMarkers(markers: ElementRef[]): ElementRef[] {
-    markers.forEach(marker => {
-      this.renderer.removeChild(this.markerContainer, marker);
-    })
-    return [];
-  }
-
   ngOnDestroy() {
     if (this.shuttleSubscription) {
       this.shuttleSubscription.unsubscribe();
     }
+    this.currentShuttleMarkers.clear();
   }
 
 }
