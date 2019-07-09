@@ -25,6 +25,7 @@ export class ShuttleTrackingService implements OnDestroy {
     this.shuttleApi.getActiveShuttles().subscribe(shuttleList => {
       //console.log(shuttleList);
       for (let shuttle of shuttleList) {
+        console.log(shuttle);
         shuttle = this.calculateXYPixelCoordinates(shuttle);
         //console.log("trackingService - " + shuttle);
         this._shuttles.next(shuttle);

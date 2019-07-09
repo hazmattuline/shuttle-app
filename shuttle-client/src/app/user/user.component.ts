@@ -44,7 +44,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   private listenForShuttleMarkers() {
     this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttle => {
-      if (this.markerContainer && !this.isOutsideBounds(shuttle.latitudeCoordinates, shuttle.longitudeCoordinates)) {
+      if (this.markerContainer) { //&& !this.isOutsideBounds(shuttle.latitudeCoordinates, shuttle.longitudeCoordinates)) {
         console.log(shuttle);
         this.addOrUpdateShuttleMarker(shuttle);
       }
