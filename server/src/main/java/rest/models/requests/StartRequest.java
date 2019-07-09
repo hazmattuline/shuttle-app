@@ -1,11 +1,18 @@
 package rest.models.requests;
 
+import java.sql.Timestamp;
+
 public class StartRequest {
 
+  private Timestamp date;
   private String startCondition;
   private Integer startDriverID;
   private Double startMileage;
   private Integer startVehicleID;
+
+  public Timestamp getDate() {
+    return date;
+  }
 
   public long getDriverID() {
     return startDriverID;
@@ -21,6 +28,10 @@ public class StartRequest {
 
   public long getVehicleID() {
     return startVehicleID;
+  }
+
+  public void setDate(Timestamp date) {
+    this.date = date;
   }
 
   public void setDriverID(Integer driverID) {
