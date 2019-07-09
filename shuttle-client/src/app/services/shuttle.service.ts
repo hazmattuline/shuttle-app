@@ -14,6 +14,7 @@ export class ShuttleService {
 
   private _vehicleDropDown: Subject<SelectItem[]> = new Subject();
   public vehicleDropDown: Observable<SelectItem[]> = this._vehicleDropDown.asObservable();
+  currentShuttleMarkers: Map<number, ElementRef> = new Map();
 
    static buildSelectItemsForDropdown(data: any[], labelFieldName: string, valueFieldName?: string): SelectItem[] {
     let selectItems = [];
@@ -28,12 +29,14 @@ export class ShuttleService {
     return selectItems;
   }
   
-  createStartInfo(driverId: number, vehicleId: number, mileage: number, condition: string) {
+  createStartInfo(driverId: number, vehicleId: number, mileage: number, condition: string, date: number) {
     const startInfo: StartInfo = {
       startDriverId: driverId,
       startVehicleId: vehicleId,
       startMileage: mileage,
-      startCondition: condition
+      startCondition: condition,
+      startDate: date
+    
     };
     console.log(driverId);
     console.log(vehicleId);
@@ -45,12 +48,13 @@ export class ShuttleService {
     this.shuttleApi.sendStartInfo(startInfo).subscribe();
   }
 
-    createEndInfo(driverId: number, vehicleId: number, mileage: number, condition: string) {
+    createEndInfo(driverId: number, vehicleId: number, mileage: number, condition: string, date: number) {
     const endInfo: EndInfo = {
       endDriverId: driverId,
       endVehicleId: vehicleId,
       endMileage: mileage,
-      endCondition: condition
+      endCondition: condition,
+      startDate: date
     };
     console.log(driverId);
     console.log(vehicleId);
@@ -81,7 +85,6 @@ export class ShuttleService {
     };
     this.shuttleApi.sendPassengerInfo(passengerInfo).subscribe();
   }
-  currentShuttleMarkers: Map<number, ElementRef> = new Map();
 
   deleteMarker() {
     this.currentShuttleMarkers.clear();
