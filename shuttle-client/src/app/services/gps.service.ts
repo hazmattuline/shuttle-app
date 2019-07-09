@@ -12,7 +12,7 @@ export class GPSService implements OnDestroy {
   private previousCoordinates: Coordinates;
   private hasNotMoved = false;
   private shuttle: Shuttle;
-  private shuttleId: number = 1;
+  private shuttleId: number = 0;
 
   private _isActive: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isActive: Observable<boolean> = this._isActive.asObservable();
@@ -32,6 +32,8 @@ export class GPSService implements OnDestroy {
   setTrackingVehicle(vehicleId: number) {
     if (vehicleId > 0 && vehicleId < 6) {
       this.shuttleId = vehicleId;
+    } else {
+      this.shuttleId = 1;
     }
   }
 
@@ -41,8 +43,6 @@ export class GPSService implements OnDestroy {
     if (this.gpsLocationTimer) {
       clearInterval(this.gpsLocationTimer);
     }
-    console.log("change to inactive");
-    console.log(this.shuttle);
     this.shuttleApiService.changeStatus("I", this.shuttle.vehicleID).subscribe(newShuttle => {
       this.shuttle = newShuttle;
     });
