@@ -56,7 +56,6 @@ export class GPSService implements OnDestroy {
         this._isActive.next(true);
         this.startGPSUpdateTimer();
       });
-      console.log(this.shuttle);
     }
   }
 

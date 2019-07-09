@@ -53,7 +53,6 @@ export class UserComponent implements OnInit, OnDestroy {
         const marker = this.currentShuttleMarkers.get(key);
         this.renderer.removeChild(this.markerContainer.nativeElement, marker);
         this.currentShuttleMarkers.delete(key);
-        console.log(this.currentShuttleMarkers);
       }
     }
   }

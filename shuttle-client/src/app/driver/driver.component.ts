@@ -89,7 +89,6 @@ export class DriverComponent implements OnInit, OnDestroy {
   }
 
   getShowShift(showShift: boolean) {
-    // console.log(showShift);
     this.showDriverShift = showShift;
   }
 
