@@ -81,7 +81,7 @@ private setupForm() {
 
 submitStartData() {
   const shiftValue = this.startShiftForm.value;
-  this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id);
+  this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id, 1);
   this.showShift.emit(false);
 }
 

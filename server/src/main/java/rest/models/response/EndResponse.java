@@ -3,8 +3,8 @@ package rest.models.response;
 import java.sql.Timestamp;
 
 public class EndResponse {
-  private Timestamp date;
   private String endCondition;
+  private Timestamp endDate;
 
   private Integer endDriverId;
 
@@ -12,7 +12,7 @@ public class EndResponse {
   private Integer endVehicleId;
 
   public Timestamp getDate() {
-    return date;
+    return endDate;
   }
 
   public String getEndCondition() {
@@ -32,7 +32,7 @@ public class EndResponse {
   }
 
   public void setDate(Timestamp date) {
-    this.date = date;
+    this.endDate = date;
   }
 
   public void setEndConditionId(String endCondition) {

@@ -78,9 +78,10 @@ private setupForm() {
   });
 }
 
+// hard coding 1 for now until we get UI design
 submitEndData() {
   const shiftValue = this.endShiftForm.value;
-  this.shuttleService.createEndInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id);
+  this.shuttleService.createEndInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id, 1);
   this.showShift.emit(false);
 }}
 

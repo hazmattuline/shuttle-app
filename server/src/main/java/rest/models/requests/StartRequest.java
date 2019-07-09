@@ -4,14 +4,14 @@ import java.sql.Timestamp;
 
 public class StartRequest {
 
-  private Timestamp date;
   private String startCondition;
+  private Timestamp startDate;
   private Integer startDriverID;
   private Double startMileage;
   private Integer startVehicleID;
 
   public Timestamp getDate() {
-    return date;
+    return startDate;
   }
 
   public long getDriverID() {
@@ -31,7 +31,7 @@ public class StartRequest {
   }
 
   public void setDate(Timestamp date) {
-    this.date = date;
+    this.startDate = date;
   }
 
   public void setDriverID(Integer driverID) {
