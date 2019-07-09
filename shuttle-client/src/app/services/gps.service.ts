@@ -12,7 +12,7 @@ export class GPSService implements OnDestroy {
   private previousCoordinates: Coordinates;
   private hasNotMoved = false;
   private shuttle: Shuttle;
-  private shuttleId: number = 0;
+  private shuttleId: number = 1;
 
   private _isActive: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isActive: Observable<boolean> = this._isActive.asObservable();
