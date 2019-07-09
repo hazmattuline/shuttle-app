@@ -14,6 +14,6 @@ export class ShuttleService {
       startMileage: mileage,
       startConditionId: conditionId
     }
-    this.shuttleApi.sendStartInfo(startInfo).subscribe();
+    // this.shuttleApi.sendStartInfo(startInfo).subscribe();
   }
 }

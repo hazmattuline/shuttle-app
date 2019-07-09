@@ -8,7 +8,6 @@ import { RouterModule, Routes} from '@angular/router';
 import { DriverComponent } from './driver/driver.component';
 import { AppComponent } from './app.component';
 import { RequestComponent } from './request/request.component';
-import { ScriptService } from './script.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -38,7 +37,6 @@ import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
     HttpClientModule
   ],
   providers: [
-    ScriptService,
     { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

@@ -7,8 +7,8 @@ import { MinimumLongitude, MaximumLatitude, MinimumLatitude, MaximumLongitude } 
 @Injectable()
 export class ShuttleTrackingService implements OnDestroy {
 
-  private _shuttles: Subject<Shuttle> = new Subject();
-  public shuttles: Observable<Shuttle> = this._shuttles.asObservable();
+  private _shuttles: Subject<Shuttle[]> = new Subject();
+  public shuttles: Observable<Shuttle[]> = this._shuttles.asObservable();
 
   private shuttleLocationTimer = null;
 
@@ -23,13 +23,12 @@ export class ShuttleTrackingService implements OnDestroy {
 
   private showShuttle() {
     this.shuttleApi.getActiveShuttles().subscribe(shuttleList => {
-      //console.log(shuttleList);
+      let shuttles: Shuttle[] = [];
       for (let shuttle of shuttleList) {
-        console.log(shuttle);
         shuttle = this.calculateXYPixelCoordinates(shuttle);
-        //console.log("trackingService - " + shuttle);
-        this._shuttles.next(shuttle);
+        shuttles.push(shuttle);
       }
+      this._shuttles.next(shuttles);
     });
   }
 
