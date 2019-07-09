@@ -7,13 +7,4 @@ export class ShuttleService {
 
   constructor(private shuttleApi: ShuttleApiService) { }
 
-  createStartInfo(driverId: number, vehicleId: number, mileage: number, conditionId: number) {
-    const startInfo: StartInfo = {
-      startDriverId: driverId,
-      startVehicleId: vehicleId,
-      startMileage: mileage,
-      startConditionId: conditionId
-    }
-    // this.shuttleApi.sendStartInfo(startInfo).subscribe();
-  }
 }

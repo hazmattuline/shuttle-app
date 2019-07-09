@@ -23,10 +23,6 @@ export class ShuttleApiService {
     return this.http.patch<Shuttle>(Enroute, coordinates);
   }
 
-  // sendStartInfo(startRequest: StartInfo): Observable<StartInfo> {
-  //   return this.http.post<StartInfo>(storeStartInfo, startRequest);
-  // }
-
   getActiveShuttles(): Observable<Shuttle[]> {
     return this.http.get<Shuttle[]>(ActiveShuttles);
   }

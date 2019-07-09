@@ -70,18 +70,13 @@ ngOnInit() {
 
 private setupForm() {
   this.startShiftForm = this.fb.group({
-    driver: '',
-    vehicle: '',
-    vehicleId: '',
-    mileage: '',
-    condition: ''
+    vehicleId: ''
   });
 }
 
 submitStartData(){
   const shiftValue = this.startShiftForm.value;
   this.gpsService.setTrackingVehicle(shiftValue.vehicleId);
-  this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle.id, shiftValue.mileage, shiftValue.condition.id);
   this.showShift.emit(false);
 }
 }

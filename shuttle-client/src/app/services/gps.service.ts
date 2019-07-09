@@ -71,14 +71,9 @@ export class GPSService implements OnDestroy {
   }
 
   private sendShuttleCoordinates() {
-    // if (this.latestCoordinates && this.previousCoordinates) {
-    //   this.hasNotMoved = (this.previousCoordinates.latitude === this.latestCoordinates.latitude) && 
-    //   (this.previousCoordinates.longitude === this.latestCoordinates.longitude);
-    // }
-    this.hasNotMoved = false;
-    if (this.latestCoordinates && !this.hasNotMoved) {
+    if (this.latestCoordinates) {
       const coordinateRequest: CoordinatesRequest = {
-        vehicleID: this.shuttle.vehicleID, // TODO - Hard coded for now - Get this from service
+        vehicleID: this.shuttle.vehicleID, 
         latitudeCoordinates: this.latestCoordinates.latitude,
         longitudeCoordinates: this.latestCoordinates.longitude
       }
