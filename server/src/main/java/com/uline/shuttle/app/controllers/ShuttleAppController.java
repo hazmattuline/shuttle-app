@@ -1,9 +1,7 @@
 package com.uline.shuttle.app.controllers;
 
-import com.uline.common.metrics.ExecutionTime;
-import com.uline.shuttle.app.services.ShuttleAppService;
-import io.swagger.annotations.ApiOperation;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -12,15 +10,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.uline.common.metrics.ExecutionTime;
+import com.uline.shuttle.app.services.ShuttleAppService;
+
+import io.swagger.annotations.ApiOperation;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.EndRequest;
 import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
+import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.EndResponse;
 import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
+import rest.models.response.ShuttleResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
 
@@ -35,6 +40,13 @@ public class ShuttleAppController {
     this.shuttleAppService = shuttleAppService;
   }
 
+  @ExecutionTime("ShuttleAppService.changeStatus")
+  @ApiOperation(value = "change shuttle's status")
+  @PatchMapping(value = "/shuttles/{id}/status")
+  public ShuttleResponse changeStatus(@RequestBody StatusRequest statusRequest, @PathVariable("id") Integer id) {
+    return shuttleAppService.changeStatus(statusRequest, id);
+  }
+
   @ExecutionTime("ShuttleAppService.endShift")
   @ApiOperation(value = "posting the ending conditions of the vehicle")
   @PostMapping(value = "/days/end")
@@ -45,10 +57,16 @@ public class ShuttleAppController {
   @ExecutionTime("ShuttleAppService.enRoute")
   @ApiOperation(value = "posting the coordinates and storing in a database")
   @PatchMapping(value = "/shuttles/{vehicleID}/coordinates")
-  public CoordinateResponse enRoute(
-      @PathVariable("vehicleID") Integer vehicleID,
+  public CoordinateResponse enRoute(@PathVariable("vehicleID") Integer vehicleID,
       @RequestBody CoordinateRequest coordinateRequest) {
     return shuttleAppService.enRoute(vehicleID, coordinateRequest);
+  }
+
+  @ExecutionTime("ShuttleAppService.getActiveShuttles")
+  @ApiOperation(value = "getting the active shuttles")
+  @GetMapping(value = "/shuttles/active")
+  public List<ShuttleResponse> getActiveShuttles() {
+    return shuttleAppService.getActiveShuttles();
   }
 
   @ExecutionTime("ShuttleAppService.receiveCoordinates")
@@ -84,18 +102,5 @@ public class ShuttleAppController {
   @PostMapping(value = "/days/passengers")
   public PassengerResponse storePassengers(@RequestBody PassengerRequest passengerRequest) {
     return shuttleAppService.storePassengers(passengerRequest);
-  }
-  @ExecutionTime("ShuttleAppService.changeStatus")
-  @ApiOperation(value = "change shuttle's status")
-  @PatchMapping(value = "/shuttles/{id}/status")
-  public ShuttleResponse changeStatus(
-      @RequestBody StatusRequest statusRequest, @PathVariable("id") Integer id) {
-    return shuttleAppService.changeStatus(statusRequest, id);
-  }
-   @ExecutionTime("ShuttleAppService.getActiveShuttles")
-  @ApiOperation(value = "getting the active shuttles")
-  @GetMapping(value = "/shuttles/active")
-  public List<ShuttleResponse> getActiveShuttles() {
-    return shuttleAppService.getActiveShuttles();
   }
 }
