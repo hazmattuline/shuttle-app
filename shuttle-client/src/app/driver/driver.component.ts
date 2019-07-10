@@ -27,7 +27,7 @@ export class DriverComponent implements OnInit, OnDestroy {
   passengerInput: DriverInput;
   curbInput: DriverInput;
 
-  constructor(private supportService: ScriptService, private gpsService: GPSService, private shuttleService: ShuttleService) {
+  constructor(private gpsService: GPSService, private shuttleService: ShuttleService) {
     this.passengerInputs = [
       { label: 'Select', value: null },
       { label: '0', value: { id: 1 } },
@@ -72,7 +72,7 @@ export class DriverComponent implements OnInit, OnDestroy {
     // add code to change between On Break and Off Break
     return null;
   }
-  
+
   submitPassengerInfo() {
     // TODO - submit info from new UI
 

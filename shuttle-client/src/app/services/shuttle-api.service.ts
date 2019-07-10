@@ -29,8 +29,8 @@ export class ShuttleApiService {
     return this.http.get<Shuttle>(Shuttles + '/' + id);
   }
 
-  sendShuttleCoordinates(coordinates: CoordinatesRequest, id: number): Observable<Shuttle> {
-    return this.http.patch<Shuttle>(Shuttles + '/' + id + Coordinates, coordinates);
+  sendShuttleCoordinates(coordinates: CoordinatesRequest): Observable<Shuttle> {
+    return this.http.patch<Shuttle>(Shuttles + '/' + Coordinates, coordinates);
   }
 
   sendStartInfo(startRequest: StartInfo): Observable<StartInfo> {
@@ -51,7 +51,7 @@ export class ShuttleApiService {
   changeStatus(status: string, id: number): Observable<Shuttle> {
     const statusInfo: StatusInfo = {
       statusCode: status
-    }
+    };
     return this.http.patch<Shuttle>(Shuttles + '/' + id + Status, statusInfo);
   }
 }
