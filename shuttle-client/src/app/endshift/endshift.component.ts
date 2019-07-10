@@ -52,13 +52,16 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, publ
   inputMileage: number;
 
   endShiftForm: FormGroup;
-
+  date: string;
 
   @Output()
   showShift = new EventEmitter<boolean>();
 
  
-
+  getDate()
+  {
+    this.date = this.shuttleService.getDate();
+  }
 
  getVehicles() {
   this.shuttleService.vehicleOptions();
@@ -67,6 +70,7 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, publ
 ngOnInit() {
   this.setupForm();
   this.getVehicles();
+  this.getDate();
  }
 
 private setupForm() {
@@ -78,10 +82,9 @@ private setupForm() {
   });
 }
 
-// hard coding 1 for now until we get UI design
 submitEndData() {
   const shiftValue = this.endShiftForm.value;
-  this.shuttleService.createEndInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id, 1);
+  this.shuttleService.createEndInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id, this.date);
   this.showShift.emit(false);
 }}
 

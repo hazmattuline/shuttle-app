@@ -54,10 +54,15 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, publ
   inputMileage: number;
 
   startShiftForm: FormGroup;
+  date: string;
 
   @Output()
   showShift = new EventEmitter<boolean>();
 
+  getDate()
+  {
+    this.date = this.shuttleService.getDate();
+  }
  
 
 
@@ -68,6 +73,7 @@ constructor(private supportService: ScriptService, private fb: FormBuilder, publ
 ngOnInit() {
   this.setupForm();
   this.getVehicles();
+  this.getDate();
  }
 
 private setupForm() {
@@ -81,7 +87,7 @@ private setupForm() {
 
 submitStartData() {
   const shiftValue = this.startShiftForm.value;
-  this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id, 1);
+  this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id, this.date);
   this.showShift.emit(false);
 }
 

@@ -32,8 +32,10 @@
           <button pButton  (click)="makeNewRow()" label="Edit"></button>
       </div>-->
       <div>
-          <label class = "passenger-label"></label>
-          <button pButton (click)="makeNewRow();" label = "Submit"></button>
+        
+            <label class = "passenger-label"></label>
+            <button pButton (click)="submitPassengerInfo();" label = "Submit"></button>
+        
       </div>
     </div>
   
@@ -48,14 +50,11 @@
     <br>
     
     <button pButton (click)="recordFuel()" label="Fuel Info"> </button>
-  
+   
     <div class = "bringDown">
     <app-endshift (showShift)=getShowShift($event) [endShift] = "timeToStart"></app-endshift>
     </div>
-    <div>
-        <label class = "passenger-label"></label>
-        <button pButton (click)="submitPassengerInfo();" label = "Submit"></button>
-    </div>
+    
   </div>
   
   

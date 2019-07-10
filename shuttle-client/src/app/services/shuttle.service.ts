@@ -6,15 +6,30 @@ import { Subject, Observable, Subscription } from 'rxjs';
 import { FuelInfo } from '../models/fuel.model';
 import { PassengerInfo } from '../models/record-passengers.model';
 import { SelectItem } from 'primeng/api';
+import { DatePipe } from '@angular/common';
+
 
 @Injectable()
 export class ShuttleService {
 
-  constructor(private shuttleApi: ShuttleApiService) { }
 
+  constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe,) {
+
+
+   }
+  myDate = new Date();
+  date: string;
+  
   private _vehicleDropDown: Subject<SelectItem[]> = new Subject();
   public vehicleDropDown: Observable<SelectItem[]> = this._vehicleDropDown.asObservable();
   currentShuttleMarkers: Map<number, ElementRef> = new Map();
+  
+  static getDateISOStringForDate(date: Date): string | undefined {
+    if (date) {
+      return date.toLocaleDateString();
+    }
+    return undefined;
+  }
 
    static buildSelectItemsForDropdown(data: any[], labelFieldName: string, valueFieldName?: string): SelectItem[] {
     let selectItems = [];
@@ -28,8 +43,12 @@ export class ShuttleService {
     }
     return selectItems;
   }
+
+   getDate(){
+    return ShuttleService.getDateISOStringForDate(this.myDate);
+   }
   
-  createStartInfo(driverId: number, vehicleId: number, mileage: number, condition: string, date: number) {
+  createStartInfo(driverId: number, vehicleId: number, mileage: number, condition: string, date: string) {
     const startInfo: StartInfo = {
       startDriverId: driverId,
       startVehicleId: vehicleId,
@@ -45,16 +64,18 @@ export class ShuttleService {
     console.log(mileage);
     console.log(condition);
 
+    
+
     this.shuttleApi.sendStartInfo(startInfo).subscribe();
   }
 
-    createEndInfo(driverId: number, vehicleId: number, mileage: number, condition: string, date: number) {
+    createEndInfo(driverId: number, vehicleId: number, mileage: number, condition: string, date: string) {
     const endInfo: EndInfo = {
       endDriverId: driverId,
       endVehicleId: vehicleId,
       endMileage: mileage,
       endCondition: condition,
-      startDate: date
+      endDate: date
     };
     console.log(driverId);
     console.log(vehicleId);
@@ -77,11 +98,12 @@ export class ShuttleService {
     this.shuttleApi.sendFuelInfo(fuelInfo).subscribe();
   }
 
-  createPassengerInfo(pvehicleId: number, pCount: number, cCount: number) {
+  createPassengerInfo(_vehicleId: number, _passengerCount: number, _curbCount: number, passengerDate: string) {
     const passengerInfo: PassengerInfo = {
-      vehicleId: pvehicleId,
-      passengerCount: pCount,
-      curbCount: cCount
+      vehicleId: _vehicleId,
+      passengerCount: _passengerCount,
+      curbCount: _curbCount,
+      date: passengerDate
     };
     this.shuttleApi.sendPassengerInfo(passengerInfo).subscribe();
   }

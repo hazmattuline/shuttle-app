@@ -1,22 +1,20 @@
 package rest.models.response;
 
-import java.sql.Timestamp;
-
 public class EndResponse {
   private String endCondition;
-  private Timestamp endDate;
+  private String endDate;
 
   private Integer endDriverId;
 
   private Double endMileage;
   private Integer endVehicleId;
 
-  public Timestamp getDate() {
-    return endDate;
-  }
-
   public String getEndCondition() {
     return endCondition;
+  }
+
+  public String getEndDate() {
+    return endDate;
   }
 
   public Integer getEndDriverId() {
@@ -31,12 +29,13 @@ public class EndResponse {
     return endVehicleId;
   }
 
-  public void setDate(Timestamp date) {
-    this.endDate = date;
-  }
-
   public void setEndConditionId(String endCondition) {
     this.endCondition = endCondition;
+  }
+
+  public void setEndDate(String endDate) {
+
+    this.endDate = endDate;
   }
 
   public void setEndDriverId(Integer endDriverId) {

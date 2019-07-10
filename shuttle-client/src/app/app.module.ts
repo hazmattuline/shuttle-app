@@ -17,6 +17,7 @@ import { StartshiftComponent } from './startshift/startshift.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
 import { EndshiftComponent } from './endshift/endshift.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { EndshiftComponent } from './endshift/endshift.component';
     HttpClientModule
   ],
   providers: [
+    DatePipe,
     ScriptService,
     { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true }
   ],

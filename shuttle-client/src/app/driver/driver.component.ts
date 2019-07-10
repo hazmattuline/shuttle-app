@@ -7,7 +7,6 @@ import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { UserComponent } from '../user/user.component';
 
-
 @Component
   ({
     selector: 'app-driver',
@@ -16,6 +15,7 @@ import { UserComponent } from '../user/user.component';
     providers: [GPSService , ShuttleService]
     })
 export class DriverComponent implements OnInit {
+ 
   count = 0;
   inputComment;
   timeToStart: boolean;
@@ -28,6 +28,8 @@ export class DriverComponent implements OnInit {
   passengerInput: DriverInput;
   curbInput: DriverInput;
   use: UserComponent;
+  date: string;
+
   constructor(private supportService: ScriptService, public gpsService: GPSService, private shuttleService: ShuttleService) {
     this.passengerInputs = [
       { label: 'Select', value: null },
@@ -56,12 +58,18 @@ export class DriverComponent implements OnInit {
       { label: '3', value: { id: 4 } },
       { label: '4', value: { id: 5 } },
     ];
+
+  }
+  getDate()
+  {
+    this.date = this.shuttleService.getDate();
+    console.log(this.date);
+  }
+ngOnInit() {
+  this.getDate();
   }
 
-  ngOnInit() {
-  }
-
-  changeActive() {
+changeActive() {
     if (this.gpsService.getIsGPSActive()) {
       this.gpsService.stopGPSTracking();
       this.shuttleService.deleteMarker();
@@ -72,34 +80,34 @@ export class DriverComponent implements OnInit {
     }
   }
 
-  changeBreak() {
+changeBreak() {
     // add code to change between On Break and Off Break
     return null;
   }
   
-  submitPassengerInfo() {
+submitPassengerInfo() {
     // TODO - submit info from new UI
 
-    this.shuttleService.createPassengerInfo(1, 1, 1);
+    this.shuttleService.createPassengerInfo(1, 1, 1, this.date);
 
   }
 
-  makeNewRow() {
+makeNewRow() {
     // allow drivers to submit number of passengers in shuttle and left at curb again
    return null;
   }
 
-  recordFuel() {
+recordFuel() {
     const fuelAm = prompt('How much fuel did you put in the vehicle?');
     const fuelCos = prompt('What was the cost of the fuel?');
   }
 
-  recordComments() {
+recordComments() {
     // keep track of comments entered
     return null;
   }
 
-  getShowShift(showShift: boolean) {
+getShowShift(showShift: boolean) {
     this.showDriverShift = showShift;
   }
  

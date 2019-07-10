@@ -3,5 +3,5 @@ export interface StartInfo {
     startVehicleId: number;
     startCondition: string;
     startMileage: number;
-    startDate: number;
+    startDate: string;
 }

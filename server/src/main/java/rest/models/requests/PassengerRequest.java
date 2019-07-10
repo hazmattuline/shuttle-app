@@ -1,12 +1,17 @@
 package rest.models.requests;
 
 public class PassengerRequest {
-  private Integer vehicleId;
-  private Integer passengerCount;
   private Integer curbCount;
+  private String date;
+  private Integer passengerCount;
+  private Integer vehicleId;
 
   public Integer getCurbCount() {
     return curbCount;
+  }
+
+  public String getDate() {
+    return date;
   }
 
   public Integer getPassengerCount() {
@@ -19,6 +24,10 @@ public class PassengerRequest {
 
   public void setCurbCount(Integer curbCount) {
     this.curbCount = curbCount;
+  }
+
+  public void setDate(String date) {
+    this.date = date;
   }
 
   public void setPassengerCount(Integer passengerCount) {
