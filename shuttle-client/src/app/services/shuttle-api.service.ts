@@ -3,12 +3,14 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import { Shuttles, Coordinates,  Start, End, Vehicles, Fuel, Passengers} from '../core/constants/endpoints.constant';
+import { Shuttles, Coordinates,  Start, End, Vehicles, Fuel, Passengers, Status, ActiveShuttles} from '../core/constants/endpoints.constant';
 import { StartInfo } from '../models/start-info.model';
 import { EndInfo } from '../models/end-info';
 import { FuelInfo } from '../models/fuel.model';
 import { PassengerInfo } from '../models/record-passengers.model';
 import { Vehicle } from '../models/vehicle.model';
+import { StatusInfo } from '../models/status-info.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +27,8 @@ export class ShuttleApiService {
   getShuttle(id: number) {
     return this.http.get<Shuttle>(Shuttles + '/' + id);
   }
-  sendShuttleCoordinates(coordinates: CoordinatesRequest, id: number): Observable<Shuttle> {
-    return this.http.patch<Shuttle>(Shuttles + '/' + id + Coordinates, coordinates);
+  sendShuttleCoordinates(coordinates: CoordinatesRequest): Observable<Shuttle> {
+    return this.http.patch<Shuttle>(Shuttles + '/' + coordinates.vehicleID + Coordinates, coordinates);
   }
   sendStartInfo(startRequest: StartInfo): Observable<StartInfo> {
     return this.http.post<StartInfo>(Start, startRequest);
@@ -42,5 +44,16 @@ export class ShuttleApiService {
   }
   sendPassengerInfo(passengerInfo: PassengerInfo): Observable<PassengerInfo> {
     return this.http.post<PassengerInfo>(Passengers, passengerInfo);
+  }
+
+  getActiveShuttles(): Observable<Shuttle[]> {
+    return this.http.get<Shuttle[]>(ActiveShuttles);
+  }
+
+  changeStatus(status: string, id: number): Observable<Shuttle> {
+    const statusInfo: StatusInfo = {
+      statusCode: status
+    }
+    return this.http.patch<Shuttle>(Shuttles + '/' + id + Status, statusInfo);
   }
 }

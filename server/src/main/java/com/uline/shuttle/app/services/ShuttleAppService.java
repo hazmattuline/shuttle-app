@@ -28,4 +28,9 @@ public interface ShuttleAppService {
   FuelResponse storeFuel(FuelRequest fuelRequest);
 
   PassengerResponse storePassengers(PassengerRequest passengerRequest);
+
+   List<ShuttleResponse> getActiveShuttles();
+
+     ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id);
+
 }

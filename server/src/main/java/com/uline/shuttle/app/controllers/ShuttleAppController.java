@@ -85,4 +85,17 @@ public class ShuttleAppController {
   public PassengerResponse storePassengers(@RequestBody PassengerRequest passengerRequest) {
     return shuttleAppService.storePassengers(passengerRequest);
   }
+  @ExecutionTime("ShuttleAppService.changeStatus")
+  @ApiOperation(value = "change shuttle's status")
+  @PatchMapping(value = "/shuttles/{id}/status")
+  public ShuttleResponse changeStatus(
+      @RequestBody StatusRequest statusRequest, @PathVariable("id") Integer id) {
+    return shuttleAppService.changeStatus(statusRequest, id);
+  }
+   @ExecutionTime("ShuttleAppService.getActiveShuttles")
+  @ApiOperation(value = "getting the active shuttles")
+  @GetMapping(value = "/shuttles/active")
+  public List<ShuttleResponse> getActiveShuttles() {
+    return shuttleAppService.getActiveShuttles();
+  }
 }

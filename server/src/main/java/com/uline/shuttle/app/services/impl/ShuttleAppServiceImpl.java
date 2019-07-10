@@ -10,10 +10,12 @@ import rest.models.requests.EndRequest;
 import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
+import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.EndResponse;
 import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
+import rest.models.response.ShuttleResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
 
@@ -36,6 +38,16 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   @Override
   public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
     return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
+  }
+  
+  @Override
+   public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
+    return shuttleAppClient.changeStatus(statusRequest, id);
+  }
+  
+  @Override
+  public List<ShuttleResponse> getActiveShuttles() {
+    return shuttleAppClient.getActiveShuttles();
   }
 
   @Override

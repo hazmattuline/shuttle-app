@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { ScriptService } from '../script.service';
 import {SelectItem} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
 import { Vehicles } from '../core/constants/endpoints.constant';
+import { GPSService } from '../services/gps.service';
 
 
 @Component({
@@ -18,7 +18,7 @@ import { Vehicles } from '../core/constants/endpoints.constant';
 
 export class StartshiftComponent implements OnInit {
 
-constructor(private supportService: ScriptService, private fb: FormBuilder, public shuttleService: ShuttleService) {
+constructor(private fb: FormBuilder, private gpsService: GPSService, public shuttleService: ShuttleService) {
   this.driverOptions = [
     {label: 'Select', value: null},
     {label: 'Nadia Almanza', value: {id: 1}},
@@ -78,16 +78,14 @@ ngOnInit() {
 
 private setupForm() {
   this.startShiftForm = this.fb.group({
-    driver: '',
-    vehicle: '',
-    mileage: '',
-    condition: ''
+    vehicleId: ''
   });
 }
 
 submitStartData() {
   const shiftValue = this.startShiftForm.value;
   this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id, this.date);
+  this.gpsService.setTrackingVehicle(shiftValue.vehicle);
   this.showShift.emit(false);
 }
 

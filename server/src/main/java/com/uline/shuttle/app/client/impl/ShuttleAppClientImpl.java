@@ -53,6 +53,12 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   @Value("${shuttle.service.rc.url.post.startOfShift}")
   private String shuttleServiceStartOfShift;
 
+  @Value("${shuttle.service.rc.url.get.active.shuttles}")
+  private String activeShuttlesURL;
+
+  @Value("${shuttle.service.rc.url.change.status}")
+  private String changeStatusURL;
+
   @Autowired
   public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
     this.restTemplate = restTemplate;
@@ -164,4 +170,34 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             new ParameterizedTypeReference<PassengerResponse>() {})
         .getBody();
   }
+  
+  @Override
+  public List<ShuttleResponse> getActiveShuttles() {
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + activeShuttlesURL);
+
+    return restTemplate
+        .exchange(
+            builder.build().toUriString(),
+            HttpMethod.GET,
+            new HttpEntity<>(null, null),
+            new ParameterizedTypeReference<List<ShuttleResponse>>() {})
+        .getBody();
+  }
+   @Override
+  public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
+
+    Map<String, Integer> params = new HashMap<>();
+    params.put("id", id);
+
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + changeStatusURL);
+
+    return restTemplate
+        .exchange(
+            builder.buildAndExpand(params).toUriString(),
+            HttpMethod.PATCH,
+            new HttpEntity<>(statusRequest),
+            new ParameterizedTypeReference<ShuttleResponse>() {})
+        .getBody();
+  }
+
 }

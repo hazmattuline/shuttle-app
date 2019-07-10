@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ScriptService } from '../script.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { NgModule } from '@angular/core';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
@@ -14,8 +13,7 @@ import { UserComponent } from '../user/user.component';
     styleUrls: ['./driver.component.css'],
     providers: [GPSService , ShuttleService]
     })
-export class DriverComponent implements OnInit {
- 
+export class DriverComponent implements OnInit, OnDestroy {
   count = 0;
   inputComment;
   timeToStart: boolean;
@@ -30,7 +28,7 @@ export class DriverComponent implements OnInit {
   use: UserComponent;
   date: string;
 
-  constructor(private supportService: ScriptService, public gpsService: GPSService, private shuttleService: ShuttleService) {
+  constructor(public gpsService: GPSService, private shuttleService: ShuttleService) {
     this.passengerInputs = [
       { label: 'Select', value: null },
       { label: '0', value: { id: 1 } },
@@ -107,10 +105,14 @@ recordComments() {
     return null;
   }
 
-getShowShift(showShift: boolean) {
+  getShowShift(showShift: boolean) {
     this.showDriverShift = showShift;
   }
- 
+
+  ngOnDestroy() {
+    this.gpsService.stop();
+  }
+
 }
 export interface DriverInfo {
   numPassengers;

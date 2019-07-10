@@ -12,6 +12,10 @@ import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
+import rest.models.requests.StatusRequest;
+import rest.models.response.ShuttleResponse;
+
+
 
 public interface ShuttleAppClient {
 
@@ -28,4 +32,9 @@ public interface ShuttleAppClient {
   FuelResponse storeFuel(FuelRequest fuelRequest);
 
   PassengerResponse storePassengers(PassengerRequest passengerRequest);
+
+    ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id);
+
+  List<ShuttleResponse> getActiveShuttles();
+
 }
