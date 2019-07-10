@@ -3,6 +3,7 @@ package com.uline.shuttle.app.controllers;
 import com.uline.common.metrics.ExecutionTime;
 import com.uline.shuttle.app.services.ShuttleAppService;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,13 +16,13 @@ import rest.models.requests.CoordinateRequest;
 import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
+import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
+import rest.models.response.ShuttleResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
-import rest.models.response.EndResponse;
-import rest.models.response.EndRequest;
 
 @RestController
 @RequestMapping("/api")
@@ -34,13 +35,20 @@ public class ShuttleAppController {
     this.shuttleAppService = shuttleAppService;
   }
 
+  @ExecutionTime("ShuttleAppService.changeStatus")
+  @ApiOperation(value = "change shuttle's status")
+  @PatchMapping(value = "/shuttles/{id}/status")
+  public ShuttleResponse changeStatus(
+      @RequestBody StatusRequest statusRequest, @PathVariable("id") Integer id) {
+    return shuttleAppService.changeStatus(statusRequest, id);
+  }
+
   @ExecutionTime("ShuttleAppService.enRoute")
-  @ApiOperation(value = "posting the coordinates and storing in a database")
-  @PatchMapping(value = "/shuttles/{vehicleID}/coordinates")
-  public CoordinateResponse enRoute(
-      @PathVariable("vehicleID") Integer vehicleID,
-      @RequestBody CoordinateRequest coordinateRequest) {
-    return shuttleAppService.enRoute(vehicleID, coordinateRequest);
+  @ApiOperation(
+      value = "posting the coordinates that we get from driver view and storing in a database")
+  @PatchMapping(value = "/enRoute")
+  public CoordinateResponse enRoute(@RequestBody CoordinateRequest coordinateRequest) {
+    return shuttleAppService.enRoute(coordinateRequest);
   }
 
   @ExecutionTime("ShuttleAppService.endShift")
@@ -50,30 +58,37 @@ public class ShuttleAppController {
     return shuttleAppService.endShift(endRequest);
   }
 
+  @ExecutionTime("ShuttleAppService.getActiveShuttles")
+  @ApiOperation(value = "getting the active shuttles")
+  @GetMapping(value = "/shuttles/active")
+  public List<ShuttleResponse> getActiveShuttles() {
+    return shuttleAppService.getActiveShuttles();
+  }
+
   @ExecutionTime("ShuttleAppService.receiveCoordinates")
   @ApiOperation("fetching coordinates from the database")
-  @GetMapping(value = "/shuttles/{vehicleID}/coordinates")
+  @GetMapping(value = "/receiveCoords/{vehicleID}")
   public CoordinateResponse receiveCoordinates(@PathVariable("vehicleID") Integer vehicleID) {
     return this.shuttleAppService.getCoordinates(vehicleID);
   }
 
   @ExecutionTime("ShuttleAppService.receiveVehicleOptions")
   @ApiOperation(value = "fetching vehicles from database")
-  @GetMapping(value = "/vehicles")
-  public VehicleOptionsResponse receiveVehicles() {
-    return shuttleAppService.getVehicles();
+  @GetMapping(value = "/receiveVehicleOptions")
+  public VehicleOptionsResponse receiveVehicleOptions() {
+    return shuttleAppService.getVehicleOptions();
   }
 
   @ExecutionTime("ShuttleAppService.startShift")
-  @ApiOperation(value = "posting the start of day details to the database")
-  @PostMapping(value = "/days/start")
+  @ApiOperation(value = "posting the start of shift details to the database")
+  @PostMapping(value = "/storeStartInformation")
   public StartResponse startShift(@RequestBody StartRequest startRequest) {
     return shuttleAppService.startShift(startRequest);
   }
 
   @ExecutionTime("ShuttleAppService.storeFuel")
   @ApiOperation(value = "posting the fuel details to the database")
-  @PostMapping(value = "/days/fuel")
+  @PostMapping(value = "/storeFuel")
   public FuelResponse storeFuel(@RequestBody FuelRequest fuelRequest) {
     return shuttleAppService.storeFuel(fuelRequest);
   }
