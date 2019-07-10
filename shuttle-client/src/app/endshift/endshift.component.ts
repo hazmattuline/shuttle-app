@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { ScriptService } from '../script.service';
 import {SelectItem} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -17,7 +16,7 @@ import { ShuttleService } from '../services/shuttle.service';
 
 export class EndshiftComponent implements OnInit {
 
-constructor(private supportService: ScriptService, private fb: FormBuilder, public shuttleService: ShuttleService) {
+constructor(private fb: FormBuilder, public shuttleService: ShuttleService) {
   this.driverOptions = [
     {label: 'Select', value: null},
     {label: 'Nadia Almanza', value: {id: 1}},

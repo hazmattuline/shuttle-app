@@ -78,7 +78,10 @@ ngOnInit() {
 
 private setupForm() {
   this.startShiftForm = this.fb.group({
-    vehicleId: ''
+    driver: '',
+    vehicle: '',
+    mileage: '',
+    condition: ''
   });
 }
 

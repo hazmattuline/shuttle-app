@@ -1,7 +1,6 @@
 package com.uline.shuttle.app.services;
 
 import java.util.List;
-
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.EndRequest;
 import rest.models.requests.FuelRequest;
@@ -35,5 +34,4 @@ public interface ShuttleAppService {
   FuelResponse storeFuel(FuelRequest fuelRequest);
 
   PassengerResponse storePassengers(PassengerRequest passengerRequest);
-
 }

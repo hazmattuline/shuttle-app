@@ -22,10 +22,7 @@ export class ShuttleApiService {
     return this.http.get<Shuttle>(Shuttles + '/' +  id + Coordinates); 
   }
   getShuttles(): Observable<Shuttle> {
-    return this.http.get<Shuttle>(Vehicles);
-  }
-  getShuttle(id: number) {
-    return this.http.get<Shuttle>(Shuttles + '/' + id);
+    return this.http.get<Shuttle>(Shuttles);
   }
   sendShuttleCoordinates(coordinates: CoordinatesRequest): Observable<Shuttle> {
     return this.http.patch<Shuttle>(Shuttles + '/' + coordinates.vehicleID + Coordinates, coordinates);

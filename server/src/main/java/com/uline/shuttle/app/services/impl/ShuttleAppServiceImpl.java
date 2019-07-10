@@ -39,12 +39,12 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
     return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
   }
-  
+
   @Override
-   public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
+  public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
     return shuttleAppClient.changeStatus(statusRequest, id);
   }
-  
+
   @Override
   public List<ShuttleResponse> getActiveShuttles() {
     return shuttleAppClient.getActiveShuttles();
