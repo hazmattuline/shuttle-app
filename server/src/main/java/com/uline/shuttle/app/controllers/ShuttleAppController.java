@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.FuelRequest;
@@ -53,9 +54,9 @@ public class ShuttleAppController {
 
   @ExecutionTime("ShuttleAppService.getActiveShuttles")
   @ApiOperation(value = "getting the active shuttles")
-  @GetMapping(value = "/shuttles/active")
-  public List<ShuttleResponse> getActiveShuttles() {
-    return shuttleAppService.getActiveShuttles();
+  @GetMapping(value = "/shuttles")
+  public List<ShuttleResponse> getStatusShuttles(@RequestParam(name = "status") String status) {
+    return shuttleAppService.getStatusShuttles(status);
   }
 
   @ExecutionTime("ShuttleAppService.receiveCoordinates")
