@@ -4,7 +4,7 @@ public class PassengerResponse {
   private Integer curbCount;
   private String date;
   private Integer passengerCount;
-  private Integer vehicleId;
+  private Integer vehicleID;
 
   public Integer getCurbCount() {
     return curbCount;
@@ -19,7 +19,7 @@ public class PassengerResponse {
   }
 
   public Integer getVehicleId() {
-    return vehicleId;
+    return vehicleID;
   }
 
   public void setCurbCount(Integer curbCount) {
@@ -35,6 +35,6 @@ public class PassengerResponse {
   }
 
   public void setVehicleId(Integer vehicleId) {
-    this.vehicleId = vehicleId;
+    this.vehicleID = vehicleId;
   }
 }
