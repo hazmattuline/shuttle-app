@@ -23,7 +23,7 @@ export class ShuttleApiService {
     return this.http.patch<Shuttle>(Enroute, coordinates);
   }
 
-  getStatusShuttles(status): Observable<Shuttle[]> {
+  getShuttlesStatus(status): Observable<Shuttle[]> {
     return this.http.get<Shuttle[]>(StatusShuttles + status);
   }
 
