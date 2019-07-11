@@ -89,11 +89,13 @@ export class ShuttleService {
       this._vehicleDropDown.next(ShuttleService.buildSelectItemsForDropdown(vehicleDropDown, 'vehicleName', 'id'));
     });
   }
-
-  createFuelInfo(quantity: number, cost: number) {
+  
+  createFuelInfo(quantity: number, cost: number, vehicleId: number, date: string) {
     const fuelInfo: FuelInfo = {
       fuelCost: cost,
-      fuelQuantity: quantity
+      fuelQuantity: quantity,
+      fuelDate: date,
+      fuelVehicleId: vehicleId
     }
     this.shuttleApi.sendFuelInfo(fuelInfo).subscribe();
   }

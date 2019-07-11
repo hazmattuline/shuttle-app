@@ -104,4 +104,10 @@ export class GPSService implements OnDestroy {
   ngOnDestroy() {
     this.stop();
   }
+
+
+  getShuttleId() {
+    return this.shuttleId;
+}
+
 }
