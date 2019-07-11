@@ -61,13 +61,6 @@ public class ShuttleAppController {
     return shuttleAppService.enRoute(vehicleID, coordinateRequest);
   }
 
-  @ExecutionTime("ShuttleAppService.getActiveShuttles")
-  @ApiOperation(value = "getting the active shuttles")
-  @GetMapping(value = "/shuttles/active")
-  public List<ShuttleResponse> getActiveShuttles() {
-    return shuttleAppService.getActiveShuttles();
-  }
-
   @ExecutionTime("ShuttleAppService.receiveCoordinates")
   @ApiOperation("fetching coordinates from the database")
   @GetMapping(value = "/shuttles/{vehicleID}/coordinates")

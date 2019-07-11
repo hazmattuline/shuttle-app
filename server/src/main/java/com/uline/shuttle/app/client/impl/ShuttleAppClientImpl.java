@@ -118,19 +118,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public List<ShuttleResponse> getActiveShuttles() {
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + activeShuttlesURL);
-
-    return restTemplate
-        .exchange(
-            builder.build().toUriString(),
-            HttpMethod.GET,
-            new HttpEntity<>(null, null),
-            new ParameterizedTypeReference<List<ShuttleResponse>>() {})
-        .getBody();
-  }
-
-  @Override
   public CoordinateResponse getCoordinates(Integer vehicleID) {
 
     Map<String, Integer> params = new HashMap<>();
@@ -205,7 +192,8 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             new ParameterizedTypeReference<PassengerResponse>() {})
         .getBody();
   }
-   @Override
+
+  @Override
   public List<ShuttleResponse> getShuttlesStatus(String status) {
     Map<String, String> params = new HashMap<>();
     params.put("status", status);

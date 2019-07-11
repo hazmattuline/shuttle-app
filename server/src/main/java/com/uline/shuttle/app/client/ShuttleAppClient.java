@@ -14,8 +14,6 @@ import rest.models.response.PassengerResponse;
 import rest.models.response.ShuttleResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
-import rest.models.response.ShuttleResponse;
-
 
 public interface ShuttleAppClient {
 
@@ -24,8 +22,6 @@ public interface ShuttleAppClient {
   EndResponse endShift(EndRequest endRequest);
 
   CoordinateResponse enRoute(Integer vehicleId, CoordinateRequest coordinateRequest);
-
-  List<ShuttleResponse> getActiveShuttles();
 
   CoordinateResponse getCoordinates(Integer vehicleID);
 
@@ -38,5 +34,4 @@ public interface ShuttleAppClient {
   PassengerResponse storePassengers(PassengerRequest passengerRequest);
 
   List<ShuttleResponse> getShuttlesStatus(String status);
-
 }

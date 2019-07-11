@@ -23,8 +23,6 @@ public interface ShuttleAppService {
 
   CoordinateResponse enRoute(Integer vehicleId, CoordinateRequest coordinateRequest);
 
-  List<ShuttleResponse> getActiveShuttles();
-
   CoordinateResponse getCoordinates(Integer vehicleID);
 
   List<VehicleOptionsResponse> getVehicles();
@@ -35,6 +33,5 @@ public interface ShuttleAppService {
 
   PassengerResponse storePassengers(PassengerRequest passengerRequest);
 
-    List<ShuttleResponse> getShuttlesStatus(String status);
-
+  List<ShuttleResponse> getShuttlesStatus(String status);
 }
