@@ -30,7 +30,7 @@ export class GPSService implements OnDestroy {
   constructor(private shuttleApiService: ShuttleApiService) { }
 
   setTrackingVehicle(vehicleId: number) {
-    if (vehicleId > 0 && vehicleId < 6) {
+    if (vehicleId > 0 && vehicleId <= 6) {
       this.shuttleId = vehicleId;
     } else {
       this.shuttleId = 1;
