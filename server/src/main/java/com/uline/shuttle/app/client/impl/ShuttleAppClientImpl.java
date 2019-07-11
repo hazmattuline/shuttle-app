@@ -110,7 +110,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public List<ShuttleResponse> getStatusShuttles(String status) {
+  public List<ShuttleResponse> getShuttlesStatus(String status) {
     Map<String, String> params = new HashMap<>();
     params.put("status", status);
 

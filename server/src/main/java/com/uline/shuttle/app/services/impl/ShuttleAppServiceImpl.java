@@ -43,8 +43,8 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public List<ShuttleResponse> getStatusShuttles(String status) {
-    return shuttleAppClient.getStatusShuttles(status);
+  public List<ShuttleResponse> getShuttlesStatus(String status) {
+    return shuttleAppClient.getShuttlesStatus(status);
   }
 
   @Override
