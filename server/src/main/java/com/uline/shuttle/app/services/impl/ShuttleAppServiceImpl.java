@@ -38,13 +38,13 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public List<ShuttleResponse> getActiveShuttles() {
-    return shuttleAppClient.getActiveShuttles();
+  public CoordinateResponse getCoordinates(Integer vehicleID) {
+    return shuttleAppClient.getCoordinates(vehicleID);
   }
 
   @Override
-  public CoordinateResponse getCoordinates(Integer vehicleID) {
-    return shuttleAppClient.getCoordinates(vehicleID);
+  public List<ShuttleResponse> getShuttlesStatus(String status) {
+    return shuttleAppClient.getShuttlesStatus(status);
   }
 
   @Override
