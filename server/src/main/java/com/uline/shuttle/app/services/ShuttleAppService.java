@@ -34,4 +34,7 @@ public interface ShuttleAppService {
   FuelResponse storeFuel(FuelRequest fuelRequest);
 
   PassengerResponse storePassengers(PassengerRequest passengerRequest);
+
+    List<ShuttleResponse> getShuttlesStatus(String status);
+
 }

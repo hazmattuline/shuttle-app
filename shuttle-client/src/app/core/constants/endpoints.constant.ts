@@ -7,4 +7,6 @@ export const Coordinates = '/coordinates';
 export const Passengers = '/days/passengers';
 export const Vehicles = '/vehicles';
 export const ActiveShuttles = '/shuttles/active';
+export const StatusShuttles = '/shuttles?status=';
+
 export const Status = '/status';
