@@ -28,7 +28,6 @@ import rest.models.response.VehicleOptionsResponse;
 
 @Service
 public class ShuttleAppClientImpl implements ShuttleAppClient {
-
   @Value("${shuttle.service.rc.url.get.status.shuttles}")
   private String statusShuttlesURL;
 
@@ -144,8 +143,24 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
         .exchange(
             builder.build().toUriString(),
             HttpMethod.GET,
-            null,
+            new HttpEntity<>(null),
             new ParameterizedTypeReference<List<VehicleOptionsResponse>>() {})
+        .getBody();
+  }
+
+  @Override
+  public List<ShuttleResponse> getShuttlesStatus(String status) {
+    Map<String, String> params = new HashMap<>();
+    params.put("status", status);
+
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + statusShuttlesURL);
+
+    return restTemplate
+        .exchange(
+            builder.buildAndExpand(params).toUriString(),
+            HttpMethod.GET,
+            new HttpEntity<>(null, null),
+            new ParameterizedTypeReference<List<ShuttleResponse>>() {})
         .getBody();
   }
 
@@ -190,22 +205,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             HttpMethod.POST,
             new HttpEntity<>(passengerRequest),
             new ParameterizedTypeReference<PassengerResponse>() {})
-        .getBody();
-  }
-
-  @Override
-  public List<ShuttleResponse> getShuttlesStatus(String status) {
-    Map<String, String> params = new HashMap<>();
-    params.put("status", status);
-
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + statusShuttlesURL);
-
-    return restTemplate
-        .exchange(
-            builder.buildAndExpand(params).toUriString(),
-            HttpMethod.GET,
-            new HttpEntity<>(null, null),
-            new ParameterizedTypeReference<List<ShuttleResponse>>() {})
         .getBody();
   }
 }

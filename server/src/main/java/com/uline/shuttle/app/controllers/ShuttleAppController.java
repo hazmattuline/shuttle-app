@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.EndRequest;
@@ -70,7 +71,7 @@ public class ShuttleAppController {
 
   @ExecutionTime("ShuttleAppService.receiveVehicleOptions")
   @ApiOperation(value = "fetching vehicles from database")
-  @GetMapping(value = "/shuttles")
+  @GetMapping(value = "/shuttles/vehicles")
   public List<VehicleOptionsResponse> receiveVehicles() {
     return shuttleAppService.getVehicles();
   }
@@ -94,5 +95,12 @@ public class ShuttleAppController {
   @PostMapping(value = "/days/passengers")
   public PassengerResponse storePassengers(@RequestBody PassengerRequest passengerRequest) {
     return shuttleAppService.storePassengers(passengerRequest);
+  }
+
+  @ExecutionTime("ShuttleAppService.getActiveShuttles")
+  @ApiOperation(value = "getting the active shuttles")
+  @GetMapping(value = "/shuttles")
+  public List<ShuttleResponse> getShuttlesStatus(@RequestParam(name = "status") String status) {
+    return shuttleAppService.getShuttlesStatus(status);
   }
 }
