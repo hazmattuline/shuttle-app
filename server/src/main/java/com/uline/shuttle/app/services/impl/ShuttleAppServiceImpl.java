@@ -6,12 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rest.models.requests.CoordinateRequest;
+import rest.models.requests.DayRequest;
 import rest.models.requests.EndRequest;
 import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
 import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
+import rest.models.response.DayResponse;
 import rest.models.response.EndResponse;
 import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
@@ -72,5 +74,16 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   @Override
   public PassengerResponse storePassengers(PassengerRequest passengerRequest) {
     return shuttleAppClient.storePassengers(passengerRequest);
+  }
+
+  @Override
+  public VehicleOptionsResponse getVehicleOptions() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public DayResponse submitDay(DayRequest dayRequest) {
+    return shuttleAppClient.submitDay(dayRequest);
   }
 }

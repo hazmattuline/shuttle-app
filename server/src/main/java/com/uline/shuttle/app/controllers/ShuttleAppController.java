@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rest.models.requests.CoordinateRequest;
+import rest.models.requests.DayRequest;
+import rest.models.requests.EndRequest;
 import rest.models.requests.FuelRequest;
 import rest.models.requests.PassengerRequest;
 import rest.models.requests.StartRequest;
 import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
+import rest.models.response.DayResponse;
+import rest.models.response.EndResponse;
 import rest.models.response.FuelResponse;
 import rest.models.response.PassengerResponse;
 import rest.models.response.ShuttleResponse;
@@ -98,5 +102,12 @@ public class ShuttleAppController {
   @PostMapping(value = "/storePassengers")
   public PassengerResponse storePassengers(@RequestBody PassengerRequest passengerRequest) {
     return shuttleAppService.storePassengers(passengerRequest);
+  }
+  
+  @ExecutionTime("ShuttleAppService.submitDay")
+  @ApiOperation(value = "posting to the Shuttle Vehicle Day table")
+  @PostMapping(value = "/submitDay")
+  public DayResponse submitDay(@RequestBody DayRequest dayRequest) {
+    return shuttleAppService.submitDay(dayRequest);
   }
 }

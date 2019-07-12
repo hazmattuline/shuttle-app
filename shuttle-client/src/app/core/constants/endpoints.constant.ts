@@ -8,3 +8,5 @@ export const Vehicles = '/vehicles';
 export const Passengers = '';
 export const Status = '/status';
 export const ActiveShuttles = '/shuttles/active';
+export const SubmitDays = '/shuttle-days';
+
