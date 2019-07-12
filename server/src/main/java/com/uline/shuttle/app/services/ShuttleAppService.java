@@ -19,8 +19,6 @@ public interface ShuttleAppService {
 
   List<VehicleOptionsResponse> getVehicles();
 
-  CoordinateResponse getCoordinates(Integer vehicleID);
-
   ShuttleDayDetailsResponse getShuttleDayDetails(ShuttleDayDetailsRequest shuttleDayRequest);
 
   List<ShuttleResponse> getShuttlesStatus(String status);

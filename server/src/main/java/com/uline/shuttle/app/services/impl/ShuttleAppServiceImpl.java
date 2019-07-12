@@ -36,11 +36,6 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public CoordinateResponse getCoordinates(Integer vehicleID) {
-    return shuttleAppClient.getCoordinates(vehicleID);
-  }
-
-  @Override
   public List<ShuttleResponse> getShuttlesStatus(String status) {
     return shuttleAppClient.getShuttlesStatus(status);
   }
