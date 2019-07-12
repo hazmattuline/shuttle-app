@@ -2,15 +2,13 @@ package com.uline.shuttle.app.services;
 
 import java.util.List;
 import rest.models.requests.CoordinateRequest;
-import rest.models.requests.FuelRequest;
+import rest.models.requests.DayRequest;
 import rest.models.requests.PassengerRequest;
-import rest.models.requests.StartRequest;
 import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
-import rest.models.response.FuelResponse;
+import rest.models.response.DayResponse;
 import rest.models.response.PassengerResponse;
 import rest.models.response.ShuttleResponse;
-import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
 
 public interface ShuttleAppService {
@@ -25,9 +23,7 @@ public interface ShuttleAppService {
 
   VehicleOptionsResponse getVehicleOptions();
 
-  StartResponse startShift(StartRequest startRequest);
-
-  FuelResponse storeFuel(FuelRequest fuelRequest);
-
   PassengerResponse storePassengers(PassengerRequest passengerRequest);
+
+  DayResponse submitDay(DayRequest dayRequest);
 }
