@@ -131,7 +131,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
         .exchange(
             builder.build().toUriString(),
             HttpMethod.GET,
-            new HttpEntity<>(null),
+            null,
             new ParameterizedTypeReference<List<VehicleOptionsResponse>>() {})
         .getBody();
   }
