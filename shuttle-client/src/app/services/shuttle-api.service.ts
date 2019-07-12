@@ -3,11 +3,11 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import { StatusShuttles, Shuttles, Coordinates,  Start, End, Vehicles, Fuel, Passengers, Status, ActiveShuttles, ShuttleVehicles} from '../core/constants/endpoints.constant';
+import { StatusShuttles, Shuttles, Coordinates,  Start, End, Vehicles, Fuel, Status, ActiveShuttles, ShuttleVehicles, ShuttleDay} from '../core/constants/endpoints.constant';
 import { StartInfo } from '../models/start-info.model';
 import { EndInfo } from '../models/end-info';
 import { FuelInfo } from '../models/fuel.model';
-import { PassengerInfo } from '../models/record-passengers.model';
+import { ShuttleDayDetails } from '../models/record-passengers.model';
 import { Vehicle } from '../models/vehicle.model';
 import { StatusInfo } from '../models/status-info.model';
 
@@ -39,8 +39,8 @@ export class ShuttleApiService {
   sendFuelInfo(fuelRequest: FuelInfo): Observable<FuelInfo> {
     return this.http.post<FuelInfo>(Fuel, fuelRequest);
   }
-  sendPassengerInfo(passengerInfo: PassengerInfo): Observable<PassengerInfo> {
-    return this.http.post<PassengerInfo>(Passengers, passengerInfo);
+  sendShuttleDayDetails(shuttleDayDetails: ShuttleDayDetails): Observable<ShuttleDayDetails> {
+    return this.http.post<ShuttleDayDetails>(ShuttleDay, shuttleDayDetails);
   }
 
   getShuttlesStatus(status): Observable<Shuttle[]> {

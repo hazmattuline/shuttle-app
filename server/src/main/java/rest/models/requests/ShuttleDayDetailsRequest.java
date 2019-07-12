@@ -1,6 +1,6 @@
-package rest.models.response;
+package rest.models.requests;
 
-public class PassengerResponse {
+public class ShuttleDayDetailsRequest {
   private Integer curbCount;
   private String date;
   private Integer passengerCount;

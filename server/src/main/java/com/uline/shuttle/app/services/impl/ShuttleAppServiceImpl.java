@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.EndRequest;
 import rest.models.requests.FuelRequest;
-import rest.models.requests.PassengerRequest;
+import rest.models.requests.ShuttleDayDetailsRequest;
 import rest.models.requests.StartRequest;
 import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.EndResponse;
 import rest.models.response.FuelResponse;
-import rest.models.response.PassengerResponse;
+import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
@@ -71,8 +71,9 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public PassengerResponse storePassengers(PassengerRequest passengerRequest) {
+  public ShuttleDayDetailsResponse getShuttleDayDetails(
+      ShuttleDayDetailsRequest shuttleDayRequest) {
 
-    return shuttleAppClient.storePassengers(passengerRequest);
+    return shuttleAppClient.getShuttleDayDetails(shuttleDayRequest);
   }
 }

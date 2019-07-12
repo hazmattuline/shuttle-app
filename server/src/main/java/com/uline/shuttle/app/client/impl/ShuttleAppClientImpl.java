@@ -15,13 +15,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.EndRequest;
 import rest.models.requests.FuelRequest;
-import rest.models.requests.PassengerRequest;
+import rest.models.requests.ShuttleDayDetailsRequest;
 import rest.models.requests.StartRequest;
 import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.EndResponse;
 import rest.models.response.FuelResponse;
-import rest.models.response.PassengerResponse;
+import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
@@ -54,7 +54,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   @Value("${shuttle.service.rc.url.get.coordinates}")
   private String shuttleServiceForGet;
 
-  @Value("${shuttle.service.rc.url.post.passenger.data}")
+  @Value("${shuttle.service.rc.url.post.shuttleDayDetails.data}")
   private String shuttleServiceForPassenger;
 
   @Value("${shuttle.service.rc.url.for.vehicle.options}")
@@ -194,7 +194,8 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public PassengerResponse storePassengers(PassengerRequest passengerRequest) {
+  public ShuttleDayDetailsResponse getShuttleDayDetails(
+      ShuttleDayDetailsRequest shuttleDayRequest) {
 
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForPassenger);
@@ -203,8 +204,8 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
         .exchange(
             builder.build().toUriString(),
             HttpMethod.POST,
-            new HttpEntity<>(passengerRequest),
-            new ParameterizedTypeReference<PassengerResponse>() {})
+            new HttpEntity<>(shuttleDayRequest),
+            new ParameterizedTypeReference<ShuttleDayDetailsResponse>() {})
         .getBody();
   }
 }

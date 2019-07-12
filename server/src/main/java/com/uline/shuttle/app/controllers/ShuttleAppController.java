@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.EndRequest;
 import rest.models.requests.FuelRequest;
-import rest.models.requests.PassengerRequest;
+import rest.models.requests.ShuttleDayDetailsRequest;
 import rest.models.requests.StartRequest;
 import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.EndResponse;
 import rest.models.response.FuelResponse;
-import rest.models.response.PassengerResponse;
+import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 import rest.models.response.StartResponse;
 import rest.models.response.VehicleOptionsResponse;
@@ -92,9 +92,10 @@ public class ShuttleAppController {
 
   @ExecutionTime("ShuttleAppService.recordPassenger")
   @ApiOperation(value = "posting the passenger amount details to the database")
-  @PostMapping(value = "/days/passengers")
-  public PassengerResponse storePassengers(@RequestBody PassengerRequest passengerRequest) {
-    return shuttleAppService.storePassengers(passengerRequest);
+  @PostMapping(value = "/shuttle-day-details")
+  public ShuttleDayDetailsResponse getShuttleDayDetails(
+      @RequestBody ShuttleDayDetailsRequest shuttleDayRequest) {
+    return shuttleAppService.getShuttleDayDetails(shuttleDayRequest);
   }
 
   @ExecutionTime("ShuttleAppService.getActiveShuttles")

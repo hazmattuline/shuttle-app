@@ -86,7 +86,7 @@ changeBreak() {
 submitPassengerInfo() {
     // TODO - submit info from new UI
 
-    this.shuttleService.createPassengerInfo(1, 1, 1, this.date);
+    this.shuttleService.createShuttleDayDetails(2, 2, 2, this.date);
 
   }
 

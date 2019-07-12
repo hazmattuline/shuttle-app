@@ -1,4 +1,4 @@
-export interface PassengerInfo {
+export interface ShuttleDayDetails {
     vehicleId: number;
     passengerCount: number;
     curbCount: number;

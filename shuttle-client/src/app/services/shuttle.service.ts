@@ -4,7 +4,7 @@ import { StartInfo } from '../models/start-info.model';
 import { EndInfo } from '../models/end-info';
 import { Subject, Observable, Subscription } from 'rxjs';
 import { FuelInfo } from '../models/fuel.model';
-import { PassengerInfo } from '../models/record-passengers.model';
+import { ShuttleDayDetails } from '../models/record-passengers.model';
 import { SelectItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 
@@ -98,14 +98,14 @@ export class ShuttleService {
     this.shuttleApi.sendFuelInfo(fuelInfo).subscribe();
   }
 
-  createPassengerInfo(_vehicleId: number, _passengerCount: number, _curbCount: number, passengerDate: string) {
-    const passengerInfo: PassengerInfo = {
+  createShuttleDayDetails(_vehicleId: number, _passengerCount: number, _curbCount: number, passengerDate: string) {
+    const shuttleDayDetails: ShuttleDayDetails = {
       vehicleId: _vehicleId,
       passengerCount: _passengerCount,
       curbCount: _curbCount,
       date: passengerDate
     };
-    this.shuttleApi.sendPassengerInfo(passengerInfo).subscribe();
+    this.shuttleApi.sendShuttleDayDetails(shuttleDayDetails).subscribe();
   }
 
   deleteMarker() {
