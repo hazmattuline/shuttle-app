@@ -17,8 +17,6 @@ public interface ShuttleAppClient {
 
   CoordinateResponse enRoute(CoordinateRequest coordinateRequest);
 
-  CoordinateResponse getCoordinates(Integer vehicleID);
-
   List<ShuttleResponse> getShuttlesStatus(String status);
 
   VehicleOptionsResponse getVehicleOptions();

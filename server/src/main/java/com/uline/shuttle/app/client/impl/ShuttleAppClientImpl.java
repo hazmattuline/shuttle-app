@@ -36,17 +36,8 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   @Value("${shuttle.service.rc.url.post.passenger.data}")
   private String shuttleServiceForPassenger;
 
-  @Value("${shuttle.service.rc.url.get.coordinates}")
-  private String shuttleServiceForGet;
-
-  @Value("${shuttle.service.rc.url.post.startOfShift}")
-  private String shuttleServiceStartOfShift;
-
   @Value("${shuttle.service.rc.url.post.coordinates}")
   private String shuttleServiceUrl;
-
-  @Value("${shuttle.service.rc.url.post.fuel}")
-  private String shuttleServiceForFuel;
 
   @Value("${shuttle.service.rc.url.get.status.shuttles}")
   private String statusShuttlesURL;
@@ -89,23 +80,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             builder.build().toUriString(),
             HttpMethod.PATCH,
             new HttpEntity<>(coordinateRequest),
-            new ParameterizedTypeReference<CoordinateResponse>() {})
-        .getBody();
-  }
-
-  @Override
-  public CoordinateResponse getCoordinates(Integer vehicleID) {
-
-    Map<String, Integer> params = new HashMap<>();
-    params.put("vehicleID", vehicleID);
-
-    UriComponentsBuilder builder =
-        UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForGet);
-    return restTemplate
-        .exchange(
-            builder.buildAndExpand(params).toUriString(),
-            HttpMethod.GET,
-            new HttpEntity<>(null, null),
             new ParameterizedTypeReference<CoordinateResponse>() {})
         .getBody();
   }

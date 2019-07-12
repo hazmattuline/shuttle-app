@@ -50,18 +50,11 @@ public class ShuttleAppController {
     return shuttleAppService.enRoute(coordinateRequest);
   }
 
-  @ExecutionTime("ShuttleAppService.getActiveShuttles")
-  @ApiOperation(value = "getting the active shuttles")
+  @ExecutionTime("ShuttleAppService.getShuttlesStatus")
+  @ApiOperation(value = "getting the shuttles by status")
   @GetMapping(value = "/shuttles")
   public List<ShuttleResponse> getShuttlesStatus(@RequestParam(name = "status") String status) {
     return shuttleAppService.getShuttlesStatus(status);
-  }
-
-  @ExecutionTime("ShuttleAppService.receiveCoordinates")
-  @ApiOperation("fetching coordinates from the database")
-  @GetMapping(value = "/receiveCoords/{vehicleID}")
-  public CoordinateResponse receiveCoordinates(@PathVariable("vehicleID") Integer vehicleID) {
-    return this.shuttleAppService.getCoordinates(vehicleID);
   }
 
   @ExecutionTime("ShuttleAppService.receiveVehicleOptions")
