@@ -36,9 +36,9 @@ constructor(private fb: FormBuilder, public shuttleService: ShuttleService) {
 
   this.conditionOptions = [
     {label: 'Select', value: null},
-    {label: 'Good', value: {id: 1}},
-    {label: 'Fair', value: {id: 2}},
-    {label: 'Poor', value: {id: 3}},
+    {label: 'Good', value: {id: "GOOD"}},
+    {label: 'Fair', value: {id: "FAIR"}},
+    {label: 'Poor', value: {id: "POOR"}},
   ];
 
 }

@@ -12,7 +12,7 @@ export class GPSService implements OnDestroy {
   private previousCoordinates: Coordinates;
   private hasNotMoved = false;
   private shuttle: Shuttle;
-  private shuttleId: number = 1;
+  private shuttleId = 1;
 
   private _isActive: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isActive: Observable<boolean> = this._isActive.asObservable();
@@ -43,7 +43,7 @@ export class GPSService implements OnDestroy {
     if (this.gpsLocationTimer) {
       clearInterval(this.gpsLocationTimer);
     }
-    this.shuttleApiService.changeStatus("I", this.shuttle.vehicleID).subscribe(newShuttle => {
+    this.shuttleApiService.changeStatus('I', this.shuttle.vehicleID).subscribe(newShuttle => {
       this.shuttle = newShuttle;
     });
   }
@@ -51,7 +51,7 @@ export class GPSService implements OnDestroy {
   startGPSTracking() {
     if (navigator.geolocation) {
       this.watchId = navigator.geolocation.watchPosition((pos) => this.updateGPSPostion(pos), this.errorHandler, this.options);
-      this.shuttleApiService.changeStatus("A", this.shuttleId).subscribe(newShuttle => {
+      this.shuttleApiService.changeStatus('A', this.shuttleId).subscribe(newShuttle => {
         this.shuttle = newShuttle;
         this._isActive.next(true);
         this.startGPSUpdateTimer();
@@ -73,10 +73,10 @@ export class GPSService implements OnDestroy {
   private sendShuttleCoordinates() {
     if (this.latestCoordinates) {
       const coordinateRequest: CoordinatesRequest = {
-        vehicleID: this.shuttle.vehicleID, 
+        vehicleID: this.shuttle.vehicleID,
         latitudeCoordinates: this.latestCoordinates.latitude,
         longitudeCoordinates: this.latestCoordinates.longitude
-      }
+      };
       this.shuttleApiService.sendShuttleCoordinates(coordinateRequest).subscribe();
     }
   }
@@ -96,7 +96,7 @@ export class GPSService implements OnDestroy {
 
   stop() {
     this.stopGPSTracking();
-    this.shuttleApiService.changeStatus("I", this.shuttle.vehicleID).subscribe(newShuttle => {
+    this.shuttleApiService.changeStatus('I', this.shuttle.vehicleID).subscribe(newShuttle => {
       this.shuttle = newShuttle;
     });
   }

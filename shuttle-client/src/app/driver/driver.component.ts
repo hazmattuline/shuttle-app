@@ -5,6 +5,7 @@ import { CoordinatesRequest } from '../models/coordinates-request.model';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { UserComponent } from '../user/user.component';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component
   ({
@@ -27,8 +28,9 @@ export class DriverComponent implements OnInit, OnDestroy {
   curbInput: DriverInput;
   use: UserComponent;
   date: string;
+  dayDetailForm: FormGroup;
 
-  constructor(public gpsService: GPSService, private shuttleService: ShuttleService) {
+  constructor(private fb: FormBuilder, public gpsService: GPSService, private shuttleService: ShuttleService) {
     this.passengerInputs = [
       { label: 'Select', value: null },
       { label: '0', value: { id: 1 } },
@@ -58,13 +60,12 @@ export class DriverComponent implements OnInit, OnDestroy {
     ];
 
   }
-  getDate()
-  {
+  getDate() {
     this.date = this.shuttleService.getDate();
-    console.log(this.date);
   }
 ngOnInit() {
   this.getDate();
+  this.setupForm();
   }
 
 changeActive() {
@@ -83,10 +84,19 @@ changeBreak() {
     return null;
   }
   
+private setupForm() {
+  this.dayDetailForm = this.fb.group({
+    passengerInputs: '',
+    vehicle: '',
+    curbInputs: '',
+  });
+}
+
 submitPassengerInfo() {
     // TODO - submit info from new UI
+    const shiftValue = this.dayDetailForm.value;
 
-    this.shuttleService.createShuttleDayDetails(2, 2, 2, this.date);
+    this.shuttleService.createShuttleDayDetails(1, shiftValue.passengerInputs.id-1, shiftValue.curbInputs.id-1, this.date);
 
   }
 
@@ -96,8 +106,13 @@ makeNewRow() {
   }
 
 recordFuel() {
-    const fuelAm = prompt('How much fuel did you put in the vehicle?');
-    const fuelCos = prompt('What was the cost of the fuel?');
+    const fuelAmo = prompt('How much fuel did you put in the vehicle?');
+    const fuelCost = prompt('What was the cost of the fuel?');
+    const vehicleId = prompt('What is the vehicle Id');
+    let fuelAm = parseInt(fuelAmo, 10);
+    let fuelCos = parseInt(fuelCost, 10);
+    let vehicleID = parseInt(vehicleId, 10);
+    this.shuttleService.createFuelInfo(fuelAm, fuelCos, this.date, vehicleID);
   }
 
 recordComments() {

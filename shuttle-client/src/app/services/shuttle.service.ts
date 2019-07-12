@@ -8,6 +8,7 @@ import { ShuttleDayDetails } from '../models/record-passengers.model';
 import { SelectItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 
+import { Day } from '../models/day.model';
 
 @Injectable()
 export class ShuttleService {
@@ -33,7 +34,6 @@ export class ShuttleService {
 
    static buildSelectItemsForDropdown(data: any[], labelFieldName: string, valueFieldName?: string): SelectItem[] {
     let selectItems = [];
-      console.log(data);
     if (data && data.length > 0) {
       selectItems = data.map(dataItem => {
         return {label: dataItem[labelFieldName], value: valueFieldName ? dataItem[valueFieldName] : dataItem};
@@ -48,41 +48,30 @@ export class ShuttleService {
     return ShuttleService.getDateISOStringForDate(this.myDate);
    }
   
-  createStartInfo(driverId: number, vehicleId: number, mileage: number, condition: string, date: string) {
-    const startInfo: StartInfo = {
-      startDriverId: driverId,
-      startVehicleId: vehicleId,
+  createStartInfo(driverId: number, startVehicleId: number, mileage: number, condition: string, startDate: string) {
+    const day: Day = {
+      vehicleId: startVehicleId,
       startMileage: mileage,
       startCondition: condition,
-      startDate: date
+      date: startDate
     
     };
-    console.log(driverId);
-    console.log(vehicleId);
-
-
-    console.log(mileage);
-    console.log(condition);
-
+   
     
 
-    this.shuttleApi.sendStartInfo(startInfo).subscribe();
+    this.shuttleApi.submitDay(day).subscribe();
   }
 
-    createEndInfo(driverId: number, vehicleId: number, mileage: number, condition: string, date: string) {
-    const endInfo: EndInfo = {
-      endDriverId: driverId,
-      endVehicleId: vehicleId,
+    createEndInfo(driverId: number, endVehicleId: number, mileage: number, condition: string, endDate: string) {
+    const day: Day = {
+      vehicleId: endVehicleId,
       endMileage: mileage,
       endCondition: condition,
-      endDate: date
+      date: endDate
     };
-    console.log(driverId);
-    console.log(vehicleId);
-    console.log(mileage);
-    console.log(condition);
 
-    this.shuttleApi.sendEndInfo(endInfo).subscribe();
+
+    this.shuttleApi.submitDay(day).subscribe();
   }
     vehicleOptions() {
     this.shuttleApi.responseForVehicleOptions().subscribe(vehicleDropDown =>{
@@ -90,12 +79,14 @@ export class ShuttleService {
     });
   }
 
-  createFuelInfo(quantity: number, cost: number) {
-    const fuelInfo: FuelInfo = {
+  createFuelInfo(quantity: number, cost: number, fuelDate: string, fuelVehicleId: number ) {
+    const day: Day = {
+      date: fuelDate,
+      vehicleId: fuelVehicleId,
       fuelCost: cost,
       fuelQuantity: quantity
     }
-    this.shuttleApi.sendFuelInfo(fuelInfo).subscribe();
+    this.shuttleApi.submitDay(day).subscribe();
   }
 
   createShuttleDayDetails(_vehicleId: number, _passengerCount: number, _curbCount: number, passengerDate: string) {
@@ -119,7 +110,8 @@ export class ShuttleService {
     }
   }
 
-  }
+  
 
 
 
+}

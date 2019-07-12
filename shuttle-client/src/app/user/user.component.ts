@@ -18,7 +18,7 @@ import { MaximumLatitude, MinimumLatitude, MaximumLongitude, MinimumLongitude } 
 
 export class UserComponent implements OnInit, OnDestroy {
 
-  
+
   private shuttleSubscription: Subscription;
   @ViewChild('markerContainer') markerContainer: ElementRef;
   currentShuttleMarkers: Map<number, ElementRef> = new Map();
@@ -30,8 +30,8 @@ export class UserComponent implements OnInit, OnDestroy {
     this.listenForShuttleMarkers();
   }
 
-  
- 
+
+
 
   ngOnDestroy() {
     if (this.shuttleSubscription) {
@@ -41,12 +41,11 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
 
-    
+
   private showVehicle(vehicle: Vehicle) {
-    if (vehicle.status === "A") {
+    if (vehicle.status === 'A') {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -73,7 +72,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   private removeInactiveShuttles(shuttleList: Shuttle[]) {
     const activeVehicleIds = shuttleList.map(shuttle => shuttle.vehicleID);
-    for (let key of Array.from(this.currentShuttleMarkers.keys())) {
+    for (const key of Array.from(this.currentShuttleMarkers.keys())) {
       if (!activeVehicleIds.includes(key)) {
         const marker = this.currentShuttleMarkers.get(key);
         this.renderer.removeChild(this.markerContainer.nativeElement, marker);
@@ -85,7 +84,7 @@ export class UserComponent implements OnInit, OnDestroy {
   private listenForShuttleMarkers() {
     this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttleList => {
       if (this.markerContainer) {
-        for (let shuttle of shuttleList) {
+        for (const shuttle of shuttleList) {
           if (!this.isOutsideBounds(shuttle.latitudeCoordinates, shuttle.longitudeCoordinates)) {
             this.addOrUpdateShuttleMarker(shuttle);
           } else {
@@ -97,9 +96,8 @@ export class UserComponent implements OnInit, OnDestroy {
     });
   }
 
-  
+
   private addOrUpdateShuttleMarker(shuttle: Shuttle) {
-    console.log(this.shuttleService.currentShuttleMarkers)
     if (this.shuttleService.currentShuttleMarkers.get(shuttle.vehicleID)) {
       const marker: ElementRef<any> = this.shuttleService.currentShuttleMarkers.get(shuttle.vehicleID);
       this.setPlacement(marker, shuttle);
@@ -113,12 +111,12 @@ export class UserComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setPlacement(marker: ElementRef<any>, shuttle:Shuttle) {
+  private setPlacement(marker: ElementRef<any>, shuttle: Shuttle) {
     this.renderer.setStyle(marker, 'top', `${shuttle.yPixelCoordinate - 25}px`);
     this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - 25}px`);
   }
 
-  
 
- 
+
+
 }

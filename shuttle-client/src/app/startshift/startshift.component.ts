@@ -39,9 +39,9 @@ constructor(private fb: FormBuilder, private gpsService: GPSService, public shut
 
   this.conditionOptions = [
     {label: 'Select', value: null},
-    {label: 'Good', value: {id: 1}},
-    {label: 'Fair', value: {id: 2}},
-    {label: 'Poor', value: {id: 3}},
+    {label: 'Good', value: {id: "GOOD"}}, 
+    {label: 'Fair', value: {id: "FAIR"}},
+    {label: 'Poor', value: {id: "POOR"}},
   ];
 
 }

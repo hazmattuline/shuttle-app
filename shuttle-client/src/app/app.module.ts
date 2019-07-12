@@ -17,6 +17,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
 import { EndshiftComponent } from './endshift/endshift.component';
 import { DatePipe } from '@angular/common';
+import { FuelComponent } from './fuel/fuel.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { DatePipe } from '@angular/common';
     UserComponent,
     RequestComponent,
     StartshiftComponent,
-    EndshiftComponent
+    EndshiftComponent,
+    FuelComponent
   ],
   imports: [
     BrowserModule,

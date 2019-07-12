@@ -15,17 +15,18 @@
 <button pButton (click)="changeBreak();" label = "On Break/Off Break"></button>
 
   <div class = "bringUp"></div>
-  
+  <form [formGroup]="dayDetailForm">
+
     <h3 class="first">Input the Number of Passengers</h3>
     <div class = "passenger-container">
     <div class="passengerCount">
       <div>
         <label class = "passenger-label">Passengers</label>
-        <p-dropdown appendTo="body" [options]="passengerInputs" [(ngModel)]="passengerInput"></p-dropdown>
+        <p-dropdown appendTo="body" formControlName = "passengerInputs" [options]="passengerInputs" ></p-dropdown>
       </div>
       <div>
           <label class = "passenger-label">Curb</label>
-          <p-dropdown appendTo="body" [options]="curbInputs" [(ngModel)]="curbInput"></p-dropdown>
+          <p-dropdown appendTo="body" formControlName = "curbInputs" [options]="curbInputs" ></p-dropdown>
       </div>
       <!--<div>
           <label class = "passenger-label"></label>
@@ -35,10 +36,11 @@
         
             <label class = "passenger-label"></label>
             <button pButton (click)="submitPassengerInfo();" label = "Submit"></button>
-        
+
       </div>
     </div>
-  
+  </div>
+</form>
   
   <br>
   <label class = "passenger-label">Comments</label>
@@ -54,8 +56,7 @@
     <div class = "bringDown">
     <app-endshift (showShift)=getShowShift($event) [endShift] = "timeToStart"></app-endshift>
     </div>
-    
-  </div>
-  
+
+
   
   
