@@ -1,16 +1,21 @@
 package com.uline.shuttle.app.services.impl;
 
-import com.uline.shuttle.app.client.ShuttleAppClient;
-import com.uline.shuttle.app.services.ShuttleAppService;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.uline.shuttle.app.client.ShuttleAppClient;
+import com.uline.shuttle.app.services.ShuttleAppService;
+
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.DayRequest;
+import rest.models.requests.NoteRequest;
 import rest.models.requests.ShuttleDayDetailsRequest;
 import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
+import rest.models.response.NoteResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 import rest.models.response.VehicleOptionsResponse;
@@ -18,42 +23,47 @@ import rest.models.response.VehicleOptionsResponse;
 @Service
 public class ShuttleAppServiceImpl implements ShuttleAppService {
 
-  private ShuttleAppClient shuttleAppClient;
+	private ShuttleAppClient shuttleAppClient;
 
-  @Autowired
-  public ShuttleAppServiceImpl(ShuttleAppClient shuttleAppClient) {
-    this.shuttleAppClient = shuttleAppClient;
-  }
+	@Autowired
+	public ShuttleAppServiceImpl(ShuttleAppClient shuttleAppClient) {
+		this.shuttleAppClient = shuttleAppClient;
+	}
 
-  @Override
-  public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
-    return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
-  }
+	@Override
+	public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
+		return shuttleAppClient.changeStatus(statusRequest, id);
+	}
 
-  @Override
-  public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
-    return shuttleAppClient.changeStatus(statusRequest, id);
-  }
+	@Override
+	public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
+		return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
+	}
 
-  @Override
-  public List<ShuttleResponse> getShuttlesStatus(String status) {
-    return shuttleAppClient.getShuttlesStatus(status);
-  }
+	@Override
+	public ShuttleDayDetailsResponse getShuttleDayDetails(
+			ShuttleDayDetailsRequest shuttleDayRequest) {
 
-  @Override
-  public List<VehicleOptionsResponse> getVehicles() {
-    return shuttleAppClient.getVehicles();
-  }
+		return shuttleAppClient.getShuttleDayDetails(shuttleDayRequest);
+	}
 
-  @Override
-  public ShuttleDayDetailsResponse getShuttleDayDetails(
-      ShuttleDayDetailsRequest shuttleDayRequest) {
+	@Override
+	public List<ShuttleResponse> getShuttlesStatus(String status) {
+		return shuttleAppClient.getShuttlesStatus(status);
+	}
 
-    return shuttleAppClient.getShuttleDayDetails(shuttleDayRequest);
-  }
+	@Override
+	public List<VehicleOptionsResponse> getVehicles() {
+		return shuttleAppClient.getVehicles();
+	}
 
-  @Override
-  public DayResponse submitDay(DayRequest dayRequest) {
-    return shuttleAppClient.submitDay(dayRequest);
-  }
+	@Override
+	public DayResponse submitDay(DayRequest dayRequest) {
+		return shuttleAppClient.submitDay(dayRequest);
+	}
+
+	@Override
+	NoteResponse submitNote(NoteRequest noteRequest) {
+		return shuttleAppClient.submitNote(noteRequest);
+	}
 }
