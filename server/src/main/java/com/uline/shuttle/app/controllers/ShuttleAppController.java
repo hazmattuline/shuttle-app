@@ -66,8 +66,8 @@ public class ShuttleAppController {
     return shuttleAppService.getShuttleDayDetails(shuttleDayRequest);
   }
 
-  @ExecutionTime("ShuttleAppService.getActiveShuttles")
-  @ApiOperation(value = "getting the active shuttles")
+  @ExecutionTime("ShuttleAppService.getShuttlesStatus")
+  @ApiOperation(value = "getting the shuttles by status")
   @GetMapping(value = "/shuttles")
   public List<ShuttleResponse> getShuttlesStatus(@RequestParam(name = "status") String status) {
     return shuttleAppService.getShuttlesStatus(status);

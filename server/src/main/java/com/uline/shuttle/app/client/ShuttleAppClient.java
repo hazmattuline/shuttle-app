@@ -17,8 +17,6 @@ public interface ShuttleAppClient {
 
   CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest);
 
-  CoordinateResponse getCoordinates(Integer vehicleID);
-
   List<VehicleOptionsResponse> getVehicles();
 
   ShuttleDayDetailsResponse getShuttleDayDetails(ShuttleDayDetailsRequest shuttledDayRequest);
