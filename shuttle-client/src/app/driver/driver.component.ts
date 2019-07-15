@@ -28,6 +28,7 @@ export class DriverComponent implements OnInit, OnDestroy {
   curbInput: DriverInput;
   date: string;
   dayDetailForm: FormGroup;
+  commentForm: FormGroup;
 
   constructor(private fb: FormBuilder, public gpsService: GPSService, private shuttleService: ShuttleService) {
     this.passengerInputs = [
@@ -64,7 +65,7 @@ export class DriverComponent implements OnInit, OnDestroy {
   }
 ngOnInit() {
   this.getDate();
-  this.setupForm();
+  this.setupForms();
   }
 
 changeActive() {
@@ -81,11 +82,14 @@ changeBreak() {
     return null;
   }
   
-private setupForm() {
+private setupForms() {
   this.dayDetailForm = this.fb.group({
     passengerInputs: '',
     vehicle: '',
     curbInputs: '',
+  });
+  this.commentForm = this.fb.group({
+    commentMessage: '',
   });
 }
 
@@ -93,7 +97,7 @@ submitPassengerInfo() {
     // TODO - submit info from new UI
     const shiftValue = this.dayDetailForm.value;
 
-    this.shuttleService.createShuttleDayDetails(1, shiftValue.passengerInputs.id-1, shiftValue.curbInputs.id-1, this.date);
+    this.shuttleService.createShuttleDayDetails(this.gpsService.getShuttleId(), shiftValue.passengerInputs.id-1, shiftValue.curbInputs.id-1, this.date);
 
   }
 
@@ -111,6 +115,12 @@ recordFuel() {
     let vehicleID = parseInt(vehicleId, 10);
     this.shuttleService.createFuelInfo(fuelAm, fuelCos, this.date, vehicleID);
   }
+
+  submitComment() {
+    const commentValue = this.commentForm.value;
+    this.shuttleService.createCommentInfo(this.gpsService.getShuttleId(), this.date, commentValue.commentMessage);
+  }
+  
 
 recordComments() {
     // keep track of comments entered

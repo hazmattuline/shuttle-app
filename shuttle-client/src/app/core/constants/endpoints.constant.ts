@@ -7,3 +7,4 @@ export const Vehicles = '/vehicles';
 export const StatusShuttles = '/shuttles?status=';
 export const SubmitDays = '/shuttle-days';
 export const Status = '/status';
+export const Comments = '/shuttle-notes';

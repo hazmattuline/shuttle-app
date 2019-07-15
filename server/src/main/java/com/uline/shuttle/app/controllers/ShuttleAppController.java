@@ -89,6 +89,6 @@ public class ShuttleAppController {
 	@ApiOperation(value = "posting note to database")
 	@PostMapping(value = "/shuttle-notes")
 	public NoteResponse submitNote(@RequestBody NoteRequest noteRequest) {
-		return shuttleAppService.submitDay(noteRequest);
+		return shuttleAppService.submitNote(noteRequest);
 	}
 }

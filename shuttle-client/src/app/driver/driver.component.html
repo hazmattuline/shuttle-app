@@ -43,13 +43,15 @@
 </form>
   
   <br>
+  <form [formGroup]="commentForm">
   <label class = "passenger-label">Comments</label>
-  <input type="text" pInputText [(ngModel)]="inputComment" />
+  <input type="text" formControlName = "commentMessage" pInputText [(ngModel)]="inputComment" />
     <br>
     <br>
-    <button pButton  (click)="recordComments()" label="Enter"></button>
+    <button pButton  (click)="submitComment()" label="Enter"></button>
     <br>
     <br>
+</form>
     
     <button pButton (click)="recordFuel()" label="Fuel Info"> </button>
    

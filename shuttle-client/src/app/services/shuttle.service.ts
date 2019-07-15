@@ -6,6 +6,7 @@ import { SelectItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 
 import { Day } from '../models/day.model';
+import { DayComment } from '../models/day-comment.model';
 
 @Injectable()
 export class ShuttleService {
@@ -51,12 +52,17 @@ export class ShuttleService {
       startMileage: mileage,
       startCondition: condition,
       date: startDate
-    
     };
-   
-    
-
     this.shuttleApi.submitDay(day).subscribe();
+  }
+
+  createCommentInfo(commentVehicleId: number, commentDate: string, commentMessage: string) {
+    const comment: DayComment = {
+      vehicleId: commentVehicleId,
+      date: commentDate,
+      message: commentMessage
+    }
+    this.shuttleApi.submitComment(comment).subscribe();
   }
 
     createEndInfo(driverId: number, endVehicleId: number, mileage: number, condition: string, endDate: string) {
@@ -66,8 +72,6 @@ export class ShuttleService {
       endCondition: condition,
       date: endDate
     };
-
-
     this.shuttleApi.submitDay(day).subscribe();
   }
     vehicleOptions() {
