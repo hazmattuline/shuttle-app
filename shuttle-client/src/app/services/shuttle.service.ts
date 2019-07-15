@@ -1,9 +1,6 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { ShuttleApiService } from './shuttle-api.service';
-import { StartInfo } from '../models/start-info.model';
-import { EndInfo } from '../models/end-info';
 import { Subject, Observable, Subscription } from 'rxjs';
-import { FuelInfo } from '../models/fuel.model';
 import { ShuttleDayDetails } from '../models/record-passengers.model';
 import { SelectItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
@@ -99,9 +96,7 @@ export class ShuttleService {
     this.shuttleApi.sendShuttleDayDetails(shuttleDayDetails).subscribe();
   }
 
-  deleteMarker() {
-    this.currentShuttleMarkers.clear();
-  }
+
 
   
    stopListenForShuttleMarkers(sub: Subscription) {

@@ -26,7 +26,6 @@ export class DriverComponent implements OnInit, OnDestroy {
   curbInputs: SelectItem[];
   passengerInput: DriverInput;
   curbInput: DriverInput;
-  use: UserComponent;
   date: string;
   dayDetailForm: FormGroup;
 
@@ -71,8 +70,6 @@ ngOnInit() {
 changeActive() {
     if (this.gpsService.getIsGPSActive()) {
       this.gpsService.stopGPSTracking();
-      this.shuttleService.deleteMarker();
-     // this.shuttleService.stopListenForShuttleMarkers(this.use.shuttleSubscription);
     } else {
 
       this.gpsService.startGPSTracking();
