@@ -1,31 +1,31 @@
-package response;
+package rest.models.response;
 
 public class NoteResponse {
-	String message;
-	Integer vehicleId;
-	String date;
+  String message;
+  Integer vehicleId;
+  String date;
 
-	public String getDate() {
-		return date;
-	}
+  public String getDate() {
+    return date;
+  }
 
-	public String getMessage() {
-		return message;
-	}
+  public String getMessage() {
+    return message;
+  }
 
-	public Integer getVehicleId() {
-		return vehicleId;
-	}
+  public Integer getVehicleId() {
+    return vehicleId;
+  }
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+  public void setDate(String date) {
+    this.date = date;
+  }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+  public void setMessage(String message) {
+    this.message = message;
+  }
 
-	public void setVehicleId(Integer vehicleId) {
-		this.vehicleId = vehicleId;
-	}
+  public void setVehicleId(Integer vehicleId) {
+    this.vehicleId = vehicleId;
+  }
 }
