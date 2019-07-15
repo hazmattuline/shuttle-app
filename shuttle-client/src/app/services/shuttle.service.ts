@@ -9,6 +9,7 @@ import { Day } from '../models/day.model';
 
 @Injectable()
 export class ShuttleService {
+  currentShuttleMarkers: any;
 
 
   constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe,) {
@@ -20,7 +21,6 @@ export class ShuttleService {
   
   private _vehicleDropDown: Subject<SelectItem[]> = new Subject();
   public vehicleDropDown: Observable<SelectItem[]> = this._vehicleDropDown.asObservable();
-  currentShuttleMarkers: Map<number, ElementRef> = new Map();
   
   static getDateISOStringForDate(date: Date): string | undefined {
     if (date) {

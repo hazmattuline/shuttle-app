@@ -31,8 +31,6 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
 
-
-
   ngOnDestroy() {
     if (this.shuttleSubscription) {
       this.shuttleSubscription.unsubscribe();
@@ -40,15 +38,6 @@ export class UserComponent implements OnInit, OnDestroy {
     this.currentShuttleMarkers.clear();
   }
 
-
-
-  private showVehicle(vehicle: Vehicle) {
-    if (vehicle.status === 'A') {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   private isOutsideBounds(latitude: number, longitude: number) {
     const latitudeTooBig: boolean = (latitude > MaximumLatitude);
@@ -98,8 +87,8 @@ export class UserComponent implements OnInit, OnDestroy {
 
 
   private addOrUpdateShuttleMarker(shuttle: Shuttle) {
-    if (this.shuttleService.currentShuttleMarkers.get(shuttle.vehicleID)) {
-      const marker: ElementRef<any> = this.shuttleService.currentShuttleMarkers.get(shuttle.vehicleID);
+    if (this.currentShuttleMarkers.get(shuttle.vehicleID)) {
+      const marker: ElementRef<any> = this.currentShuttleMarkers.get(shuttle.vehicleID);
       this.setPlacement(marker, shuttle);
     } else {
       const shuttleMarker = this.renderer.createElement('img');
@@ -107,7 +96,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this.renderer.addClass(shuttleMarker, 'dot');
       this.setPlacement(shuttleMarker, shuttle);
       this.renderer.appendChild(this.markerContainer.nativeElement, shuttleMarker);
-      this.shuttleService.currentShuttleMarkers.set(shuttle.vehicleID, shuttleMarker);
+      this.currentShuttleMarkers.set(shuttle.vehicleID, shuttleMarker);
     }
   }
 

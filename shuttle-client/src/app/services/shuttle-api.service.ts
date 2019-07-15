@@ -16,16 +16,10 @@ import { Day } from '../models/day.model';
 export class ShuttleApiService {
   constructor(private http: HttpClient) { }
 
-  getShuttleCoordinates(id: number): Observable<Shuttle> {
-    return this.http.get<Shuttle>(Shuttles + '/' +  id + Coordinates); 
-  }
-  getShuttles(): Observable<Shuttle> {
-    return this.http.get<Shuttle>(Shuttles);
-  }
   sendShuttleCoordinates(coordinates: CoordinatesRequest): Observable<Shuttle> {
     return this.http.patch<Shuttle>(Shuttles + '/' + coordinates.vehicleID + Coordinates, coordinates);
   }
- 
+
   responseForVehicleOptions(): Observable<Vehicle[]> {
     return this.http.get<Vehicle[]>(ShuttleVehicles);
   }
