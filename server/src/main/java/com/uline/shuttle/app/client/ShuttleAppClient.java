@@ -11,7 +11,6 @@ import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
-import rest.models.response.VehicleOptionsResponse;
 
 public interface ShuttleAppClient {
 

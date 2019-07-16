@@ -24,9 +24,8 @@ export class ShuttleApiService {
   sendComment(comment: DayComment): Observable<DayComment> {
     return this.http.post<DayComment>(Comments, comment);
   }
-
-  responseForVehicleOptions(): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(ShuttleVehicles);
+  responseForVehicleOptions(): Observable<Shuttle[]> {
+    return this.http.get<Shuttle[]>(StatusShuttles + "ALL");
   }
 
   sendShuttleDayDetails(shuttleDayDetails: ShuttleDayDetails): Observable<ShuttleDayDetails> {
