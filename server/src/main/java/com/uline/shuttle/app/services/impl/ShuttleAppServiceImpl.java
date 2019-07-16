@@ -13,7 +13,6 @@ import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
-import rest.models.response.VehicleOptionsResponse;
 
 @Service
 public class ShuttleAppServiceImpl implements ShuttleAppService {
@@ -38,11 +37,6 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   @Override
   public List<ShuttleResponse> getShuttlesStatus(String status) {
     return shuttleAppClient.getShuttlesStatus(status);
-  }
-
-  @Override
-  public List<VehicleOptionsResponse> getVehicles() {
-    return shuttleAppClient.getVehicles();
   }
 
   @Override

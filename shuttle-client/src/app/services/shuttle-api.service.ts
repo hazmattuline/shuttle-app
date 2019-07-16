@@ -20,8 +20,8 @@ export class ShuttleApiService {
     return this.http.patch<Shuttle>(Shuttles + '/' + coordinates.vehicleID + Coordinates, coordinates);
   }
 
-  responseForVehicleOptions(): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(ShuttleVehicles);
+  responseForVehicleOptions(): Observable<Shuttle[]> {
+    return this.http.get<Shuttle[]>(StatusShuttles + "ALL");
   }
 
   sendShuttleDayDetails(shuttleDayDetails: ShuttleDayDetails): Observable<ShuttleDayDetails> {
