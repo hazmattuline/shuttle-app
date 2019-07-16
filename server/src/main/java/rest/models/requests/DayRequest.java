@@ -14,63 +14,63 @@ public class DayRequest {
     return date;
   }
 
-  public String getEndCondition() {
-    return endCondition;
-  }
-
-  public Integer getEndMileage() {
-    return endMileage;
-  }
-
-  public Double getFuelCost() {
-    return fuelCost;
-  }
-
-  public Double getFuelQuantity() {
-    return fuelQuantity;
-  }
-
-  public String getStartCondition() {
-    return startCondition;
-  }
-
-  public Double getStartMileage() {
-    return startMileage;
+  public void setDate(String date) {
+    this.date = date;
   }
 
   public Integer getVehicleId() {
     return vehicleId;
   }
 
-  public void setDate(String date) {
-    this.date = date;
+  public void setVehicleId(Integer vehicleId) {
+    this.vehicleId = vehicleId;
   }
 
-  public void setEndCondition(String endCondition) {
-    this.endCondition = endCondition;
-  }
-
-  public void setEndMileage(Integer endMileage) {
-    this.endMileage = endMileage;
-  }
-
-  public void setFuelCost(Double fuelCost) {
-    this.fuelCost = fuelCost;
-  }
-
-  public void setFuelQuantity(Double fuelQuantity) {
-    this.fuelQuantity = fuelQuantity;
-  }
-
-  public void setStartCondition(String startCondition) {
-    this.startCondition = startCondition;
+  public Double getStartMileage() {
+    return startMileage;
   }
 
   public void setStartMileage(Double startMileage) {
     this.startMileage = startMileage;
   }
 
-  public void setVehicleId(Integer vehicleId) {
-    this.vehicleId = vehicleId;
+  public Integer getEndMileage() {
+    return endMileage;
+  }
+
+  public void setEndMileage(Integer endMileage) {
+    this.endMileage = endMileage;
+  }
+
+  public String getStartCondition() {
+    return startCondition;
+  }
+
+  public void setStartCondition(String startCondition) {
+    this.startCondition = startCondition;
+  }
+
+  public String getEndCondition() {
+    return endCondition;
+  }
+
+  public void setEndCondition(String endCondition) {
+    this.endCondition = endCondition;
+  }
+
+  public Double getFuelCost() {
+    return fuelCost;
+  }
+
+  public void setFuelCost(Double fuelCost) {
+    this.fuelCost = fuelCost;
+  }
+
+  public Double getFuelQuantity() {
+    return fuelQuantity;
+  }
+
+  public void setFuelQuantity(Double fuelQuantity) {
+    this.fuelQuantity = fuelQuantity;
   }
 }

@@ -3,15 +3,16 @@ import { SelectItem } from 'primeng/api';
 import { NgModule } from '@angular/core';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
 import { GPSService } from '../services/gps.service';
-
-
+import { ShuttleService } from '../services/shuttle.service';
+import { UserComponent } from '../user/user.component';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component
   ({
     selector: 'app-driver',
     templateUrl: './driver.component.html',
     styleUrls: ['./driver.component.css'],
-    providers: [GPSService]
+    providers: [GPSService , ShuttleService]
     })
 export class DriverComponent implements OnInit, OnDestroy {
   count = 0;
@@ -25,8 +26,10 @@ export class DriverComponent implements OnInit, OnDestroy {
   curbInputs: SelectItem[];
   passengerInput: DriverInput;
   curbInput: DriverInput;
+  date: string;
+  dayDetailForm: FormGroup;
 
-  constructor(private gpsService: GPSService) {
+  constructor(private fb: FormBuilder, public gpsService: GPSService, private shuttleService: ShuttleService) {
     this.passengerInputs = [
       { label: 'Select', value: null },
       { label: '0', value: { id: 1 } },
@@ -54,36 +57,62 @@ export class DriverComponent implements OnInit, OnDestroy {
       { label: '3', value: { id: 4 } },
       { label: '4', value: { id: 5 } },
     ];
+
+  }
+  getDate() {
+    this.date = this.shuttleService.getDate();
+  }
+ngOnInit() {
+  this.getDate();
+  this.setupForm();
   }
 
-  ngOnInit() {
-  }
-
-  changeActive() {
+changeActive() {
     if (this.gpsService.getIsGPSActive()) {
       this.gpsService.stopGPSTracking();
     } else {
+
       this.gpsService.startGPSTracking();
     }
   }
 
-  changeBreak() {
+changeBreak() {
     // add code to change between On Break and Off Break
     return null;
   }
+  
+private setupForm() {
+  this.dayDetailForm = this.fb.group({
+    passengerInputs: '',
+    vehicle: '',
+    curbInputs: '',
+  });
+}
 
+submitPassengerInfo() {
+    // TODO - submit info from new UI
+    const shiftValue = this.dayDetailForm.value;
 
-  makeNewRow() {
+    this.shuttleService.createShuttleDayDetails(1, shiftValue.passengerInputs.id-1, shiftValue.curbInputs.id-1, this.date);
+
+  }
+
+makeNewRow() {
     // allow drivers to submit number of passengers in shuttle and left at curb again
    return null;
   }
 
-  recordFuel() {
-    const fuelAm = prompt('How much fuel did you put in the vehicle?');
-    const fuelCos = prompt('What was the cost of the fuel?');
+recordFuel() {
+    const fuelAmo = prompt('How much fuel did you put in the vehicle?');
+    const fuelCost = prompt('What was the cost of the fuel?');
+    const vehicleId = prompt('What is the vehicle Id');
+    let fuelAm = parseInt(fuelAmo, 10);
+    let fuelCos = parseInt(fuelCost, 10);
+    let vehicleID = parseInt(vehicleId, 10);
+    this.shuttleService.createFuelInfo(fuelAm, fuelCos, this.date, vehicleID);
   }
 
-  recordComments() {
+recordComments() {
     // keep track of comments entered
     return null;
   }

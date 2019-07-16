@@ -5,6 +5,6 @@ export interface Shuttle {
     longitudeCoordinates: number;
     xPixelCoordinate?: number;
     yPixelCoordinate?: number;
-    name?: string;
     status?: string;
+    name?: string;
 }

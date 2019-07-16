@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.DayRequest;
-import rest.models.requests.PassengerRequest;
+import rest.models.requests.ShuttleDayDetailsRequest;
 import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
-import rest.models.response.PassengerResponse;
+import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 import rest.models.response.VehicleOptionsResponse;
 
@@ -43,11 +43,27 @@ public class ShuttleAppController {
   }
 
   @ExecutionTime("ShuttleAppService.enRoute")
-  @ApiOperation(
-      value = "posting the coordinates that we get from driver view and storing in a database")
-  @PatchMapping(value = "/enRoute")
-  public CoordinateResponse enRoute(@RequestBody CoordinateRequest coordinateRequest) {
-    return shuttleAppService.enRoute(coordinateRequest);
+  @ApiOperation(value = "posting the coordinates and storing in a database")
+  @PatchMapping(value = "/shuttles/{vehicleID}/coordinates")
+  public CoordinateResponse enRoute(
+      @PathVariable("vehicleID") Integer vehicleID,
+      @RequestBody CoordinateRequest coordinateRequest) {
+    return shuttleAppService.enRoute(vehicleID, coordinateRequest);
+  }
+
+  @ExecutionTime("ShuttleAppService.getVehicles")
+  @ApiOperation(value = "fetching vehicles from database")
+  @GetMapping(value = "/shuttles/vehicles")
+  public List<VehicleOptionsResponse> receiveVehicles() {
+    return shuttleAppService.getVehicles();
+  }
+
+  @ExecutionTime("ShuttleAppService.getShuttleDayDetails")
+  @ApiOperation(value = "posting the passenger amount details to the database")
+  @PostMapping(value = "/shuttle-day-details")
+  public ShuttleDayDetailsResponse getShuttleDayDetails(
+      @RequestBody ShuttleDayDetailsRequest shuttleDayRequest) {
+    return shuttleAppService.getShuttleDayDetails(shuttleDayRequest);
   }
 
   @ExecutionTime("ShuttleAppService.getShuttlesStatus")
@@ -55,20 +71,6 @@ public class ShuttleAppController {
   @GetMapping(value = "/shuttles")
   public List<ShuttleResponse> getShuttlesStatus(@RequestParam(name = "status") String status) {
     return shuttleAppService.getShuttlesStatus(status);
-  }
-
-  @ExecutionTime("ShuttleAppService.receiveVehicleOptions")
-  @ApiOperation(value = "fetching vehicles from database")
-  @GetMapping(value = "/receiveVehicleOptions")
-  public VehicleOptionsResponse receiveVehicleOptions() {
-    return shuttleAppService.getVehicleOptions();
-  }
-
-  @ExecutionTime("ShuttleAppService.recordPassenger")
-  @ApiOperation(value = "posting the passenger amount details to the database")
-  @PostMapping(value = "/storePassengers")
-  public PassengerResponse storePassengers(@RequestBody PassengerRequest passengerRequest) {
-    return shuttleAppService.storePassengers(passengerRequest);
   }
 
   @ExecutionTime("ShuttleAppService.submitDay")

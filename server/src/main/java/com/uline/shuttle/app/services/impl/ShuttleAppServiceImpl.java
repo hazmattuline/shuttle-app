@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.DayRequest;
-import rest.models.requests.PassengerRequest;
+import rest.models.requests.ShuttleDayDetailsRequest;
 import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
-import rest.models.response.PassengerResponse;
+import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 import rest.models.response.VehicleOptionsResponse;
 
@@ -26,13 +26,13 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
-    return shuttleAppClient.changeStatus(statusRequest, id);
+  public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
+    return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
   }
 
   @Override
-  public CoordinateResponse enRoute(CoordinateRequest coordinateRequest) {
-    return shuttleAppClient.enRoute(coordinateRequest);
+  public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
+    return shuttleAppClient.changeStatus(statusRequest, id);
   }
 
   @Override
@@ -41,13 +41,15 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public VehicleOptionsResponse getVehicleOptions() {
-    return shuttleAppClient.getVehicleOptions();
+  public List<VehicleOptionsResponse> getVehicles() {
+    return shuttleAppClient.getVehicles();
   }
 
   @Override
-  public PassengerResponse storePassengers(PassengerRequest passengerRequest) {
-    return shuttleAppClient.storePassengers(passengerRequest);
+  public ShuttleDayDetailsResponse getShuttleDayDetails(
+      ShuttleDayDetailsRequest shuttleDayRequest) {
+
+    return shuttleAppClient.getShuttleDayDetails(shuttleDayRequest);
   }
 
   @Override

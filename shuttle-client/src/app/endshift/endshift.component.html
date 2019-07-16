@@ -1,6 +1,7 @@
-<h3 class="first" style="text-align:center">Start Of Shift</h3>
+
+<h3 class="first">End Of Shift</h3>
 <div class="info-container">
-  <form [formGroup]="startShiftForm">
+  <form [formGroup]="endShiftForm">
     <div class="shiftInfo">
       <div>
         <label class="info-label">Driver</label>
@@ -8,7 +9,7 @@
       </div>
       <div>
         <label class="info-label">Vehicle</label>
-        <p-dropdown appendTo="body" formControlName="vehicle" [options]="shuttleService.vehicleDropDown | async"></p-dropdown>
+        <p-dropdown appendTo="body" formControlName="vehicle" [options]="shuttleService.vehicleDropDown | async "></p-dropdown>
       </div>
       <div>
         <label class="info-label">Mileage</label>
@@ -20,8 +21,8 @@
       </div>
       <div>
         <label class="info-label"></label>
-        <button pButton (click)="submitStartData();" label="Submit"></button>
-      </div> 
+        <button pButton (click)="submitEndData();" label="Submit"></button>
+      </div>
     </div>
   </form>
 </div>

@@ -15,6 +15,9 @@ import { TableModule } from 'primeng/table';
 import { StartshiftComponent } from './startshift/startshift.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
+import { EndshiftComponent } from './endshift/endshift.component';
+import { DatePipe } from '@angular/common';
+import { FuelComponent } from './fuel/fuel.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,9 @@ import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
     DriverComponent,
     UserComponent,
     RequestComponent,
-    StartshiftComponent
+    StartshiftComponent,
+    EndshiftComponent,
+    FuelComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +42,7 @@ import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
     HttpClientModule
   ],
   providers: [
+    DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

@@ -1,12 +1,17 @@
 package rest.models.requests;
 
-public class PassengerRequest {
-  private Integer vehicleId;
-  private Integer passengerCount;
+public class ShuttleDayDetailsRequest {
   private Integer curbCount;
+  private String date;
+  private Integer passengerCount;
+  private Integer vehicleID;
 
   public Integer getCurbCount() {
     return curbCount;
+  }
+
+  public String getDate() {
+    return date;
   }
 
   public Integer getPassengerCount() {
@@ -14,11 +19,15 @@ public class PassengerRequest {
   }
 
   public Integer getVehicleId() {
-    return vehicleId;
+    return vehicleID;
   }
 
   public void setCurbCount(Integer curbCount) {
     this.curbCount = curbCount;
+  }
+
+  public void setDate(String date) {
+    this.date = date;
   }
 
   public void setPassengerCount(Integer passengerCount) {
@@ -26,6 +35,6 @@ public class PassengerRequest {
   }
 
   public void setVehicleId(Integer vehicleId) {
-    this.vehicleId = vehicleId;
+    this.vehicleID = vehicleId;
   }
 }

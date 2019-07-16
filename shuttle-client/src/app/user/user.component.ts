@@ -2,6 +2,10 @@ import { Component, OnInit, Renderer2, ElementRef, ViewContainerRef, ViewChild, 
 import { ShuttleTrackingService } from '../services/shuttle-tracking.service';
 import { Shuttle } from '../models/shuttle.model';
 import { Subscription } from 'rxjs';
+import { ShuttleService } from '../services/shuttle.service';
+import { GPSService } from '../services/gps.service';
+import { Vehicle } from '../models/vehicle.model';
+import { ShuttleApiService } from '../services/shuttle-api.service';
 import { MaximumLatitude, MinimumLatitude, MaximumLongitude, MinimumLongitude } from '../core/constants/coordinates.constant';
 
 @Component
@@ -9,22 +13,31 @@ import { MaximumLatitude, MinimumLatitude, MaximumLongitude, MinimumLongitude } 
     selector: 'app-user',
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.css'],
-    providers: [ShuttleTrackingService]
+    providers: [ShuttleTrackingService , ShuttleService, GPSService]
   })
 
 export class UserComponent implements OnInit, OnDestroy {
 
-  currentShuttleMarkers: Map<number, ElementRef> = new Map();
+
   private shuttleSubscription: Subscription;
   @ViewChild('markerContainer') markerContainer: ElementRef;
+  currentShuttleMarkers: Map<number, ElementRef> = new Map();
 
-
-  constructor(private shuttleTrackingService: ShuttleTrackingService, private renderer: Renderer2, private vcRef: ViewContainerRef) {}
+  constructor(private shuttleTrackingService: ShuttleTrackingService, private renderer: Renderer2, private vcRef: ViewContainerRef, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService, private gpsService: GPSService) {}
 
   ngOnInit() {
     this.shuttleTrackingService.startShuttleTracking();
     this.listenForShuttleMarkers();
   }
+
+
+  ngOnDestroy() {
+    if (this.shuttleSubscription) {
+      this.shuttleSubscription.unsubscribe();
+    }
+    this.currentShuttleMarkers.clear();
+  }
+
 
   private isOutsideBounds(latitude: number, longitude: number) {
     const latitudeTooBig: boolean = (latitude > MaximumLatitude);
@@ -48,7 +61,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   private removeInactiveShuttles(shuttleList: Shuttle[]) {
     const activeVehicleIds = shuttleList.map(shuttle => shuttle.vehicleID);
-    for (let key of Array.from(this.currentShuttleMarkers.keys())) {
+    for (const key of Array.from(this.currentShuttleMarkers.keys())) {
       if (!activeVehicleIds.includes(key)) {
         const marker = this.currentShuttleMarkers.get(key);
         this.renderer.removeChild(this.markerContainer.nativeElement, marker);
@@ -60,7 +73,7 @@ export class UserComponent implements OnInit, OnDestroy {
   private listenForShuttleMarkers() {
     this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttleList => {
       if (this.markerContainer) {
-        for (let shuttle of shuttleList) {
+        for (const shuttle of shuttleList) {
           if (!this.isOutsideBounds(shuttle.latitudeCoordinates, shuttle.longitudeCoordinates)) {
             this.addOrUpdateShuttleMarker(shuttle);
           } else {
@@ -71,6 +84,8 @@ export class UserComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+
   private addOrUpdateShuttleMarker(shuttle: Shuttle) {
     if (this.currentShuttleMarkers.get(shuttle.vehicleID)) {
       const marker: ElementRef<any> = this.currentShuttleMarkers.get(shuttle.vehicleID);
@@ -85,18 +100,12 @@ export class UserComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setPlacement(marker: ElementRef<any>, shuttle:Shuttle) {
+  private setPlacement(marker: ElementRef<any>, shuttle: Shuttle) {
     this.renderer.setStyle(marker, 'top', `${shuttle.yPixelCoordinate - 25}px`);
     this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - 25}px`);
   }
 
-  ngOnDestroy() {
-    if (this.shuttleSubscription) {
-      this.shuttleSubscription.unsubscribe();
-    }
-    this.currentShuttleMarkers.clear();
-  }
+
+
 
 }
-
-
