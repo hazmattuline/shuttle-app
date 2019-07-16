@@ -45,7 +45,7 @@
   <br>
   <form [formGroup]="commentForm">
   <label class = "passenger-label">Comments</label>
-  <input type="text" formControlName = "commentMessage" pInputText [(ngModel)]="inputComment" />
+  <input type="text" formControlName = "commentMessage" pInputText />
     <br>
     <br>
     <button pButton  (click)="submitComment()" label="Enter"></button>

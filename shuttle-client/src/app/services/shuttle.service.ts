@@ -62,7 +62,7 @@ export class ShuttleService {
       date: commentDate,
       message: commentMessage
     }
-    this.shuttleApi.submitComment(comment).subscribe();
+    this.shuttleApi.sendComment(comment).subscribe();
   }
 
     createEndInfo(driverId: number, endVehicleId: number, mileage: number, condition: string, endDate: string) {

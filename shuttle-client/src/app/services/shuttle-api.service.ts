@@ -21,8 +21,7 @@ export class ShuttleApiService {
     return this.http.patch<Shuttle>(Shuttles + '/' + coordinates.vehicleID + Coordinates, coordinates);
   }
 
-  submitComment(comment: DayComment): Observable<DayComment> {
-    console.log(comment.message);
+  sendComment(comment: DayComment): Observable<DayComment> {
     return this.http.post<DayComment>(Comments, comment);
   }
 
