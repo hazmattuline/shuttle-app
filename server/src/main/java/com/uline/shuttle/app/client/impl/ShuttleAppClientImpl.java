@@ -20,7 +20,6 @@ import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
-import rest.models.response.VehicleOptionsResponse;
 
 @Service
 public class ShuttleAppClientImpl implements ShuttleAppClient {
@@ -38,9 +37,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
   @Value("${shuttle.service.rc.url.post.shuttleDayDetails.data}")
   private String shuttleServiceForDayDetails;
-
-  @Value("${shuttle.service.rc.url.for.vehicle.options}")
-  private String shuttleServiceForVehicleOptions;
 
   @Value("${shuttle.service.rc.url.change.status}")
   private String changeStatusURL;
@@ -99,20 +95,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             HttpMethod.POST,
             new HttpEntity<>(dayRequest),
             new ParameterizedTypeReference<DayResponse>() {})
-        .getBody();
-  }
-
-  @Override
-  public List<VehicleOptionsResponse> getVehicles() {
-    UriComponentsBuilder builder =
-        UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForVehicleOptions);
-
-    return restTemplate
-        .exchange(
-            builder.build().toUriString(),
-            HttpMethod.GET,
-            null,
-            new ParameterizedTypeReference<List<VehicleOptionsResponse>>() {})
         .getBody();
   }
 

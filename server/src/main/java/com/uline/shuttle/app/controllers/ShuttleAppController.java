@@ -21,7 +21,6 @@ import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
-import rest.models.response.VehicleOptionsResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -51,13 +50,6 @@ public class ShuttleAppController {
     return shuttleAppService.enRoute(vehicleID, coordinateRequest);
   }
 
-  @ExecutionTime("ShuttleAppService.getVehicles")
-  @ApiOperation(value = "fetching vehicles from database")
-  @GetMapping(value = "/shuttles/vehicles")
-  public List<VehicleOptionsResponse> receiveVehicles() {
-    return shuttleAppService.getVehicles();
-  }
-
   @ExecutionTime("ShuttleAppService.getShuttleDayDetails")
   @ApiOperation(value = "posting the passenger amount details to the database")
   @PostMapping(value = "/shuttle-day-details")
@@ -69,7 +61,9 @@ public class ShuttleAppController {
   @ExecutionTime("ShuttleAppService.getShuttlesStatus")
   @ApiOperation(value = "getting the shuttles by status")
   @GetMapping(value = "/shuttles")
-  public List<ShuttleResponse> getShuttlesStatus(@RequestParam(name = "status") String status) {
+  public List<ShuttleResponse> getShuttlesStatus(
+      @RequestParam(name = "status", required = false) String status) {
+
     return shuttleAppService.getShuttlesStatus(status);
   }
 

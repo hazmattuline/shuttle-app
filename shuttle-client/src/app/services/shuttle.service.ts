@@ -12,7 +12,7 @@ export class ShuttleService {
   currentShuttleMarkers: any;
 
 
-  constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe,) {
+  constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe) {
 
 
    }
@@ -72,7 +72,7 @@ export class ShuttleService {
   }
     vehicleOptions() {
     this.shuttleApi.responseForVehicleOptions().subscribe(vehicleDropDown =>{
-      this._vehicleDropDown.next(ShuttleService.buildSelectItemsForDropdown(vehicleDropDown, 'vehicleName', 'id'));
+      this._vehicleDropDown.next(ShuttleService.buildSelectItemsForDropdown(vehicleDropDown, 'name', 'vehicleID'));
     });
   }
 

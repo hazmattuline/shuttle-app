@@ -3,7 +3,6 @@ import {SelectItem} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
-import { Vehicles } from '../core/constants/endpoints.constant';
 import { GPSService } from '../services/gps.service';
 
 
