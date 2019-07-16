@@ -22,8 +22,6 @@ public interface ShuttleAppService {
 
   List<ShuttleResponse> getShuttlesStatus(String status);
 
-  List<VehicleOptionsResponse> getVehicles();
-
   DayResponse submitDay(DayRequest dayRequest);
 
   NoteResponse submitNote(NoteRequest noteRequest);

@@ -69,13 +69,6 @@ public class ShuttleAppController {
     return shuttleAppService.getShuttlesStatus(status);
   }
 
-  @ExecutionTime("ShuttleAppService.getVehicles")
-  @ApiOperation(value = "fetching vehicles from database")
-  @GetMapping(value = "/shuttles/vehicles")
-  public List<VehicleOptionsResponse> receiveVehicles() {
-    return shuttleAppService.getVehicles();
-  }
-
   @ExecutionTime("ShuttleAppService.submitDay")
   @ApiOperation(value = "posting to the Shuttle Vehicle Day table")
   @PostMapping(value = "/shuttle-days")
