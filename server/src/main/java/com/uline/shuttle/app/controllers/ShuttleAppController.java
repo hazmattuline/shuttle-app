@@ -54,7 +54,7 @@ public class ShuttleAppController {
 
   @ExecutionTime("ShuttleAppService.getShuttleDayDetails")
   @ApiOperation(value = "posting the passenger amount details to the database")
-  @PostMapping(value = "/shuttle-day-details")
+  @PostMapping(value = "/trips")
   public ShuttleDayDetailsResponse getShuttleDayDetails(
       @RequestBody ShuttleDayDetailsRequest shuttleDayRequest) {
     return shuttleAppService.getShuttleDayDetails(shuttleDayRequest);
@@ -71,14 +71,14 @@ public class ShuttleAppController {
 
   @ExecutionTime("ShuttleAppService.submitDay")
   @ApiOperation(value = "posting to the Shuttle Vehicle Day table")
-  @PostMapping(value = "/shuttle-days")
+  @PostMapping(value = "/days")
   public DayResponse submitDay(@RequestBody DayRequest dayRequest) {
     return shuttleAppService.submitDay(dayRequest);
   }
 
   @ExecutionTime("ShuttleAppService.submitNote")
   @ApiOperation(value = "posting note to database")
-  @PostMapping(value = "/shuttle-notes")
+  @PostMapping(value = "/notes")
   public NoteResponse submitNote(@RequestBody NoteRequest noteRequest) {
     return shuttleAppService.submitNote(noteRequest);
   }

@@ -9,8 +9,6 @@ import { Shuttle } from '../models/shuttle.model';
 export class GPSService implements OnDestroy {
 
   private latestCoordinates: Coordinates = null;
-  private previousCoordinates: Coordinates;
-  private hasNotMoved = false;
   private shuttle: Shuttle;
   private shuttleId = 1;
 
@@ -24,13 +22,14 @@ export class GPSService implements OnDestroy {
   };
 
   private watchId: number;
-
   private gpsLocationTimer: any = null;
 
   constructor(private shuttleApiService: ShuttleApiService) { }
 
   setTrackingVehicle(vehicleId: number) {
+    console.log("changing it");
     if (vehicleId > 0 && vehicleId <= 6) {
+      console.log("set shuttle");
       this.shuttleId = vehicleId;
     } else {
       this.shuttleId = 1;
@@ -60,7 +59,6 @@ export class GPSService implements OnDestroy {
   }
 
   private updateGPSPostion(position: Position) {
-    this.previousCoordinates = this.latestCoordinates;
     this.latestCoordinates = position.coords;
   }
 
@@ -86,10 +84,7 @@ export class GPSService implements OnDestroy {
   }
 
   errorHandler(err) {
-
-
     if (err.code === 1) {
-
       // access is denied
     }
   }
@@ -105,9 +100,8 @@ export class GPSService implements OnDestroy {
     this.stop();
   }
 
-
   getShuttleId() {
+    console.log("get id");
     return this.shuttleId;
-}
-
+  }
 }

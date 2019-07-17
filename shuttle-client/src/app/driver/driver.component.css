@@ -1,4 +1,4 @@
-.passengerCount {
+.trip-area {
   display: flex;
   text-align: center;
   justify-content: space-between;
@@ -6,13 +6,13 @@
   /*width: 50px;*/
 }
 
-.passenger-container {
+.trip-container {
   text-align:center; 
   margin: 0 auto; 
   width: 656px;
 }
 
-.passenger-label {
+.trip-label {
   display: block; 
   text-align: left;
   width: 100px;
@@ -208,15 +208,12 @@ background-color: #dddddd;
 margin-top: 40px;
 }
 
-.bringDown
-{
+.end-shift-container {
   margin-top: 80px;
 
 }
 
-.bringUp
-{
+.start-shift-container {
   margin-bottom: 80px;
-
 }
 

@@ -1,10 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SelectItem } from 'primeng/api';
-import { NgModule } from '@angular/core';
-import { CoordinatesRequest } from '../models/coordinates-request.model';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
-import { UserComponent } from '../user/user.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component
@@ -21,11 +18,11 @@ export class DriverComponent implements OnInit, OnDestroy {
   isActive = false;
   showDriverShift = true;
 
-  info: DriverInfo[];
+  //info: DriverInfo[];
   passengerInputs: SelectItem[];
   curbInputs: SelectItem[];
-  passengerInput: DriverInput;
-  curbInput: DriverInput;
+  //passengerInput: DriverInput;
+  //curbInput: DriverInput;
   date: string;
   dayDetailForm: FormGroup;
   commentForm: FormGroup;
@@ -58,7 +55,6 @@ export class DriverComponent implements OnInit, OnDestroy {
       { label: '3', value: { id: 4 } },
       { label: '4', value: { id: 5 } },
     ];
-
   }
   getDate() {
     this.date = this.shuttleService.getDate();
@@ -72,16 +68,10 @@ changeActive() {
     if (this.gpsService.getIsGPSActive()) {
       this.gpsService.stopGPSTracking();
     } else {
-
       this.gpsService.startGPSTracking();
     }
   }
 
-changeBreak() {
-    // add code to change between On Break and Off Break
-    return null;
-  }
-  
 private setupForms() {
   this.dayDetailForm = this.fb.group({
     passengerInputs: '',
@@ -94,37 +84,17 @@ private setupForms() {
 }
 
 submitPassengerInfo() {
-    // TODO - submit info from new UI
     const shiftValue = this.dayDetailForm.value;
+    console.log("trips " + this.gpsService.getShuttleId());
+    this.shuttleService.createTrip(this.gpsService.getShuttleId(),
+      shiftValue.passengerInputs.id - 1, shiftValue.curbInputs.id - 1, this.date);
 
-    this.shuttleService.createShuttleDayDetails(this.gpsService.getShuttleId(), shiftValue.passengerInputs.id-1, shiftValue.curbInputs.id-1, this.date);
-
-  }
-
-makeNewRow() {
-    // allow drivers to submit number of passengers in shuttle and left at curb again
-   return null;
-  }
-
-recordFuel() {
-    const fuelAmo = prompt('How much fuel did you put in the vehicle?');
-    const fuelCost = prompt('What was the cost of the fuel?');
-    const vehicleId = prompt('What is the vehicle Id');
-    let fuelAm = parseInt(fuelAmo, 10);
-    let fuelCos = parseInt(fuelCost, 10);
-    let vehicleID = parseInt(vehicleId, 10);
-    this.shuttleService.createFuelInfo(fuelAm, fuelCos, this.date, vehicleID);
-  }
+}
 
   submitComment() {
     const commentValue = this.commentForm.value;
+    console.log("comment " + this.gpsService.getShuttleId());
     this.shuttleService.createCommentInfo(this.gpsService.getShuttleId(), this.date, commentValue.commentMessage);
-  }
-  
-
-recordComments() {
-    // keep track of comments entered
-    return null;
   }
 
   getShowShift(showShift: boolean) {
@@ -136,10 +106,10 @@ recordComments() {
   }
 
 }
-export interface DriverInfo {
-  numPassengers;
-}
+// export interface DriverInfo {
+//   numPassengers;
+// }
 
-interface DriverInput {
-  numPassengers: number;
-}
+// interface DriverInput {
+//   numPassengers: number;
+// }

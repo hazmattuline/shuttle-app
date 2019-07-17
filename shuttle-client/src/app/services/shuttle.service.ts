@@ -1,7 +1,7 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { ShuttleApiService } from './shuttle-api.service';
 import { Subject, Observable, Subscription } from 'rxjs';
-import { ShuttleDayDetails } from '../models/record-passengers.model';
+import { Trip } from '../models/trip.model';
 import { SelectItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 
@@ -10,13 +10,8 @@ import { DayComment } from '../models/day-comment.model';
 
 @Injectable()
 export class ShuttleService {
-  currentShuttleMarkers: any;
 
-
-  constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe) {
-
-
-   }
+  constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe) {}
   myDate = new Date();
   date: string;
   
@@ -75,7 +70,7 @@ export class ShuttleService {
     this.shuttleApi.submitDay(day).subscribe();
   }
     vehicleOptions() {
-    this.shuttleApi.responseForVehicleOptions().subscribe(vehicleDropDown =>{
+    this.shuttleApi.getVehicleOptions().subscribe(vehicleDropDown =>{
       this._vehicleDropDown.next(ShuttleService.buildSelectItemsForDropdown(vehicleDropDown, 'name', 'vehicleID'));
     });
   }
@@ -90,27 +85,13 @@ export class ShuttleService {
     this.shuttleApi.submitDay(day).subscribe();
   }
 
-  createShuttleDayDetails(_vehicleId: number, _passengerCount: number, _curbCount: number, passengerDate: string) {
-    const shuttleDayDetails: ShuttleDayDetails = {
-      vehicleId: _vehicleId,
-      passengerCount: _passengerCount,
-      curbCount: _curbCount,
-      date: passengerDate
+  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripDate: string) {
+    const trip: Trip = {
+      vehicleId: tripVehicleId,
+      passengerCount: tripPassengers,
+      curbCount: tripCurb,
+      date: tripDate
     };
-    this.shuttleApi.sendShuttleDayDetails(shuttleDayDetails).subscribe();
+    this.shuttleApi.submitTrip(trip).subscribe();
   }
-
-
-
-  
-   stopListenForShuttleMarkers(sub: Subscription) {
-    if (sub) {
-      sub.unsubscribe();
-    }
-  }
-
-  
-
-
-
 }

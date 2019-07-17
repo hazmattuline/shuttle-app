@@ -2,10 +2,6 @@ import { Component, OnInit, Renderer2, ElementRef, ViewContainerRef, ViewChild, 
 import { ShuttleTrackingService } from '../services/shuttle-tracking.service';
 import { Shuttle } from '../models/shuttle.model';
 import { Subscription } from 'rxjs';
-import { ShuttleService } from '../services/shuttle.service';
-import { GPSService } from '../services/gps.service';
-import { Vehicle } from '../models/vehicle.model';
-import { ShuttleApiService } from '../services/shuttle-api.service';
 import { MaximumLatitude, MinimumLatitude, MaximumLongitude, MinimumLongitude } from '../core/constants/coordinates.constant';
 
 @Component
@@ -13,7 +9,7 @@ import { MaximumLatitude, MinimumLatitude, MaximumLongitude, MinimumLongitude } 
     selector: 'app-user',
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.css'],
-    providers: [ShuttleTrackingService , ShuttleService, GPSService]
+    providers: [ShuttleTrackingService]
   })
 
 export class UserComponent implements OnInit, OnDestroy {
@@ -23,7 +19,7 @@ export class UserComponent implements OnInit, OnDestroy {
   @ViewChild('markerContainer') markerContainer: ElementRef;
   currentShuttleMarkers: Map<number, ElementRef> = new Map();
 
-  constructor(private shuttleTrackingService: ShuttleTrackingService, private renderer: Renderer2, private vcRef: ViewContainerRef, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService, private gpsService: GPSService) {}
+  constructor(private shuttleTrackingService: ShuttleTrackingService, private renderer: Renderer2, private vcRef: ViewContainerRef) {}
 
   ngOnInit() {
     this.shuttleTrackingService.startShuttleTracking();

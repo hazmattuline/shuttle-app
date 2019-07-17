@@ -1,9 +1,8 @@
-
-export const ShuttleVehicles= '/shuttles/vehicles';
 export const Shuttles = '/shuttles';
 export const Coordinates = '/coordinates';
-export const ShuttleDay= '/shuttle-day-details';
+export const Trips = '/trips';
 export const StatusShuttles = '/shuttles?status=';
-export const SubmitDays = '/shuttle-days';
+export const AllShuttles = '/shuttles?status=ALL';
+export const Days = '/days';
 export const Status = '/status';
-export const Comments = '/shuttle-notes';
+export const Notes = '/notes';
