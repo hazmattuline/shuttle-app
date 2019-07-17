@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
     selector: 'app-driver',
     templateUrl: './driver.component.html',
     styleUrls: ['./driver.component.css'],
-    providers: [GPSService , ShuttleService]
+    providers: [GPSService, ShuttleService]
     })
 export class DriverComponent implements OnInit, OnDestroy {
   count = 0;

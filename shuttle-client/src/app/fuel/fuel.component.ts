@@ -7,7 +7,7 @@ import { GPSService } from '../services/gps.service';
   selector: 'app-fuel',
   templateUrl: './fuel.component.html',
   styleUrls: ['./fuel.component.css'],
-  providers: [ShuttleService, GPSService]
+  providers: [ShuttleService]
 })
 export class FuelComponent implements OnInit {
   fuelForm: FormGroup;
