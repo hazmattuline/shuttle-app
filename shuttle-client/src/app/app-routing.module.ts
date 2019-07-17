@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DriverComponent } from './driver/driver.component';
 import { UserComponent } from './user/user.component';
-import { RequestComponent } from './request/request.component';
 import { StartshiftComponent } from './startshift/startshift.component';
 
 const appRoutes: Routes =
@@ -10,7 +9,6 @@ const appRoutes: Routes =
   { path: 'driver', component: DriverComponent },
   { path: 'driver', component: StartshiftComponent },
   { path: 'user', component: UserComponent },
-  { path: 'user/request', component: RequestComponent },
   { path: '',
   redirectTo: '/user',
   pathMatch: 'full'

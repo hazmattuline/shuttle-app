@@ -3,11 +3,11 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import { StatusShuttles, Shuttles, Coordinates, Status, ShuttleVehicles, ShuttleDay, SubmitDays} from '../core/constants/endpoints.constant';
-import { ShuttleDayDetails } from '../models/record-passengers.model';
-import { Vehicle } from '../models/vehicle.model';
+import { StatusShuttles, Shuttles, Coordinates, Status, Trips, Days, Notes, AllShuttles} from '../core/constants/endpoints.constant';
+import { Trip } from '../models/trip.model';
 import { StatusInfo } from '../models/status-info.model';
 import { Day } from '../models/day.model';
+import { DayComment } from '../models/day-comment.model';
 
 
 @Injectable({
@@ -20,15 +20,18 @@ export class ShuttleApiService {
     return this.http.patch<Shuttle>(Shuttles + '/' + coordinates.vehicleID + Coordinates, coordinates);
   }
 
-  responseForVehicleOptions(): Observable<Shuttle[]> {
-    return this.http.get<Shuttle[]>(StatusShuttles + "ALL");
+  sendComment(comment: DayComment): Observable<DayComment> {
+    return this.http.post<DayComment>(Notes, comment);
+  }
+  getVehicleOptions(): Observable<Shuttle[]> {
+    return this.http.get<Shuttle[]>(AllShuttles);
   }
 
-  sendShuttleDayDetails(shuttleDayDetails: ShuttleDayDetails): Observable<ShuttleDayDetails> {
-    return this.http.post<ShuttleDayDetails>(ShuttleDay, shuttleDayDetails);
+  submitTrip(trip: Trip): Observable<Trip> {
+    return this.http.post<Trip>(Trips, trip);
   }
 
-  getShuttlesStatus(status): Observable<Shuttle[]> {
+  getShuttlesStatus(status: string): Observable<Shuttle[]> {
     return this.http.get<Shuttle[]>(StatusShuttles + status);
   }
 
@@ -40,6 +43,6 @@ export class ShuttleApiService {
   }
 
   submitDay(day: Day): Observable<Day> {
-    return this.http.post<Day>(SubmitDays, day);
+    return this.http.post<Day>(Days, day);
   }
 }

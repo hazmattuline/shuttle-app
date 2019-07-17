@@ -14,10 +14,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.DayRequest;
+import rest.models.requests.NoteRequest;
 import rest.models.requests.ShuttleDayDetailsRequest;
 import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
+import rest.models.response.NoteResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 
@@ -43,6 +45,9 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
   @Value("${shuttle.service.rc.url.submit.day}")
   private String submitDayURL;
+
+  @Value("${shuttle.service.rc.url.submit.note}")
+  private String submitNoteURL;
 
   @Autowired
   public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
@@ -85,16 +90,18 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public DayResponse submitDay(DayRequest dayRequest) {
+  public ShuttleDayDetailsResponse getShuttleDayDetails(
+      ShuttleDayDetailsRequest shuttleDayRequest) {
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + submitDayURL);
+    UriComponentsBuilder builder =
+        UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForDayDetails);
 
     return restTemplate
         .exchange(
             builder.build().toUriString(),
             HttpMethod.POST,
-            new HttpEntity<>(dayRequest),
-            new ParameterizedTypeReference<DayResponse>() {})
+            new HttpEntity<>(shuttleDayRequest),
+            new ParameterizedTypeReference<ShuttleDayDetailsResponse>() {})
         .getBody();
   }
 
@@ -115,18 +122,30 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public ShuttleDayDetailsResponse getShuttleDayDetails(
-      ShuttleDayDetailsRequest shuttleDayRequest) {
+  public DayResponse submitDay(DayRequest dayRequest) {
 
-    UriComponentsBuilder builder =
-        UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForDayDetails);
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + submitDayURL);
 
     return restTemplate
         .exchange(
             builder.build().toUriString(),
             HttpMethod.POST,
-            new HttpEntity<>(shuttleDayRequest),
-            new ParameterizedTypeReference<ShuttleDayDetailsResponse>() {})
+            new HttpEntity<>(dayRequest),
+            new ParameterizedTypeReference<DayResponse>() {})
+        .getBody();
+  }
+
+  @Override
+  public NoteResponse submitNote(NoteRequest noteRequest) {
+
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + submitNoteURL);
+
+    return restTemplate
+        .exchange(
+            builder.build().toUriString(),
+            HttpMethod.POST,
+            new HttpEntity<>(noteRequest),
+            new ParameterizedTypeReference<NoteResponse>() {})
         .getBody();
   }
 }

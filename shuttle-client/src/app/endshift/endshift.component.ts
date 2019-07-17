@@ -25,15 +25,7 @@ constructor(private fb: FormBuilder, public shuttleService: ShuttleService) {
     {label: 'Heather Iwinski', value: {id: 4}},
     {label: 'Melissa Zaugra', value: {id: 5}},
   ];
-  this.milesOptions = [
-    {label: 'Select', value: null},
-    {label: '0', value: {id: 1}},
-    {label: '1', value: {id: 2}},
-    {label: '2', value: {id: 3}},
-    {label: '3', value: {id: 4}},
-    {label: '4', value: {id: 5}},
-  ];
-
+  
   this.conditionOptions = [
     {label: 'Select', value: null},
     {label: 'Good', value: {id: "GOOD"}},
@@ -45,20 +37,14 @@ constructor(private fb: FormBuilder, public shuttleService: ShuttleService) {
   @Input()
   endShift: DriverComponent;
   driverOptions: SelectItem[];
-  milesOptions: SelectItem[];
   conditionOptions: SelectItem[];
-
-  inputMileage: number;
-
   endShiftForm: FormGroup;
   date: string;
 
   @Output()
   showShift = new EventEmitter<boolean>();
 
- 
-  getDate()
-  {
+  getDate() {
     this.date = this.shuttleService.getDate();
   }
 
@@ -85,7 +71,8 @@ submitEndData() {
   const shiftValue = this.endShiftForm.value;
   this.shuttleService.createEndInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id, this.date);
   this.showShift.emit(false);
-}}
+}
+}
 
 
 

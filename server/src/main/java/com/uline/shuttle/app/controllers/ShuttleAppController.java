@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.DayRequest;
+import rest.models.requests.NoteRequest;
 import rest.models.requests.ShuttleDayDetailsRequest;
 import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
+import rest.models.response.NoteResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 
@@ -52,7 +54,7 @@ public class ShuttleAppController {
 
   @ExecutionTime("ShuttleAppService.getShuttleDayDetails")
   @ApiOperation(value = "posting the passenger amount details to the database")
-  @PostMapping(value = "/shuttle-day-details")
+  @PostMapping(value = "/shuttle-trips")
   public ShuttleDayDetailsResponse getShuttleDayDetails(
       @RequestBody ShuttleDayDetailsRequest shuttleDayRequest) {
     return shuttleAppService.getShuttleDayDetails(shuttleDayRequest);
@@ -72,5 +74,12 @@ public class ShuttleAppController {
   @PostMapping(value = "/shuttle-days")
   public DayResponse submitDay(@RequestBody DayRequest dayRequest) {
     return shuttleAppService.submitDay(dayRequest);
+  }
+
+  @ExecutionTime("ShuttleAppService.submitNote")
+  @ApiOperation(value = "posting note to database")
+  @PostMapping(value = "/shuttle-notes")
+  public NoteResponse submitNote(@RequestBody NoteRequest noteRequest) {
+    return shuttleAppService.submitNote(noteRequest);
   }
 }

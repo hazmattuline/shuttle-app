@@ -7,7 +7,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RouterModule, Routes} from '@angular/router';
 import { DriverComponent } from './driver/driver.component';
 import { AppComponent } from './app.component';
-import { RequestComponent } from './request/request.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -24,7 +23,6 @@ import { FuelComponent } from './fuel/fuel.component';
     AppComponent,
     DriverComponent,
     UserComponent,
-    RequestComponent,
     StartshiftComponent,
     EndshiftComponent,
     FuelComponent

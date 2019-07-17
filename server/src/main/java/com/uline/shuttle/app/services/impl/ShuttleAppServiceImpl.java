@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.DayRequest;
+import rest.models.requests.NoteRequest;
 import rest.models.requests.ShuttleDayDetailsRequest;
 import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
+import rest.models.response.NoteResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 
@@ -25,18 +27,13 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
-    return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
-  }
-
-  @Override
   public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
     return shuttleAppClient.changeStatus(statusRequest, id);
   }
 
   @Override
-  public List<ShuttleResponse> getShuttlesStatus(String status) {
-    return shuttleAppClient.getShuttlesStatus(status);
+  public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
+    return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
   }
 
   @Override
@@ -47,7 +44,17 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
+  public List<ShuttleResponse> getShuttlesStatus(String status) {
+    return shuttleAppClient.getShuttlesStatus(status);
+  }
+
+  @Override
   public DayResponse submitDay(DayRequest dayRequest) {
     return shuttleAppClient.submitDay(dayRequest);
+  }
+
+  @Override
+  public NoteResponse submitNote(NoteRequest noteRequest) {
+    return shuttleAppClient.submitNote(noteRequest);
   }
 }
