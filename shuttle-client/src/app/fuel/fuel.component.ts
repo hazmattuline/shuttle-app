@@ -32,7 +32,6 @@ export class FuelComponent implements OnInit {
 
   submitFuelData(){
     const fuelValue = this.fuelForm.value;
-    console.log("fuel " + this.gpsService.getShuttleId());
     this.shuttleService.createFuelInfo(fuelValue.quantity, fuelValue.cost, this.date,  this.gpsService.getShuttleId());
   }
 }

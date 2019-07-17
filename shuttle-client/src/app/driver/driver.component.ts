@@ -84,8 +84,7 @@ private setupForms() {
 }
 
 submitPassengerInfo() {
-    const shiftValue = this.dayDetailForm.value;
-    console.log("trips " + this.gpsService.getShuttleId());
+    const shiftValue = this.dayDetailForm.value;;
     this.shuttleService.createTrip(this.gpsService.getShuttleId(),
       shiftValue.passengerInputs.id - 1, shiftValue.curbInputs.id - 1, this.date);
 
@@ -93,7 +92,6 @@ submitPassengerInfo() {
 
   submitComment() {
     const commentValue = this.commentForm.value;
-    console.log("comment " + this.gpsService.getShuttleId());
     this.shuttleService.createCommentInfo(this.gpsService.getShuttleId(), this.date, commentValue.commentMessage);
   }
 

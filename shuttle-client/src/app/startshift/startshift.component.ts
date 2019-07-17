@@ -74,8 +74,6 @@ submitStartData() {
   const shiftValue = this.startShiftForm.value;
   this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id, this.date);
   this.gpsService.setTrackingVehicle(shiftValue.vehicle);
-  console.log("choosing vehicle " + shiftValue.vehicle);
-  console.log(this.gpsService.getShuttleId());
   this.showShift.emit(false);
 }
 
