@@ -47,6 +47,19 @@
     <app-endshift (showShift)=getShowShift($event) [endShift] = "timeToStart"></app-endshift>
   </div>
 
+  <p-accordion>
+    <p-accordionTab header="Start Shift">
+        <app-startshift></app-startshift>
+    </p-accordionTab>
+    <p-accordionTab header="Trips">
+        Content 2
+    </p-accordionTab>
+    <p-accordionTab header="End Shift">
+        <app-fuel></app-fuel>
+      <app-endshift></app-endshift>    
+    </p-accordionTab>
+</p-accordion>
+
 
   
   

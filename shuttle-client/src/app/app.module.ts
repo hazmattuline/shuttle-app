@@ -6,6 +6,7 @@ import { UserComponent } from './user/user.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RouterModule, Routes} from '@angular/router';
 import { DriverComponent } from './driver/driver.component';
+import {AccordionModule} from 'primeng/accordion';
 import { AppComponent } from './app.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
@@ -33,6 +34,7 @@ import { FuelComponent } from './fuel/fuel.component';
     AppRoutingModule,
     TableModule,
     DropdownModule,
+    AccordionModule,
     FormsModule,
     ButtonModule,
     InputTextModule,
