@@ -52,12 +52,12 @@ public class ShuttleAppController {
     return shuttleAppService.enRoute(vehicleID, coordinateRequest);
   }
 
-  @ExecutionTime("ShuttleAppService.getShuttleDayDetails")
+  @ExecutionTime("ShuttleAppService.postShuttleDayDetails")
   @ApiOperation(value = "posting the passenger amount details to the database")
   @PostMapping(value = "/shuttle-trips")
-  public ShuttleDayDetailsResponse getShuttleDayDetails(
+  public ShuttleDayDetailsResponse postTrip(
       @RequestBody ShuttleDayDetailsRequest shuttleDayRequest) {
-    return shuttleAppService.getShuttleDayDetails(shuttleDayRequest);
+    return shuttleAppService.postTrip(shuttleDayRequest);
   }
 
   @ExecutionTime("ShuttleAppService.getShuttlesStatus")

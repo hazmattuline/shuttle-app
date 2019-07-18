@@ -18,7 +18,7 @@ public interface ShuttleAppService {
 
   CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest);
 
-  ShuttleDayDetailsResponse getShuttleDayDetails(ShuttleDayDetailsRequest shuttleDayRequest);
+  ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest);
 
   List<ShuttleResponse> getShuttlesStatus(String status);
 

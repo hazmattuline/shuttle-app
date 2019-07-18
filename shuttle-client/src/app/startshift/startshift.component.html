@@ -1,4 +1,4 @@
-<h3 class="first" style="text-align:center">Start Of Shift</h3>
+<!-- <h3 class="first" style="text-align:center">Start Of Shift</h3>
 <div class="info-container">
   <form [formGroup]="startShiftForm">
     <div class="shift-info">
@@ -24,4 +24,25 @@
       </div> 
     </div>
   </form>
+</div> -->
+
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div class="leftHalf">
+Mileage: 
+<input [(ngModel)]="tempMileage" type="text" pInputText  [size]="20"  placeholder="0.0" [minLength]="1" />
+
+</div>
+<div class="rightHalf">
+    Condition:
+    <p-selectButton class="pSelectButtonStyle" [options]="good" [(ngModel)]="condition"  (onChange)="verify('good')" ></p-selectButton>
+    <p-selectButton class="pSelectButtonStyle" [options]="fair" [(ngModel)]="condition"  (onChange)="verify('fair')"></p-selectButton>
+    <p-selectButton class="pSelectButtonStyle" [options]="bad" [(ngModel)]="condition"   (onChange)="verify('bad')"></p-selectButton>
+</div>
+<br>
+<div class="bringDown" >
+  Comments: 
+  <input  id="disabled-input" type="text" size="30" [(ngModel)]='comments' pInputText [disabled]="disabled" />
+</div>
+<div class="bringDown">
+    <p-button label="SAVE"  icon="pi pi-file" (onClick)="submitStartData('success')"></p-button> 
 </div>

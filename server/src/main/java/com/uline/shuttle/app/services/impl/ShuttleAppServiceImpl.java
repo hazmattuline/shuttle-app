@@ -37,7 +37,7 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public ShuttleDayDetailsResponse getShuttleDayDetails(
+  public ShuttleDayDetailsResponse postTrip(
       ShuttleDayDetailsRequest shuttleDayRequest) {
 
     return shuttleAppClient.getShuttleDayDetails(shuttleDayRequest);

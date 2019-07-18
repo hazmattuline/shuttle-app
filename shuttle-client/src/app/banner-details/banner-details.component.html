@@ -1,0 +1,13 @@
+<div class="background" >
+  Vehicle: 
+  <p-selectButton class="pSelectButtonStyle" [options]="bailey" [(ngModel)]="selectedType"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="holley" [(ngModel)]="selectedType"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="dixie" [(ngModel)]="selectedType"></p-selectButton>
+
+      Rental: 
+  <p-checkbox [(ngModel)]="checked" binary="true"></p-checkbox>
+  <p-button  type="button" (onClick)="submit(); changeActive()" styleClass="ui-button-action" [label]="(gpsService.isActive | async) ? 'Deactivate' : 'Activate'"></p-button>
+  Driver: {{driverName}}
+
+
+</div>

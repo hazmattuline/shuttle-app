@@ -18,15 +18,24 @@ import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
 import { EndshiftComponent } from './endshift/endshift.component';
 import { DatePipe } from '@angular/common';
 import { FuelComponent } from './fuel/fuel.component';
+import { BannerDetailsComponent } from './banner-details/banner-details.component';
+import {CheckboxModule} from 'primeng/checkbox';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {MessageService} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
+import { CommonModule } from '@angular/common';
 
-@NgModule({
+@NgModule({ 
   declarations: [
     AppComponent,
     DriverComponent,
     UserComponent,
     StartshiftComponent,
     EndshiftComponent,
-    FuelComponent
+    FuelComponent,
+    BannerDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,10 +48,17 @@ import { FuelComponent } from './fuel/fuel.component';
     ButtonModule,
     InputTextModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CheckboxModule,
+    SelectButtonModule,
+    AutoCompleteModule,
+    SplitButtonModule,
+    ToastModule,
+    CommonModule
   ],
   providers: [
     DatePipe,
+    MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

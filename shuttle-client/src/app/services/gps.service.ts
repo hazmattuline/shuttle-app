@@ -10,7 +10,7 @@ export class GPSService implements OnDestroy {
 
   private latestCoordinates: Coordinates = null;
   private shuttle: Shuttle;
-  private shuttleId = 1;
+  private shuttleId;
 
   private _isActive: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isActive: Observable<boolean> = this._isActive.asObservable();
@@ -87,6 +87,9 @@ export class GPSService implements OnDestroy {
     }
   }
 
+  setShuttleId(id:number){
+    this.shuttleId = id;
+  }
   stop() {
     this.stopGPSTracking();
     this.shuttleApiService.changeStatus('I', this.shuttle.vehicleID).subscribe(newShuttle => {

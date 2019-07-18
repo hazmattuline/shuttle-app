@@ -90,7 +90,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public ShuttleDayDetailsResponse getShuttleDayDetails(
+  public ShuttleDayDetailsResponse postTrip(
       ShuttleDayDetailsRequest shuttleDayRequest) {
 
     UriComponentsBuilder builder =
