@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
-import { Trip } from '../models/trip.model';
 
 @Component({
   selector: 'app-trips',
@@ -12,9 +11,12 @@ export class TripsComponent implements OnInit {
   passengerNumber: number = 0;
   curbNumber: number = 0;
   tripNumber: number = 1;
+  route: string = 'H1 < H2';
   isCurb: boolean = false;
   trips: TripDisplay[] = [];
-  isTableVisible = false;
+  isChangeLatest: boolean = false;
+  isChangeSecondmostLatest: boolean = false;
+  isTowardsH2: boolean = true;
 
   constructor(private gpsService: GPSService, private shuttleService: ShuttleService) { }
   date: string;
@@ -52,32 +54,57 @@ export class TripsComponent implements OnInit {
   }
 
   submitTripInfo() {
-    this.shuttleService.createTrip(this.gpsService.getShuttleId(),
-    this.passengerNumber, this.curbNumber, this.date);
-    this.updateTripDisplay();
-    this.reset();
+    if (!this.isChangeLatest && !this.isChangeSecondmostLatest) {
+      this.shuttleService.createTrip(this.gpsService.getShuttleId(),
+      this.passengerNumber, this.curbNumber, this.date);
+      this.updateTripDisplay();
+      this.reset();
+    } else if (this.isChangeLatest) {
+      this.isChangeLatest = false;
+    } else {
+      this.isChangeSecondmostLatest = false;
+    }
 }
 
-changeRoute() {
+changeRoute(isH1toH2: boolean) {
+  if (isH1toH2) {
+    this.route = 'H1 > H2';
+    this.isTowardsH2 = true;
+  } else {
+    this.route = 'H1 < H2';
+    this.isTowardsH2 = false;
+  }
+}
 
+loadRow(rowNumber: number) {
+  let trip: TripDisplay = this.trips[this.trips.length - rowNumber];
+  if (rowNumber === 1) {
+    this.isChangeLatest = true;
+  } else {
+    this.isChangeSecondmostLatest = true;
+  }
+  this.passengerNumber = trip.passengers;
+  this.curbNumber = trip.curb;
+  console.log(trip);
 }
 
 updateTripDisplay() {
   const trip: TripDisplay = {
     tripNumber: this.tripNumber,
-    route: "H1 > H2",
+    route: this.route,
     passengers: this.passengerNumber,
-    curb: this.curbNumber
+    curb: this.curbNumber,
+    rowNumber: 1
   };
   this.tripNumber = this.tripNumber + 1;
   this.trips.push(trip);
-  this.isTableVisible = true;
-  console.log(this.trips);
-  // if (this.trips.length > 2) {
-  //   delete this.trips[0];
-  // }
+  if (this.trips.length > 2) {
+    this.trips.shift();
+  }
+  if (this.trips.length >= 2) {
+    this.trips[0].rowNumber = 2;
+  }
 }
-
 }
 
 export interface TripDisplay {
@@ -85,6 +112,7 @@ export interface TripDisplay {
   route: string;
   passengers: number;
   curb: number;
+  rowNumber: number;
 }
 
 

@@ -1,6 +1,7 @@
 package com.uline.shuttle.app.client;
 
 import java.util.List;
+
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.DayRequest;
 import rest.models.requests.NoteRequest;
@@ -14,15 +15,17 @@ import rest.models.response.ShuttleResponse;
 
 public interface ShuttleAppClient {
 
-  ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id);
+	ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id);
 
-  CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest);
+	CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest);
 
-  ShuttleDayDetailsResponse getShuttleDayDetails(ShuttleDayDetailsRequest shuttledDayRequest);
+	ShuttleDayDetailsResponse getShuttleDayDetails(ShuttleDayDetailsRequest shuttledDayRequest);
 
-  List<ShuttleResponse> getShuttlesStatus(String status);
+	List<ShuttleResponse> getShuttlesStatus(String status);
 
-  DayResponse submitDay(DayRequest dayRequest);
+	ShuttleDayDetailsResponse getTrip(String date, Integer vehicleId);
 
-  NoteResponse submitNote(NoteRequest noteRequest);
+	DayResponse submitDay(DayRequest dayRequest);
+
+	NoteResponse submitNote(NoteRequest noteRequest);
 }
