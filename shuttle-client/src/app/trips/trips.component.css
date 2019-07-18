@@ -11,7 +11,9 @@
   }
 
   .number-pad {
-    display:block;
+    display:flex;
+    justify-content: center;
+    align-items: center;
     height: 50px;
     width: 50px;
     border-radius: 100%;
@@ -21,12 +23,36 @@
     text-align: center;
   }
 
+  .number-pad > ::ng-deep .ui-button-text {
+    padding: unset !important;
+  }
+
   .route {
-    display:block;
-    height: 30px;
-    width: 30px;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    width: 50px;
+    min-width: unset !important;
     border-radius: 100%;
-    text-align: center;
+  }
+
+  .img-container img {
+      margin: 0;
+      /*position: absolute; */
+      top: 50%;
+  }
+
+  .img-container {
+    white-space: nowrap;
+    padding: 5px;
+    display:inline-block;
+    /*height: 50px;*/
+   /*position: relative;*/
+  }
+
+  .start-button {
+    border-radius: 20%;
+    background-color: green;
   }
 
   .input-container {
