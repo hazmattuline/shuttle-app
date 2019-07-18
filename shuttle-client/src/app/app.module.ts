@@ -18,6 +18,7 @@ import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
 import { EndshiftComponent } from './endshift/endshift.component';
 import { DatePipe } from '@angular/common';
 import { FuelComponent } from './fuel/fuel.component';
+import { TripsComponent } from './trips/trips.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FuelComponent } from './fuel/fuel.component';
     UserComponent,
     StartshiftComponent,
     EndshiftComponent,
-    FuelComponent
+    FuelComponent,
+    TripsComponent
   ],
   imports: [
     BrowserModule,

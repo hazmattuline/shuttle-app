@@ -2,7 +2,6 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ShuttleApiService } from './shuttle-api.service';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import * as isEqual from 'lodash/isEqual';
 import { Shuttle } from '../models/shuttle.model';
 
 @Injectable()

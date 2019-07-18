@@ -1,0 +1,56 @@
+.column {
+    float: left;
+    width: 50%;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .number-pad {
+    display:block;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+
+  .route {
+    display:block;
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+
+  }
+
+  .input-container {
+    width: 300px;
+    float: left;
+  }
+
+  input {
+      width:150px;
+  }
+
+  .clear-button {
+      color: blue;
+      background: white;
+      border: 1px solid blue;
+  }
+
+  .line {
+    white-space: nowrap;
+    display:inline-block;
+    padding: 5px;
+}
+
+.button:hover 
+{
+  background-color: blue;
+  color: white;
+}

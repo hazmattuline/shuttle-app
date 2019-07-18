@@ -41,18 +41,13 @@
     <br>
     <br>
 </form>
-  <app-fuel></app-fuel>
-   
-  <div class = "end-shift-container">
-    <app-endshift (showShift)=getShowShift($event) [endShift] = "timeToStart"></app-endshift>
-  </div>
 
   <p-accordion>
     <p-accordionTab header="Start Shift">
         <app-startshift></app-startshift>
     </p-accordionTab>
     <p-accordionTab header="Trips">
-        Content 2
+        <app-trips></app-trips>
     </p-accordionTab>
     <p-accordionTab header="End Shift">
         <app-fuel></app-fuel>
