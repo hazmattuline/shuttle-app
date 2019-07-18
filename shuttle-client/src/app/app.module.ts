@@ -28,7 +28,7 @@ import { TripsComponent } from './trips/trips.component';
     StartshiftComponent,
     EndshiftComponent,
     FuelComponent,
-    TripsComponent
+    TripsComponent,
   ],
   imports: [
     BrowserModule,
