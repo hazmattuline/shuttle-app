@@ -56,6 +56,12 @@ export class TripsComponent implements OnInit {
 
   setIsCurb(newIsCurb: boolean) {
     this.isCurb = newIsCurb;
+    // if (newIsCurb) {
+    //   return "{'border': '2px solid blue'}";
+    // }
+    // else {
+    //   "{'border': '2px solid gray'}";
+    // }
   }
 
   reset() {
