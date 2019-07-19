@@ -26,6 +26,8 @@ import {SplitButtonModule} from 'primeng/splitbutton';
 import {MessageService} from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
 import { CommonModule } from '@angular/common';
+import {ToggleButtonModule} from 'primeng/togglebutton';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({ 
   declarations: [
@@ -35,7 +37,8 @@ import { CommonModule } from '@angular/common';
     StartshiftComponent,
     EndshiftComponent,
     FuelComponent,
-    BannerDetailsComponent
+    BannerDetailsComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { CommonModule } from '@angular/common';
     AutoCompleteModule,
     SplitButtonModule,
     ToastModule,
-    CommonModule
+    CommonModule,
+    ToggleButtonModule
   ],
   providers: [
     DatePipe,

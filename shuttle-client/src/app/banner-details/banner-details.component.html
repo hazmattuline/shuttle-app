@@ -1,13 +1,25 @@
 <div class="background" >
+    <br>
+    <br>
   Vehicle: 
-  <p-selectButton class="pSelectButtonStyle" [options]="bailey" [(ngModel)]="selectedType"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle" [options]="holley" [(ngModel)]="selectedType"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle" [options]="dixie" [(ngModel)]="selectedType"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="bailey" [(ngModel)]="selectedType" (onChange)="verify('BAILEY')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="holley" [(ngModel)]="selectedType" (onChange)="verify('HOLLY')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="dixie" [(ngModel)]="selectedType"  (onChange)="verify('DIXIE')"></p-selectButton>
 
       Rental: 
   <p-checkbox [(ngModel)]="checked" binary="true"></p-checkbox>
-  <p-button  type="button" (onClick)="submit(); changeActive()" styleClass="ui-button-action" [label]="(gpsService.isActive | async) ? 'Deactivate' : 'Activate'"></p-button>
-  Driver: {{driverName}}
+  <p-button  type="button" *ngIf="this.toShow"  (onClick)="submit(); changeActive()" styleClass="ui-button-action" [label]="(gpsService.isActive | async) ? 'Deactivate' : 'Activate'"></p-button>
+  <p-button  type="button" *ngIf="this.toShow == false"  (onClick)="submit(); changeActive()" styleClass="ui-button-action" [label]="(gpsService.isActive | async) ? 'Activate' : 'Deactivate'"></p-button>
+
+  <div class="move">
+  <i class="pi pi-cog " >  Driver: {{driverName}} </i><br>
+  </div>
+  <div class="move1">
+  <button  pButton type="button" label="Logout"  class="ui-button-rounded"></button>
+  </div>
+  <br>
+  <br>
 
 
 </div>
+

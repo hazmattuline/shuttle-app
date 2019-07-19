@@ -23,8 +23,8 @@ export class ShuttleApiService {
   sendComment(comment: DayComment): Observable<DayComment> {
     return this.http.post<DayComment>(Notes, comment);
   }
-  getVehicleOptions(): Observable<Shuttle[]> {
-    return this.http.get<Shuttle[]>(AllShuttles);
+  getVehicleOptions(value): Observable<Shuttle[]> {
+    return this.http.get<Shuttle[]>(AllShuttles + value);
   }
 
   submitTrip(trip: Trip): Observable<Trip> {

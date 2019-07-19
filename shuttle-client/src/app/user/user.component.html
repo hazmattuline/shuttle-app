@@ -1,3 +1,10 @@
+<div *ngIf="this.currentTime >= 17 || this.currentTime < 7">
+
+  <app-message></app-message>
+</div>
+
+
+<div *ngIf="this.currentTime < 17 && this.currentTime >= 7">
 <meta name="viewport" content="width=500, user-scalable=0" />
 <div style="text-align:center">
   <br>
@@ -6,4 +13,5 @@
  </div>
  </div>
  </div>
+</div>
  <router-outlet></router-outlet>

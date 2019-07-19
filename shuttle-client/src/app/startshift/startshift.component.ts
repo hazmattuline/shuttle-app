@@ -16,14 +16,6 @@ import { CommonModule } from '@angular/common';
 
 
 export class StartshiftComponent implements OnInit {
-tempMileage: string = '';
-comments: string = '';
-
-
-condition: string;
-good: SelectItem[];
-fair: SelectItem[];
-bad: SelectItem[];
 
 
 constructor(private messageService: MessageService, private fb: FormBuilder, private gpsService: GPSService, public shuttleService: ShuttleService) {
@@ -42,35 +34,39 @@ constructor(private messageService: MessageService, private fb: FormBuilder, pri
     ];
 
 }
+tempMileage: string = '';
+comments: string = '';
+
+
+condition: string;
+good: SelectItem[];
+fair: SelectItem[];
+bad: SelectItem[];
 
   date: string;
 
 
   disabled = true;
 
+driver = 1;
+
+mileage: number;
+
+vehicleId: number;
+
 
   getDate() {
     this.date = this.shuttleService.getDate();
   }
 
- getVehicles() {
-  this.shuttleService.vehicleOptions();
-  }
 
 ngOnInit() {
-  this.getVehicles();
   this.getDate();
  }
 
  toggleDisabled() {
   this.disabled = !this.disabled;
 }
-
-driver = 1;
-
-mileage: number;
-
-vehicleId: number;
 
 submitStartData(info: string) {
   this.vehicleId = this.gpsService.getShuttleId();
@@ -84,9 +80,9 @@ submitStartData(info: string) {
 }
 verify(status:string){
   console.log(status);
-if (status === 'fair' || status === 'bad'){
-  this.toggleDisabled();
-}else{ 
+  if (status === 'fair' || status === 'bad'){
+  this.disabled = false;
+} else { 
   this.disabled = true;
 }
 }
