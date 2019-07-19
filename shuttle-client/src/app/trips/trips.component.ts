@@ -92,6 +92,7 @@ export class TripsComponent implements OnInit {
       this.updateTripDisplay();
     } else if (this.isChangeLatest) {
       this.updateTripDisplay();
+      this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber);
       this.isChangeLatest = false;
     }
     this.reset();
@@ -125,6 +126,9 @@ loadRow(rowNumber: number) {
   let trip: TripDisplay = this.trips[this.trips.length - rowNumber];
   if (rowNumber === 1) {
     this.isChangeLatest = true;
+    this.reloadRow();
+    this.tripNumber = this.tripNumber - 1;
+    console.log(trip);
    } //else {
   //   this.isChangeSecondmostLatest = true;
   // }

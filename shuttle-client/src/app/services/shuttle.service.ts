@@ -97,5 +97,15 @@ export class ShuttleService {
     this.shuttleApi.submitTrip(trip).subscribe();
   }
 
+  modifyTrip(tripId: number, tripPassengers: number, tripCurb: number) {
+    const trip: Trip = {
+      passengerCount: tripPassengers,
+      curbCount: tripCurb,
+      id: tripId
+    };
+    this.shuttleApi.submitTrip(trip).subscribe();
+  }
+
+
   
 }
