@@ -40,25 +40,25 @@
   </div>
   <div class="column">
     <div class="line">
-          <button pButton type="button" label="H1" class="route" (click) = "changeRoute(true)"></button>
+          <button pButton type="button" label="H1" class="route" [ngClass] =  "isTowardsH2 ? '' : 'endOfRoute'" (click) = "changeRoute(true)"></button>
     </div>
-    <div class="img-container" *ngIf="!isTowardsH2">
+    <div class="img-container" *ngIf="!isTowardsH2" (click) = "toggleRoute()">
         <img src="assets/point_left.png" alt="picture">
     </div>
-    <div class="img-container" *ngIf="isTowardsH2">
+    <div class="img-container" *ngIf="isTowardsH2" (click) = "toggleRoute()">
         <img src="assets/point_right.png" alt="picture" >
     </div>
     
     <div class="line">
-        <button pButton type="button" label="H2" class="route" (click) = "changeRoute(false)"></button>
+        <button pButton type="button" label="H2" class="route"  [ngClass] =  "isTowardsH2 ? 'endOfRoute' : ''" (click) = "changeRoute(false)"></button>
   </div>
      <button pButton type="button" [label]="isChangeLatest ? 'Update' : 'Start'" class = "start-button" (click) = "submitTripInfo()"></button><br><br>
      <div class="line">
-     <div class="input-container">Passenger: <input type="button" pInputText [ngStyle] =  "{'border': isCurb ? '1px solid black' : '1px solid blue'}" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/><br><br></div>
-     <div class="inpus-container">On Curb: <input type="button" pInputText [ngStyle] =  "{'border': isCurb ? '1px solid blue' : '1px solid black'}" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/><br></div>
+     <div class="input-container">Passengers: <input type="button"   pInputText [ngClass] =  "isCurb ? '' : 'showInput'" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/><br><br></div>
+     <div class="input-container">On Curb: <input type="button" pInputText [ngClass] =  "isCurb ? 'showInput' : ''" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/><br></div>
      </div>
-        <p-table  [value]="trips">
-            <ng-template pTemplate="header">
+        <p-table class = "tab" [value]="trips">
+            <ng-template class = "top-of-table" pTemplate="header">
                 <tr>                   
                     <th>Trip #</th>
                     <th>Route</th>

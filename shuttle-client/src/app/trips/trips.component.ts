@@ -117,6 +117,16 @@ changeRoute(isH1toH2: boolean) {
   }
 }
 
+toggleRoute() {
+  if (!this.isTowardsH2) {
+    this.route = 'H1 > H2';
+    this.isTowardsH2 = true;
+  } else {
+    this.route = 'H1 < H2';
+    this.isTowardsH2 = false;
+  }
+}
+
 reloadRow() {
   this.shuttleApiService.getTrip(this.date, this.gpsService.getShuttleId()).subscribe(loadedTrip => {
     console.log("loaded trip");
