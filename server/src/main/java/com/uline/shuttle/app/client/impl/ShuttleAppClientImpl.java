@@ -40,7 +40,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 	@Value("${shuttle.service.rc.url.post.coordinates}")
 	private String shuttlePostCoordinates;
 
-	@Value("${shuttle.service.rc.url.post.shuttleDayDetails.data}")
+	@Value("${shuttle.service.rc.url.post.trips.data}")
 	private String shuttleServiceForDayDetails;
 
 	@Value("${shuttle.service.rc.url.change.status}")
