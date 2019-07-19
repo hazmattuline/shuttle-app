@@ -52,7 +52,7 @@
     <div class="line">
         <button pButton type="button" label="H2" class="route" (click) = "changeRoute(false)"></button>
   </div>
-     <button pButton type="button" label="Start" class = "start-button" (click) = "submitTripInfo()"></button><br><br>
+     <button pButton type="button" [label]="isChangeLatest ? 'Update' : 'Start'" class = "start-button" (click) = "submitTripInfo()"></button><br><br>
      <div class="line">
      <div class="input-container">Passenger: <input type="button" pInputText (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/><br><br></div>
      <div class="input-container">On Curb: <input type="button" pInputText (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/><br></div>

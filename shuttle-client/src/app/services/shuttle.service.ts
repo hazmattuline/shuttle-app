@@ -96,4 +96,6 @@ export class ShuttleService {
     console.log(trip);
     this.shuttleApi.submitTrip(trip).subscribe();
   }
+
+  
 }

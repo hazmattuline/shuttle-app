@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
+import { ShuttleApiService } from '../services/shuttle-api.service';
+import { AnimationGroupPlayer } from '@angular/animations/src/players/animation_group_player';
 
 @Component({
   selector: 'app-trips',
@@ -15,16 +17,25 @@ export class TripsComponent implements OnInit {
   isCurb: boolean = false;
   trips: TripDisplay[] = [];
   isChangeLatest: boolean = false;
-  isChangeSecondmostLatest: boolean = false;
+  //isChangeSecondmostLatest: boolean = false;
   isTowardsH2: boolean = true;
+  loadedRowId: number;
 
-  constructor(private gpsService: GPSService, private shuttleService: ShuttleService) { }
+  constructor(private gpsService: GPSService, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService) { }
   date: string;
   getDate() {
     this.date = this.shuttleService.getDate();
   }
   ngOnInit() {
     this.getDate();
+  }
+
+  changeColor(element) {
+    if (element.style.backgroundColor === 'yellow') {
+      element.style.backgroundColor = 'gray';
+    } else {
+      element.style.backgroundColor = 'yellow';
+    }
   }
 
   submitNumber(inputNumber: number) {
@@ -53,17 +64,40 @@ export class TripsComponent implements OnInit {
     this.isCurb = false;
   }
 
+  updateTripDisplay() {
+    const trip: TripDisplay = {
+      tripNumber: this.tripNumber,
+      route: this.route,
+      passengers: this.passengerNumber,
+      curb: this.curbNumber,
+      rowNumber: 1
+    };
+    if (this.isChangeLatest) {
+      this.trips[this.trips.length - 1] = trip;
+    } else {
+      this.trips.push(trip);
+      if (this.trips.length > 2) {
+        this.trips.shift();
+      }
+      if (this.trips.length >= 2) {
+        this.trips[0].rowNumber = 2;
+      }
+    }
+    this.tripNumber = this.tripNumber + 1;
+  }
   submitTripInfo() {
-    if (!this.isChangeLatest && !this.isChangeSecondmostLatest) {
+    if (!this.isChangeLatest) {  // && !this.isChangeSecondmostLatest
       this.shuttleService.createTrip(this.gpsService.getShuttleId(),
       this.passengerNumber, this.curbNumber, this.date);
       this.updateTripDisplay();
-      this.reset();
     } else if (this.isChangeLatest) {
+      this.updateTripDisplay();
       this.isChangeLatest = false;
-    } else {
-      this.isChangeSecondmostLatest = false;
     }
+    this.reset();
+    //else {
+    //   this.isChangeSecondmostLatest = false;
+    // }
 }
 
 changeRoute(isH1toH2: boolean) {
@@ -76,35 +110,30 @@ changeRoute(isH1toH2: boolean) {
   }
 }
 
+reloadRow() {
+  this.shuttleApiService.getTrip(this.date, this.gpsService.getShuttleId()).subscribe(loadedTrip => {
+    console.log("loaded trip");
+    this.curbNumber = loadedTrip.curbCount;
+    this.passengerNumber = loadedTrip.passengerCount;
+    this.isCurb = false;
+    this.loadedRowId = loadedTrip.id;
+  });
+
+}
+
 loadRow(rowNumber: number) {
   let trip: TripDisplay = this.trips[this.trips.length - rowNumber];
   if (rowNumber === 1) {
     this.isChangeLatest = true;
-  } else {
-    this.isChangeSecondmostLatest = true;
-  }
-  this.passengerNumber = trip.passengers;
-  this.curbNumber = trip.curb;
+   } //else {
+  //   this.isChangeSecondmostLatest = true;
+  // }
+  this.reloadRow();
+  this.tripNumber = this.tripNumber - 1;
   console.log(trip);
 }
 
-updateTripDisplay() {
-  const trip: TripDisplay = {
-    tripNumber: this.tripNumber,
-    route: this.route,
-    passengers: this.passengerNumber,
-    curb: this.curbNumber,
-    rowNumber: 1
-  };
-  this.tripNumber = this.tripNumber + 1;
-  this.trips.push(trip);
-  if (this.trips.length > 2) {
-    this.trips.shift();
-  }
-  if (this.trips.length >= 2) {
-    this.trips[0].rowNumber = 2;
-  }
-}
+
 }
 
 export interface TripDisplay {
