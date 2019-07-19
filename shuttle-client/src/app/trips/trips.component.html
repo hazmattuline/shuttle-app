@@ -55,7 +55,7 @@
      <button pButton type="button" [label]="isChangeLatest ? 'Update' : 'Start'" class = "start-button" (click) = "submitTripInfo()"></button><br><br>
      <div class="line">
      <div class="input-container">Passenger: <input type="button" pInputText [ngStyle] =  "{'border': isCurb ? '1px solid black' : '1px solid blue'}" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/><br><br></div>
-     <div class="input-container">On Curb: <input type="button" pInputText [ngStyle] =  "{'border': isCurb ? '1px solid blue' : '1px solid black'}" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/><br></div>
+     <div class="inpus-container">On Curb: <input type="button" pInputText [ngStyle] =  "{'border': isCurb ? '1px solid blue' : '1px solid black'}" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/><br></div>
      </div>
         <p-table  [value]="trips">
             <ng-template pTemplate="header">

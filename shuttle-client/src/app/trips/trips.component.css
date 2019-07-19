@@ -64,17 +64,19 @@
       width:150px;
   }
 
+  .line {
+    white-space: nowrap;
+    display:inline-block;
+    padding: 5px;
+}
+
   .clear-button {
       color: blue;
       background: white;
       border: 1px solid blue;
   }
 
-  .line {
-    white-space: nowrap;
-    display:inline-block;
-    padding: 5px;
-}
+
 
 .button:hover 
 {

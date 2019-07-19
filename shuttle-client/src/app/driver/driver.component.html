@@ -1,14 +1,8 @@
 
-  <div class = "start-shift-container">
-    <app-startshift (showShift)=getShowShift($event) [startShift] = "timeToStart"></app-startshift>
-  </div>
+
   
   <div style="text-align:center">
-    <label><b>PLEASE ACTIVATE YOUR VEHICLE BEFORE YOU BEGIN DRIVING</b></label>
-    <br>
-    <br>
-    <button id = "activeButton" pButton  (click)="changeActive()" [label]="(gpsService.isActive | async) ? 'Deactivate Shuttle' : 'Activate Shuttle'"></button> 
-  <br>
+    
   
   <div class = "bringUp"></div>
   <form [formGroup]="dayDetailForm">
