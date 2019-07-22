@@ -93,6 +93,23 @@
     cursor: pointer;
   }
 
+  .accordion-tab-styling {
+    height: 30px;
+    /* font-weight: bold !important; */
+    font-size: 14px;
+    text-align: left;
+    content: none;
+  }
+
+  .accordion-styling.ui-accordion .ui-accordion-header span.fa {
+    display: none;
+    content: none;
+  }
+
+  .pi-chevron-right:before {
+    content: "" !important;
+  }
+
   
 .button:hover 
 {

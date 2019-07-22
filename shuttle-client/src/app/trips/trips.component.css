@@ -1,6 +1,7 @@
 .column {
     float: left;
     width: 50%;
+    text-align: center !important;
   }
   
   /* Clear floats after the columns */
@@ -16,15 +17,15 @@
 
   .number-pad {
     display:flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center !important;
+    align-items: center !important;
     height: 50px;
     width: 50px;
     border-radius: 100%;
     border: 1px solid black;
     color: black;
     background-color: white;
-    text-align: center;
+    text-align: center !important;
     font-family: "Avant Garde Medium" !important;
   }
 
@@ -35,7 +36,7 @@
   .route {
     display: flex;
     height: 35px;
-    justify-content: center;
+    justify-content: center !important;
     width: 35px;
     min-width: unset !important;
     border-radius: 100%;
@@ -127,6 +128,8 @@
   color: rgb(18, 124, 181);
   background-color: white;
 }
+
+
 
 
 
