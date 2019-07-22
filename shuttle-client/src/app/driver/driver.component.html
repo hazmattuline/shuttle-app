@@ -1,60 +1,13 @@
 
-  <!-- <div class = "start-shift-container">
-    <app-startshift (showShift)=getShowShift($event) [startShift] = "timeToStart"></app-startshift>
-  </div>
-   -->
-  <!-- <div style="text-align:center">
-    <label><b>PLEASE ACTIVATE YOUR VEHICLE BEFORE YOU BEGIN DRIVING</b></label>
-    <br>
-    <br>
-    <button id = "activeButton" pButton  (click)="changeActive()" [label]="(gpsService.isActive | async) ? 'Deactivate Shuttle' : 'Activate Shuttle'"></button> 
-  <br>
-  
-  <div class = "bringUp"></div>
-  <form [formGroup]="dayDetailForm">
-    <h3 class="first">Input the Number of Passengers</h3>
-    <div class = "trip-container">
-    <div class="trip-area">
-      <div>
-        <label class = "trip-label">Passengers</label>
-        <p-dropdown appendTo="body" formControlName = "passengerInputs" [options]="passengerInputs" ></p-dropdown>
-      </div>
-      <div>
-          <label class = "trip-label">Curb</label>
-          <p-dropdown appendTo="body" formControlName = "curbInputs" [options]="curbInputs" ></p-dropdown>
-      </div>
-      <div>
-            <label class = "trip-label"></label>
-            <button pButton (click)="submitPassengerInfo();" label = "Submit"></button>
-      </div>
-    </div>
-  </div>
-</form>
-  
-  <br>
-  <form [formGroup]="commentForm">
-  <label class = "trip-label">Comments</label>
-  <input type="text" formControlName = "commentMessage" pInputText />
-    <br>
-    <br>
-    <button pButton  (click)="submitComment()" label="Enter"></button>
-    <br>
-    <br>
-</form>
-  <app-fuel></app-fuel>
-   
-  <div class = "end-shift-container">
-    <app-endshift (showShift)=getShowShift($event) [endShift] = "timeToStart"></app-endshift>
-  </div> -->
 <app-banner-details></app-banner-details>
   <p-accordion>
-    <p-accordionTab header="Start Shift">
+    <p-accordionTab [disabled]="this.shuttleService.disabled" header="Start Shift">
         <app-startshift></app-startshift>
     </p-accordionTab>
-    <p-accordionTab header="Trips">
+    <p-accordionTab [disabled]="this.shuttleService.disabled" header="Trips">
         Content 2
     </p-accordionTab>
-    <p-accordionTab header="End Shift">
+    <p-accordionTab [disabled]="this.shuttleService.disabled" header="End Shift">
         <app-fuel></app-fuel>
       <app-endshift></app-endshift>    
     </p-accordionTab>

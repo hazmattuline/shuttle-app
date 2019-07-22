@@ -7,7 +7,7 @@
   <p-selectButton class="pSelectButtonStyle" [options]="dixie" [(ngModel)]="selectedType"  (onChange)="verify('DIXIE')"></p-selectButton>
 
       Rental: 
-  <p-checkbox [(ngModel)]="checked" binary="true"></p-checkbox>
+  <p-checkbox [(ngModel)]="checked" binary="true" (onChange)="append()"></p-checkbox>
   <p-button  type="button" *ngIf="this.toShow"  (onClick)="submit(); changeActive()" styleClass="ui-button-action" [label]="(gpsService.isActive | async) ? 'Deactivate' : 'Activate'"></p-button>
   <p-button  type="button" *ngIf="this.toShow == false"  (onClick)="submit(); changeActive()" styleClass="ui-button-action" [label]="(gpsService.isActive | async) ? 'Activate' : 'Deactivate'"></p-button>
 

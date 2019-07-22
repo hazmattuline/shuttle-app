@@ -1,6 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { ShuttleApiService } from './shuttle-api.service';
-import { Subject, Observable, Subscription } from 'rxjs';
 import { Trip } from '../models/trip.model';
 import { SelectItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
@@ -8,7 +7,6 @@ import { DatePipe } from '@angular/common';
 import { Day } from '../models/day.model';
 import { DayComment } from '../models/day-comment.model';
 import { Shuttle } from '../models/shuttle.model';
-import { getQueryValue } from '@angular/core/src/view/query';
 
 @Injectable()
 export class ShuttleService {
@@ -16,11 +14,9 @@ export class ShuttleService {
   constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe) {}
   myDate = new Date();
   date: string;
-  
-  private _vehicleDropDown: Subject<Shuttle[]> = new Subject();
-  public vehicleDropDown: Observable<Shuttle[]> = this._vehicleDropDown.asObservable();
-  
-  status: Shuttle;
+  value: Shuttle;
+  disabled: boolean = true;
+
   static getDateISOStringForDate(date: Date): string | undefined {
     if (date) {
       return date.toLocaleDateString();
@@ -75,12 +71,10 @@ export class ShuttleService {
 
 
     vehicleOptions(value) {
-    this.shuttleApi.getVehicleOptions(value).subscribe(vehicleDropDown =>{console.log(vehicleDropDown);
-                                                                                 this.setValue(vehicleDropDown);
-
+    this.shuttleApi.getVehicleOptions(value).subscribe(vehicleDropDown =>{this.setValue(vehicleDropDown);
     });
   }
-  value: Shuttle;
+  
   setValue(value){
     this.value = value;
   }

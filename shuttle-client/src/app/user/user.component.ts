@@ -25,7 +25,7 @@ export class UserComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.shuttleTrackingService.startShuttleTracking();
     this.listenForShuttleMarkers();
-    console.log(this.currentTime = new Date().getHours());
+    this.currentTime = new Date().getHours();
 
   }
 

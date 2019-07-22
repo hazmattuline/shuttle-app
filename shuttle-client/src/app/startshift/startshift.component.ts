@@ -79,7 +79,6 @@ submitStartData(info: string) {
 
 }
 verify(status:string){
-  console.log(status);
   if (status === 'fair' || status === 'bad'){
   this.disabled = false;
 } else { 

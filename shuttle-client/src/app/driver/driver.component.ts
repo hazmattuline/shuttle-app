@@ -18,17 +18,13 @@ export class DriverComponent implements OnInit, OnDestroy {
   timeToStart: boolean;
   isActive = false;
   showDriverShift = true;
-
-  //info: DriverInfo[];
   passengerInputs: SelectItem[];
   curbInputs: SelectItem[];
-  //passengerInput: DriverInput;
-  //curbInput: DriverInput;
-  date: string;
+
   dayDetailForm: FormGroup;
   commentForm: FormGroup;
 
-  constructor(private fb: FormBuilder, public gpsService: GPSService, private shuttleService: ShuttleService) {
+  constructor(private fb: FormBuilder, public gpsService: GPSService, public shuttleService: ShuttleService) {
     this.passengerInputs = [
       { label: 'Select', value: null },
       { label: '0', value: { id: 1 } },
@@ -57,11 +53,8 @@ export class DriverComponent implements OnInit, OnDestroy {
       { label: '4', value: { id: 5 } },
     ];
   }
-  getDate() {
-    this.date = this.shuttleService.getDate();
-  }
+
 ngOnInit() {
-  this.getDate();
   this.setupForms();
   }
 
@@ -84,17 +77,6 @@ private setupForms() {
   });
 }
 
-submitPassengerInfo() {
-    const shiftValue = this.dayDetailForm.value;;
-    this.shuttleService.createTrip(this.gpsService.getShuttleId(),
-      shiftValue.passengerInputs.id - 1, shiftValue.curbInputs.id - 1, this.date);
-
-}
-
-  submitComment() {
-    const commentValue = this.commentForm.value;
-    this.shuttleService.createCommentInfo(this.gpsService.getShuttleId(), this.date, commentValue.commentMessage);
-  }
 
   getShowShift(showShift: boolean) {
     this.showDriverShift = showShift;
@@ -105,10 +87,3 @@ submitPassengerInfo() {
   }
 
 }
-// export interface DriverInfo {
-//   numPassengers;
-// }
-
-// interface DriverInput {
-//   numPassengers: number;
-// }
