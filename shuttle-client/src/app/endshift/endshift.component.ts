@@ -42,17 +42,17 @@ constructor(private fb: FormBuilder, public shuttleService: ShuttleService, priv
     {label: 'Heather Iwinski', value: {id: 4}},
     {label: 'Melissa Zaugra', value: {id: 5}},
   ];
-  
+
   this.conditionOptions = [
     {label: 'Select', value: null},
-    {label: 'Good', value: {id: "GOOD"}},
-    {label: 'Fair', value: {id: "FAIR"}},
-    {label: 'Poor', value: {id: "POOR"}},
+    {label: 'Good', value: {id: 'GOOD'}},
+    {label: 'Fair', value: {id: 'FAIR'}},
+    {label: 'Poor', value: {id: 'POOR'}},
   ];
 
 }
 
-  
+
   @Input()
   endShift: DriverComponent;
   driverOptions: SelectItem[];

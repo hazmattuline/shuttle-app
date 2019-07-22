@@ -19,6 +19,7 @@ import { DatePipe } from '@angular/common';
 import {AccordionModule} from 'primeng/accordion';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import { AuthModule } from 'common-component-lib';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     HttpClientModule,
     AccordionModule,
     InputTextareaModule,
-    SelectButtonModule
+    SelectButtonModule,
+    AuthModule.forRoot()
   ],
   providers: [
     DatePipe,

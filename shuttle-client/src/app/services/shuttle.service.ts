@@ -14,10 +14,10 @@ export class ShuttleService {
   constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe) {}
   myDate = new Date();
   date: string;
-  
+
   private _vehicleDropDown: Subject<SelectItem[]> = new Subject();
   public vehicleDropDown: Observable<SelectItem[]> = this._vehicleDropDown.asObservable();
-  
+
   static getDateISOStringForDate(date: Date): string | undefined {
     if (date) {
       return date.toLocaleDateString();
@@ -31,16 +31,16 @@ export class ShuttleService {
       selectItems = data.map(dataItem => {
         return {label: dataItem[labelFieldName], value: valueFieldName ? dataItem[valueFieldName] : dataItem};
       });
-  
+
       selectItems.unshift({label: '', value: null});
     }
     return selectItems;
   }
 
-   getDate(){
+   getDate() {
     return ShuttleService.getDateISOStringForDate(this.myDate);
    }
-  
+
   createStartInfo(driverId: number, startVehicleId: number, mileage: number, condition: string, startDate: string) {
     const day: Day = {
       vehicleId: startVehicleId,
@@ -56,11 +56,12 @@ export class ShuttleService {
       vehicleId: commentVehicleId,
       date: commentDate,
       message: commentMessage
-    }
+    };
     this.shuttleApi.sendComment(comment).subscribe();
   }
 
-    createEndInfo(driverId: number, endVehicleId: number, mileage: number, condition: string, quantity: number, cost: number, endDate: string) {
+    createEndInfo(driverId: number, endVehicleId: number, mileage: number, condition: string,
+                  quantity: number, cost: number, endDate: string) {
     const day: Day = {
       vehicleId: endVehicleId,
       endMileage: mileage,
@@ -72,7 +73,7 @@ export class ShuttleService {
     this.shuttleApi.submitDay(day).subscribe();
   }
     vehicleOptions() {
-    this.shuttleApi.getVehicleOptions().subscribe(vehicleDropDown =>{
+    this.shuttleApi.getVehicleOptions().subscribe(vehicleDropDown => {
       this._vehicleDropDown.next(ShuttleService.buildSelectItemsForDropdown(vehicleDropDown, 'name', 'vehicleID'));
     });
   }
