@@ -20,6 +20,7 @@ import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
+import rest.models.response.RouteResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 
@@ -51,6 +52,9 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
   @Value("${shuttle.service.rc.url.get.trip}")
   private String getTripURL;
+
+  @Value("${shuttle.service.rc.url.get.routes}")
+  private String getRoutesURL;
 
   @Autowired
   public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
@@ -89,6 +93,19 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             HttpMethod.PATCH,
             new HttpEntity<>(coordinateRequest),
             new ParameterizedTypeReference<CoordinateResponse>() {})
+        .getBody();
+  }
+
+  @Override
+  public List<RouteResponse> getRoutes() {
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + getRoutesURL);
+
+    return restTemplate
+        .exchange(
+            builder.build().toUriString(),
+            HttpMethod.GET,
+            new HttpEntity<>(null, null),
+            new ParameterizedTypeReference<List<RouteResponse>>() {})
         .getBody();
   }
 

@@ -9,6 +9,7 @@ import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
+import rest.models.response.RouteResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 
@@ -17,6 +18,8 @@ public interface ShuttleAppClient {
   ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id);
 
   CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest);
+
+  List<RouteResponse> getRoutes();
 
   ShuttleDayDetailsResponse getShuttleDayDetails(ShuttleDayDetailsRequest shuttledDayRequest);
 

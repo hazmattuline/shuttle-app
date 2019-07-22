@@ -21,6 +21,7 @@ import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
+import rest.models.response.RouteResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 
@@ -50,6 +51,13 @@ public class ShuttleAppController {
       @PathVariable("vehicleID") Integer vehicleID,
       @RequestBody CoordinateRequest coordinateRequest) {
     return shuttleAppService.enRoute(vehicleID, coordinateRequest);
+  }
+
+  @ExecutionTime("ShuttleAppService.getRoutes")
+  @ApiOperation(value = "getting the routes from the database")
+  @GetMapping(value = "/shuttle-routes")
+  public List<RouteResponse> getRoutes() {
+    return shuttleAppService.getRoutes();
   }
 
   @ExecutionTime("ShuttleAppService.getShuttleDayDetails")

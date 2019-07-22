@@ -13,6 +13,7 @@ import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
+import rest.models.response.RouteResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 
@@ -34,6 +35,11 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   @Override
   public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
     return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
+  }
+
+  @Override
+  public List<RouteResponse> getRoutes() {
+    return shuttleAppClient.getRoutes();
   }
 
   @Override
