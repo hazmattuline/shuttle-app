@@ -3,6 +3,7 @@ import { SelectItem } from 'primeng/api';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import {AccordionModule} from 'primeng/accordion';
 
 @Component
   ({

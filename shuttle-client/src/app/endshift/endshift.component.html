@@ -1,28 +1,51 @@
-
-<h3 class="first">End Of Shift</h3>
+<br>
 <div class="info-container">
-  <form [formGroup]="endShiftForm">
     <div class="shift-info">
-      <div>
-        <label class="info-label">Driver</label>
-        <p-dropdown appendTo="body" formControlName="driver" [options]="driverOptions"></p-dropdown>
+      <div class="column1">
+        <div class="block">
+            <div class="info-label">Gallons:</div>
+            <div class="inputText"><input type="number" [(ngModel)]="quantity" pInputText /></div>
+          </div>
+          <div class="block">
+              <div class="info-label">Cost:</div>
+              <div class="inputText"><input type="number" [(ngModel)]="cost" width="10px" pInputText /></div>
+            </div>
+            <div>
+                <div class="info-label">Mileage:</div>
+                <div class="inputText"><input type="number" [(ngModel)]="mileage" pInputText /></div>
+              </div>
       </div>
-      <div>
-        <label class="info-label">Vehicle</label>
-        <p-dropdown appendTo="body" formControlName="vehicle" [options]="shuttleService.vehicleDropDown | async "></p-dropdown>
+      <div class="column2">
+     
+      <div class="buttons">
+          <div class="info-label">Condition:</div>
+          <p-selectButton class="pSelectButtonStyle" [options]="good" [(ngModel)]="condition"></p-selectButton>
+          <p-selectButton class="pSelectButtonStyle" [options]="fair" [(ngModel)]="condition"></p-selectButton>
+          <p-selectButton class="pSelectButtonStyle" [options]="bad" [(ngModel)]="condition"></p-selectButton>
       </div>
+      <br>
       <div>
-        <label class="info-label">Mileage</label>
-        <input type="text" formControlName="mileage" pInputText />
-      </div>
-      <div>
-        <label class="info-label">Condition</label>
-        <p-dropdown appendTo="body" formControlName="condition" [options]="conditionOptions"></p-dropdown>
-      </div>
-      <div>
-        <label class="info-label"></label>
-        <button pButton (click)="submitEndData();" label="Submit"></button>
+        Comments:
+        <textarea pInputTextArea [(ngModel)]="comments" cols="30" rows="4"></textarea>
       </div>
     </div>
-  </form>
+      
+    </div>
+    <br>
+    <div class="submit">
+        <label class="info-label"></label>
+        <button pButton (click)="submitEndData();" label="Save"></button>
+      </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<br>

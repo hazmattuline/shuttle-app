@@ -1,19 +1,15 @@
-<h3 class="first">Fuel</h3>
-<div class="info-container">
-  <form [formGroup]="fuelForm">
-    <div class="fuel-info">
-      <div>
-        <label class="info-label">Quantity</label>
-        <input type="text" formControlName="quantity" pInputText />
-      </div>
-      <div>
-        <label class="info-label">Cost</label>
+<div class="column1"><h3 class="first">Fuel</h3>
+  <form [formGroup]="endShiftForm">
+    
+        <label>Quantity</label>
+        <input type="text" name="Quantity" formControlName="quantity" pInputText />
+      
+    <br>
+      
+        Cost
         <input type="text" formControlName="cost" pInputText />
-      </div>
-      <div>
-        <label class="info-label"></label>
-        <button pButton (click)="submitFuelData();" label="Submit"></button>
-      </div>
-    </div>
+      
+    <br>
+      
   </form>
 </div>

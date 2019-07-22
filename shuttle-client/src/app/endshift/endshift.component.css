@@ -1,18 +1,52 @@
 .shift-info {
     display: flex;
     text-align: center;
-    justify-content: space-between;
-    align-items: center;
+    align-items:center;
   }
   
-  .info-container {
-    text-align:center; 
+  /* .info-container {
+    
     margin: 0 auto; 
     width: 656px;
-  }
+  } */
   
   .info-label {
-    display: block; 
-    text-align: left;
-    width: 100px;
+    width: 30%;
+    float: left;
+    text-align: right;
+    padding-top: 12px;
   }
+  
+  .column2 {
+    float: left;
+  }
+
+  .column1 {
+    float:left;
+    width:50%;
+  }
+
+  .submit {
+    margin-bottom: 5%;
+    text-align: right;
+  }
+
+  .pSelectButtonStyle{
+    margin-right: 1%;
+    margin-left: 1%;
+  }
+
+  .inputText {
+    width: 65%;
+    margin-left: 10px;
+    float:left;
+    margin-bottom: 15px;
+  }
+
+  .buttons {
+    display: inline-flex;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+

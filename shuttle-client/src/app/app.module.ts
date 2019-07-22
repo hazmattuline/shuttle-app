@@ -17,7 +17,9 @@ import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
 import { EndshiftComponent } from './endshift/endshift.component';
 import { DatePipe } from '@angular/common';
 import { FuelComponent } from './fuel/fuel.component';
-import { DriverNewComponent } from './driver-new/driver-new.component';
+import {AccordionModule} from 'primeng/accordion';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [
@@ -26,8 +28,7 @@ import { DriverNewComponent } from './driver-new/driver-new.component';
     UserComponent,
     StartshiftComponent,
     EndshiftComponent,
-    FuelComponent,
-    DriverNewComponent
+    FuelComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +40,10 @@ import { DriverNewComponent } from './driver-new/driver-new.component';
     ButtonModule,
     InputTextModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AccordionModule,
+    InputTextareaModule,
+    SelectButtonModule
   ],
   providers: [
     DatePipe,

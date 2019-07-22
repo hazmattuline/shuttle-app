@@ -17,3 +17,8 @@
     text-align: left;
     width: 100px;
   }
+
+  .column1 {
+    float:left;
+    width:50%;
+  }
