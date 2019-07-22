@@ -10,6 +10,10 @@
     clear: both;
   }
 
+  .tab {
+    width: 75% !important;
+  }
+
   .number-pad {
     display:flex;
     justify-content: center;
@@ -30,12 +34,20 @@
 
   .route {
     display: flex;
-    height: 50px;
+    height: 35px;
     justify-content: center;
-    width: 50px;
+    width: 35px;
     min-width: unset !important;
     border-radius: 100%;
     font-family: "Avant Garde Medium" !important;
+    font-size: 22px !important;
+    
+  }
+
+  .center-vertically {
+    /*display: table-cell !important;*/
+    height: 40px !important;
+    vertical-align: middle !important;
   }
 
   .img-container img {
@@ -54,8 +66,11 @@
   }
 
   .start-button {
-    border-radius: 20%;
-    background-color: green !important;
+    border-radius: 10% !important;
+    background-color: rgb(60,147,20) !important;
+    height: 35px !important;
+    font-size: 20px;
+    width: 125px !important;
   }
 
   .input-container {
@@ -67,7 +82,7 @@
   input {
       width:150px;
       font-family: "Avant Garde Medium" !important;
-      font-size: 18;
+      
       
   }
 
@@ -100,6 +115,12 @@
   border-color: #1f9bde;
   outline: 0 none;
   box-shadow: 0 0 5px 1px rgba(31, 155, 222, 0.5);
+}
+
+.normal-input {
+  font-size: 18px;
+  text-align: right;
+  width: 300px;
 }
 
 .endOfRoute {
