@@ -6,3 +6,6 @@ export const AllShuttles = '/shuttles?status=';
 export const Days = '/shuttle-days';
 export const Status = '/status';
 export const Notes = '/shuttle-notes';
+export const ShuttleDate = '?date=';
+export const Vehicle = '&vehicle=';
+

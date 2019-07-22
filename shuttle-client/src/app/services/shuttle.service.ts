@@ -13,9 +13,9 @@ export class ShuttleService {
 
   constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe) {}
   myDate = new Date();
-  date: string;
-  value: Shuttle;
+  vehicleValue: Shuttle;
   disabled: boolean = true;
+  startMileage: number;
 
   static getDateISOStringForDate(date: Date): string | undefined {
     if (date) {
@@ -24,22 +24,10 @@ export class ShuttleService {
     return undefined;
   }
 
-   static buildSelectItemsForDropdown(data: any[], labelFieldName: string, valueFieldName?: string): SelectItem[] {
-    let selectItems = [];
-    if (data && data.length > 0) {
-      selectItems = data.map(dataItem => {
-        return {label: dataItem[labelFieldName], value: valueFieldName ? dataItem[valueFieldName] : dataItem};
-      });
-  
-      selectItems.unshift({label: '', value: null});
-    }
-    return selectItems;
-  }
-
    getDate(){
     return ShuttleService.getDateISOStringForDate(this.myDate);
    }
-  
+
   createStartInfo(driverId: number, startVehicleId: number, mileage: number, condition: string, startDate: string) {
     const day: Day = {
       vehicleId: startVehicleId,
@@ -71,17 +59,28 @@ export class ShuttleService {
 
 
     vehicleOptions(value) {
-    this.shuttleApi.getVehicleOptions(value).subscribe(vehicleDropDown =>{this.setValue(vehicleDropDown);
+    this.shuttleApi.getVehicleOptions(value).subscribe(vehicles =>{this.setVehicles(vehicles);
     });
   }
-  
-  setValue(value){
-    this.value = value;
-  }
-  getValue(){
-    return this.value;
+
+  getDayInfo(date, vehicleId){
+    this.shuttleApi.getDayInfo(date, vehicleId).subscribe(dayInfo =>{console.log(dayInfo); this.setMileage(dayInfo)});
   }
 
+  setMileage(dayInfo){
+    this.startMileage = dayInfo.startMileage;
+  }
+
+  getMileage(){
+    return this.startMileage;
+  }
+
+  setVehicles(vehicles){
+    this.vehicleValue = vehicles;
+  }
+  getVehicles(){
+    return this.vehicleValue;
+  }
 
   createFuelInfo(quantity: number, cost: number, fuelDate: string, fuelVehicleId: number ) {
     const day: Day = {

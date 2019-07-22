@@ -87,9 +87,6 @@ export class GPSService implements OnDestroy {
     }
   }
 
-  setShuttleId(id:number){
-    this.shuttleId = id;
-  }
   stop() {
     this.stopGPSTracking();
     this.shuttleApiService.changeStatus('I', this.shuttle.vehicleID).subscribe(newShuttle => {

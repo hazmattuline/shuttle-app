@@ -3,6 +3,7 @@ import { SelectItem } from 'primeng/api';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { Shuttle } from '../models/shuttle.model';
+import { ShuttleApiService } from '../services/shuttle-api.service';
 
 @Component({
   selector: 'app-banner-details',
@@ -12,10 +13,10 @@ import { Shuttle } from '../models/shuttle.model';
 })
 export class BannerDetailsComponent implements OnInit {
 
-  constructor( public gpsService: GPSService, public shuttleService: ShuttleService) {
+  constructor( public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService) {
+    
     this.bailey = [
   {label: 'BAILEY', value: 'BAILEY'}
-
   ],
 
   this.holley = [
@@ -23,11 +24,12 @@ export class BannerDetailsComponent implements OnInit {
   ],
 
   this.dixie = [
-
     {label: 'DIXIE', value: 'DIXIE'}
   ];
 
   }
+
+
   driverName = 'Rob Kenlay';
   checked = false;
 
@@ -36,13 +38,16 @@ export class BannerDetailsComponent implements OnInit {
   toShow: boolean;
 
   selectedType: string;
+
+
   bailey: SelectItem[];
   holley: SelectItem[];
   dixie: SelectItem[];
-
-  value: Shuttle;
+  possibleVehicles:Shuttle[] = [];
+  selectedVehicle: Shuttle;
 
   changeActive() {
+
     if (this.gpsService.getIsGPSActive()) {
       this.gpsService.stopGPSTracking();
     } else {
@@ -55,62 +60,55 @@ export class BannerDetailsComponent implements OnInit {
 
     this.name = this.selectedType.toString();
     if (this.name === 'BAILEY' && this.checked === false) {
-      this.gpsService.setShuttleId(1);
+      this.gpsService.setTrackingVehicle(1);
     } else if (this.name === 'DIXIE' && this.checked === false) {
-      this.gpsService.setShuttleId(2);
+      this.gpsService.setTrackingVehicle(2);
     } else if (this.name === 'HOLLY' && this.checked === false) {
-      this.gpsService.setShuttleId(3);
+      this.gpsService.setTrackingVehicle(3);
     } else if (this.name === 'BAILEY' && this.checked === true) {
-      this.gpsService.setShuttleId(4);
+      this.gpsService.setTrackingVehicle(4);
     } else if (this.name === 'DIXIE' && this.checked === true) {
-      this.gpsService.setShuttleId(5);
+      this.gpsService.setTrackingVehicle(5);
     } else if (this.name === 'HOLLY' && this.checked === true) {
-      this.gpsService.setShuttleId(6);
-    } else {console.log('invalid'); }
-
+      this.gpsService.setTrackingVehicle(6);
+    } else { }
+    
   }
 
   ngOnInit() {
     this.getDate();
-    this.shuttleService.vehicleOptions('ALL');
-
+    this.shuttleApi.getVehicleOptions("ALL").subscribe(vehicles => {this.possibleVehicles = vehicles; console.log(this.possibleVehicles)});
   }
 
   getDate() {
     this.date = this.shuttleService.getDate();
   }
+
   append() {
+    let name: string = this.selectedVehicle.name + " RENTAL";
+    this.selected(name);
+  }
 
-    this.value = this.shuttleService.getValue();
-    if (this.selectedType === this.value[0].name && this.value[3].status === 'A' && this.checked === true) {
-      this.toShow = false;
-    } else  if (this.selectedType === this.value[1].name && this.value[4].status === 'A' && this.checked === true) {
+  selected(name: string) {
+      for (let vehicle of this.possibleVehicles){
+        if(vehicle.name === name){
+          this.selectedVehicle = vehicle;
+        }
+      }
+      this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
+      this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleID);
+      this.verify();
 
-      this.toShow = false;
-    } else if (this.selectedType === this.value[2].name && this.value[5].status === 'A' && this.checked === true) {
+  }
 
-      this.toShow = false;
-  } else {this.toShow = true;}
-}
-
-
-  verify(vehicleName: string) {
+  verify() {
     this.shuttleService.disabled = false;
-    this.value = this.shuttleService.getValue();
 
-    if (vehicleName === this.value[0].name && this.value[0].status === 'A' && this.checked === false) {
-        this.toShow = false;
-      } else if (vehicleName === this.value[1].name && this.value[1].status === 'A' && this.checked === false) {
-        this.toShow = false;
-      } else  if (vehicleName === this.value[2].name && this.value[2].status === 'A' && this.checked === false ) {
-        this.toShow = false;
-      } else if (this.selectedType === this.value[0].name && this.value[3].status === 'A' && this.checked === true) {
-        this.toShow = false;
-      } else if (this.selectedType === this.value[2].name && this.value[4].status === 'A' && this.checked === true) {
-        this.toShow = false;
-      } else if (this.selectedType === this.value[1].name && this.value[5].status === 'A' && this.checked === true) {
-        this.toShow = false;
-    } else  { this.toShow = true; }
+    if(this.selectedVehicle.status === 'A') {
+      this.toShow = false;
+    } else {
+      this.toShow = true;
+    }
 
 
   }

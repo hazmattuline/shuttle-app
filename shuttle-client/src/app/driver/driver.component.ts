@@ -13,50 +13,11 @@ import {AccordionModule} from 'primeng/accordion';
     providers: [GPSService, ShuttleService]
     })
 export class DriverComponent implements OnInit, OnDestroy {
-  count = 0;
-  inputComment;
-  timeToStart: boolean;
-  isActive = false;
   showDriverShift = true;
-  passengerInputs: SelectItem[];
-  curbInputs: SelectItem[];
 
-  dayDetailForm: FormGroup;
-  commentForm: FormGroup;
+  constructor(public gpsService: GPSService, public shuttleService: ShuttleService) { }
 
-  constructor(private fb: FormBuilder, public gpsService: GPSService, public shuttleService: ShuttleService) {
-    this.passengerInputs = [
-      { label: 'Select', value: null },
-      { label: '0', value: { id: 1 } },
-      { label: '1', value: { id: 2 } },
-      { label: '2', value: { id: 3 } },
-      { label: '3', value: { id: 4 } },
-      { label: '4', value: { id: 5 } },
-      { label: '5', value: { id: 6 } },
-      { label: '6', value: { id: 7 } },
-      { label: '7', value: { id: 8 } },
-      { label: '8', value: { id: 9 } },
-      { label: '9', value: { id: 10 } },
-      { label: '10', value: { id: 11 } },
-      { label: '11', value: { id: 12 } },
-      { label: '12', value: { id: 13 } },
-      { label: '13', value: { id: 14 } },
-      { label: '14', value: { id: 15 } },
-    ];
-
-    this.curbInputs = [
-      { label: 'Select', value: null },
-      { label: '0', value: { id: 1 } },
-      { label: '1', value: { id: 2 } },
-      { label: '2', value: { id: 3 } },
-      { label: '3', value: { id: 4 } },
-      { label: '4', value: { id: 5 } },
-    ];
-  }
-
-ngOnInit() {
-  this.setupForms();
-  }
+ngOnInit() {}
 
 changeActive() {
     if (this.gpsService.getIsGPSActive()) {
@@ -66,18 +27,6 @@ changeActive() {
     }
   }
 
-private setupForms() {
-  this.dayDetailForm = this.fb.group({
-    passengerInputs: '',
-    vehicle: '',
-    curbInputs: '',
-  });
-  this.commentForm = this.fb.group({
-    commentMessage: '',
-  });
-}
-
-
   getShowShift(showShift: boolean) {
     this.showDriverShift = showShift;
   }
@@ -85,5 +34,6 @@ private setupForms() {
   ngOnDestroy() {
     this.gpsService.stop();
   }
+
 
 }

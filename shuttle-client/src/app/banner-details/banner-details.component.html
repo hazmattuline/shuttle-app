@@ -1,10 +1,11 @@
 <div class="background" >
+  <div class="container">
     <br>
     <br>
   Vehicle: 
-  <p-selectButton class="pSelectButtonStyle" [options]="bailey" [(ngModel)]="selectedType" (onChange)="verify('BAILEY')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle" [options]="holley" [(ngModel)]="selectedType" (onChange)="verify('HOLLY')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle" [options]="dixie" [(ngModel)]="selectedType"  (onChange)="verify('DIXIE')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="bailey" [(ngModel)]="selectedType" (onChange)=" selected('BAILEY')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="holley" [(ngModel)]="selectedType" (onChange)=" selected('HOLLY')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="dixie" [(ngModel)]="selectedType"  (onChange)=" selected('DIXIE')"></p-selectButton>
 
       Rental: 
   <p-checkbox [(ngModel)]="checked" binary="true" (onChange)="append()"></p-checkbox>
@@ -19,7 +20,7 @@
   </div>
   <br>
   <br>
-
+</div>
 
 </div>
 
