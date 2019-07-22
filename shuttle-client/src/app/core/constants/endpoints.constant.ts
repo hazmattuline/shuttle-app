@@ -8,4 +8,5 @@ export const Status = '/status';
 export const Notes = '/shuttle-notes';
 export const ShuttleDate = '?date=';
 export const Vehicle = '&vehicle=';
+export const Routes = '/shuttle-routes';
 

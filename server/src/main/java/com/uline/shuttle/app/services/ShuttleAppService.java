@@ -21,11 +21,11 @@ public interface ShuttleAppService {
 
   List<RouteResponse> getRoutes();
 
-  ShuttleDayDetailsResponse getShuttleDayDetails(ShuttleDayDetailsRequest shuttleDayRequest);
-
   List<ShuttleResponse> getShuttlesStatus(String status);
 
   ShuttleDayDetailsResponse getTrip(String date, Integer vehicleId);
+
+  ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest);
 
   DayResponse submitDay(DayRequest dayRequest);
 

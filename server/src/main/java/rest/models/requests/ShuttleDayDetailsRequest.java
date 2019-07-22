@@ -4,8 +4,9 @@ public class ShuttleDayDetailsRequest {
   private Integer curbCount;
   private String date;
   private Integer passengerCount;
-  private Integer vehicleID;
+  private Integer vehicleId;
   private Integer id;
+  private Integer routeId;
 
   public Integer getCurbCount() {
     return curbCount;
@@ -23,8 +24,12 @@ public class ShuttleDayDetailsRequest {
     return passengerCount;
   }
 
+  public Integer getRouteId() {
+    return routeId;
+  }
+
   public Integer getVehicleId() {
-    return vehicleID;
+    return vehicleId;
   }
 
   public void setCurbCount(Integer curbCount) {
@@ -43,7 +48,11 @@ public class ShuttleDayDetailsRequest {
     this.passengerCount = passengerCount;
   }
 
+  public void setRouteId(Integer routeId) {
+    this.routeId = routeId;
+  }
+
   public void setVehicleId(Integer vehicleId) {
-    this.vehicleID = vehicleId;
+    this.vehicleId = vehicleId;
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { ShuttleApiService } from '../services/shuttle-api.service';
-import { AnimationGroupPlayer } from '@angular/animations/src/players/animation_group_player';
+import { ShuttleRoute } from '../models/shuttle-route.model';
 
 @Component({
   selector: 'app-trips',
@@ -20,22 +20,30 @@ export class TripsComponent implements OnInit {
   isChangeLatest: boolean = false;
   isTowardsH2: boolean = true;
   loadedRowId: number;
+  routeH1ToH2: ShuttleRoute;
+  routeH2ToH1: ShuttleRoute;
 
   constructor(private gpsService: GPSService, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService) { }
   date: string;
   getDate() {
     this.date = this.shuttleService.getDate();
   }
-  ngOnInit() {
-    this.getDate();
+
+  makeRoutes() {
+    this.shuttleApiService.getRouteOptions().subscribe(routeList => {
+      for (let route of routeList) {
+        if ( route.fromWarehouse === 'H2' && route.toWarehouse === 'H1') {
+          this.routeH2ToH1 = route;
+        } else if (route.fromWarehouse === 'H1' && route.toWarehouse === 'H2') {
+          this.routeH1ToH2 = route;
+        }
+      }
+    })
   }
 
-  changeColor(element) {
-    if (element.style.backgroundColor === 'yellow') {
-      element.style.backgroundColor = 'gray';
-    } else {
-      element.style.backgroundColor = 'yellow';
-    }
+  ngOnInit() {
+    this.getDate();
+    this.makeRoutes();
   }
 
   submitNumber(inputNumber: number) {
@@ -85,19 +93,29 @@ export class TripsComponent implements OnInit {
       this.tripNumber++;
       this.previousTripNumber++;
     }
-    console.log("after increment");
-    console.log(this.tripNumber);
-    console.log(this.previousTripNumber);
+  }
+
+  findRoute() {
+    if (this.isTowardsH2) {
+      console.log("going to H2");
+      console.log(this.routeH1ToH2);
+      return this.routeH1ToH2.id;
+    } else {
+      console.log("going to H1");
+      console.log(this.routeH2ToH1);
+      return this.routeH2ToH1.id;
+    }
   }
   submitTripInfo() {
+    let routeId = this.findRoute();
     this.toggleRoute();
-    if (!this.isChangeLatest) {  // && !this.isChangeSecondmostLatest
+    if (!this.isChangeLatest) {  
       this.shuttleService.createTrip(this.gpsService.getShuttleId(),
-      this.passengerNumber, this.curbNumber, this.date);
+      this.passengerNumber, this.curbNumber, routeId, this.date);
       this.updateTripDisplay();
     } else if (this.isChangeLatest) {
       this.updateTripDisplay();
-      this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber);
+      this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId);
       this.isChangeLatest = false;
     }
     this.reset();

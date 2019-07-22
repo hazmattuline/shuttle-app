@@ -2,7 +2,7 @@ package rest.models.requests;
 
 public class StatusRequest {
 
-  String statusCode;
+  private String statusCode;
 
   public String getStatusCode() {
     return statusCode;

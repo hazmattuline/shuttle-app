@@ -60,14 +60,6 @@ public class ShuttleAppController {
     return shuttleAppService.getRoutes();
   }
 
-  @ExecutionTime("ShuttleAppService.getShuttleDayDetails")
-  @ApiOperation(value = "posting the passenger amount details to the database")
-  @PostMapping(value = "/shuttle-trips")
-  public ShuttleDayDetailsResponse getShuttleDayDetails(
-      @RequestBody ShuttleDayDetailsRequest shuttleDayRequest) {
-    return shuttleAppService.getShuttleDayDetails(shuttleDayRequest);
-  }
-
   @ExecutionTime("ShuttleAppService.getShuttlesStatus")
   @ApiOperation(value = "getting the shuttles by status")
   @GetMapping(value = "/shuttles")
@@ -84,6 +76,14 @@ public class ShuttleAppController {
       @RequestParam(value = "date") String date,
       @RequestParam(value = "vehicle") Integer vehicleId) {
     return shuttleAppService.getTrip(date, vehicleId);
+  }
+
+  @ExecutionTime("ShuttleAppService.postTrip")
+  @ApiOperation(value = "posting the trip details to the database")
+  @PostMapping(value = "/shuttle-trips")
+  public ShuttleDayDetailsResponse postTrip(
+      @RequestBody ShuttleDayDetailsRequest shuttleDayRequest) {
+    return shuttleAppService.postTrip(shuttleDayRequest);
   }
 
   @ExecutionTime("ShuttleAppService.submitDay")

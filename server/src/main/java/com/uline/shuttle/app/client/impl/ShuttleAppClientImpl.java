@@ -110,22 +110,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public ShuttleDayDetailsResponse getShuttleDayDetails(
-      ShuttleDayDetailsRequest shuttleDayRequest) {
-
-    UriComponentsBuilder builder =
-        UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForDayDetails);
-
-    return restTemplate
-        .exchange(
-            builder.build().toUriString(),
-            HttpMethod.POST,
-            new HttpEntity<>(shuttleDayRequest),
-            new ParameterizedTypeReference<ShuttleDayDetailsResponse>() {})
-        .getBody();
-  }
-
-  @Override
   public List<ShuttleResponse> getShuttlesStatus(String status) {
     Map<String, String> params = new HashMap<>();
     params.put("status", status);
@@ -155,6 +139,21 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             builder.buildAndExpand(params).toUriString(),
             HttpMethod.GET,
             new HttpEntity<>(null, null),
+            new ParameterizedTypeReference<ShuttleDayDetailsResponse>() {})
+        .getBody();
+  }
+
+  @Override
+  public ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest) {
+
+    UriComponentsBuilder builder =
+        UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForDayDetails);
+
+    return restTemplate
+        .exchange(
+            builder.build().toUriString(),
+            HttpMethod.POST,
+            new HttpEntity<>(shuttleDayRequest),
             new ParameterizedTypeReference<ShuttleDayDetailsResponse>() {})
         .getBody();
   }

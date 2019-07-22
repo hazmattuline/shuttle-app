@@ -4,4 +4,5 @@ export interface Trip {
     passengerCount: number;
     curbCount: number;
     date?: string;
+    routeId: number;
 }

@@ -86,22 +86,24 @@ export class ShuttleService {
     this.shuttleApi.submitDay(day).subscribe();
   }
 
-  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripDate: string) {
+  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDate: string) {
     const trip: Trip = {
       vehicleId: tripVehicleId,
       passengerCount: tripPassengers,
       curbCount: tripCurb,
-      date: tripDate
+      date: tripDate,
+      routeId: tripRouteId
     };
     console.log(trip);
     this.shuttleApi.submitTrip(trip).subscribe();
   }
 
-  modifyTrip(tripId: number, tripPassengers: number, tripCurb: number) {
+  modifyTrip(tripId: number, tripPassengers: number, tripCurb: number, tripRouteId: number) {
     const trip: Trip = {
       passengerCount: tripPassengers,
       curbCount: tripCurb,
-      id: tripId
+      id: tripId,
+      routeId: tripRouteId
     };
     this.shuttleApi.submitTrip(trip).subscribe();
   }

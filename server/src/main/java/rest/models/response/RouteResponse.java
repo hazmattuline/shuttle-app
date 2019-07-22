@@ -1,9 +1,9 @@
 package rest.models.response;
 
 public class RouteResponse {
-  Integer id;
-  String toWarehouse;
-  String fromWarehouse;
+  private Integer id;
+  private String toWarehouse;
+  private String fromWarehouse;
 
   public String getFromWarehouse() {
     return fromWarehouse;
