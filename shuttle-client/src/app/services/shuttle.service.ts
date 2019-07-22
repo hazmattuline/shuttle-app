@@ -60,12 +60,14 @@ export class ShuttleService {
     this.shuttleApi.sendComment(comment).subscribe();
   }
 
-    createEndInfo(driverId: number, endVehicleId: number, mileage: number, condition: string, endDate: string) {
+    createEndInfo(driverId: number, endVehicleId: number, mileage: number, condition: string, quantity: number, cost: number, endDate: string) {
     const day: Day = {
       vehicleId: endVehicleId,
       endMileage: mileage,
       endCondition: condition,
-      date: endDate
+      date: endDate,
+      fuelCost: cost,
+      fuelQuantity: quantity
     };
     this.shuttleApi.submitDay(day).subscribe();
   }
@@ -73,16 +75,6 @@ export class ShuttleService {
     this.shuttleApi.getVehicleOptions().subscribe(vehicleDropDown =>{
       this._vehicleDropDown.next(ShuttleService.buildSelectItemsForDropdown(vehicleDropDown, 'name', 'vehicleID'));
     });
-  }
-
-  createFuelInfo(quantity: number, cost: number, fuelDate: string, fuelVehicleId: number ) {
-    const day: Day = {
-      date: fuelDate,
-      vehicleId: fuelVehicleId,
-      fuelCost: cost,
-      fuelQuantity: quantity
-    }
-    this.shuttleApi.submitDay(day).subscribe();
   }
 
   createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripDate: string) {

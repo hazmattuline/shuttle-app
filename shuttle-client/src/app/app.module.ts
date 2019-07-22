@@ -16,7 +16,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
 import { EndshiftComponent } from './endshift/endshift.component';
 import { DatePipe } from '@angular/common';
-import { FuelComponent } from './fuel/fuel.component';
 import {AccordionModule} from 'primeng/accordion';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {SelectButtonModule} from 'primeng/selectbutton';
@@ -27,8 +26,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     DriverComponent,
     UserComponent,
     StartshiftComponent,
-    EndshiftComponent,
-    FuelComponent
+    EndshiftComponent
   ],
   imports: [
     BrowserModule,

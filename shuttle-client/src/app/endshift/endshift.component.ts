@@ -4,7 +4,6 @@ import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
 import {InputTextModule} from 'primeng/inputtext';
-import { FuelComponent } from '../fuel/fuel.component';
 import { GPSService } from '../services/gps.service';
 
 
@@ -53,9 +52,6 @@ constructor(private fb: FormBuilder, public shuttleService: ShuttleService, priv
 
 }
 
-
-  @ViewChild(FuelComponent)
-  private fuelComponent: FuelComponent;
   
   @Input()
   endShift: DriverComponent;
@@ -74,6 +70,7 @@ mileage: number;
 vehicleId: number;
 quantity: number;
 cost: number;
+comment: string;
 
   @Output()
   showShift = new EventEmitter<boolean>();
@@ -105,14 +102,9 @@ private setupForm() {
 
 submitEndData() {
   const shiftValue = this.endShiftForm.value;
-  this.shuttleService.createEndInfo(this.driver, this.vehicleId, this.mileage, this.condition, this.date);
-  this.shuttleService.createFuelInfo(this.quantity, this.cost, this.date, this.vehicleId);
+  this.shuttleService.createEndInfo(this.driver, this.vehicleId, this.mileage, this.condition, this.quantity, this.cost, this.date);
+  this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comment);
   this.showShift.emit(false);
-
-  console.log(this.condition);
-
-  // const fuelValue = this.fuelComponent.fuelForm.value;
-  // this.shuttleService.createFuelInfo(fuelValue.quantity, fuelValue.cost, this.date,  this.gpsService.getShuttleId());
 
 }
 }
