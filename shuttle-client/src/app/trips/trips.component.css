@@ -86,13 +86,17 @@
     background-color: #d9d7d7 !important;
   }
 
+  .highlight-row {
+    background-color: rgba(248, 217, 132, 0.876) !important;
+  }
+
   .line {
     white-space: nowrap;
     display:inline-block;
     padding: 5px;
 }
 
-.showInput {
+.show-input {
   border-color: #1f9bde;
   outline: 0 none;
   box-shadow: 0 0 5px 1px rgba(31, 155, 222, 0.5);

@@ -54,8 +54,8 @@
   </div>
      <button pButton type="button" [label]="isChangeLatest ? 'Update' : 'Start'" class = "start-button" (click) = "submitTripInfo()"></button><br><br>
      <div class="line">
-     <div class="input-container">Passengers: <input type="button"   pInputText [ngClass] =  "isCurb ? '' : 'showInput'" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/><br><br></div>
-     <div class="input-container">On Curb: <input type="button" pInputText [ngClass] =  "isCurb ? 'showInput' : ''" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/><br></div>
+     <div class="input-container">Passengers: <input type="button"   pInputText [ngClass] =  "isCurb ? '' : 'show-input'" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/><br><br></div>
+     <div class="input-container">On Curb: <input type="button" pInputText [ngClass] =  "isCurb ? 'show-input' : ''" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/><br></div>
      </div>
         <p-table class = "tab" [value]="trips">
             <ng-template class = "top-of-table" pTemplate="header">
@@ -67,11 +67,11 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-trip>
-                <tr (click)="loadRow(trip.rowNumber)">
-                    <td>{{trip.tripNumber}}</td>
-                    <td>{{trip.route}}</td>
-                    <td>{{trip.passengers}}</td>
-                    <td>{{trip.curb}}</td>
+                <tr (click)="loadRow()">
+                    <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.tripNumber}}</td>
+                    <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.route}}</td>
+                    <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.passengers}}</td>
+                    <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.curb}}</td>
                 </tr>
             </ng-template>
         </p-table>

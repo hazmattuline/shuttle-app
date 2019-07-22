@@ -13,11 +13,11 @@ export class TripsComponent implements OnInit {
   passengerNumber: number = 0;
   curbNumber: number = 0;
   tripNumber: number = 1;
-  route: string = 'H1 < H2';
+  previousTripNumber: number = 0;
+  route: string = 'H1 > H2';
   isCurb: boolean = false;
   trips: TripDisplay[] = [];
   isChangeLatest: boolean = false;
-  //isChangeSecondmostLatest: boolean = false;
   isTowardsH2: boolean = true;
   loadedRowId: number;
 
@@ -56,12 +56,6 @@ export class TripsComponent implements OnInit {
 
   setIsCurb(newIsCurb: boolean) {
     this.isCurb = newIsCurb;
-    // if (newIsCurb) {
-    //   return "{'border': '2px solid blue'}";
-    // }
-    // else {
-    //   "{'border': '2px solid gray'}";
-    // }
   }
 
   reset() {
@@ -76,22 +70,27 @@ export class TripsComponent implements OnInit {
       route: this.route,
       passengers: this.passengerNumber,
       curb: this.curbNumber,
-      rowNumber: 1
     };
     if (this.isChangeLatest) {
       this.trips[this.trips.length - 1] = trip;
     } else {
       this.trips.push(trip);
-      if (this.trips.length > 2) {
+      if (this.trips.length > 1) {
         this.trips.shift();
       }
-      if (this.trips.length >= 2) {
-        this.trips[0].rowNumber = 2;
-      }
     }
-    this.tripNumber = this.tripNumber + 1;
+    if (this.tripNumber === this.previousTripNumber) {
+      this.tripNumber++;
+    } else {
+      this.tripNumber++;
+      this.previousTripNumber++;
+    }
+    console.log("after increment");
+    console.log(this.tripNumber);
+    console.log(this.previousTripNumber);
   }
   submitTripInfo() {
+    this.toggleRoute();
     if (!this.isChangeLatest) {  // && !this.isChangeSecondmostLatest
       this.shuttleService.createTrip(this.gpsService.getShuttleId(),
       this.passengerNumber, this.curbNumber, this.date);
@@ -102,9 +101,6 @@ export class TripsComponent implements OnInit {
       this.isChangeLatest = false;
     }
     this.reset();
-    //else {
-    //   this.isChangeSecondmostLatest = false;
-    // }
 }
 
 changeRoute(isH1toH2: boolean) {
@@ -119,10 +115,10 @@ changeRoute(isH1toH2: boolean) {
 
 toggleRoute() {
   if (!this.isTowardsH2) {
-    this.route = 'H1 > H2';
+    this.route = 'H1 < H2';
     this.isTowardsH2 = true;
   } else {
-    this.route = 'H1 < H2';
+    this.route = 'H1 > H2';
     this.isTowardsH2 = false;
   }
 }
@@ -131,26 +127,21 @@ reloadRow() {
   this.shuttleApiService.getTrip(this.date, this.gpsService.getShuttleId()).subscribe(loadedTrip => {
     console.log("loaded trip");
     this.curbNumber = loadedTrip.curbCount;
-    this.passengerNumber = loadedTrip.passengerCount;
+    this.passengerNumber = 0;
     this.isCurb = false;
     this.loadedRowId = loadedTrip.id;
+    console.log(loadedTrip);
   });
 
 }
 
-loadRow(rowNumber: number) {
-  let trip: TripDisplay = this.trips[this.trips.length - rowNumber];
-  if (rowNumber === 1) {
+loadRow() {
+  if (!this.isChangeLatest) {
     this.isChangeLatest = true;
     this.reloadRow();
-    this.tripNumber = this.tripNumber - 1;
-    console.log(trip);
-   } //else {
-  //   this.isChangeSecondmostLatest = true;
-  // }
-  this.reloadRow();
-  this.tripNumber = this.tripNumber - 1;
-  console.log(trip);
+    this.toggleRoute();
+    this.tripNumber = this.previousTripNumber;
+  }
 }
 
 
@@ -161,7 +152,6 @@ export interface TripDisplay {
   route: string;
   passengers: number;
   curb: number;
-  rowNumber: number;
 }
 
 
