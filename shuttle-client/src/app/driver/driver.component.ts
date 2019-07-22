@@ -84,12 +84,6 @@ private setupForms() {
   });
 }
 
-submitPassengerInfo() {
-    const shiftValue = this.dayDetailForm.value;;
-    this.shuttleService.createTrip(this.gpsService.getShuttleId(),
-      shiftValue.passengerInputs.id - 1, shiftValue.curbInputs.id - 1, this.date);
-
-}
 
   submitComment() {
     const commentValue = this.commentForm.value;

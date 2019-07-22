@@ -6,38 +6,7 @@
       <app-startshift (showShift)=getShowShift($event) [startShift] = "timeToStart"></app-startshift>
     </div>
     
-  
-  <div class = "bringUp"></div>
-  <form [formGroup]="dayDetailForm">
-    <h3 class="first">Input the Number of Passengers</h3>
-    <div class = "trip-container">
-    <div class="trip-area">
-      <div>
-        <label class = "trip-label">Passengers</label>
-        <p-dropdown appendTo="body" formControlName = "passengerInputs" [options]="passengerInputs" ></p-dropdown>
-      </div>
-      <div>
-          <label class = "trip-label">Curb</label>
-          <p-dropdown appendTo="body" formControlName = "curbInputs" [options]="curbInputs" ></p-dropdown>
-      </div>
-      <div>
-            <label class = "trip-label"></label>
-            <button pButton (click)="submitPassengerInfo();" label = "Submit"></button>
-      </div>
-    </div>
-  </div>
-</form>
-  
-  <br>
-  <form [formGroup]="commentForm">
-  <label class = "trip-label">Comments</label>
-  <input type="text" formControlName = "commentMessage" pInputText />
-    <br>
-    <br>
-    <button pButton  (click)="submitComment()" label="Enter"></button>
-    <br>
-    <br>
-</form>
+
 
   <p-accordion>
     <p-accordionTab header="Start Shift">
