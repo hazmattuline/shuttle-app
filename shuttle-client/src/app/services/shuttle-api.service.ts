@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
 import { CoordinatesRequest } from '../models/coordinates-request.model';
-import { StatusShuttles, Shuttles, Coordinates, Status, Trips, Days, Notes, AllShuttles, ShuttleDate, Vehicle} from '../core/constants/endpoints.constant';
+import { StatusShuttles, Shuttles, Coordinates, Status, Trips, Days, Notes, ShuttleDate, Vehicle} from '../core/constants/endpoints.constant';
 import { Trip } from '../models/trip.model';
 import { StatusInfo } from '../models/status-info.model';
 import { Day } from '../models/day.model';
@@ -25,7 +25,7 @@ export class ShuttleApiService {
   }
 
   getVehicleOptions(value): Observable<Shuttle[]> {
-    return this.http.get<Shuttle[]>(AllShuttles + value);
+    return this.http.get<Shuttle[]>(StatusShuttles + value);
   }
 
   submitTrip(trip: Trip): Observable<Trip> {
