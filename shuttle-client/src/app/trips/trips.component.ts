@@ -22,6 +22,7 @@ export class TripsComponent implements OnInit {
   loadedRowId: number;
   routeH1ToH2: ShuttleRoute;
   routeH2ToH1: ShuttleRoute;
+  driverId: number = 27280; // TODO: get the ID from SSO
 
   constructor(private gpsService: GPSService, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService) { }
   date: string;
@@ -109,13 +110,13 @@ export class TripsComponent implements OnInit {
   submitTripInfo() {
     let routeId = this.findRoute();
     this.toggleRoute();
-    if (!this.isChangeLatest) {  
+    if (!this.isChangeLatest) {
       this.shuttleService.createTrip(this.gpsService.getShuttleId(),
-      this.passengerNumber, this.curbNumber, routeId, this.date);
+      this.passengerNumber, this.curbNumber, routeId, this.driverId, this.date);
       this.updateTripDisplay();
     } else if (this.isChangeLatest) {
       this.updateTripDisplay();
-      this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId);
+      this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId, this.driverId);
       this.isChangeLatest = false;
     }
     this.reset();
