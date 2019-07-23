@@ -6,6 +6,7 @@ import { UserComponent } from './user/user.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RouterModule, Routes} from '@angular/router';
 import { DriverComponent } from './driver/driver.component';
+import {AccordionModule} from 'primeng/accordion';
 import { AppComponent } from './app.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
@@ -16,24 +17,35 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
 import { EndshiftComponent } from './endshift/endshift.component';
 import { DatePipe } from '@angular/common';
-import {AccordionModule} from 'primeng/accordion';
 import {InputTextareaModule} from 'primeng/inputtextarea';
-import {SelectButtonModule} from 'primeng/selectbutton';
 import { AuthModule, AuthHeaderInterceptor, AuthResponseInterceptor, UccLoginModule } from 'common-component-lib';
 import { routes } from './routes/routes';
+import { BannerDetailsComponent } from './banner-details/banner-details.component';
+import {CheckboxModule} from 'primeng/checkbox';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {MessageService} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
+import { CommonModule } from '@angular/common';
+import {ToggleButtonModule} from 'primeng/togglebutton';
+import { MessageComponent } from './message/message.component';
 
 const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptor, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: AuthResponseInterceptor, multi: true }
 ]
 
-@NgModule({
+
+@NgModule({ 
   declarations: [
     AppComponent,
     DriverComponent,
     UserComponent,
     StartshiftComponent,
-    EndshiftComponent
+    EndshiftComponent,
+    BannerDetailsComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +53,7 @@ const httpInterceptorProviders = [
     AppRoutingModule,
     TableModule,
     DropdownModule,
+    AccordionModule,
     FormsModule,
     ButtonModule,
     InputTextModule,
@@ -55,10 +68,17 @@ const httpInterceptorProviders = [
       defaultRedirectPath: '/user',
       serverContextRoot: '/shuttle-app'
     }),
-    RouterModule.forRoot(routes, { useHash: true })
+    RouterModule.forRoot(routes, { useHash: true }),
+    CheckboxModule,
+    AutoCompleteModule,
+    SplitButtonModule,
+    ToastModule,
+    CommonModule,
+    ToggleButtonModule
   ],
   providers: [
     DatePipe,
+    MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

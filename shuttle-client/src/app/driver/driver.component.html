@@ -1,16 +1,17 @@
 
+<app-banner-details></app-banner-details>
   <p-accordion>
-    <p-accordionTab header="Start Shift">
+    <p-accordionTab [disabled]="this.shuttleService.disabled"  header="Start Shift">
         <app-startshift></app-startshift>
     </p-accordionTab>
-    <p-accordionTab header="Trips">
+    <p-accordionTab [disabled]="this.shuttleService.disabled"  header="Trips">
+        Content 2
     </p-accordionTab>
-    <p-accordionTab header="End Shift">
-      <app-endshift></app-endshift>
+    <p-accordionTab [disabled]="this.shuttleService.disabled" header="End Shift">
+        <app-fuel></app-fuel>
+      <app-endshift></app-endshift>    
     </p-accordionTab>
 </p-accordion>
-
-
 
 
   

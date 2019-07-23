@@ -79,13 +79,13 @@ comment: string;
     this.date = this.shuttleService.getDate();
   }
 
- getVehicles() {
-  this.shuttleService.vehicleOptions();
-  }
+//  getVehicles() {
+//   this.shuttleService.vehicleOptions();
+//   }
 
 ngOnInit() {
   this.setupForm();
-  this.getVehicles();
+ // this.getVehicles();
   this.getDate();
  }
 

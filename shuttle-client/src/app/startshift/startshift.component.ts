@@ -1,80 +1,88 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {SelectItem} from 'primeng/api';
+import {SelectItem, MessageService} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
 import { GPSService } from '../services/gps.service';
-
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-startshift',
   templateUrl: './startshift.component.html',
   styleUrls: ['./startshift.component.css'],
-  providers: [ShuttleService]
+  providers: []
 
 })
 
 
 export class StartshiftComponent implements OnInit {
 
-constructor(private fb: FormBuilder, private gpsService: GPSService, public shuttleService: ShuttleService) {
-  this.driverOptions = [
-    {label: 'Select', value: null},
-    {label: 'Nadia Almanza', value: {id: 1}},
-    {label: 'Donna Caputo', value: {id: 2}},
-    {label: 'Ariel Gauslow', value: {id: 3}},
-    {label: 'Heather Iwinski', value: {id: 4}},
-    {label: 'Melissa Zaugra', value: {id: 5}},
-  ];
 
-  this.conditionOptions = [
-    {label: 'Select', value: null},
-    {label: 'Good', value: {id: "GOOD"}}, 
-    {label: 'Fair', value: {id: "FAIR"}},
-    {label: 'Poor', value: {id: "POOR"}},
-  ];
+constructor(private messageService: MessageService, private fb: FormBuilder, private gpsService: GPSService, public shuttleService: ShuttleService) {
 
+  this.good = [
+    {label: 'Good', value: 'GOOD'}
+    ],
+
+    this.fair = [
+      {label: 'Fair', value: 'FAIR'}
+    ],
+
+    this.bad = [
+      {label: 'Bad', value: 'BAD'}
+    ];
 }
-  @Input()
-  startShift: DriverComponent;
-  driverOptions: SelectItem[];
-  vehicleOptions: SelectItem[];
-  conditionOptions: SelectItem[];
 
-  startShiftForm: FormGroup;
-  date: string;
+tempMileage: string = '';
+comments: string = '';
 
-  @Output()
-  showShift = new EventEmitter<boolean>();
+condition: string;
+good: SelectItem[];
+fair: SelectItem[];
+bad: SelectItem[];
 
-  getDate() {
-    this.date = this.shuttleService.getDate();
-  }
- 
- getVehicles() {
-  this.shuttleService.vehicleOptions();
+date: string;
+
+disabled = true;
+
+driver = 1;
+
+mileage: number;
+
+vehicleId: number;
+
+
+getDate() {
+  this.date = this.shuttleService.getDate();
   }
 
 ngOnInit() {
-  this.setupForm();
-  this.getVehicles();
   this.getDate();
  }
 
-private setupForm() {
-  this.startShiftForm = this.fb.group({
-    driver: '',
-    vehicle: '',
-    mileage: '',
-    condition: ''
-  });
+
+submitComment() {
+  this.shuttleService.createCommentInfo(this.gpsService.getShuttleId(), this.date, this.comments);
 }
 
-submitStartData() {
-  const shiftValue = this.startShiftForm.value;
-  this.shuttleService.createStartInfo(shiftValue.driver.id, shiftValue.vehicle, shiftValue.mileage, shiftValue.condition.id, this.date);
-  this.gpsService.setTrackingVehicle(shiftValue.vehicle);
-  this.showShift.emit(false);
+submitStartData(info: string) {
+  this.submitComment();
+
+  this.vehicleId = this.gpsService.getShuttleId();
+
+  this.messageService.add({severity: info, summary: 'Success', detail: 'Saved Successfully'});
+
+  this.mileage = parseInt(this.tempMileage, 10);
+
+  this.shuttleService.createStartInfo(this.driver, this.vehicleId, this.mileage, this.condition, this.date);
+
+}
+verify(status:string){
+  if (status === 'fair' || status === 'bad') {
+  this.disabled = false;
+} else {
+  this.disabled = true;
+}
 }
 
 
