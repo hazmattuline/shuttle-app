@@ -99,4 +99,12 @@ public class ShuttleAppController {
   public NoteResponse submitNote(@RequestBody NoteRequest noteRequest) {
     return shuttleAppService.submitNote(noteRequest);
   }
+
+  @ApiOperation(value = "getting day from the database")
+  @GetMapping(value = "/shuttle-days")
+  public DayResponse getDay(
+      @RequestParam(value = "date") String date,
+      @RequestParam(value = "vehicle") Integer vehicleId) {
+    return shuttleAppService.getDay(date, vehicleId);
+  }
 }

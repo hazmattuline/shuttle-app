@@ -14,6 +14,7 @@ import { MaximumLatitude, MinimumLatitude, MaximumLongitude, MinimumLongitude } 
 
 export class UserComponent implements OnInit, OnDestroy {
 
+  currentTime: number;
 
   private shuttleSubscription: Subscription;
   @ViewChild('markerContainer') markerContainer: ElementRef;
@@ -24,6 +25,8 @@ export class UserComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.shuttleTrackingService.startShuttleTracking();
     this.listenForShuttleMarkers();
+    this.currentTime = new Date().getHours();
+
   }
 
 

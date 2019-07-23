@@ -1,0 +1,27 @@
+.background{
+    background-color:#E3E5F4;
+    font-size: 20px;
+}
+
+p-button{
+    margin-right: 1%;
+    margin-left: 3%;
+}
+
+.pSelectButtonStyle{
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
+.move{
+    float: right;
+}
+
+.move1{
+    float: right;
+    margin-right: 2%;
+}
+
+.container{
+    margin-right: 1%;
+    margin-left: 1%;}

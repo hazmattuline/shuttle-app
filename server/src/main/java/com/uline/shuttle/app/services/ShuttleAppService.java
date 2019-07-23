@@ -30,4 +30,6 @@ public interface ShuttleAppService {
   DayResponse submitDay(DayRequest dayRequest);
 
   NoteResponse submitNote(NoteRequest noteRequest);
+
+  DayResponse getDay(String date, Integer vehicleId);
 }
