@@ -4,6 +4,10 @@ import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import {AccordionModule} from 'primeng/accordion';
+import { AuthService } from 'common-component-lib';
+import { Subscription } from 'rxjs';
+import { Router, NavigationEnd } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 @Component
   ({
@@ -18,6 +22,9 @@ export class DriverComponent implements OnInit, OnDestroy {
   timeToStart: boolean;
   isActive = false;
   showDriverShift = true;
+  currentUsername: string;
+  isOnLoginPage: boolean;
+  routerSubscription: Subscription;
 
   //info: DriverInfo[];
   passengerInputs: SelectItem[];
@@ -28,7 +35,7 @@ export class DriverComponent implements OnInit, OnDestroy {
   dayDetailForm: FormGroup;
   commentForm: FormGroup;
 
-  constructor(private fb: FormBuilder, public gpsService: GPSService, private shuttleService: ShuttleService) {
+  constructor(private fb: FormBuilder, public gpsService: GPSService, private shuttleService: ShuttleService, private authService: AuthService, private router: Router) {
     this.passengerInputs = [
       { label: 'Select', value: null },
       { label: '0', value: { id: 1 } },
@@ -102,13 +109,7 @@ submitPassengerInfo() {
 
   ngOnDestroy() {
     this.gpsService.stop();
+    this.routerSubscription.unsubscribe();
   }
 
 }
-// export interface DriverInfo {
-//   numPassengers;
-// }
-
-// interface DriverInput {
-//   numPassengers: number;
-// }

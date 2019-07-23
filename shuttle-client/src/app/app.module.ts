@@ -19,7 +19,13 @@ import { DatePipe } from '@angular/common';
 import {AccordionModule} from 'primeng/accordion';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {SelectButtonModule} from 'primeng/selectbutton';
-import { AuthModule } from 'common-component-lib';
+import { AuthModule, AuthHeaderInterceptor, AuthResponseInterceptor, UccLoginModule } from 'common-component-lib';
+import { routes } from './routes/routes';
+
+const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: AuthResponseInterceptor, multi: true }
+]
 
 @NgModule({
   declarations: [
@@ -43,7 +49,13 @@ import { AuthModule } from 'common-component-lib';
     AccordionModule,
     InputTextareaModule,
     SelectButtonModule,
-    AuthModule.forRoot()
+    AuthModule.forRoot(),
+    UccLoginModule.forRoot({
+      appTitle: 'SAM: Shuttle Activity Monitor',
+      defaultRedirectPath: '/user',
+      serverContextRoot: '/shuttle-app'
+    }),
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
     DatePipe,
