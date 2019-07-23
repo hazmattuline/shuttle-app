@@ -4,13 +4,12 @@
     <br>
   Vehicle: 
   <p-selectButton class="pSelectButtonStyle" [options]="bailey" [(ngModel)]="selectedType" (onChange)=" selected('BAILEY')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle" [options]="holley" [(ngModel)]="selectedType" (onChange)=" selected('HOLLY')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="holly" [(ngModel)]="selectedType" (onChange)=" selected('HOLLY')"></p-selectButton>
   <p-selectButton class="pSelectButtonStyle" [options]="dixie" [(ngModel)]="selectedType"  (onChange)=" selected('DIXIE')"></p-selectButton>
 
       Rental: 
   <p-checkbox [(ngModel)]="checked" binary="true" (onChange)="append()"></p-checkbox>
-  <p-button  type="button" *ngIf="this.toShow"  (onClick)="submit(); changeActive()" styleClass="ui-button-action" [label]="(gpsService.isActive | async) ? 'Deactivate' : 'Activate'"></p-button>
-  <p-button  type="button" *ngIf="this.toShow == false"  (onClick)="submit(); changeActive()" styleClass="ui-button-action" [label]="(gpsService.isActive | async) ? 'Activate' : 'Deactivate'"></p-button>
+  <p-button  type="button" *ngIf="this.toShow"  (click)="submit(); changeActive()" styleClass="ui-button-action" [label]="(isAlreadyActive) ? 'Deactivate' : 'Activate'"></p-button>
 
   <div class="move">
   <i class="pi pi-cog " >  Driver: {{driverName}} </i><br>

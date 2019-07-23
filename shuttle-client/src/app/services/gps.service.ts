@@ -40,15 +40,23 @@ export class GPSService implements OnDestroy {
     if (this.gpsLocationTimer) {
       clearInterval(this.gpsLocationTimer);
     }
-    this.shuttleApiService.changeStatus('I', this.shuttle.vehicleID).subscribe(newShuttle => {
+    this.shuttleApiService.changeStatus('I', this.shuttleId).subscribe(newShuttle => {
+      console.log(this.shuttle);
       this.shuttle = newShuttle;
     });
+  }
+
+  handleAlreadyActive(shuttle: Shuttle) {
+    this._isActive.next(true);
+    this.shuttle = shuttle;
   }
 
   startGPSTracking() {
     if (navigator.geolocation) {
       this.watchId = navigator.geolocation.watchPosition((pos) => this.updateGPSPostion(pos), this.errorHandler, this.options);
       this.shuttleApiService.changeStatus('A', this.shuttleId).subscribe(newShuttle => {
+        console.log("new shuttle");
+        console.log(newShuttle);
         this.shuttle = newShuttle;
         this._isActive.next(true);
         this.startGPSUpdateTimer();

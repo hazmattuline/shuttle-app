@@ -19,7 +19,7 @@ export class BannerDetailsComponent implements OnInit {
   {label: 'BAILEY', value: 'BAILEY'}
   ],
 
-  this.holley = [
+  this.holly = [
     {label: 'HOLLY', value: 'HOLLY'}
   ],
 
@@ -28,8 +28,6 @@ export class BannerDetailsComponent implements OnInit {
   ];
 
   }
-
-
   driverName = 'Rob Kenlay';
   checked = false;
 
@@ -41,38 +39,32 @@ export class BannerDetailsComponent implements OnInit {
 
 
   bailey: SelectItem[];
-  holley: SelectItem[];
+  holly: SelectItem[];
   dixie: SelectItem[];
   possibleVehicles:Shuttle[] = [];
   selectedVehicle: Shuttle;
+  isAlreadyActive: boolean = false;
 
   changeActive() {
+    console.log("changeActive");
 
     if (this.gpsService.getIsGPSActive()) {
+      console.log("change to inactive");
+      console.log(this.gpsService.getShuttleId());
       this.gpsService.stopGPSTracking();
+      this.selectedVehicle.status = 'I';
+      this.isAlreadyActive = false;
     } else {
       this.gpsService.startGPSTracking();
+      this.selectedVehicle.status = 'A';
+      this.isAlreadyActive = true;
     }
+    console.log(this.selectedVehicle);
   }
 
 
   submit() {
-
-    this.name = this.selectedType.toString();
-    if (this.name === 'BAILEY' && this.checked === false) {
-      this.gpsService.setTrackingVehicle(1);
-    } else if (this.name === 'DIXIE' && this.checked === false) {
-      this.gpsService.setTrackingVehicle(2);
-    } else if (this.name === 'HOLLY' && this.checked === false) {
-      this.gpsService.setTrackingVehicle(3);
-    } else if (this.name === 'BAILEY' && this.checked === true) {
-      this.gpsService.setTrackingVehicle(4);
-    } else if (this.name === 'DIXIE' && this.checked === true) {
-      this.gpsService.setTrackingVehicle(5);
-    } else if (this.name === 'HOLLY' && this.checked === true) {
-      this.gpsService.setTrackingVehicle(6);
-    } else { }
-    
+    this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
   }
 
   ngOnInit() {
@@ -86,6 +78,8 @@ export class BannerDetailsComponent implements OnInit {
 
   append() {
     let name: string = this.selectedVehicle.name + " RENTAL";
+    console.log("append");
+    console.log(this.selectedVehicle);
     this.selected(name);
   }
 
@@ -96,16 +90,23 @@ export class BannerDetailsComponent implements OnInit {
         }
       }
       this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
-      this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleID);
+      console.log(this.selectedVehicle.vehicleID);
+      console.log(this.selectedVehicle);
+      //this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleID);
       this.verify();
+      
 
   }
 
   verify() {
     this.shuttleService.disabled = false;
+    console.log("verify");
 
     if(this.selectedVehicle.status === 'A') {
-      this.toShow = false;
+      this.gpsService.handleAlreadyActive(this.selectedVehicle);
+      console.log("already active");
+      this.isAlreadyActive = true;
+      this.toShow = true;
     } else {
       this.toShow = true;
     }
