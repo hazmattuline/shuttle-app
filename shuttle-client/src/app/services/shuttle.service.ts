@@ -64,10 +64,15 @@ export class ShuttleService {
   }
 
   getDayInfo(date, vehicleId){
-    this.shuttleApi.getDayInfo(date, vehicleId).subscribe(dayInfo =>{console.log(dayInfo); this.setMileage(dayInfo)});
+    this.shuttleApi.getDayInfo(date, vehicleId).subscribe(dayInfo =>{this.setMileage(dayInfo)},
+    err => {this.startMileage = 0.0;});
   }
 
   setMileage(dayInfo){
+
+    if(dayInfo.startMileage === null){
+      this.startMileage = 0.0;
+    } else
     this.startMileage = dayInfo.startMileage;
   }
 

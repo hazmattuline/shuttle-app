@@ -14,7 +14,7 @@ import { ShuttleApiService } from '../services/shuttle-api.service';
 export class BannerDetailsComponent implements OnInit {
 
   constructor( public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService) {
-    
+
     this.bailey = [
   {label: 'BAILEY', value: 'BAILEY'}
   ],
@@ -41,16 +41,14 @@ export class BannerDetailsComponent implements OnInit {
   bailey: SelectItem[];
   holly: SelectItem[];
   dixie: SelectItem[];
-  possibleVehicles:Shuttle[] = [];
+  possibleVehicles: Shuttle[] = [];
   selectedVehicle: Shuttle;
-  isAlreadyActive: boolean = false;
+  isAlreadyActive = false;
 
   changeActive() {
-    console.log("changeActive");
 
-    if (this.gpsService.getIsGPSActive()) {
-      console.log("change to inactive");
-      console.log(this.gpsService.getShuttleId());
+    if (this.isAlreadyActive) {
+      
       this.gpsService.stopGPSTracking();
       this.selectedVehicle.status = 'I';
       this.isAlreadyActive = false;
@@ -59,7 +57,6 @@ export class BannerDetailsComponent implements OnInit {
       this.selectedVehicle.status = 'A';
       this.isAlreadyActive = true;
     }
-    console.log(this.selectedVehicle);
   }
 
 
@@ -69,7 +66,7 @@ export class BannerDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getDate();
-    this.shuttleApi.getVehicleOptions("ALL").subscribe(vehicles => {this.possibleVehicles = vehicles; console.log(this.possibleVehicles)});
+    this.shuttleApi.getVehicleOptions('ALL').subscribe(vehicles => {this.possibleVehicles = vehicles;});
   }
 
   getDate() {
@@ -77,37 +74,49 @@ export class BannerDetailsComponent implements OnInit {
   }
 
   append() {
-    let name: string = this.selectedVehicle.name + " RENTAL";
-    console.log("append");
-    console.log(this.selectedVehicle);
+    let name: string;
+    if (this.checked === false) {
+       name = this.selectedVehicle.name.replace(' RENTAL', '');
+    } else {
+     name = this.selectedVehicle.name + ' RENTAL';
+    }
     this.selected(name);
   }
 
   selected(name: string) {
-      for (let vehicle of this.possibleVehicles){
-        if(vehicle.name === name){
+    if (this.checked === true && !name.includes('RENTAL')) {
+      name = name + ' RENTAL';
+    }
+
+
+    this.shuttleApi.getVehicleOptions('ALL').subscribe(vehicles => {this.possibleVehicles = vehicles;});
+
+    for (const vehicle of this.possibleVehicles) {
+        if (vehicle.name === name) {
           this.selectedVehicle = vehicle;
         }
       }
-      this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
-      console.log(this.selectedVehicle.vehicleID);
-      console.log(this.selectedVehicle);
-      //this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleID);
-      this.verify();
-      
+
+
+
+    this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
+   
+    this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleID);
+    this.verify();
+
 
   }
 
   verify() {
     this.shuttleService.disabled = false;
-    console.log("verify");
 
-    if(this.selectedVehicle.status === 'A') {
+    if (this.selectedVehicle.status === 'A') {
       this.gpsService.handleAlreadyActive(this.selectedVehicle);
-      console.log("already active");
       this.isAlreadyActive = true;
       this.toShow = true;
     } else {
+      this.isAlreadyActive = false;
+
       this.toShow = true;
     }
 
