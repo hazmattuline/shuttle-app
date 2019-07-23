@@ -49,6 +49,9 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   @Value("${shuttle.service.rc.url.submit.note}")
   private String submitNoteURL;
 
+  @Value("${shuttle.service.rc.url.get.day}")
+  private String getDayURL;
+
   @Autowired
   public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
     this.restTemplate = restTemplate;
@@ -90,8 +93,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public ShuttleDayDetailsResponse getShuttleDayDetails(
-      ShuttleDayDetailsRequest shuttleDayRequest) {
+  public ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest) {
 
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForDayDetails);
@@ -146,6 +148,26 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             HttpMethod.POST,
             new HttpEntity<>(noteRequest),
             new ParameterizedTypeReference<NoteResponse>() {})
+        .getBody();
+  }
+
+  @Override
+  public DayResponse getDay(String date, Integer vehicleId) {
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + getDayURL);
+
+    String vehicle = Integer.toString(vehicleId);
+
+    Map<String, String> params = new HashMap<>();
+
+    params.put("date", date);
+    params.put("vehicle", vehicle);
+
+    return restTemplate
+        .exchange(
+            builder.buildAndExpand(params).toUriString(),
+            HttpMethod.GET,
+            new HttpEntity<>(null, null),
+            new ParameterizedTypeReference<DayResponse>() {})
         .getBody();
   }
 }

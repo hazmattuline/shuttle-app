@@ -1,0 +1,25 @@
+<div class="background" >
+  <div class="container">
+    <br>
+    <br>
+  Vehicle: 
+  <p-selectButton class="pSelectButtonStyle" [options]="bailey" [(ngModel)]="selectedType" (onChange)=" selected('BAILEY')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="holly" [(ngModel)]="selectedType" (onChange)=" selected('HOLLY')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="dixie" [(ngModel)]="selectedType"  (onChange)=" selected('DIXIE')"></p-selectButton>
+
+      Rental: 
+  <p-checkbox [(ngModel)]="checked" binary="true" (onChange)="append()"></p-checkbox>
+  <p-button  type="button" *ngIf="this.toShow"  (click)="submit(); changeActive()" styleClass="ui-button-action" [label]="(isAlreadyActive) ? 'Deactivate' : 'Activate'"></p-button>
+
+  <div class="move">
+  <i class="pi pi-cog " >  Driver: {{driverName}} </i><br>
+  </div>
+  <div class="move1">
+  <button  pButton type="button" label="Logout"  class="ui-button-rounded"></button>
+  </div>
+  <br>
+  <br>
+</div>
+
+</div>
+

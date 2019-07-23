@@ -6,6 +6,7 @@ import { UserComponent } from './user/user.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RouterModule, Routes} from '@angular/router';
 import { DriverComponent } from './driver/driver.component';
+import {AccordionModule} from 'primeng/accordion';
 import { AppComponent } from './app.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
@@ -17,15 +18,27 @@ import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
 import { EndshiftComponent } from './endshift/endshift.component';
 import { DatePipe } from '@angular/common';
 import { FuelComponent } from './fuel/fuel.component';
+import { BannerDetailsComponent } from './banner-details/banner-details.component';
+import {CheckboxModule} from 'primeng/checkbox';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {MessageService} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
+import { CommonModule } from '@angular/common';
+import {ToggleButtonModule} from 'primeng/togglebutton';
+import { MessageComponent } from './message/message.component';
 
-@NgModule({
+@NgModule({ 
   declarations: [
     AppComponent,
     DriverComponent,
     UserComponent,
     StartshiftComponent,
     EndshiftComponent,
-    FuelComponent
+    FuelComponent,
+    BannerDetailsComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -33,14 +46,23 @@ import { FuelComponent } from './fuel/fuel.component';
     AppRoutingModule,
     TableModule,
     DropdownModule,
+    AccordionModule,
     FormsModule,
     ButtonModule,
     InputTextModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CheckboxModule,
+    SelectButtonModule,
+    AutoCompleteModule,
+    SplitButtonModule,
+    ToastModule,
+    CommonModule,
+    ToggleButtonModule
   ],
   providers: [
     DatePipe,
+    MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

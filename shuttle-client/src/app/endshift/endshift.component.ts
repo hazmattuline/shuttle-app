@@ -48,13 +48,13 @@ constructor(private fb: FormBuilder, public shuttleService: ShuttleService) {
     this.date = this.shuttleService.getDate();
   }
 
- getVehicles() {
-  this.shuttleService.vehicleOptions();
-  }
+//  getVehicles() {
+//   this.shuttleService.vehicleOptions();
+//   }
 
 ngOnInit() {
   this.setupForm();
-  this.getVehicles();
+ // this.getVehicles();
   this.getDate();
  }
 

@@ -37,10 +37,9 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public ShuttleDayDetailsResponse getShuttleDayDetails(
-      ShuttleDayDetailsRequest shuttleDayRequest) {
+  public ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest) {
 
-    return shuttleAppClient.getShuttleDayDetails(shuttleDayRequest);
+    return shuttleAppClient.postTrip(shuttleDayRequest);
   }
 
   @Override
@@ -56,5 +55,10 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   @Override
   public NoteResponse submitNote(NoteRequest noteRequest) {
     return shuttleAppClient.submitNote(noteRequest);
+  }
+
+  @Override
+  public DayResponse getDay(String date, Integer vehicleId) {
+    return shuttleAppClient.getDay(date, vehicleId);
   }
 }
