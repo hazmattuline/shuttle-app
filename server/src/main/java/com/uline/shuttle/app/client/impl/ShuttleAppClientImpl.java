@@ -113,7 +113,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
     params.put("status", status);
 
     UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + statusShuttlesURL);
-
     return restTemplate
         .exchange(
             builder.buildAndExpand(params).toUriString(),

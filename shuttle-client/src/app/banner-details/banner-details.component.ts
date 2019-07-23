@@ -66,7 +66,7 @@ export class BannerDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getDate();
-    this.shuttleApi.getVehicleOptions('ALL').subscribe(vehicles => {this.possibleVehicles = vehicles;});
+    this.shuttleApi.getVehicleOptions('ALL').subscribe(vehicles => {this.possibleVehicles = vehicles; console.log(this.possibleVehicles)});
   }
 
   getDate() {
