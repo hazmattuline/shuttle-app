@@ -59,8 +59,8 @@ export class ShuttleService {
   }
 
 
-    vehicleOptions(value) {
-    this.shuttleApi.getVehicleOptions(value).subscribe(vehicles =>{this.setVehicles(vehicles);
+    vehicleOptions() {
+    this.shuttleApi.getVehicleOptions().subscribe(vehicles =>{this.setVehicles(vehicles);
     });
   }
 
