@@ -1,13 +1,10 @@
 package com.uline.shuttle.app.services.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.uline.shuttle.app.client.ShuttleAppClient;
 import com.uline.shuttle.app.services.ShuttleAppService;
-
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.DayRequest;
 import rest.models.requests.NoteRequest;
@@ -23,55 +20,55 @@ import rest.models.response.ShuttleResponse;
 @Service
 public class ShuttleAppServiceImpl implements ShuttleAppService {
 
-	private ShuttleAppClient shuttleAppClient;
+  private ShuttleAppClient shuttleAppClient;
 
-	@Autowired
-	public ShuttleAppServiceImpl(ShuttleAppClient shuttleAppClient) {
-		this.shuttleAppClient = shuttleAppClient;
-	}
+  @Autowired
+  public ShuttleAppServiceImpl(ShuttleAppClient shuttleAppClient) {
+    this.shuttleAppClient = shuttleAppClient;
+  }
 
-	@Override
-	public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
-		return shuttleAppClient.changeStatus(statusRequest, id);
-	}
+  @Override
+  public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
+    return shuttleAppClient.changeStatus(statusRequest, id);
+  }
 
-	@Override
-	public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
-		return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
-	}
+  @Override
+  public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
+    return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
+  }
 
-	@Override
-	public DayResponse getDay(String date, Integer vehicleId) {
-		return shuttleAppClient.getDay(date, vehicleId);
-	}
+  @Override
+  public DayResponse getDay(String date, Integer vehicleId) {
+    return shuttleAppClient.getDay(date, vehicleId);
+  }
 
-	@Override
-	public List<RouteResponse> getRoutes() {
-		return shuttleAppClient.getRoutes();
-	}
+  @Override
+  public List<RouteResponse> getRoutes() {
+    return shuttleAppClient.getRoutes();
+  }
 
-	@Override
-	public List<ShuttleResponse> getShuttlesStatus(String status) {
-		return shuttleAppClient.getShuttlesStatus(status);
-	}
+  @Override
+  public List<ShuttleResponse> getShuttlesStatus(String status) {
+    return shuttleAppClient.getShuttlesStatus(status);
+  }
 
-	@Override
-	public ShuttleDayDetailsResponse getTrip(String date, Integer vehicleId) {
-		return shuttleAppClient.getTrip(date, vehicleId);
-	}
+  @Override
+  public ShuttleDayDetailsResponse getTrip(String date, Integer vehicleId) {
+    return shuttleAppClient.getTrip(date, vehicleId);
+  }
 
-	@Override
-	public ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest) {
-		return shuttleAppClient.postTrip(shuttleDayRequest);
-	}
+  @Override
+  public ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest) {
+    return shuttleAppClient.postTrip(shuttleDayRequest);
+  }
 
-	@Override
-	public DayResponse submitDay(DayRequest dayRequest) {
-		return shuttleAppClient.submitDay(dayRequest);
-	}
+  @Override
+  public DayResponse submitDay(DayRequest dayRequest) {
+    return shuttleAppClient.submitDay(dayRequest);
+  }
 
-	@Override
-	public NoteResponse submitNote(NoteRequest noteRequest) {
-		return shuttleAppClient.submitNote(noteRequest);
-	}
+  @Override
+  public NoteResponse submitNote(NoteRequest noteRequest) {
+    return shuttleAppClient.submitNote(noteRequest);
+  }
 }
