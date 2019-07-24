@@ -22,7 +22,6 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
-    "@auth0/angular-jwt": "^2.1.0",
     "@types/mathjs": "^5.0.1",
     "common-component-lib": "http://artifactory.ulinedm.com/artifactory/npm-local/common-component-lib/-/common-component-lib-1.2.0.tgz",
     "core-js": "^2.5.4",
