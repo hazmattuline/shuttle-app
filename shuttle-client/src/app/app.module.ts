@@ -28,6 +28,8 @@ import {ToastModule} from 'primeng/toast';
 import { CommonModule } from '@angular/common';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import { MessageComponent } from './message/message.component';
+import { MenuModule, Menu } from 'primeng/menu';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 
 @NgModule({ 
   declarations: [
@@ -58,7 +60,9 @@ import { MessageComponent } from './message/message.component';
     SplitButtonModule,
     ToastModule,
     CommonModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    MenuModule,
+    UiSwitchModule
   ],
   providers: [
     DatePipe,

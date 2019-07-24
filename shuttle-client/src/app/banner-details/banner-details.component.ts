@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { SelectItem, MenuItem } from 'primeng/api';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { Shuttle } from '../models/shuttle.model';
 import { ShuttleApiService } from '../services/shuttle-api.service';
+import { Menu } from 'primeng/menu';
 
 @Component({
   selector: 'app-banner-details',
@@ -19,17 +20,20 @@ export class BannerDetailsComponent implements OnInit {
   {label: 'BAILEY', value: 'BAILEY'}
   ],
 
-  this.holly = [
-    {label: 'HOLLY', value: 'HOLLY'}
+  this.riley = [
+    {label: 'Riley', value: 'Riley'}
   ],
 
-  this.dixie = [
-    {label: 'DIXIE', value: 'DIXIE'}
+  this.baileyRental = [
+    {label: 'Bailey Rental', value: 'Bailey Rental'}
+  ];
+
+  this.rileyRental = [
+    {label: 'Riley Rental', value: 'Riley Rental'}
   ];
 
   }
   driverName = 'Rob Kenlay';
-  checked = false;
 
   date: string;
   name: string;
@@ -37,10 +41,13 @@ export class BannerDetailsComponent implements OnInit {
 
   selectedType: string;
 
+  items: MenuItem[] = null;
 
   bailey: SelectItem[];
-  holly: SelectItem[];
-  dixie: SelectItem[];
+  riley: SelectItem[];
+  baileyRental: SelectItem[];
+  rileyRental: SelectItem[];
+
   possibleVehicles: Shuttle[] = [];
   selectedVehicle: Shuttle;
   isAlreadyActive = false;
@@ -73,22 +80,22 @@ export class BannerDetailsComponent implements OnInit {
     this.date = this.shuttleService.getDate();
   }
 
-  append() {
-    let name: string;
-    if (this.checked === false) {
-       name = this.selectedVehicle.name.replace(' RENTAL', '');
-    } else {
-     name = this.selectedVehicle.name + ' RENTAL';
-    }
-    this.selected(name);
+
+
+openMenu(menu: Menu, event,) {
+  if (menu.visible) {
+    menu.hide();
+  } else {
+    this.items = [
+      { label: 'Logout', icon: 'pi pi-sign-out', routerLink: ['']},
+    ];
+    menu.show(event);
   }
+}
+
 
   selected(name: string) {
-    if (this.checked === true && !name.includes('RENTAL')) {
-      name = name + ' RENTAL';
-    }
-
-
+ 
     this.shuttleApi.getVehicleOptions('ALL').subscribe(vehicles => {this.possibleVehicles = vehicles;});
 
     for (const vehicle of this.possibleVehicles) {
