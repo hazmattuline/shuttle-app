@@ -17,7 +17,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
 import { EndshiftComponent } from './endshift/endshift.component';
 import { DatePipe } from '@angular/common';
-import { FuelComponent } from './fuel/fuel.component';
+import { TripsComponent } from './trips/trips.component';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import { AuthModule, AuthHeaderInterceptor, AuthResponseInterceptor, UccLoginModule } from 'common-component-lib';
+import { routes } from './routes/routes';
 import { BannerDetailsComponent } from './banner-details/banner-details.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import {SelectButtonModule} from 'primeng/selectbutton';
@@ -31,6 +34,12 @@ import { MessageComponent } from './message/message.component';
 import { MenuModule, Menu } from 'primeng/menu';
 import { UiSwitchModule } from 'ngx-toggle-switch';
 
+const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: AuthResponseInterceptor, multi: true }
+]
+
+
 @NgModule({ 
   declarations: [
     AppComponent,
@@ -38,7 +47,7 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
     UserComponent,
     StartshiftComponent,
     EndshiftComponent,
-    FuelComponent,
+    TripsComponent,
     BannerDetailsComponent,
     MessageComponent
   ],
@@ -54,8 +63,17 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
     InputTextModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CheckboxModule,
+    AccordionModule,
+    InputTextareaModule,
     SelectButtonModule,
+    AuthModule.forRoot(),
+    UccLoginModule.forRoot({
+      appTitle: 'SAM: Shuttle Activity Monitor',
+      defaultRedirectPath: '/user',
+      serverContextRoot: '/shuttle-app'
+    }),
+    RouterModule.forRoot(routes, { useHash: true }),
+    CheckboxModule,
     AutoCompleteModule,
     SplitButtonModule,
     ToastModule,

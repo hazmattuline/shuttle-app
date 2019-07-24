@@ -73,7 +73,7 @@ export class BannerDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getDate();
-    this.shuttleApi.getVehicleOptions('ALL').subscribe(vehicles => {this.possibleVehicles = vehicles; console.log(this.possibleVehicles)});
+    this.shuttleApi.getVehicleOptions().subscribe(vehicles => {this.possibleVehicles = vehicles; console.log(this.possibleVehicles)});
   }
 
   getDate() {
@@ -96,7 +96,7 @@ openMenu(menu: Menu, event,) {
 
   selected(name: string) {
  
-    this.shuttleApi.getVehicleOptions('ALL').subscribe(vehicles => {this.possibleVehicles = vehicles;});
+    this.shuttleApi.getVehicleOptions().subscribe(vehicles => {this.possibleVehicles = vehicles;});
 
     for (const vehicle of this.possibleVehicles) {
         if (vehicle.name === name) {

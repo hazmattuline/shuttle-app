@@ -21,6 +21,7 @@ import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
+import rest.models.response.RouteResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 
@@ -52,12 +53,19 @@ public class ShuttleAppController {
     return shuttleAppService.enRoute(vehicleID, coordinateRequest);
   }
 
-  @ExecutionTime("ShuttleAppService.postShuttleDayDetails")
-  @ApiOperation(value = "posting the passenger amount details to the database")
-  @PostMapping(value = "/shuttle-trips")
-  public ShuttleDayDetailsResponse postTrip(
-      @RequestBody ShuttleDayDetailsRequest shuttleDayRequest) {
-    return shuttleAppService.postTrip(shuttleDayRequest);
+  @ApiOperation(value = "getting day from the database")
+  @GetMapping(value = "/shuttle-days")
+  public DayResponse getDay(
+      @RequestParam(value = "date") String date,
+      @RequestParam(value = "vehicle") Integer vehicleId) {
+    return shuttleAppService.getDay(date, vehicleId);
+  }
+
+  @ExecutionTime("ShuttleAppService.getRoutes")
+  @ApiOperation(value = "getting the routes from the database")
+  @GetMapping(value = "/shuttle-routes")
+  public List<RouteResponse> getRoutes() {
+    return shuttleAppService.getRoutes();
   }
 
   @ExecutionTime("ShuttleAppService.getShuttlesStatus")
@@ -66,6 +74,23 @@ public class ShuttleAppController {
   public List<ShuttleResponse> getShuttlesStatus(
       @RequestParam(name = "status", required = false) String status) {
     return shuttleAppService.getShuttlesStatus(status);
+  }
+
+  @ExecutionTime("ShuttleAppService.getTrip")
+  @ApiOperation(value = "getting the passenger amount details from the database")
+  @GetMapping(value = "/shuttle-trips")
+  public ShuttleDayDetailsResponse getTrip(
+      @RequestParam(value = "date") String date,
+      @RequestParam(value = "vehicle") Integer vehicleId) {
+    return shuttleAppService.getTrip(date, vehicleId);
+  }
+
+  @ExecutionTime("ShuttleAppService.postTrip")
+  @ApiOperation(value = "posting the trip details to the database")
+  @PostMapping(value = "/shuttle-trips")
+  public ShuttleDayDetailsResponse postTrip(
+      @RequestBody ShuttleDayDetailsRequest shuttleDayRequest) {
+    return shuttleAppService.postTrip(shuttleDayRequest);
   }
 
   @ExecutionTime("ShuttleAppService.submitDay")
@@ -80,13 +105,5 @@ public class ShuttleAppController {
   @PostMapping(value = "/shuttle-notes")
   public NoteResponse submitNote(@RequestBody NoteRequest noteRequest) {
     return shuttleAppService.submitNote(noteRequest);
-  }
-
-  @ApiOperation(value = "getting day from the database")
-  @GetMapping(value = "/shuttle-days")
-  public DayResponse getDay(
-      @RequestParam(value = "date") String date,
-      @RequestParam(value = "vehicle") Integer vehicleId) {
-    return shuttleAppService.getDay(date, vehicleId);
   }
 }

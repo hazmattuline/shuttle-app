@@ -13,6 +13,7 @@ import rest.models.requests.StatusRequest;
 import rest.models.response.CoordinateResponse;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
+import rest.models.response.RouteResponse;
 import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
 
@@ -37,14 +38,28 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest) {
+  public DayResponse getDay(String date, Integer vehicleId) {
+    return shuttleAppClient.getDay(date, vehicleId);
+  }
 
-    return shuttleAppClient.postTrip(shuttleDayRequest);
+  @Override
+  public List<RouteResponse> getRoutes() {
+    return shuttleAppClient.getRoutes();
   }
 
   @Override
   public List<ShuttleResponse> getShuttlesStatus(String status) {
     return shuttleAppClient.getShuttlesStatus(status);
+  }
+
+  @Override
+  public ShuttleDayDetailsResponse getTrip(String date, Integer vehicleId) {
+    return shuttleAppClient.getTrip(date, vehicleId);
+  }
+
+  @Override
+  public ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest) {
+    return shuttleAppClient.postTrip(shuttleDayRequest);
   }
 
   @Override
@@ -55,10 +70,5 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   @Override
   public NoteResponse submitNote(NoteRequest noteRequest) {
     return shuttleAppClient.submitNote(noteRequest);
-  }
-
-  @Override
-  public DayResponse getDay(String date, Integer vehicleId) {
-    return shuttleAppClient.getDay(date, vehicleId);
   }
 }
