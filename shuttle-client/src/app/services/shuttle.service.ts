@@ -43,16 +43,19 @@ export class ShuttleService {
       vehicleId: commentVehicleId,
       date: commentDate,
       message: commentMessage
-    }
+    };
     this.shuttleApi.sendComment(comment).subscribe();
   }
 
-    createEndInfo(driverId: number, endVehicleId: number, mileage: number, condition: string, endDate: string) {
+    createEndInfo(driverId: number, endVehicleId: number, mileage: number, condition: string,
+                  quantity: number, cost: number, endDate: string) {
     const day: Day = {
       vehicleId: endVehicleId,
       endMileage: mileage,
       endCondition: condition,
-      date: endDate
+      date: endDate,
+      fuelCost: cost,
+      fuelQuantity: quantity
     };
     this.shuttleApi.submitDay(day).subscribe();
   }

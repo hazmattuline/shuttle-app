@@ -17,7 +17,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
 import { EndshiftComponent } from './endshift/endshift.component';
 import { DatePipe } from '@angular/common';
-import { FuelComponent } from './fuel/fuel.component';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import { AuthModule, AuthHeaderInterceptor, AuthResponseInterceptor, UccLoginModule } from 'common-component-lib';
+import { routes } from './routes/routes';
 import { BannerDetailsComponent } from './banner-details/banner-details.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import {SelectButtonModule} from 'primeng/selectbutton';
@@ -29,6 +31,12 @@ import { CommonModule } from '@angular/common';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import { MessageComponent } from './message/message.component';
 
+const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: AuthResponseInterceptor, multi: true }
+]
+
+
 @NgModule({ 
   declarations: [
     AppComponent,
@@ -36,7 +44,6 @@ import { MessageComponent } from './message/message.component';
     UserComponent,
     StartshiftComponent,
     EndshiftComponent,
-    FuelComponent,
     BannerDetailsComponent,
     MessageComponent
   ],
@@ -52,8 +59,17 @@ import { MessageComponent } from './message/message.component';
     InputTextModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CheckboxModule,
+    AccordionModule,
+    InputTextareaModule,
     SelectButtonModule,
+    AuthModule.forRoot(),
+    UccLoginModule.forRoot({
+      appTitle: 'SAM: Shuttle Activity Monitor',
+      defaultRedirectPath: '/user',
+      serverContextRoot: '/shuttle-app'
+    }),
+    RouterModule.forRoot(routes, { useHash: true }),
+    CheckboxModule,
     AutoCompleteModule,
     SplitButtonModule,
     ToastModule,

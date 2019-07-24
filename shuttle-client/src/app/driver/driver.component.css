@@ -217,3 +217,13 @@ margin-top: 40px;
   margin-bottom: 80px;
 }
 
+
+.column1 {
+  float: left;
+  width: 50%;
+}
+
+.column2 {
+  float: right;
+  width: 50%;
+}

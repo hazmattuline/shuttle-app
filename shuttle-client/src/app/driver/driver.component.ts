@@ -4,6 +4,10 @@ import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import {AccordionModule} from 'primeng/accordion';
+import { AuthService } from 'common-component-lib';
+import { Subscription } from 'rxjs';
+import { Router, NavigationEnd } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 @Component
   ({
@@ -14,6 +18,9 @@ import {AccordionModule} from 'primeng/accordion';
     })
 export class DriverComponent implements OnInit, OnDestroy {
   showDriverShift = true;
+  currentUsername: string;
+  isOnLoginPage: boolean;
+  routerSubscription: Subscription;
 
   constructor(public gpsService: GPSService, public shuttleService: ShuttleService) { }
 
@@ -33,7 +40,7 @@ changeActive() {
 
   ngOnDestroy() {
     this.gpsService.stop();
+    this.routerSubscription.unsubscribe();
   }
-
 
 }
