@@ -111,7 +111,6 @@ export class ShuttleService {
       routeId: tripRouteId,
       driverId: tripDriverId
     };
-    console.log(trip);
     this.shuttleApi.submitTrip(trip).subscribe();
   }
 

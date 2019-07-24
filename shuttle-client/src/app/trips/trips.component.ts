@@ -98,12 +98,8 @@ export class TripsComponent implements OnInit {
 
   findRoute() {
     if (this.isTowardsH2) {
-      console.log("going to H2");
-      console.log(this.routeH1ToH2);
       return this.routeH1ToH2.id;
     } else {
-      console.log("going to H1");
-      console.log(this.routeH2ToH1);
       return this.routeH2ToH1.id;
     }
   }
@@ -144,12 +140,10 @@ toggleRoute() {
 
 reloadRow() {
   this.shuttleApiService.getTrip(this.date, this.gpsService.getShuttleId()).subscribe(loadedTrip => {
-    console.log("loaded trip");
     this.curbNumber = loadedTrip.curbCount;
     this.passengerNumber = 0;
     this.isCurb = false;
     this.loadedRowId = loadedTrip.id;
-    console.log(loadedTrip);
   });
 
 }
