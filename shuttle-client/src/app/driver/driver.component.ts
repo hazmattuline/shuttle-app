@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
+import { Subscription } from 'rxjs';
 
 @Component
   ({
@@ -11,6 +12,9 @@ import { ShuttleService } from '../services/shuttle.service';
     })
 export class DriverComponent implements OnInit, OnDestroy {
   showDriverShift = true;
+  currentUsername: string;
+  isOnLoginPage: boolean;
+  routerSubscription: Subscription;
 
   constructor(public gpsService: GPSService, public shuttleService: ShuttleService) { }
 
@@ -30,7 +34,7 @@ changeActive() {
 
   ngOnDestroy() {
     this.gpsService.stop();
+    this.routerSubscription.unsubscribe();
   }
-
 
 }
