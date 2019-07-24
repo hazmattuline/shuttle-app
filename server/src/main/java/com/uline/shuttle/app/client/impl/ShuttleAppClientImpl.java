@@ -1,10 +1,9 @@
 package com.uline.shuttle.app.client.impl;
 
-import com.uline.ha.rest.UlineRestTemplate;
-import com.uline.shuttle.app.client.ShuttleAppClient;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -12,6 +11,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import com.uline.ha.rest.UlineRestTemplate;
+import com.uline.shuttle.app.client.ShuttleAppClient;
+
 import rest.models.requests.CoordinateRequest;
 import rest.models.requests.DayRequest;
 import rest.models.requests.NoteRequest;
@@ -27,186 +30,184 @@ import rest.models.response.ShuttleResponse;
 @Service
 public class ShuttleAppClientImpl implements ShuttleAppClient {
 
-  @Value("${shuttle.service.rc.url.get.status.shuttles}")
-  private String statusShuttlesURL;
+	@Value("${shuttle.service.rc.url.get.status.shuttles}")
+	private String statusShuttlesURL;
 
-  @Value("${shuttle.service.base.url}")
-  private String baseUrl;
+	@Value("${shuttle.service.base.url}")
+	private String baseUrl;
 
-  private UlineRestTemplate restTemplate;
+	private UlineRestTemplate restTemplate;
 
-  @Value("${shuttle.service.rc.url.post.coordinates}")
-  private String shuttlePostCoordinates;
+	@Value("${shuttle.service.rc.url.post.coordinates}")
+	private String shuttlePostCoordinates;
 
-  @Value("${shuttle.service.rc.url.post.trips.data}")
-  private String shuttleServiceForDayDetails;
+	@Value("${shuttle.service.rc.url.post.trips.data}")
+	private String shuttleServiceForDayDetails;
 
-  @Value("${shuttle.service.rc.url.change.status}")
-  private String changeStatusURL;
+	@Value("${shuttle.service.rc.url.change.status}")
+	private String changeStatusURL;
 
-  @Value("${shuttle.service.rc.url.submit.day}")
-  private String submitDayURL;
+	@Value("${shuttle.service.rc.url.submit.day}")
+	private String submitDayURL;
 
-  @Value("${shuttle.service.rc.url.submit.note}")
-  private String submitNoteURL;
+	@Value("${shuttle.service.rc.url.submit.note}")
+	private String submitNoteURL;
 
-  @Value("${shuttle.service.rc.url.get.trip}")
-  private String getTripURL;
+	@Value("${shuttle.service.rc.url.get.trip}")
+	private String getTripURL;
 
-  @Value("${shuttle.service.rc.url.get.routes}")
-  private String getRoutesURL;
+	@Value("${shuttle.service.rc.url.get.routes}")
+	private String getRoutesURL;
 
-  @Value("${shuttle.service.rc.url.get.day}")
-  private String getDayURL;
+	@Value("${shuttle.service.rc.url.get.day}")
+	private String getDayURL;
 
-  @Autowired
-  public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
-    this.restTemplate = restTemplate;
-  }
+	@Autowired
+	public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
 
-  @Override
-  public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
+	@Override
+	public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
 
-    Map<String, Integer> params = new HashMap<>();
-    params.put("id", id);
+		Map<String, Integer> params = new HashMap<>();
+		params.put("id", id);
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + changeStatusURL);
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + changeStatusURL);
 
-    return restTemplate
-        .exchange(
-            builder.buildAndExpand(params).toUriString(),
-            HttpMethod.PATCH,
-            new HttpEntity<>(statusRequest),
-            new ParameterizedTypeReference<ShuttleResponse>() {})
-        .getBody();
-  }
+		return restTemplate
+				.exchange(
+						builder.buildAndExpand(params).toUriString(),
+						HttpMethod.PATCH,
+						new HttpEntity<>(statusRequest),
+						new ParameterizedTypeReference<ShuttleResponse>() {})
+				.getBody();
+	}
 
-  @Override
-  public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
+	@Override
+	public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
 
-    Map<String, Integer> params = new HashMap<>();
-    params.put("vehicleID", vehicleID);
+		Map<String, Integer> params = new HashMap<>();
+		params.put("id", vehicleID);
 
-    UriComponentsBuilder builder =
-        UriComponentsBuilder.fromUriString(baseUrl + shuttlePostCoordinates);
+		UriComponentsBuilder builder =
+				UriComponentsBuilder.fromUriString(baseUrl + shuttlePostCoordinates);
 
-    return restTemplate
-        .exchange(
-            builder.buildAndExpand(params).toUriString(),
-            HttpMethod.PATCH,
-            new HttpEntity<>(coordinateRequest),
-            new ParameterizedTypeReference<CoordinateResponse>() {})
-        .getBody();
-  }
+		return restTemplate
+				.exchange(
+						builder.buildAndExpand(params).toUriString(),
+						HttpMethod.PATCH,
+						new HttpEntity<>(coordinateRequest),
+						new ParameterizedTypeReference<CoordinateResponse>() {})
+				.getBody();
+	}
 
-  @Override
-  public List<RouteResponse> getRoutes() {
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + getRoutesURL);
+	@Override
+	public DayResponse getDay(String date, Integer vehicleId) {
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + getDayURL);
 
-    return restTemplate
-        .exchange(
-            builder.build().toUriString(),
-            HttpMethod.GET,
-            new HttpEntity<>(null, null),
-            new ParameterizedTypeReference<List<RouteResponse>>() {})
-        .getBody();
-  }
+		String vehicle = Integer.toString(vehicleId);
 
-  @Override
-  public List<ShuttleResponse> getShuttlesStatus(String status) {
-    Map<String, String> params = new HashMap<>();
-    params.put("status", status);
+		Map<String, String> params = new HashMap<>();
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + statusShuttlesURL);
+		params.put("date", date);
+		params.put("vehicle", vehicle);
 
-    return restTemplate
-        .exchange(
-            builder.buildAndExpand(params).toUriString(),
-            HttpMethod.GET,
-            new HttpEntity<>(null, null),
-            new ParameterizedTypeReference<List<ShuttleResponse>>() {})
-        .getBody();
-  }
+		return restTemplate
+				.exchange(
+						builder.buildAndExpand(params).toUriString(),
+						HttpMethod.GET,
+						new HttpEntity<>(null, null),
+						new ParameterizedTypeReference<DayResponse>() {})
+				.getBody();
+	}
 
-  @Override
-  public ShuttleDayDetailsResponse getTrip(String date, Integer vehicleId) {
-    String vehicle = Integer.toString(vehicleId);
-    Map<String, String> params = new HashMap<>();
-    params.put("date", date);
-    params.put("vehicle", vehicle);
+	@Override
+	public List<RouteResponse> getRoutes() {
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + getRoutesURL);
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + getTripURL);
+		return restTemplate
+				.exchange(
+						builder.build().toUriString(),
+						HttpMethod.GET,
+						new HttpEntity<>(null, null),
+						new ParameterizedTypeReference<List<RouteResponse>>() {})
+				.getBody();
+	}
 
-    return restTemplate
-        .exchange(
-            builder.buildAndExpand(params).toUriString(),
-            HttpMethod.GET,
-            new HttpEntity<>(null, null),
-            new ParameterizedTypeReference<ShuttleDayDetailsResponse>() {})
-        .getBody();
-  }
+	@Override
+	public List<ShuttleResponse> getShuttlesStatus(String status) {
+		Map<String, String> params = new HashMap<>();
+		params.put("status", status);
 
-  @Override
-  public ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest) {
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + statusShuttlesURL);
+		return restTemplate
+				.exchange(
+						builder.buildAndExpand(params).toUriString(),
+						HttpMethod.GET,
+						new HttpEntity<>(null, null),
+						new ParameterizedTypeReference<List<ShuttleResponse>>() {})
+				.getBody();
+	}
 
-    UriComponentsBuilder builder =
-        UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForDayDetails);
+	@Override
+	public ShuttleDayDetailsResponse getTrip(String date, Integer vehicleId) {
+		String vehicle = Integer.toString(vehicleId);
+		Map<String, String> params = new HashMap<>();
+		params.put("date", date);
+		params.put("vehicle", vehicle);
 
-    return restTemplate
-        .exchange(
-            builder.build().toUriString(),
-            HttpMethod.POST,
-            new HttpEntity<>(shuttleDayRequest),
-            new ParameterizedTypeReference<ShuttleDayDetailsResponse>() {})
-        .getBody();
-  }
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + getTripURL);
 
-  @Override
-  public DayResponse submitDay(DayRequest dayRequest) {
+		return restTemplate
+				.exchange(
+						builder.buildAndExpand(params).toUriString(),
+						HttpMethod.GET,
+						new HttpEntity<>(null, null),
+						new ParameterizedTypeReference<ShuttleDayDetailsResponse>() {})
+				.getBody();
+	}
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + submitDayURL);
+	@Override
+	public ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest) {
 
-    return restTemplate
-        .exchange(
-            builder.build().toUriString(),
-            HttpMethod.POST,
-            new HttpEntity<>(dayRequest),
-            new ParameterizedTypeReference<DayResponse>() {})
-        .getBody();
-  }
+		UriComponentsBuilder builder =
+				UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForDayDetails);
 
-  @Override
-  public NoteResponse submitNote(NoteRequest noteRequest) {
+		return restTemplate
+				.exchange(
+						builder.build().toUriString(),
+						HttpMethod.POST,
+						new HttpEntity<>(shuttleDayRequest),
+						new ParameterizedTypeReference<ShuttleDayDetailsResponse>() {})
+				.getBody();
+	}
 
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + submitNoteURL);
+	@Override
+	public DayResponse submitDay(DayRequest dayRequest) {
 
-    return restTemplate
-        .exchange(
-            builder.build().toUriString(),
-            HttpMethod.POST,
-            new HttpEntity<>(noteRequest),
-            new ParameterizedTypeReference<NoteResponse>() {})
-        .getBody();
-  }
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + submitDayURL);
 
-  @Override
-  public DayResponse getDay(String date, Integer vehicleId) {
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + getDayURL);
+		return restTemplate
+				.exchange(
+						builder.build().toUriString(),
+						HttpMethod.POST,
+						new HttpEntity<>(dayRequest),
+						new ParameterizedTypeReference<DayResponse>() {})
+				.getBody();
+	}
 
-    String vehicle = Integer.toString(vehicleId);
+	@Override
+	public NoteResponse submitNote(NoteRequest noteRequest) {
 
-    Map<String, String> params = new HashMap<>();
+		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + submitNoteURL);
 
-    params.put("date", date);
-    params.put("vehicle", vehicle);
-
-    return restTemplate
-        .exchange(
-            builder.buildAndExpand(params).toUriString(),
-            HttpMethod.GET,
-            new HttpEntity<>(null, null),
-            new ParameterizedTypeReference<DayResponse>() {})
-        .getBody();
-  }
-}
+		return restTemplate
+				.exchange(
+						builder.build().toUriString(),
+						HttpMethod.POST,
+						new HttpEntity<>(noteRequest),
+						new ParameterizedTypeReference<NoteResponse>() {})
+				.getBody();
+	}
 }
