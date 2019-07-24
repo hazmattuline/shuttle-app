@@ -75,13 +75,13 @@
   }
 
   .input-container {
-    width: 300px;
+    width: 100px;
     float: left;
     font-family: "Avant Garde Medium" !important;
   }
 
   input {
-      width:150px;
+      width: 30%;
       font-family: "Avant Garde Medium" !important;
       
       
