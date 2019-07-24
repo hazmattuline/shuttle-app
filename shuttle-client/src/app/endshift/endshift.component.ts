@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
-import {SelectItem, MessageService} from 'primeng/api';
+import {SelectItem} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
 import {InputTextModule} from 'primeng/inputtext';
 import { GPSService } from '../services/gps.service';
-import { InternalFormsSharedModule } from '@angular/forms/src/directives';
 
 
 @Component({
@@ -19,7 +18,7 @@ import { InternalFormsSharedModule } from '@angular/forms/src/directives';
 
 export class EndshiftComponent implements OnInit {
 
-constructor(private fb: FormBuilder, public shuttleService: ShuttleService, private gpsService: GPSService, private messageService: MessageService) {
+constructor(private fb: FormBuilder, public shuttleService: ShuttleService, private gpsService: GPSService) {
 
   this.good = [
     {label: 'Good', value: 'GOOD'}
@@ -102,8 +101,6 @@ private setupForm() {
 }
 
 submitEndData(info: string) {
-
-  this.messageService.add({severity: info, summary: 'Success', detail: 'Saved Successfully'});
   this.shuttleService.createEndInfo(this.driver, this.gpsService.getShuttleId(), this.mileage, this.condition, this.quantity, this.cost, this.date);
   this.shuttleService.createCommentInfo(this.gpsService.getShuttleId(), this.date, this.comment);
 
