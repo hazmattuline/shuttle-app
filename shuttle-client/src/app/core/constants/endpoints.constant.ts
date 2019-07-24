@@ -2,9 +2,11 @@ export const Shuttles = '/shuttles';
 export const Coordinates = '/coordinates';
 export const Trips = '/shuttle-trips';
 export const StatusShuttles = '/shuttles?status=';
+export const AllShuttles = '/shuttles?status=ALL';
 export const Days = '/shuttle-days';
 export const Status = '/status';
 export const Notes = '/shuttle-notes';
 export const ShuttleDate = '?date=';
 export const Vehicle = '&vehicle=';
+export const Routes = '/shuttle-routes';
 

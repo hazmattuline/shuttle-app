@@ -1,6 +1,9 @@
 export interface Trip {
-    vehicleId: number;
+    id?: number;
+    vehicleId?: number;
     passengerCount: number;
     curbCount: number;
-    date: string;
+    date?: string;
+    routeId: number;
+    driverId: number;
 }

@@ -1,9 +1,9 @@
 package rest.models.requests;
 
 public class NoteRequest {
-  String message;
-  Integer vehicleId;
-  String date;
+  private String message;
+  private Integer vehicleId;
+  private String date;
 
   public String getDate() {
     return date;

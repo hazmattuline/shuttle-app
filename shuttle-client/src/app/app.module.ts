@@ -17,6 +17,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './core/http/api-prefix.interceptor';
 import { EndshiftComponent } from './endshift/endshift.component';
 import { DatePipe } from '@angular/common';
+import { TripsComponent } from './trips/trips.component';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { AuthModule, AuthHeaderInterceptor, AuthResponseInterceptor, UccLoginModule } from 'common-component-lib';
 import { routes } from './routes/routes';
@@ -44,6 +45,7 @@ const httpInterceptorProviders = [
     UserComponent,
     StartshiftComponent,
     EndshiftComponent,
+    TripsComponent,
     BannerDetailsComponent,
     MessageComponent
   ],

@@ -100,11 +100,9 @@ private setupForm() {
   });
 }
 
-submitEndData() {
-  const shiftValue = this.endShiftForm.value;
-  this.shuttleService.createEndInfo(this.driver, this.vehicleId, this.mileage, this.condition, this.quantity, this.cost, this.date);
-  this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comment);
-  this.showShift.emit(false);
+submitEndData(info: string) {
+  this.shuttleService.createEndInfo(this.driver, this.gpsService.getShuttleId(), this.mileage, this.condition, this.quantity, this.cost, this.date);
+  this.shuttleService.createCommentInfo(this.gpsService.getShuttleId(), this.date, this.comment);
 
 }
 }
