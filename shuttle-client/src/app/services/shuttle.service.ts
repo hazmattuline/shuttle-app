@@ -36,7 +36,6 @@ export class ShuttleService {
       date: startDate
     };
     this.shuttleApi.submitDay(day).subscribe();
-    console.log(day);
   }
 
   createCommentInfo(commentVehicleId: number, commentDate: string, commentMessage: string) {
@@ -45,6 +44,7 @@ export class ShuttleService {
       date: commentDate,
       message: commentMessage
     }
+    console.log(comment);
     this.shuttleApi.sendComment(comment).subscribe();
   }
 

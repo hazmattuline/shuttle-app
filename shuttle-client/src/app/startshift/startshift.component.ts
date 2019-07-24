@@ -66,7 +66,7 @@ submitComment() {
 }
 
 submitStartData(info: string) {
-  this.submitComment();
+  
 
   this.vehicleId = this.gpsService.getShuttleId();
 
@@ -75,6 +75,9 @@ submitStartData(info: string) {
   this.mileage = parseInt(this.tempMileage, 10);
 
   this.shuttleService.createStartInfo(this.driver, this.vehicleId, this.mileage, this.condition, this.date);
+
+  // must submit comment after since need to access day
+  this.submitComment();
 
 }
 verify(status:string){

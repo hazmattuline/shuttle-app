@@ -26,7 +26,7 @@
     "common-component-lib": "http://artifactory.ulinedm.com/artifactory/npm-local/common-component-lib/-/common-component-lib-1.2.0.tgz",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.11",
     "mathjs": "^5.10.3",
     "primeicons": "^1.0.0",
     "primeng": "^7.0.5",
@@ -54,10 +54,5 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2"
-  },
-  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  }
 }
