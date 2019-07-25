@@ -39,7 +39,7 @@
 
   </div>
   <div class="column">
-        <div class="first-line">
+    <div class="first-line">
     <div class="line center-vertically">
           <button pButton type="button" label="H1" class="route" [ngClass] =  "isTowardsH2 ? '' : 'second-destination'" (click) = "changeRoute(true)"></button>
     </div>
@@ -52,14 +52,15 @@
     
     <div class="line center-vertically">
         <button pButton type="button" label="H2" class="route"  [ngClass] =  "isTowardsH2 ? 'second-destination' : ''" (click) = "changeRoute(false)"></button>
-  </div>
-
+    </div>
+  <div class="around-start">
      <button pButton type="button" [label]="isChangeLatest ? 'Update' : 'Start'" class = "start-button center-vertically" (click) = "submitTripInfo()"></button>
     </div>
+    </div>
      <br>
-     <div class="line"  style="padding-bottom: 20px">
-     <div class="input-container center-vertically">Passengers:   <input type="button"   pInputText [ngClass] =  "isCurb ? 'normal-input' : 'show-input normal-input'" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/></div><br><br>
-     <div class="input-container center-vertically">On Curb:      <input type="button" pInputText [ngClass] =  "isCurb ? 'show-input normal-input' : 'normal-input'" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/><br></div>
+     <div class="input-boxes">
+     <div class="input-container center-vertically">Passengers:   <input type="button"   pInputText [ngClass] =  "isCurb ? 'normal-input' : 'show-input normal-input'" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/></div><br>
+     <div class="input-container center-vertically">On Curb:      <input type="button" pInputText [ngClass] =  "isCurb ? 'show-input normal-input' : 'normal-input'" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/></div>
      </div>
      
         <p-table  [value]="trips">

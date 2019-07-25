@@ -115,6 +115,8 @@
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
+  background-color: #f8f8f8;
+  color: #2e2925;
   }
 
   ::ng-deep .pi-chevron-right:before {
@@ -124,6 +126,8 @@
 ::ng-deep .pi-chevron-down:before {
   content: none !important;
 }
+
+
 
 
 
