@@ -94,8 +94,7 @@
   }
 
   .accordion-tab-styling {
-    height: 30px;
-    /* font-weight: bold !important; */
+    margin-top: 12px;
     font-size: 14px;
     text-align: left;
     content: none;
@@ -244,3 +243,4 @@ margin-top: 40px;
   float: right;
   width: 50%;
 }
+

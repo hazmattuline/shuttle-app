@@ -17,7 +17,7 @@ export class UserComponent implements OnInit, OnDestroy {
   currentTime: number;
 
   private shuttleSubscription: Subscription;
-  @ViewChild('markerContainer', {static: false}) markerContainer: ElementRef;
+  @ViewChild('markerContainer') markerContainer: ElementRef;
   currentShuttleMarkers: Map<number, ElementRef> = new Map();
 
   constructor(private shuttleTrackingService: ShuttleTrackingService, private renderer: Renderer2, private vcRef: ViewContainerRef) {}
