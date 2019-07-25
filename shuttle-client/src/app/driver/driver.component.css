@@ -94,9 +94,9 @@
   }
 
   .accordion-tab-styling {
-    height: 30px;
-    /* font-weight: bold !important; */
-    font-size: 14px;
+    width: 994px !important;
+    height: 60px !important;
+    border-radius: 6px;
     text-align: left;
     content: none;
   }
@@ -105,6 +105,27 @@
     display: none;
     content: none;
   }
+
+  ::ng-deep body .ui-accordion .ui-accordion-header a {
+    height: 60px; 
+    font-family: Arial;
+  font-size: 21px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  }
+
+  ::ng-deep .pi-chevron-right:before {
+    content: none !important;
+}
+
+::ng-deep .pi-chevron-down:before {
+  content: none !important;
+}
+
+
 
   .pi-chevron-right:before {
     content: "" !important;
