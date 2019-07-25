@@ -1,25 +1,34 @@
+<div class="Rectangle">
+    <div class="Vehicles">Vehicles</div> 
+    <div class="Status">Status</div>
+    <div class="Login">Driver/Login</div>
+</div>
+
+<p-menu #appMenu [popup]="true" [model]="items"></p-menu>
+
 <div class="background" >
-  <div class="container">
-    <br>
-    <br>
-  Vehicle: 
   <p-selectButton class="pSelectButtonStyle" [options]="bailey" [(ngModel)]="selectedType" (onChange)=" selected('BAILEY')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle" [options]="holly" [(ngModel)]="selectedType" (onChange)=" selected('HOLLY')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle" [options]="dixie" [(ngModel)]="selectedType"  (onChange)=" selected('DIXIE')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="baileyRental" [(ngModel)]="selectedType" (onChange)=" selected('BAILEY RENTAL')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="riley" [(ngModel)]="selectedType"  (onChange)=" selected('RILEY')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle" [options]="rileyRental" [(ngModel)]="selectedType"  (onChange)=" selected('RILEY RENTAL')"></p-selectButton>
 
-      Rental: 
-  <p-checkbox [(ngModel)]="checked" binary="true" (onChange)="append()"></p-checkbox>
-  <p-button  type="button" *ngIf="this.toShow"  (click)="submit(); changeActive()" styleClass="ui-button-action" [label]="(isAlreadyActive) ? 'Deactivate' : 'Activate'"></p-button>
+  <div class="Top-BG-Copy-2"></div>
+  <div class="Label-Copy">Offline</div>
 
-  <div class="move">
-  <i class="pi pi-cog " >  Driver: {{driverName}} </i><br>
+  <div class="toggle">
+      <ui-switch [checked]="(isAlreadyActive)" switchColor="#ffffff"  color="#127cb5"  (click)="submit(); changeActive()"></ui-switch>
+
   </div>
-  <div class="move1">
-  <button  pButton type="button" label="Logout"  class="ui-button-rounded"></button>
-  </div>
-  <br>
-  <br>
+  
+
+  <div class="Label">Online</div>
+  
+  <div class="Top-BG-Copy-3"></div>
+  <div class="Driver">{{driverName}}</div>
+  <div class="gear"><i type= "submit" class="pi pi-cog" (click)="openMenu(appMenu, $event)"></i></div>
+
+ 
+  
 </div>
 
-</div>
 
