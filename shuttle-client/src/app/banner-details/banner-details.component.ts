@@ -5,6 +5,7 @@ import { ShuttleService } from '../services/shuttle.service';
 import { Shuttle } from '../models/shuttle.model';
 import { ShuttleApiService } from '../services/shuttle-api.service';
 import { Menu } from 'primeng/menu';
+import { DriverComponent } from '../driver/driver.component';
 
 @Component({
   selector: 'app-banner-details',
@@ -14,25 +15,8 @@ import { Menu } from 'primeng/menu';
 })
 export class BannerDetailsComponent implements OnInit {
 
-  constructor( public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService) {
+  constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService) {}
 
-    this.bailey = [
-  {label: 'BAILEY', value: 'BAILEY'}
-  ],
-
-  this.riley = [
-    {label: 'Riley', value: 'Riley'}
-  ],
-
-  this.baileyRental = [
-    {label: 'Bailey Rental', value: 'Bailey Rental'}
-  ];
-
-  this.rileyRental = [
-    {label: 'Riley Rental', value: 'Riley Rental'}
-  ];
-
-  }
   driverName = 'Rob Kenlay';
 
   date: string;
@@ -55,7 +39,7 @@ export class BannerDetailsComponent implements OnInit {
   changeActive() {
 
     if (this.isAlreadyActive) {
-      
+
       this.gpsService.stopGPSTracking();
       this.selectedVehicle.status = 'I';
       this.isAlreadyActive = false;
@@ -73,7 +57,20 @@ export class BannerDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getDate();
-    this.shuttleApi.getVehicleOptions().subscribe(vehicles => {this.possibleVehicles = vehicles; console.log(this.possibleVehicles)});
+
+    this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
+      this.possibleVehicles = vehicles;
+      console.log(this.possibleVehicles);
+
+      this.bailey = [
+        { label: this.possibleVehicles[0].name, value: 'BAILEY' }
+      ],
+
+      this.baileyRental = [
+        { label: this.possibleVehicles[3].name, value: 'BAILEY RENTAL' }
+      ]; 
+    });
+
   }
 
   getDate() {
@@ -82,32 +79,32 @@ export class BannerDetailsComponent implements OnInit {
 
 
 
-openMenu(menu: Menu, event,) {
-  if (menu.visible) {
-    menu.hide();
-  } else {
-    this.items = [
-      { label: 'Logout', icon: 'pi pi-sign-out', routerLink: ['']},
-    ];
-    menu.show(event);
+  openMenu(menu: Menu, event, ) {
+    if (menu.visible) {
+      menu.hide();
+    } else {
+      this.items = [
+        { label: 'Logout', icon: 'pi pi-sign-out', routerLink: [''] },
+      ];
+      menu.show(event);
+    }
   }
-}
 
 
   selected(name: string) {
- 
-    this.shuttleApi.getVehicleOptions().subscribe(vehicles => {this.possibleVehicles = vehicles;});
+
+    this.shuttleApi.getVehicleOptions().subscribe(vehicles => { this.possibleVehicles = vehicles; });
 
     for (const vehicle of this.possibleVehicles) {
-        if (vehicle.name === name) {
-          this.selectedVehicle = vehicle;
-        }
+      if (vehicle.name === name) {
+        this.selectedVehicle = vehicle;
       }
+    }
 
 
 
     this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
-   
+
     this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleID);
     this.verify();
 
