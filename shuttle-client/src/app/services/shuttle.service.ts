@@ -61,8 +61,8 @@ export class ShuttleService {
   }
 
 
-    vehicleOptions(value) {
-    this.shuttleApi.getVehicleOptions(value).subscribe(vehicles =>{this.setVehicles(vehicles);
+    vehicleOptions() {
+    this.shuttleApi.getVehicleOptions().subscribe(vehicles =>{this.setVehicles(vehicles);
     });
   }
 
@@ -75,8 +75,10 @@ export class ShuttleService {
 
     if(dayInfo.startMileage === null){
       this.startMileage = 0.0;
-    } else
-    this.startMileage = dayInfo.startMileage;
+    } else {
+      this.startMileage = dayInfo.startMileage;
+    }
+    
   }
 
   getMileage(){
@@ -100,12 +102,25 @@ export class ShuttleService {
     this.shuttleApi.submitDay(day).subscribe();
   }
 
-  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripDate: string) {
+  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDriverId: number, tripDate: string) {
     const trip: Trip = {
       vehicleId: tripVehicleId,
       passengerCount: tripPassengers,
       curbCount: tripCurb,
-      date: tripDate
+      date: tripDate,
+      routeId: tripRouteId,
+      driverId: tripDriverId
+    };
+    this.shuttleApi.submitTrip(trip).subscribe();
+  }
+
+  modifyTrip(tripId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDriverId: number) {
+    const trip: Trip = {
+      passengerCount: tripPassengers,
+      curbCount: tripCurb,
+      id: tripId,
+      routeId: tripRouteId,
+      driverId: tripDriverId
     };
     this.shuttleApi.submitTrip(trip).subscribe();
   }

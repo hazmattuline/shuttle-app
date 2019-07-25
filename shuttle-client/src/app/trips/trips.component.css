@@ -1,0 +1,148 @@
+.column {
+    float: left;
+    width: 50%;
+    text-align: center !important;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .tab {
+    width: 75% !important;
+  }
+
+  .number-pad {
+    display:flex;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+    text-align: center !important;
+    font-family: "Avant Garde Medium" !important;
+  }
+
+  .number-pad > ::ng-deep .ui-button-text {
+    padding: unset !important;
+  }
+
+  .route {
+    display: flex;
+    height: 35px;
+    justify-content: center !important;
+    width: 35px;
+    min-width: unset !important;
+    border-radius: 100%;
+    font-family: "Avant Garde Medium" !important;
+    font-size: 22px !important;
+    
+  }
+
+  .center-vertically {
+    /*display: table-cell !important;*/
+    height: 40px !important;
+    vertical-align: middle !important;
+  }
+
+  .img-container img {
+      margin: 0;
+      /*position: absolute; */
+      top: 50%;
+  }
+
+  .img-container {
+    white-space: nowrap;
+    padding: 5px;
+    display:inline-block;
+    
+    /*height: 50px;*/
+   /*position: relative;*/
+  }
+
+  .start-button {
+    border-radius: 10% !important;
+    background-color: rgb(60,147,20) !important;
+    height: 35px !important;
+    font-size: 20px;
+    width: 125px !important;
+  }
+
+  .input-container {
+    width: 100px;
+    float: left;
+    font-family: "Avant Garde Medium" !important;
+  }
+
+  input {
+      width: 30%;
+      font-family: "Avant Garde Medium" !important;
+      
+      
+  }
+
+  td, th { 
+    border-left: solid 1px black !important;
+    border-bottom: solid 1px black !important;
+    border-right: solid 1px black !important;
+    border-top: solid 1px black !important;
+    font-family: "Avant Garde Medium" !important;
+    background-color: white !important;
+    text-align: center !important;
+  }
+
+  th   {
+    color: #575656 !important;
+    background-color: #d9d7d7 !important;
+  }
+
+  .highlight-row {
+    background-color: rgba(248, 217, 132, 0.876) !important;
+  }
+
+  .line {
+    white-space: nowrap;
+    display:inline-block;
+    padding: 5px;
+}
+
+.show-input {
+  border-color: #1f9bde;
+  outline: 0 none;
+  box-shadow: 0 0 5px 1px rgba(31, 155, 222, 0.5);
+}
+
+.normal-input {
+  font-size: 18px;
+  text-align: right;
+  width: 300px;
+}
+
+.endOfRoute {
+  color: rgb(18, 124, 181);
+  background-color: white;
+}
+
+
+
+
+
+  .clear-button {
+      color: rgb(18, 124, 181);
+      background: white;
+      border: 1px solid blue;
+  }
+
+
+
+.button:hover 
+{
+  background-color: blue;
+  color: white;
+}

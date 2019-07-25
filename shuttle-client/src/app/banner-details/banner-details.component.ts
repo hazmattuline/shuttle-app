@@ -66,7 +66,7 @@ export class BannerDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getDate();
-    this.shuttleApi.getVehicleOptions('ALL').subscribe(vehicles => {this.possibleVehicles = vehicles;});
+    this.shuttleApi.getVehicleOptions().subscribe(vehicles => {this.possibleVehicles = vehicles;});
   }
 
   getDate() {
@@ -89,7 +89,7 @@ export class BannerDetailsComponent implements OnInit {
     }
 
 
-    this.shuttleApi.getVehicleOptions('ALL').subscribe(vehicles => {this.possibleVehicles = vehicles;});
+    this.shuttleApi.getVehicleOptions().subscribe(vehicles => {this.possibleVehicles = vehicles;});
 
     for (const vehicle of this.possibleVehicles) {
         if (vehicle.name === name) {
