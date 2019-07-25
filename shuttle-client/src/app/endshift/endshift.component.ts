@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
-import {SelectItem} from 'primeng/api';
+import {SelectItem, MessageService} from 'primeng/api';
 import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
@@ -18,7 +18,7 @@ import { GPSService } from '../services/gps.service';
 
 export class EndshiftComponent implements OnInit {
 
-constructor(private fb: FormBuilder, public shuttleService: ShuttleService, private gpsService: GPSService) {
+constructor(private fb: FormBuilder, public shuttleService: ShuttleService, private gpsService: GPSService, private messageService: MessageService) {
 
   this.good = [
     {label: 'Good', value: 'GOOD'}
@@ -33,23 +33,6 @@ constructor(private fb: FormBuilder, public shuttleService: ShuttleService, priv
 
       {label: 'Bad', value: 'BAD'}
     ];
-
-  this.driverOptions = [
-    {label: 'Select', value: null},
-    {label: 'Nadia Almanza', value: {id: 1}},
-    {label: 'Donna Caputo', value: {id: 2}},
-    {label: 'Ariel Gauslow', value: {id: 3}},
-    {label: 'Heather Iwinski', value: {id: 4}},
-    {label: 'Melissa Zaugra', value: {id: 5}},
-  ];
-
-  this.conditionOptions = [
-    {label: 'Select', value: null},
-    {label: 'Good', value: {id: 'GOOD'}},
-    {label: 'Fair', value: {id: 'FAIR'}},
-    {label: 'Poor', value: {id: 'POOR'}},
-  ];
-
 }
 
 
@@ -100,11 +83,13 @@ private setupForm() {
   });
 }
 
-submitEndData() {
-  const shiftValue = this.endShiftForm.value;
+submitEndData(info: string) {
+  this.vehicleId = this.gpsService.getShuttleId();
+
+  this.messageService.add({severity: info, summary: 'Success', detail: 'Saved Successfully'});
+
   this.shuttleService.createEndInfo(this.driver, this.vehicleId, this.mileage, this.condition, this.quantity, this.cost, this.date);
   this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comment);
-  this.showShift.emit(false);
 
 }
 }
