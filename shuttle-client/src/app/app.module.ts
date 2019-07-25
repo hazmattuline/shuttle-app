@@ -35,8 +35,7 @@ import { MenuModule, Menu } from 'primeng/menu';
 import { UiSwitchModule } from 'ngx-toggle-switch';
 
 const httpInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptor, multi: true },
-  { provide: HTTP_INTERCEPTORS, useClass: AuthResponseInterceptor, multi: true }
+  { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptor, multi: true }
 ]
 
 
