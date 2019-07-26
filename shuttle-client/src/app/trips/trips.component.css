@@ -44,6 +44,22 @@
     padding: unset !important;
   }
 
+  .table-style > ::ng-deep .ui-table table {
+    width: 396px !important;
+    left: 600px !important;
+    }
+
+    ::ng-deep .ui-table table {
+      width: unset;
+      table-layout: unset;
+    }
+
+    .table-style > ::ng-deep body .ui-table {
+      left: 200px !important;
+    }
+
+   
+
   .route {
     display: flex;
     justify-content: center !important;
@@ -116,8 +132,8 @@
   }
 
   .input-container {
-    width: 100px;
-    float: left;
+    /* float: left; */
+    float: right;
     font-family: Arial;
     font-size: 21px;
     font-weight: normal;
@@ -127,27 +143,39 @@
     margin-bottom: 20px;
     letter-spacing: normal;
     text-align: center;
+    justify-content: center;
+    align-items: center;
     color: #2e2925;
+    position: relative;
+    /*display: inline-flex;*/
     
   }
 
   input {
-    width: 261px;
-    height: 48px;
+    width: 261px !important;
+    height: 48px !important;
     border-radius: 2px;
     border: solid 1px #797979;
     background-color: #ffffff;
     font-family: Arial;
-    font-size: 28px;
-    font-weight: normal;
+    font-size: 28px !important;
+    font-weight: normal !important;
     font-style: normal;
     font-stretch: normal;
     line-height: normal;
     letter-spacing: normal;
-    text-align: right;
-    color: #2e2925;
-     
-      
+    text-align: right !important;
+    color: #2e2925;  
+  }
+
+  .passenger-input {
+    left: 600px;
+    bottom: 350px;
+  }
+
+  .curb-input {
+    left: 600px;
+    bottom: 436px;
   }
 
   tr {

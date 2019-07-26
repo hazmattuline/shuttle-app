@@ -44,10 +44,10 @@
           <button pButton type="button" label="H1" class="route" [ngClass] =  "isTowardsH2 ? '' : 'second-destination'" (click) = "changeRoute(true)"></button>
     </div>
     <div class="img-container center-vertically" *ngIf="!isTowardsH2" (click) = "toggleRoute()">
-        <img src="assets/point_left.png" width="44px" height = "36px" alt="picture">
+        <img src="assets/point_left.png"  alt="picture">
     </div>
     <div class="img-container center-vertically" *ngIf="isTowardsH2" (click) = "toggleRoute()">
-        <img src="assets/point_right.png" width="44px" height = "36px" alt="picture" >
+        <img src="assets/point_right.png"  alt="picture" >
     </div>
     
     <div class="line center-vertically">
@@ -57,11 +57,14 @@
      <button pButton type="button" [label]="isChangeLatest ? 'Update' : 'Start'" class = "start-button center-vertically" (click) = "submitTripInfo()"></button>
     </div>
     </div>
-     <br>
+    <br>
+     <div style = "text-align: center">
      <div class="input-boxes">
-     <div class="input-container center-vertically">Passengers:   <input type="button"   pInputText [ngClass] =  "isCurb ? 'normal-input' : 'show-input normal-input'" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/></div><br>
-     <div class="input-container center-vertically">On Curb:      <input type="button" pInputText [ngClass] =  "isCurb ? 'show-input normal-input' : 'normal-input'" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/></div>
+     <div class="input-container center-vertically">Passengers:   <input type="button"  class="passenger-input" pInputText [ngClass] =  "isCurb ? 'normal-input' : 'show-input normal-input'" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/></div><br> <br>
+     <div class="input-container center-vertically">On Curb:      <input type="button" class="curb-input" pInputText [ngClass] =  "isCurb ? 'show-input normal-input' : 'normal-input'" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/></div> <br>
      </div>
+     </div>
+     <div class="table-style">
      
         <p-table  [value]="trips">
             <ng-template class = "top-of-table" pTemplate="header">
@@ -81,7 +84,7 @@
                 </tr>
             </ng-template>
         </p-table>
-     
+    </div>
     
   </div>
 </div>
