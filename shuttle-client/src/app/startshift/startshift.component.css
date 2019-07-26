@@ -27,7 +27,7 @@
   margin-top: 2%;
   width: 30%;
   position: relative;
-  left: 350px;
+  left: 355px;
 }
 .save{
   position: relative;
@@ -46,4 +46,22 @@
   width: 40%;
   position: relative;
   left: 350px;
+}
+.Mileage{
+  position: relative;
+  width: 6%;
+  left: 275px;
+  bottom: 255px;
+}
+.Condition{
+  position: relative;
+  width: 6%;
+  left: 275px;
+  bottom: 210px;
+}
+.Comments{
+  position: relative;
+  width: 7%;
+  left: 275px;
+  bottom: 160px;
 }
