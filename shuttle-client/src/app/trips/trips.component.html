@@ -30,10 +30,10 @@
         <button pButton class="number-pad" (click) = "submitNumber(9)">9</button>
     </div>
     <br>
-    <div class="line">
+    <div class="line bottom-line">
         <button pButton class="number-pad" (click) = "submitNumber(0)">0</button>
     </div>
-    <div class="line">
+    <div class="line bottom-line">
         <button pButton type="button" class="clear-button" label="CLR" (click) = "clearNumbers()"></button>
     </div>
 
@@ -57,18 +57,16 @@
      <button pButton type="button" [label]="isChangeLatest ? 'Update' : 'Start'" class = "start-button center-vertically" (click) = "submitTripInfo()"></button>
     </div>
     </div>
-    <br>
      <div style = "text-align: center">
      <div class="input-boxes">
      <div class="input-container center-vertically">Passengers:   <input type="button"  class="passenger-input" pInputText [ngClass] =  "isCurb ? 'normal-input' : 'show-input normal-input'" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/></div><br> <br>
      <div class="input-container center-vertically">On Curb:      <input type="button" class="curb-input" pInputText [ngClass] =  "isCurb ? 'show-input normal-input' : 'normal-input'" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/></div> <br>
      </div>
      </div>
-     <div class="table-style">
-     
-        <p-table  [value]="trips">
+     <div class="table-container">
+        <p-table  [value]="trips" [style]="{width:'380px'}">
             <ng-template class = "top-of-table" pTemplate="header">
-                <tr>                   
+                <tr class="table-padding">                   
                     <th>Trip #</th>
                     <th>Route</th>
                     <th>Passengers</th>
@@ -76,7 +74,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-trip>
-                <tr (click)="loadRow()">
+                <tr (click)="loadRow()" class="table-padding table-body">
                     <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.tripNumber}}</td>
                     <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.route}}</td>
                     <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.passengers}}</td>

@@ -141,7 +141,7 @@ toggleRoute() {
 reloadRow() {
   this.shuttleApiService.getTrip(this.date, this.gpsService.getShuttleId()).subscribe(loadedTrip => {
     this.curbNumber = loadedTrip.curbCount;
-    this.passengerNumber = 0;
+    this.passengerNumber = loadedTrip.passengerCount;
     this.isCurb = false;
     this.loadedRowId = loadedTrip.id;
   });

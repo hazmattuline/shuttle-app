@@ -3,6 +3,11 @@
     width: 50%;
     text-align: center !important;
   }
+
+  .row { 
+    padding: 28px 0 26px 0;
+    height: 376px;
+  }
   
   /* Clear floats after the columns */
   .row:after {
@@ -12,7 +17,7 @@
   }
 
   .first-line {
-    padding-bottom: 20px;
+    margin-bottom: 34px;
   }
 
   .number-pad {
@@ -44,24 +49,45 @@
     padding: unset !important;
   }
 
-  .table-style > ::ng-deep .ui-table table {
+  .table-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .table-padding > th {
+    padding: .25em .5em !important;
+  }
+
+  .table-body {
+    height: 48px !important;
+  }
+  .table-padding > td {
+    padding-left: .5em !important;
+    padding-right: .5em !important;
+  }
+
+  .table-container > ::ng-deep .ui-table table {
     width: 396px !important;
     left: 600px !important;
+    float: right;
     }
 
     ::ng-deep .ui-table table {
-      width: unset;
       table-layout: unset;
     }
 
-    .table-style > ::ng-deep body .ui-table {
+    .table-container > ::ng-deep body .ui-table {
       left: 200px !important;
     }
 
-   
+   .table-style {
+     display: flex;
+     justify-content: center;
+   }
 
   .route {
     display: flex;
+    margin-top: -4px;
     justify-content: center !important;
     /*min-width: unset !important;*/
     border-radius: 500% !important;
@@ -118,7 +144,7 @@
   .start-button {
     width: 164px;
     display: inline-block;
-    height: 48px;
+    height: 48px !important;
     border-radius: 8px;
     background-color: #528233 !important;
     font-size: 24px;
@@ -140,7 +166,7 @@
     font-style: normal;
     font-stretch: normal;
     line-height: normal;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     letter-spacing: normal;
     text-align: center;
     justify-content: center;
@@ -171,16 +197,18 @@
   .passenger-input {
     left: 600px;
     bottom: 350px;
+    padding-bottom: 20px !important;
   }
 
   .curb-input {
     left: 600px;
     bottom: 436px;
+    padding-bottom: 20px;
   }
 
   tr {
     width: 396px;
-    height: 48px;
+    height: 36px;
     border-radius: 2px;
     border: solid 1px #797979;
     font-family: Arial;
@@ -231,6 +259,10 @@
     display:inline-block;
     padding-right: 20px;
     padding-bottom: 20px;
+}
+
+.bottom-line {
+  padding-bottom: 0;
 }
 
 .show-input {

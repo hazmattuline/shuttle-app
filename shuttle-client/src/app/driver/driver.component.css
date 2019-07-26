@@ -126,8 +126,9 @@
   content: none !important;
 }
 
-
-
+.trips-tab > ::ng-deep .ui-accordion-content-wrapper > .ui-accordion-content {
+  padding: 0 !important;
+}
 
 
   .pi-chevron-right:before {
