@@ -1,9 +1,8 @@
 
-
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 <div class="leftHalf">
 Mileage: 
-<input [(ngModel)]="tempMileage" type="text" pInputText  [size]="20"  placeholder="{{this.shuttleService.getMileage()}}" [minLength]="1" />
+<input [(ngModel)]="tempMileage" type="number" pInputText  [size]="20"  placeholder="{{this.shuttleService.getMileage()}}" [minLength]="1" />
 
 </div>
 <div class="rightHalf">
@@ -15,7 +14,7 @@ Mileage:
 <br>
 <div class="bringDown" >
   Comments: 
-  <input  id="disabled-input" type="text" size="30" style="height: 70px" [(ngModel)]='comments' pInputText [disabled]="disabled" />
+  <textarea  id="disabled-input" pInputTextArea type="text" size="30" style="height: 70px" [(ngModel)]='comments' pInputText [disabled]="disabled"> </textarea>
 </div>
 <div class="bringDown">
     <p-button label="SAVE"  icon="pi pi-file" (onClick)="submitStartData('success')"></p-button> 

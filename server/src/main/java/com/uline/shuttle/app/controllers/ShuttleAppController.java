@@ -73,7 +73,6 @@ public class ShuttleAppController {
   @GetMapping(value = "/shuttles")
   public List<ShuttleResponse> getShuttlesStatus(
       @RequestParam(name = "status", required = false) String status) {
-
     return shuttleAppService.getShuttlesStatus(status);
   }
 

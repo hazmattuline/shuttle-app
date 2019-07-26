@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { SelectItem, MenuItem } from 'primeng/api';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { Shuttle } from '../models/shuttle.model';
 import { ShuttleApiService } from '../services/shuttle-api.service';
+import { Menu } from 'primeng/menu';
+import { DriverComponent } from '../driver/driver.component';
 
 @Component({
   selector: 'app-banner-details',
@@ -13,23 +15,9 @@ import { ShuttleApiService } from '../services/shuttle-api.service';
 })
 export class BannerDetailsComponent implements OnInit {
 
-  constructor( public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService) {
+  constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService) {}
 
-    this.bailey = [
-  {label: 'BAILEY', value: 'BAILEY'}
-  ],
-
-  this.holly = [
-    {label: 'HOLLY', value: 'HOLLY'}
-  ],
-
-  this.dixie = [
-    {label: 'DIXIE', value: 'DIXIE'}
-  ];
-
-  }
   driverName = 'Rob Kenlay';
-  checked = false;
 
   date: string;
   name: string;
@@ -37,10 +25,13 @@ export class BannerDetailsComponent implements OnInit {
 
   selectedType: string;
 
+  items: MenuItem[] = null;
 
   bailey: SelectItem[];
-  holly: SelectItem[];
-  dixie: SelectItem[];
+  riley: SelectItem[];
+  baileyRental: SelectItem[];
+  rileyRental: SelectItem[];
+
   possibleVehicles: Shuttle[] = [];
   selectedVehicle: Shuttle;
   isAlreadyActive = false;
@@ -48,7 +39,7 @@ export class BannerDetailsComponent implements OnInit {
   changeActive() {
 
     if (this.isAlreadyActive) {
-      
+
       this.gpsService.stopGPSTracking();
       this.selectedVehicle.status = 'I';
       this.isAlreadyActive = false;
@@ -66,41 +57,54 @@ export class BannerDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getDate();
-    this.shuttleApi.getVehicleOptions().subscribe(vehicles => {this.possibleVehicles = vehicles;});
+
+    this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
+      this.possibleVehicles = vehicles;
+      console.log(this.possibleVehicles);
+
+      this.bailey = [
+        { label: this.possibleVehicles[0].name, value: 'BAILEY' }
+      ],
+
+      this.baileyRental = [
+        { label: this.possibleVehicles[3].name, value: 'BAILEY RENTAL' }
+      ]; 
+    });
+
   }
 
   getDate() {
     this.date = this.shuttleService.getDate();
   }
 
-  append() {
-    let name: string;
-    if (this.checked === false) {
-       name = this.selectedVehicle.name.replace(' RENTAL', '');
+
+
+  openMenu(menu: Menu, event, ) {
+    if (menu.visible) {
+      menu.hide();
     } else {
-     name = this.selectedVehicle.name + ' RENTAL';
+      this.items = [
+        { label: 'Logout', icon: 'pi pi-sign-out', routerLink: [''] },
+      ];
+      menu.show(event);
     }
-    this.selected(name);
   }
 
+
   selected(name: string) {
-    if (this.checked === true && !name.includes('RENTAL')) {
-      name = name + ' RENTAL';
-    }
 
-
-    this.shuttleApi.getVehicleOptions().subscribe(vehicles => {this.possibleVehicles = vehicles;});
+    this.shuttleApi.getVehicleOptions().subscribe(vehicles => { this.possibleVehicles = vehicles; });
 
     for (const vehicle of this.possibleVehicles) {
-        if (vehicle.name === name) {
-          this.selectedVehicle = vehicle;
-        }
+      if (vehicle.name === name) {
+        this.selectedVehicle = vehicle;
       }
+    }
 
 
 
     this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
-   
+
     this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleID);
     this.verify();
 

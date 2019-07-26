@@ -1,9 +1,10 @@
-  <app-banner-details></app-banner-details>
+<meta name="viewport" content="width=1024, user-scalable=no" />
+ <app-banner-details></app-banner-details>
   <p-accordion styleClass="accordion-tab-styling" class="accordion-styling">
     <p-accordionTab class= "accordion-tab-styling" [disabled]="this.shuttleService.disabled"  header="Beginning of Day">
         <app-startshift></app-startshift>
     </p-accordionTab>
-    <p-accordionTab class= "accordion-tab-styling trips-tab" [disabled]="false"  header="Trips">
+    <p-accordionTab class= "accordion-tab-styling trips-tab" [disabled]="this.shuttleService.disabled"  header="Trips">
         <app-trips></app-trips>
     </p-accordionTab>
     <p-accordionTab class= "accordion-tab-styling" [disabled]="this.shuttleService.disabled" header="End of Day">

@@ -13,15 +13,17 @@
   
   .column2 {
     float: left;
+    width: 65%;
   }
 
   .column1 {
     float:left;
-    width:50%;
+    width:30%;
   }
 
   .submit {
     margin-bottom: 5%;
+    margin-right: 5%;
     text-align: right;
   }
 
@@ -32,15 +34,14 @@
 
   .inputText {
     width: 65%;
-    margin-left: 10px;
-    float:left;
+    margin-left: 5px;
+    float: left;
     margin-bottom: 15px;
   }
 
   .buttons {
     display: inline-flex;
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 8px;
   }
 
 

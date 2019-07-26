@@ -18,7 +18,9 @@ export class DriverComponent implements OnInit, OnDestroy {
 
   constructor(public gpsService: GPSService, public shuttleService: ShuttleService) { }
 
-ngOnInit() {}
+ngOnInit() {
+  
+}
 
 changeActive() {
     if (this.gpsService.getIsGPSActive()) {
@@ -34,7 +36,6 @@ changeActive() {
 
   ngOnDestroy() {
     this.gpsService.stop();
-    this.routerSubscription.unsubscribe();
   }
 
 }

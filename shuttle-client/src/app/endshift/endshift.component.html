@@ -16,17 +16,18 @@
               </div>
       </div>
       <div class="column2">
-     
+        <div class="info-label">Condition:</div>
       <div class="buttons">
-          <div class="info-label">Condition:</div>
+          
           <p-selectButton class="pSelectButtonStyle" [options]="good" [(ngModel)]="condition"></p-selectButton>
           <p-selectButton class="pSelectButtonStyle" [options]="fair" [(ngModel)]="condition"></p-selectButton>
           <p-selectButton class="pSelectButtonStyle" [options]="bad" [(ngModel)]="condition"></p-selectButton>
+          
       </div>
       <br>
       <div>
-        Comments:
-        <textarea pInputTextArea [(ngModel)]="comment" cols="30" rows="4"></textarea>
+        <div class="info-label">Comments:</div>
+        <div class="inputText"><textarea pInputTextArea [(ngModel)]="comment" cols="35" rows="4"></textarea></div>
       </div>
     </div>
       
@@ -34,6 +35,6 @@
     <br>
     <div class="submit">
         <label class="info-label"></label>
-        <button pButton (click)="submitEndData();" label="Save"></button>
+        <button pButton icon="pi pi-file" (click)="submitEndData('success');" label="Save"></button>
       </div>
 </div>
