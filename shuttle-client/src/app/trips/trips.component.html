@@ -51,7 +51,7 @@
     </div>
     
     <div class="line center-vertically">
-        <button pButton type="button" label="H2" class="route"  [ngClass] =  "isTowardsH2 ? 'second-destination' : ''" (click) = "changeRoute(false)"></button>
+        <button pButton type="button" label="H2" class="route route-H2"  [ngClass] =  "isTowardsH2 ? 'second-destination' : ''" (click) = "changeRoute(false)"></button>
     </div>
   <div class="around-start">
      <button pButton type="button" [label]="isChangeLatest ? 'Update' : 'Start'" class = "start-button center-vertically" (click) = "submitTripInfo()"></button>

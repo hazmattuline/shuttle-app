@@ -102,7 +102,11 @@
     letter-spacing: normal;
     text-align: center;
     color: #ffffff;
-    
+    margin-right: -10px !important;
+  }
+
+  .route-H2 {
+    margin-left:10px !important;
   }
 
   ::ng-deep body .ui-widget {
@@ -137,7 +141,7 @@
   }
 
   .around-start {
-    padding-left: 30px;
+    padding-left: 35px;
     display: inline-block;
   }
 
