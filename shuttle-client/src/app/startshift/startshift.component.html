@@ -1,6 +1,4 @@
 
-  <meta name="viewport" content="width=1024, user-scalable=no" />
-
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 <div class="leftHalf">
 Mileage: 
@@ -16,7 +14,7 @@ Mileage:
 <br>
 <div class="bringDown" >
   Comments: 
-  <textarea  id="disabled-input" pInputTextArea type="text" size="30" style="height: 70px" [(ngModel)]='comments' pInputText [disabled]="disabled"> </textarea>/>
+  <textarea  id="disabled-input" pInputTextArea type="text" size="30" style="height: 70px" [(ngModel)]='comments' pInputText [disabled]="disabled"> </textarea>
 </div>
 <div class="bringDown">
     <p-button label="SAVE"  icon="pi pi-file" (onClick)="submitStartData('success')"></p-button> 
