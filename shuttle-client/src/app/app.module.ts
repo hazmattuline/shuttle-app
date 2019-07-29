@@ -29,10 +29,9 @@ import {SplitButtonModule} from 'primeng/splitbutton';
 import {MessageService} from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
 import { CommonModule } from '@angular/common';
-import {ToggleButtonModule} from 'primeng/togglebutton';
+import {InputSwitchModule} from 'primeng/inputswitch';
 import { MessageComponent } from './message/message.component';
 import { MenuModule, Menu } from 'primeng/menu';
-import { UiSwitchModule } from 'ngx-toggle-switch';
 
 const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptor, multi: true }
@@ -59,6 +58,7 @@ const httpInterceptorProviders = [
     AccordionModule,
     FormsModule,
     ButtonModule,
+    InputSwitchModule,
     InputTextModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -77,9 +77,7 @@ const httpInterceptorProviders = [
     SplitButtonModule,
     ToastModule,
     CommonModule,
-    ToggleButtonModule,
-    MenuModule,
-    UiSwitchModule
+    MenuModule
   ],
   providers: [
     DatePipe,
