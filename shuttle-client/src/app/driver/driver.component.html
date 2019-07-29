@@ -6,11 +6,11 @@
         <app-startshift></app-startshift>
     </p-accordionTab>
     <div class="spacing"></div>
-    <p-accordionTab class= "accordion-tab-styling"  header="Trip">
+    <p-accordionTab class= "accordion-tab-styling" [disabled]="this.shuttleService.disabled" header="Trip">
       <app-trips></app-trips>
     </p-accordionTab>
     <div class="spacing"></div>
-    <p-accordionTab class= "accordion-tab-styling"  header="End of Day">
+    <p-accordionTab class= "accordion-tab-styling" [disabled]="this.shuttleService.disabled" header="End of Day">
       <app-endshift></app-endshift>    
     </p-accordionTab>
     <div class="spacing"></div>
