@@ -74,7 +74,7 @@
     transition: background-color 0.2s;
 }
     ::ng-deep body .ui-button-text {
-        margin-top: 8px;
+        margin-top: 5.5px;
         letter-spacing: 0.5px;
         text-transform: uppercase;
     } 

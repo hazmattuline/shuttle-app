@@ -50,13 +50,13 @@
 .Mileage{
   position: relative;
   width: 6%;
-  left: 275px;
+  left: 285px;
   bottom: 255px;
 }
 .Condition{
   position: relative;
   width: 6%;
-  left: 275px;
+  left: 278px;
   bottom: 210px;
 }
 .Comments{
@@ -64,4 +64,8 @@
   width: 7%;
   left: 275px;
   bottom: 160px;
+}
+
+ .text{
+  padding-bottom: 40px;
 }
