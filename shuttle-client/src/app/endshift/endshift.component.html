@@ -1,4 +1,5 @@
 <br>
+<br>
 <div class="info-container">
     <div class="shift-info">
       <div class="column1">
@@ -17,24 +18,26 @@
       </div>
       <div class="column2">
         <div class="info-label">Condition:</div>
-      <div class="buttons">
-          
+      <div >
+          <div class="inputText">
           <p-selectButton class="pSelectButtonStyle" [options]="good" [(ngModel)]="condition"></p-selectButton>
           <p-selectButton class="pSelectButtonStyle" [options]="fair" [(ngModel)]="condition"></p-selectButton>
           <p-selectButton class="pSelectButtonStyle" [options]="bad" [(ngModel)]="condition"></p-selectButton>
-          
+        </div>
       </div>
       <br>
       <div>
         <div class="info-label">Comments:</div>
-        <div class="inputText"><textarea pInputTextArea [(ngModel)]="comment" cols="35" rows="4"></textarea></div>
+        <div class="inputText"><textarea pInputTextArea [(ngModel)]="comment" cols="43" rows="4"></textarea></div>
       </div>
+    </div>
+
+    
+    </div>
+    <div class="submit">
+      <button pButton (click)="submitEndData('success');" label="Save"></button>
     </div>
       
-    </div>
     <br>
-    <div class="submit">
-        <label class="info-label"></label>
-        <button pButton icon="pi pi-file" (click)="submitEndData('success');" label="Save"></button>
-      </div>
+    
 </div>
