@@ -24,15 +24,48 @@
  
 }
 .bringDown{
-  margin-top: 4%;
+  margin-top: 2%;
+  width: 30%;
+  position: relative;
+  left: 355px;
+}
+.save{
+  position: relative;
+  margin-top: 2%;
   width: 60%;
-  margin-left: 30%;
+  left: 570px;
 }
 .leftHalf{
- float: left;
+  margin-bottom: 3%;
+  margin-top: 2%;
+ position: relative;
+ left: 350px;
  width: 30%;
 }
 .rightHalf{
-  float: left;
-  width: 60%;
+  width: 40%;
+  position: relative;
+  left: 350px;
+}
+.Mileage{
+  position: relative;
+  width: 6%;
+  left: 285px;
+  bottom: 255px;
+}
+.Condition{
+  position: relative;
+  width: 6%;
+  left: 278px;
+  bottom: 210px;
+}
+.Comments{
+  position: relative;
+  width: 7%;
+  left: 275px;
+  bottom: 160px;
+}
+
+ .text{
+  padding-bottom: 40px;
 }
