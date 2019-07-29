@@ -33,7 +33,6 @@ constructor(private messageService: MessageService, private fb: FormBuilder, pri
     ];
 }
 
-tempMileage: string = '';
 comments: string = '';
 
 condition: string;
@@ -60,27 +59,16 @@ ngOnInit() {
   this.getDate();
  }
 
-
-submitComment() {
-  this.shuttleService.createCommentInfo(this.gpsService.getShuttleId(), this.date, this.comments);
-}
-
 submitStartData(info: string) {
-  
 
   this.vehicleId = this.gpsService.getShuttleId();
 
   this.messageService.add({severity: info, summary: 'Success', detail: 'Saved Successfully'});
 
-  this.mileage = parseInt(this.tempMileage, 10);
-
-  this.shuttleService.createStartInfo(this.driver, this.vehicleId, this.mileage, this.condition, this.date);
-
-  // must submit comment after since need to access day
-  this.submitComment();
+  this.shuttleService.createStartInfo(this.driver, this.vehicleId, this.mileage, this.condition, this.date, this.comments);
 
 }
-verify(status:string){
+verify(status: string) {
   if (status === 'fair' || status === 'bad') {
   this.disabled = false;
 } else {

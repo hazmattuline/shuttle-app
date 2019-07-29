@@ -1,15 +1,19 @@
 <meta name="viewport" content="width=1024, user-scalable=no" />
- <app-banner-details></app-banner-details>
-  <p-accordion styleClass="accordion-tab-styling" class="accordion-styling">
-    <p-accordionTab class= "accordion-tab-styling" [disabled]="false"  header="Beginning of Day">
+<app-banner-details></app-banner-details>
+<div class="spacing"></div>
+  <p-accordion  styleClass="accordion-tab-styling" class="accordion-styling">
+    <p-accordionTab class= "accordion-tab-styling"  [disabled]="this.shuttleService.disabled"  header="Beginning of Day">
         <app-startshift></app-startshift>
     </p-accordionTab>
-    <p-accordionTab class= "accordion-tab-styling trips-tab" [disabled]="false"  header="Trips">
-        <app-trips></app-trips>
+    <div class="spacing"></div>
+    <p-accordionTab class= "accordion-tab-styling"  header="Trip">
+      <app-trips></app-trips>
     </p-accordionTab>
-    <p-accordionTab class= "accordion-tab-styling" [disabled]="false" header="End of Day">
+    <div class="spacing"></div>
+    <p-accordionTab class= "accordion-tab-styling"  header="End of Day">
       <app-endshift></app-endshift>    
     </p-accordionTab>
+    <div class="spacing"></div>
 </p-accordion>
 
 

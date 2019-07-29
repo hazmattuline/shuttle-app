@@ -39,25 +39,20 @@ export class BannerDetailsComponent implements OnInit {
   isAlreadyActive: boolean;
 
   changeActive() {
-    console.log("change active");
-
     if (!this.isAlreadyActive) {
-      console.log("change to inactive " + this.isAlreadyActive);
+      this.shuttleService.disabled = true;
+
       this.gpsService.stopGPSTracking();
       this.selectedVehicle.status = 'I';
-      //this.isAlreadyActive = false;
     } else {
-      console.log("change to active " + this.isAlreadyActive);
+      this.shuttleService.disabled = false;
       this.gpsService.startGPSTracking();
       this.selectedVehicle.status = 'A';
-      //this.isAlreadyActive = true;
     }
-    console.log(this.isAlreadyActive);
-  }
+ }
 
 
   submit() {
-    console.log("submit");
     this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
   }
 
@@ -68,7 +63,6 @@ export class BannerDetailsComponent implements OnInit {
 
     this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
       this.possibleVehicles = vehicles;
-      console.log(this.possibleVehicles);
 
       this.bailey = [
         { label: this.possibleVehicles[0].name, value: 'BAILEY' }
@@ -84,14 +78,6 @@ export class BannerDetailsComponent implements OnInit {
   getDate() {
     this.date = this.shuttleService.getDate();
   }
-
-  // private setupForm() {
-  //   this.toggle = this.fb.group({
-  //     isAlreadyActive: '',
-  //   });
-  // }
-
-
 
   openMenu(menu: Menu, event, ) {
     if (menu.visible) {
@@ -126,21 +112,22 @@ export class BannerDetailsComponent implements OnInit {
   }
 
   verify() {
-    this.shuttleService.disabled = false;
+    
 
     if (this.selectedVehicle.status === 'A') {
+      this.shuttleService.disabled = false;
+
       this.gpsService.handleAlreadyActive(this.selectedVehicle);
       this.isAlreadyActive = true;
       this.toShow = true;
     } else {
+      this.shuttleService.disabled = true;
+
       this.isAlreadyActive = false;
 
       this.toShow = true;
     }
 
-    console.log("verify  " + this.isAlreadyActive);
-
-
-  }
+   }
 
 }

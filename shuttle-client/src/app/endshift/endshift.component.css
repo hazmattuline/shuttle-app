@@ -29,9 +29,7 @@
   }
 
   .submit {
-    margin-bottom: 5%;
-    margin-right: 5%;
-    text-align: right;
+    margin-left: 71%;
   }
 
   .pSelectButtonStyle{
@@ -44,6 +42,7 @@
     margin-left: 5px;
     float: left;
     margin-bottom: 15px;
+    display: inline-flex;
   }
 
   .buttons {
