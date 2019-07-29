@@ -30,6 +30,7 @@ export class GPSService implements OnDestroy {
   }
 
   stopGPSTracking() {
+    console.log("stop GPS");
     navigator.geolocation.clearWatch(this.watchId);
     this._isActive.next(false);
     if (this.gpsLocationTimer) {
@@ -46,6 +47,7 @@ export class GPSService implements OnDestroy {
   }
 
   startGPSTracking() {
+    console.log("start GPS");
     if (navigator.geolocation) {
       this.watchId = navigator.geolocation.watchPosition((pos) => this.updateGPSPostion(pos), this.errorHandler, this.options);
       this.shuttleApiService.changeStatus('A', this.shuttleId).subscribe(newShuttle => {

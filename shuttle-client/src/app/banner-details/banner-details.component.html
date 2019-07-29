@@ -16,7 +16,7 @@
   <div class="Label-Copy">Offline</div>
 
   <div class="toggle">
-      <p-inputSwitch formControlName="isAlreadyActive" switchColor="#ffffff"  color="#127cb5"  (click)="submit(); changeActive()"></p-inputSwitch>
+      <p-inputSwitch [(ngModel)]="isAlreadyActive" switchColor="#ffffff"  color="#127cb5"  (click)="submit(); changeActive()"></p-inputSwitch>
   </div>
   
 

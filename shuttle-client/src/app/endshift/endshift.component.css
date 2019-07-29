@@ -16,6 +16,13 @@
     width: 65%;
   }
 
+  .pSelectButtonStyle > ::ng-deep body .ui-button-text {
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+} 
+
+
   .column1 {
     float:left;
     width:30%;

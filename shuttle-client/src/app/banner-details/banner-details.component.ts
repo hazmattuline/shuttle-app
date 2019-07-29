@@ -5,7 +5,8 @@ import { ShuttleService } from '../services/shuttle.service';
 import { Shuttle } from '../models/shuttle.model';
 import { ShuttleApiService } from '../services/shuttle-api.service';
 import { Menu } from 'primeng/menu';
-import { DriverComponent } from '../driver/driver.component';
+import { FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-banner-details',
@@ -18,6 +19,7 @@ export class BannerDetailsComponent implements OnInit {
   constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService) {}
 
   driverName = 'Rob Kenlay';
+  // toggle: FormGroup;
 
   date: string;
   name: string;
@@ -34,29 +36,35 @@ export class BannerDetailsComponent implements OnInit {
 
   possibleVehicles: Shuttle[] = [];
   selectedVehicle: Shuttle;
-  isAlreadyActive = false;
+  isAlreadyActive: boolean;
 
   changeActive() {
+    console.log("change active");
 
-    if (this.isAlreadyActive) {
-
+    if (!this.isAlreadyActive) {
+      console.log("change to inactive " + this.isAlreadyActive);
       this.gpsService.stopGPSTracking();
       this.selectedVehicle.status = 'I';
-      this.isAlreadyActive = false;
+      //this.isAlreadyActive = false;
     } else {
+      console.log("change to active " + this.isAlreadyActive);
       this.gpsService.startGPSTracking();
       this.selectedVehicle.status = 'A';
-      this.isAlreadyActive = true;
+      //this.isAlreadyActive = true;
     }
+    console.log(this.isAlreadyActive);
   }
 
 
   submit() {
+    console.log("submit");
     this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
   }
 
   ngOnInit() {
     this.getDate();
+    this.isAlreadyActive = false;
+    //this.setupForm();
 
     this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
       this.possibleVehicles = vehicles;
@@ -76,6 +84,12 @@ export class BannerDetailsComponent implements OnInit {
   getDate() {
     this.date = this.shuttleService.getDate();
   }
+
+  // private setupForm() {
+  //   this.toggle = this.fb.group({
+  //     isAlreadyActive: '',
+  //   });
+  // }
 
 
 
@@ -123,6 +137,8 @@ export class BannerDetailsComponent implements OnInit {
 
       this.toShow = true;
     }
+
+    console.log("verify  " + this.isAlreadyActive);
 
 
   }
