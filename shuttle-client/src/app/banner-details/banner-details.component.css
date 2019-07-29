@@ -81,11 +81,10 @@
     }
     
     .format ::ng-deep .ui-button-text {
-        margin-top: 5.5px;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    } 
-    
+      margin-top: 5.5px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+  } 
    
 
     .Top-BG-Copy-2 {
