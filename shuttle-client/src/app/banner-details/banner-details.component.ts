@@ -37,13 +37,15 @@ export class BannerDetailsComponent implements OnInit {
   isAlreadyActive = false;
 
   changeActive() {
-    this.shuttleService.disabled = false;
     if (this.isAlreadyActive) {
+      this.shuttleService.disabled = true;
 
       this.gpsService.stopGPSTracking();
       this.selectedVehicle.status = 'I';
       this.isAlreadyActive = false;
     } else {
+      this.shuttleService.disabled = false;
+
       this.gpsService.startGPSTracking();
       this.selectedVehicle.status = 'A';
       this.isAlreadyActive = true;
@@ -115,10 +117,14 @@ export class BannerDetailsComponent implements OnInit {
     
 
     if (this.selectedVehicle.status === 'A') {
+      this.shuttleService.disabled = false;
+
       this.gpsService.handleAlreadyActive(this.selectedVehicle);
       this.isAlreadyActive = true;
       this.toShow = true;
     } else {
+      this.shuttleService.disabled = true;
+
       this.isAlreadyActive = false;
 
       this.toShow = true;
