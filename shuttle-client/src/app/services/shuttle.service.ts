@@ -28,14 +28,15 @@ export class ShuttleService {
     return ShuttleService.getDateISOStringForDate(this.myDate);
    }
 
-  createStartInfo(driverId: number, startVehicleId: number, mileage: number, condition: string, startDate: string) {
+  createStartInfo(driverId: number, startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string) {
     const day: Day = {
       vehicleId: startVehicleId,
       startMileage: mileage,
       startCondition: condition,
       date: startDate
     };
-    this.shuttleApi.submitDay(day).subscribe();
+    // calling the create Comment method in subscription to deal with snycronicity issues
+    this.shuttleApi.submitDay(day).subscribe(Comment =>{ this.createCommentInfo(startVehicleId, startDate, comments)} );
   }
 
   createCommentInfo(commentVehicleId: number, commentDate: string, commentMessage: string) {
@@ -68,7 +69,7 @@ export class ShuttleService {
 
   getDayInfo(date, vehicleId){
     this.shuttleApi.getDayInfo(date, vehicleId).subscribe(dayInfo =>{this.setMileage(dayInfo)},
-    err => {this.startMileage = 0.0;});
+    err => {this.startMileage = 0.0; });
   }
 
   setMileage(dayInfo){
@@ -78,7 +79,7 @@ export class ShuttleService {
     } else {
       this.startMileage = dayInfo.startMileage;
     }
-    
+
   }
 
   getMileage(){

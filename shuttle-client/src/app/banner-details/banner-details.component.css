@@ -73,11 +73,19 @@
     color: #127cb5;
     transition: background-color 0.2s;
 }
-    ::ng-deep body .ui-button-text {
+    .pSelectButtonStyle > ::ng-deep body .ui-button-text {
         margin-top: 8px;
         letter-spacing: 0.5px;
         text-transform: uppercase;
-    } 
+        
+    }
+    
+    .format ::ng-deep .ui-button-text {
+      margin-top: 5.5px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+  } 
+   
 
     .Top-BG-Copy-2 {
         width: 1px;
@@ -144,6 +152,9 @@ p-button{
     margin-left: 1%;
     position: relative;
     top: 11px;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
 }
 
 
@@ -176,12 +187,12 @@ p-button{
     color: #625f5c;
     position: relative;
     left: 728px;
-    bottom: 135px;
+    bottom: 130px;
   }
 
   .toggle {
       position: relative;
-      left: 663px;
-      bottom: 110px;
+      left: 670px;
+      bottom: 105px;
   }
 

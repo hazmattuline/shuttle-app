@@ -7,6 +7,8 @@ import { ShuttleApiService } from '../services/shuttle-api.service';
 import { Menu } from 'primeng/menu';
 import { DriverComponent } from '../driver/driver.component';
 import { AuthService } from 'common-component-lib';
+import { FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-banner-details',
@@ -35,25 +37,24 @@ export class BannerDetailsComponent implements OnInit {
 
   possibleVehicles: Shuttle[] = [];
   selectedVehicle: Shuttle;
-  isAlreadyActive = false;
+  isAlreadyActive: boolean;
 
   getCurrentUsername() {
     return this.authService.getName();
   }
 
   changeActive() {
-
-    if (this.isAlreadyActive) {
+    if (!this.isAlreadyActive) {
+      this.shuttleService.disabled = true;
 
       this.gpsService.stopGPSTracking();
       this.selectedVehicle.status = 'I';
-      this.isAlreadyActive = false;
     } else {
+      this.shuttleService.disabled = false;
       this.gpsService.startGPSTracking();
       this.selectedVehicle.status = 'A';
-      this.isAlreadyActive = true;
     }
-  }
+ }
 
 
   submit() {
@@ -62,10 +63,11 @@ export class BannerDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getDate();
+    this.isAlreadyActive = false;
+    //this.setupForm();
 
     this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
       this.possibleVehicles = vehicles;
-      console.log(this.possibleVehicles);
 
       this.bailey = [
         { label: this.possibleVehicles[0].name, value: 'BAILEY' }
@@ -81,8 +83,6 @@ export class BannerDetailsComponent implements OnInit {
   getDate() {
     this.date = this.shuttleService.getDate();
   }
-
-
 
   openMenu(menu: Menu, event, ) {
     if (menu.visible) {
@@ -117,19 +117,22 @@ export class BannerDetailsComponent implements OnInit {
   }
 
   verify() {
-    this.shuttleService.disabled = false;
+    
 
     if (this.selectedVehicle.status === 'A') {
+      this.shuttleService.disabled = false;
+
       this.gpsService.handleAlreadyActive(this.selectedVehicle);
       this.isAlreadyActive = true;
       this.toShow = true;
     } else {
+      this.shuttleService.disabled = true;
+
       this.isAlreadyActive = false;
 
       this.toShow = true;
     }
 
-
-  }
+   }
 
 }

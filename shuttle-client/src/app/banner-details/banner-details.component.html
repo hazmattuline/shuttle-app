@@ -6,26 +6,25 @@
 
 <p-menu #appMenu [popup]="true" [model]="items"></p-menu>
 
-<div class="background" >
-  <p-selectButton class="pSelectButtonStyle" [options]="bailey" [(ngModel)]="selectedType" (onChange)=" selected('BAILEY')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle" [options]="baileyRental" [(ngModel)]="selectedType" (onChange)=" selected('BAILEY RENTAL')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle" [options]="riley" [(ngModel)]="selectedType"  (onChange)=" selected('RILEY')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle" [options]="rileyRental" [(ngModel)]="selectedType"  (onChange)=" selected('RILEY RENTAL')"></p-selectButton>
+<div class="background">
+  <p-selectButton class="pSelectButtonStyle format" [options]="bailey" [(ngModel)]="selectedType" (onChange)=" selected('BAILEY')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle format" [options]="baileyRental" [(ngModel)]="selectedType" (onChange)=" selected('BAILEY RENTAL')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle format" [options]="riley" [(ngModel)]="selectedType"  (onChange)=" selected('RILEY')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle format" [options]="rileyRental" [(ngModel)]="selectedType"  (onChange)=" selected('RILEY RENTAL')"></p-selectButton>
 
   <div class="Top-BG-Copy-2"></div>
   <div class="Label-Copy">Offline</div>
 
   <div class="toggle">
-      <ui-switch [checked]="(isAlreadyActive)" switchColor="#ffffff"  color="#127cb5"  (click)="submit(); changeActive()"></ui-switch>
-
+      <p-inputSwitch [(ngModel)]="isAlreadyActive" switchColor="#ffffff"  color="#127cb5"  (click)="submit(); changeActive()"></p-inputSwitch>
   </div>
   
 
   <div class="Label">Online</div>
   
   <div class="Top-BG-Copy-3"></div>
-  <div class="Driver">{{driverName}}</div>
-  <div class="gear"><i type= "submit" class="pi pi-cog" (click)="openMenu(appMenu, $event)"></i></div>
+  <!-- <div class="Driver">{{driverName}}</div>
+  <div class="gear"><i type= "submit" class="pi pi-cog" (click)="openMenu(appMenu, $event)"></i></div> -->
 
  
   
