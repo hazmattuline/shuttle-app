@@ -6,6 +6,7 @@ import { Shuttle } from '../models/shuttle.model';
 import { ShuttleApiService } from '../services/shuttle-api.service';
 import { Menu } from 'primeng/menu';
 import { DriverComponent } from '../driver/driver.component';
+import { AuthService } from 'common-component-lib';
 
 @Component({
   selector: 'app-banner-details',
@@ -15,9 +16,9 @@ import { DriverComponent } from '../driver/driver.component';
 })
 export class BannerDetailsComponent implements OnInit {
 
-  constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService) {}
+  constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService, private authService: AuthService) {}
 
-  driverName = 'Rob Kenlay';
+  driverName = this.getCurrentUsername();
 
   date: string;
   name: string;
@@ -35,6 +36,10 @@ export class BannerDetailsComponent implements OnInit {
   possibleVehicles: Shuttle[] = [];
   selectedVehicle: Shuttle;
   isAlreadyActive = false;
+
+  getCurrentUsername() {
+    return this.authService.getName();
+  }
 
   changeActive() {
 
