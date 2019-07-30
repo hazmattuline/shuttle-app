@@ -13,7 +13,6 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 @PropertySource(value = {"classpath:application.properties"})
 @ComponentScan({"com.uline.shuttle.app", "com.uline.security"})
 public class AppConfig {
-
   @Bean
   public ClientHttpRequestInterceptor tokenInterceptor(
       final UlineRestTemplate restTemplate, final UserResolver userResolver) {
