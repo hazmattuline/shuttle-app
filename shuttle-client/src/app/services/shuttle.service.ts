@@ -35,7 +35,7 @@ export class ShuttleService {
       startCondition: condition,
       date: startDate
     };
-    // calling the create Comment method in subscription to deal with snycronicity issues
+    // calling the create Comment method in subscription to deal with snycronicity issues 
     this.shuttleApi.submitDay(day).subscribe(Comment =>{ this.createCommentInfo(startVehicleId, startDate, comments)} );
   }
 
