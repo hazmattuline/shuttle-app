@@ -5,6 +5,8 @@ import { ShuttleService } from '../services/shuttle.service';
 import { Shuttle } from '../models/shuttle.model';
 import { ShuttleApiService } from '../services/shuttle-api.service';
 import { Menu } from 'primeng/menu';
+import { DriverComponent } from '../driver/driver.component';
+import { AuthService } from 'common-component-lib';
 import { FormGroup } from '@angular/forms';
 
 
@@ -16,10 +18,10 @@ import { FormGroup } from '@angular/forms';
 })
 export class BannerDetailsComponent implements OnInit {
 
-  constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService) {}
+  constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService,
+              private authService: AuthService) {}
 
-  driverName = 'Rob Kenlay';
-  // toggle: FormGroup;
+  driverName = this.getCurrentUsername();
 
   date: string;
   name: string;
@@ -37,6 +39,11 @@ export class BannerDetailsComponent implements OnInit {
   possibleVehicles: Shuttle[] = [];
   selectedVehicle: Shuttle;
   isAlreadyActive: boolean;
+
+  getCurrentUsername() {
+    return this.authService.getName();
+
+  }
 
   changeActive() {
     if (!this.isAlreadyActive) {
@@ -59,7 +66,6 @@ export class BannerDetailsComponent implements OnInit {
   ngOnInit() {
     this.getDate();
     this.isAlreadyActive = false;
-    //this.setupForm();
 
     this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
       this.possibleVehicles = vehicles;
@@ -70,7 +76,7 @@ export class BannerDetailsComponent implements OnInit {
 
       this.baileyRental = [
         { label: this.possibleVehicles[3].name, value: 'BAILEY RENTAL' }
-      ]; 
+      ];
     });
 
   }
