@@ -5,11 +5,22 @@
   }
 
   .info-label {
+    font-size: 24px;
     width: 30%;
     float: left;
     text-align: right;
-    padding-top: 12px;
+    padding-top: 15px;
   }
+
+  
+  .info-label2 {
+    font-size: 24px;
+    width: 30%;
+    float: left;
+    text-align: right;
+    padding-top: 35px;
+  }
+  
   
   .column2 {
     float: left;
@@ -22,11 +33,6 @@
     text-transform: uppercase;
 } 
 
-  .pSelectButtonStyle > ::ng-deep body .ui-button-text {
-    margin-top: 8px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-} 
 
 
   .column1 {
@@ -35,11 +41,11 @@
   }
 
   .submit {
-    margin-left: 71%;
+    margin-left: 73.5%;
   }
 
   .pSelectButtonStyle{
-    margin-right: 1%;
+    margin-right: 6%;
     margin-left: 1%;
   }
 
@@ -47,7 +53,8 @@
     width: 65%;
     margin-left: 5px;
     float: left;
-    margin-bottom: 15px;
+    margin-top: 2%;
+    margin-bottom: 2%;
     display: inline-flex;
   }
 

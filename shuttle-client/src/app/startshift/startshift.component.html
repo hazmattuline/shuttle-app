@@ -2,17 +2,17 @@
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 <div class="leftHalf">
  
-<input [(ngModel)]="mileage" type="number" pInputText style="width: 310px" [size]="20"   value="{{this.shuttleService.getMileage()}}" [minLength]="1" />
+<input [(ngModel)]="mileage" type="number" pInputText style="width: 310px; height: 50px;" [size]="20"   value="{{this.shuttleService.getMileage()}}" [minLength]="1" />
 
 </div>
 <div class="rightHalf">
     <p-selectButton class="pSelectButtonStyle format" [options]="good" [(ngModel)]="condition"  (onChange)="verify('good')" ></p-selectButton>
     <p-selectButton class="pSelectButtonStyle format" [options]="fair" [(ngModel)]="condition"  (onChange)="verify('fair')"></p-selectButton>
-    <p-selectButton class="pSelectButtonStyle format" [options]="bad"  [(ngModel)]="condition"  (onChange)="verify('bad')"></p-selectButton>
+    <p-selectButton class="pSelectButtonStyle format" [options]="poor"  [(ngModel)]="condition"  (onChange)="verify('poor')"></p-selectButton>
 </div>
 <br>
 <div class="bringDown" >
-  <textarea  id="disabled-input" pInputTextArea type="text" size="30" style="height: 70px; width: 310px" [(ngModel)]='comments' pInputText [disabled]="disabled"> </textarea>
+  <textarea  id="disabled-input" pInputTextArea type="text" size="30" style="height: 80px; width: 310px" [(ngModel)]='comments' pInputText [disabled]="disabled"> </textarea>
 </div>
 <div class="save">
     <p-button  type="button" label="SAVE" class="ui-button-raised" (onClick)="submitStartData('success')"></p-button>

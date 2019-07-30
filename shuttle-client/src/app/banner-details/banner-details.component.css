@@ -79,7 +79,10 @@
       margin-top: 5.5px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-  } 
+  }
+    .forToggle ::ng-deep .ui-widget {
+      font-size: 20px;
+    } 
    
 
     .Top-BG-Copy-2 {
@@ -164,8 +167,8 @@ p-button{
     text-align: right;
     color: #625f5c;
     position: relative;
-    left: 601px;
-    bottom: 80px;
+    left: 595px;
+    bottom: 77px;
   }
   .Label {
     width: 53px;
@@ -180,12 +183,12 @@ p-button{
     color: #625f5c;
     position: relative;
     left: 728px;
-    bottom: 130px;
+    bottom: 135px;
   }
 
   .toggle {
       position: relative;
-      left: 670px;
+      left: 658px;
       bottom: 105px;
   }
 
