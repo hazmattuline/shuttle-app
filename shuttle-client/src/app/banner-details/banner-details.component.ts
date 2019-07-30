@@ -41,6 +41,7 @@ export class BannerDetailsComponent implements OnInit {
 
   getCurrentUsername() {
     return this.authService.getName();
+
   }
 
   changeActive() {

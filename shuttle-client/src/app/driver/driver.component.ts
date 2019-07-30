@@ -20,7 +20,6 @@ export class DriverComponent implements OnInit, OnDestroy {
   constructor(public gpsService: GPSService, public shuttleService: ShuttleService, private authService: AuthService) { }
 
 ngOnInit() {
-  console.log(this.getCurrentUsername());
 }
 
 getCurrentUsername() {
