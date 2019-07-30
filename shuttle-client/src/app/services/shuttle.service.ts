@@ -14,7 +14,7 @@ export class ShuttleService {
   constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe) {}
   myDate = new Date();
   vehicleValue: Shuttle;
-  disabled: boolean = true;
+  disabled = true;
   startMileage: number;
 
   static getDateISOStringForDate(date: Date): string | undefined {
@@ -24,19 +24,19 @@ export class ShuttleService {
     return undefined;
   }
 
-   getDate(){
+   getDate() {
     return ShuttleService.getDateISOStringForDate(this.myDate);
    }
 
-  createStartInfo(driverId: number, startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string) {
+  createStartInfo(startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string) {
     const day: Day = {
       vehicleId: startVehicleId,
       startMileage: mileage,
       startCondition: condition,
       date: startDate
     };
-    // calling the create Comment method in subscription to deal with snycronicity issues 
-    this.shuttleApi.submitDay(day).subscribe(Comment =>{ this.createCommentInfo(startVehicleId, startDate, comments)} );
+    // calling the create Comment method in subscription to deal with snycronicity issues
+    this.shuttleApi.submitDay(day).subscribe(Comment => { this.createCommentInfo(startVehicleId, startDate, comments); } );
   }
 
   createCommentInfo(commentVehicleId: number, commentDate: string, commentMessage: string) {
@@ -48,7 +48,7 @@ export class ShuttleService {
     this.shuttleApi.sendComment(comment).subscribe();
   }
 
-    createEndInfo(driverId: number, endVehicleId: number, mileage: number, condition: string,
+    createEndInfo(endVehicleId: number, mileage: number, condition: string,
                   quantity: number, cost: number, endDate: string) {
     const day: Day = {
       vehicleId: endVehicleId,
@@ -63,18 +63,18 @@ export class ShuttleService {
 
 
     vehicleOptions() {
-    this.shuttleApi.getVehicleOptions().subscribe(vehicles =>{this.setVehicles(vehicles);
+    this.shuttleApi.getVehicleOptions().subscribe(vehicles => {this.setVehicles(vehicles);
     });
   }
 
-  getDayInfo(date, vehicleId){
-    this.shuttleApi.getDayInfo(date, vehicleId).subscribe(dayInfo =>{this.setMileage(dayInfo)},
+  getDayInfo(date, vehicleId) {
+    this.shuttleApi.getDayInfo(date, vehicleId).subscribe(dayInfo => {this.setMileage(dayInfo); },
     err => {this.startMileage = 0.0; });
   }
 
-  setMileage(dayInfo){
+  setMileage(dayInfo) {
 
-    if(dayInfo.startMileage === null){
+    if (dayInfo.startMileage === null) {
       this.startMileage = 0.0;
     } else {
       this.startMileage = dayInfo.startMileage;
@@ -82,14 +82,14 @@ export class ShuttleService {
 
   }
 
-  getMileage(){
+  getMileage() {
     return this.startMileage;
   }
 
-  setVehicles(vehicles){
+  setVehicles(vehicles) {
     this.vehicleValue = vehicles;
   }
-  getVehicles(){
+  getVehicles() {
     return this.vehicleValue;
   }
 
@@ -99,29 +99,27 @@ export class ShuttleService {
       vehicleId: fuelVehicleId,
       fuelCost: cost,
       fuelQuantity: quantity
-    }
+    };
     this.shuttleApi.submitDay(day).subscribe();
   }
 
-  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDriverId: number, tripDate: string) {
+  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDate: string) {
     const trip: Trip = {
       vehicleId: tripVehicleId,
       passengerCount: tripPassengers,
       curbCount: tripCurb,
       date: tripDate,
       routeId: tripRouteId,
-      driverId: tripDriverId
     };
     this.shuttleApi.submitTrip(trip).subscribe();
   }
 
-  modifyTrip(tripId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDriverId: number) {
+  modifyTrip(tripId: number, tripPassengers: number, tripCurb: number, tripRouteId: number) {
     const trip: Trip = {
       passengerCount: tripPassengers,
       curbCount: tripCurb,
       id: tripId,
-      routeId: tripRouteId,
-      driverId: tripDriverId
+      routeId: tripRouteId
     };
     this.shuttleApi.submitTrip(trip).subscribe();
   }

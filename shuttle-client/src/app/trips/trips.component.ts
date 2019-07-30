@@ -10,19 +10,18 @@ import { ShuttleRoute } from '../models/shuttle-route.model';
   styleUrls: ['./trips.component.css']
 })
 export class TripsComponent implements OnInit {
-  passengerNumber: number = 0;
-  curbNumber: number = 0;
-  tripNumber: number = 1;
-  previousTripNumber: number = 0;
-  route: string = 'H1 > H2';
-  isCurb: boolean = false;
+  passengerNumber = 0;
+  curbNumber = 0;
+  tripNumber = 1;
+  previousTripNumber = 0;
+  route = 'H1 > H2';
+  isCurb = false;
   trips: TripDisplay[] = [];
-  isChangeLatest: boolean = false;
-  isTowardsH2: boolean = true;
+  isChangeLatest = false;
+  isTowardsH2 = true;
   loadedRowId: number;
   routeH1ToH2: ShuttleRoute;
   routeH2ToH1: ShuttleRoute;
-  driverId: number = 27280; // TODO: get the ID from SSO
 
   constructor(private gpsService: GPSService, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService) { }
   date: string;
@@ -39,7 +38,7 @@ export class TripsComponent implements OnInit {
           this.routeH1ToH2 = route;
         }
       }
-    })
+    });
   }
 
   ngOnInit() {
@@ -108,11 +107,11 @@ export class TripsComponent implements OnInit {
     this.toggleRoute();
     if (!this.isChangeLatest) {
       this.shuttleService.createTrip(this.gpsService.getShuttleId(),
-      this.passengerNumber, this.curbNumber, routeId, this.driverId, this.date);
+      this.passengerNumber, this.curbNumber, routeId, this.date);
       this.updateTripDisplay();
     } else if (this.isChangeLatest) {
       this.updateTripDisplay();
-      this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId, this.driverId);
+      this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId);
       this.isChangeLatest = false;
     }
     this.reset();

@@ -48,7 +48,6 @@ good: SelectItem[];
 fair: SelectItem[];
 poor: SelectItem[];
 
-driver: number;
 mileage: number;
 vehicleId: number;
 quantity: number;
@@ -72,7 +71,6 @@ ngOnInit() {
 
 private setupForm() {
   this.endShiftForm = this.fb.group({
-    driver: '',
     vehicle: '',
     mileage: '',
     condition: '',
@@ -84,7 +82,8 @@ private setupForm() {
 submitEndData(info: string) {
   this.vehicleId = this.gpsService.getShuttleId();
   this.messageService.add({severity: info, summary: 'Success', detail: 'Saved Successfully'});
-  this.shuttleService.createEndInfo(this.driver, this.vehicleId, this.mileage, this.condition, this.quantity, this.cost, this.date);
+
+  this.shuttleService.createEndInfo(this.vehicleId, this.mileage, this.condition, this.quantity, this.cost, this.date);
   this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comment);
 }
 

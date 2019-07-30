@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
 import { UserComponent } from './user/user.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RouterModule, Routes} from '@angular/router';
@@ -19,8 +18,7 @@ import { EndshiftComponent } from './endshift/endshift.component';
 import { DatePipe } from '@angular/common';
 import { TripsComponent } from './trips/trips.component';
 import {InputTextareaModule} from 'primeng/inputtextarea';
-import { AuthModule, AuthHeaderInterceptor, AuthResponseInterceptor, UccLoginModule } from 'common-component-lib';
-import { routes } from './routes/routes';
+import { AuthModule, AuthHeaderInterceptor, AuthResponseInterceptor, AuthenticationGuard } from 'common-component-lib';
 import { BannerDetailsComponent } from './banner-details/banner-details.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import {SelectButtonModule} from 'primeng/selectbutton';
@@ -34,11 +32,22 @@ import { MessageComponent } from './message/message.component';
 import { MenuModule, Menu } from 'primeng/menu';
 
 const httpInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptor, multi: true }
-]
+  { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: AuthHeaderInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: AuthResponseInterceptor, multi: true }
+];
 
+const appRoutes: Routes =
+[
+  { path: 'driver', component: DriverComponent, canActivate: [AuthenticationGuard] },
+  { path: 'user', component: UserComponent },
+  { path: '',
+  redirectTo: '/user',
+  pathMatch: 'full'
+}
+];
 
-@NgModule({ 
+@NgModule({
   declarations: [
     AppComponent,
     DriverComponent,
@@ -50,9 +59,9 @@ const httpInterceptorProviders = [
     MessageComponent
   ],
   imports: [
+    RouterModule.forRoot(appRoutes, { useHash: true }),
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     TableModule,
     DropdownModule,
     AccordionModule,
@@ -66,12 +75,6 @@ const httpInterceptorProviders = [
     InputTextareaModule,
     SelectButtonModule,
     AuthModule.forRoot(),
-    UccLoginModule.forRoot({
-      appTitle: 'SAM: Shuttle Activity Monitor',
-      defaultRedirectPath: '/user',
-      serverContextRoot: '/shuttle-app'
-    }),
-    RouterModule.forRoot(routes, { useHash: true }),
     CheckboxModule,
     AutoCompleteModule,
     SplitButtonModule,
@@ -82,7 +85,7 @@ const httpInterceptorProviders = [
   providers: [
     DatePipe,
     MessageService,
-    { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true }
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

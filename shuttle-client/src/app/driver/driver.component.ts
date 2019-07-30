@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'common-component-lib';
 
 @Component
   ({
@@ -16,10 +17,13 @@ export class DriverComponent implements OnInit, OnDestroy {
   isOnLoginPage: boolean;
   routerSubscription: Subscription;
 
-  constructor(public gpsService: GPSService, public shuttleService: ShuttleService) { }
+  constructor(public gpsService: GPSService, public shuttleService: ShuttleService, private authService: AuthService) { }
 
 ngOnInit() {
-  
+}
+
+getCurrentUsername() {
+  return this.authService.getName();
 }
 
 changeActive() {
