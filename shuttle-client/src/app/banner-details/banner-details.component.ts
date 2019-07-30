@@ -18,7 +18,8 @@ import { FormGroup } from '@angular/forms';
 })
 export class BannerDetailsComponent implements OnInit {
 
-  constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService, private authService: AuthService) {}
+  constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService,
+              private authService: AuthService) {}
 
   driverName = this.getCurrentUsername();
 
@@ -65,7 +66,6 @@ export class BannerDetailsComponent implements OnInit {
   ngOnInit() {
     this.getDate();
     this.isAlreadyActive = false;
-    //this.setupForm();
 
     this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
       this.possibleVehicles = vehicles;
@@ -76,7 +76,7 @@ export class BannerDetailsComponent implements OnInit {
 
       this.baileyRental = [
         { label: this.possibleVehicles[3].name, value: 'BAILEY RENTAL' }
-      ]; 
+      ];
     });
 
   }

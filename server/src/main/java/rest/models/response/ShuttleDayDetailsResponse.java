@@ -7,7 +7,6 @@ public class ShuttleDayDetailsResponse {
   private Integer vehicleId;
   private Integer id;
   private Integer routeId;
-  private Integer driverId;
 
   public Integer getCurbCount() {
     return curbCount;
@@ -15,10 +14,6 @@ public class ShuttleDayDetailsResponse {
 
   public String getDate() {
     return date;
-  }
-
-  public Integer getDriverId() {
-    return driverId;
   }
 
   public Integer getId() {
@@ -43,10 +38,6 @@ public class ShuttleDayDetailsResponse {
 
   public void setDate(String date) {
     this.date = date;
-  }
-
-  public void setDriverId(Integer driverId) {
-    this.driverId = driverId;
   }
 
   public void setId(Integer id) {

@@ -5,5 +5,4 @@ export interface Trip {
     curbCount: number;
     date?: string;
     routeId: number;
-    driverId: number;
 }
