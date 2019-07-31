@@ -43,6 +43,7 @@ export class GPSService implements OnDestroy {
   handleAlreadyActive(shuttle: Shuttle) {
     this._isActive.next(true);
     this.shuttle = shuttle;
+    this.startGPSTracking();
   }
 
   startGPSTracking() {

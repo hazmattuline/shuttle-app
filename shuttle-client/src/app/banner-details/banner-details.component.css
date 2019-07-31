@@ -103,7 +103,7 @@
       }
 
      .Driver {
-        width: 94px;
+        width: 110px;
         height: 20px;
         -webkit-text-stroke: 1px #979797;
         font-family: Arial;
@@ -115,7 +115,7 @@
         letter-spacing: normal;
         color: #2e2925;
         position: relative;
-        left:852px;
+        left: 852px;
         bottom: 223px;
       }
       .gear{
