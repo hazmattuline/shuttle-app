@@ -18,7 +18,7 @@
     color: #faf7ee;
     position: relative;
     top:8px;
-    left: 164px;
+    left: 234px;
   }
   
   .Status {
@@ -35,7 +35,7 @@
     color: #faf7ee;
     position: relative;
     bottom:18px;
-    left: 651px;
+    left: 642px;
   }
   .Login {
     width: 125px;
@@ -51,7 +51,7 @@
     color: #faf7ee;
     position: relative;
     bottom:40px;
-    left: 841px;
+    left: 835px;
   }
   .Top-BG-Copy-2 {
     width: 1px;
@@ -90,7 +90,7 @@
         height: 64px;
         background-color: #bdc2cc;
         position: relative;
-        left: 588px;
+        left: 560px;
         bottom: 36px;
       }
       .Top-BG-Copy-3 {
@@ -98,12 +98,12 @@
         height: 64px;
         background-color: #bdc2cc;
         position: relative;
-        left: 793px;
-        bottom: 175px;
+        left: 773px;
+        bottom: 180px;
       }
 
      .Driver {
-        width: 110px;
+        width: 190px;
         height: 20px;
         -webkit-text-stroke: 1px #979797;
         font-family: Arial;
@@ -115,7 +115,8 @@
         letter-spacing: normal;
         color: #2e2925;
         position: relative;
-        left: 852px;
+        text-align: right;
+        left: 780px;
         bottom: 223px;
       }
       .gear{
@@ -130,7 +131,7 @@
         letter-spacing: normal;
         color: #43586d;
         position: relative;
-        left: 956px;
+        left: 970px;
         bottom: 245px;
       }
 
@@ -167,7 +168,7 @@ p-button{
     text-align: right;
     color: #625f5c;
     position: relative;
-    left: 595px;
+    left: 570px;
     bottom: 77px;
   }
   .Label {
@@ -182,13 +183,13 @@ p-button{
     letter-spacing: normal;
     color: #625f5c;
     position: relative;
-    left: 728px;
+    left: 710px;
     bottom: 135px;
   }
 
   .toggle {
       position: relative;
-      left: 658px;
+      left: 638px;
       bottom: 105px;
   }
 
