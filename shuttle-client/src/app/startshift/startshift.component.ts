@@ -62,12 +62,8 @@ submitStartData(info: string) {
   this.vehicleId = this.gpsService.getShuttleId();
 
   this.messageService.add({severity: info, summary: 'Success', detail: 'Saved Successfully'});
- 
-  this.shuttleService.createStartInfo(this.vehicleId, this.mileage, this.condition, this.date, this.comments);
-  if (this.disabled === false) {
-    this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comments);
-  }
 
+  this.shuttleService.createStartInfo(this.vehicleId, this.mileage, this.condition, this.date, this.comments, this.disabled);
 }
 verify(status: string) {
   if (status === 'fair' || status === 'poor') {

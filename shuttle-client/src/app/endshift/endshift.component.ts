@@ -83,10 +83,7 @@ submitEndData(info: string) {
   this.vehicleId = this.gpsService.getShuttleId();
   this.messageService.add({severity: info, summary: 'Success', detail: 'Saved Successfully'});
 
-  this.shuttleService.createEndInfo(this.vehicleId, this.mileage, this.condition, this.quantity, this.cost, this.date);
-  if (this.disabled === false) {
-    this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comment);
-  }
+  this.shuttleService.createEndInfo(this.vehicleId, this.mileage, this.condition, this.quantity, this.cost, this.date, this.comment, this.disabled);
 }
 
 verify(status: string) {
