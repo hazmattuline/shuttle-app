@@ -1,34 +1,34 @@
 <br>
 <br>
-<div class="info-container">
     <div class="shift-info">
       <div class="column1">
         <div class="block">
             <div class="info-label">Gallons:</div>
-            <div class="inputText"><input type="number" [(ngModel)]="quantity" pInputText /></div>
+            <div class="inputText"><input type="number" style="height: 50px; width: 310px" [(ngModel)]="quantity" pInputText /></div>
           </div>
           <div class="block">
               <div class="info-label">Cost:</div>
-              <div class="inputText"><input type="number" [(ngModel)]="cost" width="10px" pInputText /></div>
+              <div class="inputText"><input type="number" style="height: 50px; width: 310px" [(ngModel)]="cost" pInputText /></div>
             </div>
             <div>
                 <div class="info-label">Mileage:</div>
-                <div class="inputText"><input type="number" [(ngModel)]="mileage" pInputText /></div>
+                <div class="inputText"><input type="number" style="height: 50px; width: 310px"  [(ngModel)]="mileage" pInputText /></div>
               </div>
       </div>
       <div class="column2">
         <div class="info-label">Condition:</div>
       <div >
           <div class="inputText">
-          <p-selectButton class="pSelectButtonStyle format" [options]="good" [(ngModel)]="condition"></p-selectButton>
-          <p-selectButton class="pSelectButtonStyle format" [options]="fair" [(ngModel)]="condition"></p-selectButton>
-          <p-selectButton class="pSelectButtonStyle format" [options]="bad" [(ngModel)]="condition"></p-selectButton>
+            <p-selectButton class="pSelectButtonStyle format" [options]="good" [(ngModel)]="condition"  (onChange)="verify('good')" ></p-selectButton>
+            <p-selectButton class="pSelectButtonStyle format" [options]="fair" [(ngModel)]="condition"  (onChange)="verify('fair')"></p-selectButton>
+            <p-selectButton class="pSelectButtonStyle format" [options]="poor"  [(ngModel)]="condition"  (onChange)="verify('poor')"></p-selectButton>
         </div>
       </div>
       <br>
       <div>
-        <div class="info-label">Comments:</div>
-        <div class="inputText"><textarea pInputTextArea [(ngModel)]="comment" cols="43" rows="4"></textarea></div>
+        <div class="info-label2">Comments:</div>
+        <div class="inputText">  <textarea  id="disabled-input" pInputTextArea type="text" size="30" style="height: 80px; width: 310px" [(ngModel)]='comment' pInputText [disabled]="disabled"> </textarea>
+        </div>
       </div>
     </div>
 
@@ -40,4 +40,3 @@
       
     <br>
     
-</div>

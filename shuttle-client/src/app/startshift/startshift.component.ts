@@ -28,17 +28,17 @@ constructor(private messageService: MessageService, private fb: FormBuilder, pri
       {label: 'Fair', value: 'FAIR'}
     ],
 
-    this.bad = [
-      {label: 'Bad', value: 'BAD'}
+    this.poor = [
+      {label: 'Poor', value: 'POOR'}
     ];
 }
 
 comments: string = '';
 
-condition: string;
+condition: string = "GOOD";
 good: SelectItem[];
 fair: SelectItem[];
-bad: SelectItem[];
+poor: SelectItem[];
 
 date: string;
 
@@ -67,7 +67,7 @@ submitStartData(info: string) {
 
 }
 verify(status: string) {
-  if (status === 'fair' || status === 'bad') {
+  if (status === 'fair' || status === 'poor') {
   this.disabled = false;
 } else {
   this.disabled = true;

@@ -26,7 +26,7 @@ export class BannerDetailsComponent implements OnInit {
   date: string;
   name: string;
   toShow: boolean;
-
+  toggleBoolean: boolean;
   selectedType: string;
 
   items: MenuItem[] = null;
@@ -60,10 +60,15 @@ export class BannerDetailsComponent implements OnInit {
 
 
   submit() {
-    this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
-  }
+          this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
+             this.changeActive();
+          }
+
+
+  
 
   ngOnInit() {
+    this.toggleBoolean = true;
     this.getDate();
     this.isAlreadyActive = false;
 
@@ -99,6 +104,7 @@ export class BannerDetailsComponent implements OnInit {
 
   selected(name: string) {
 
+    this.toggleBoolean = false;
     this.shuttleApi.getVehicleOptions().subscribe(vehicles => { this.possibleVehicles = vehicles; });
 
     for (const vehicle of this.possibleVehicles) {
