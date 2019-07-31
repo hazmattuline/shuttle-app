@@ -92,6 +92,7 @@
     margin: 4px 2px;
     cursor: pointer;
   }
+  
 
   .accordion-tab-styling {
     width: 994px !important;
@@ -108,6 +109,7 @@
 
   ::ng-deep body .ui-accordion .ui-accordion-header a {
     height: 60px; 
+    width: 1024px;
     font-family: Arial;
   font-size: 21px;
   font-style: normal;
@@ -273,3 +275,5 @@ margin-top: 40px;
 .spacing{
   margin-bottom: 12px;
 }
+
+body{ overflow-x: hidden;}

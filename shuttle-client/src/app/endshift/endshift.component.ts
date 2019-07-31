@@ -29,9 +29,9 @@ constructor(private fb: FormBuilder, public shuttleService: ShuttleService, priv
       {label: 'Fair', value: 'FAIR'}
     ],
 
-    this.bad = [
+    this.poor = [
 
-      {label: 'Bad', value: 'BAD'}
+      {label: 'Poor', value: 'POOR'}
     ];
 }
 
@@ -43,16 +43,18 @@ constructor(private fb: FormBuilder, public shuttleService: ShuttleService, priv
   endShiftForm: FormGroup;
   date: string;
 
-  condition: string;
+condition: string = 'GOOD';
 good: SelectItem[];
 fair: SelectItem[];
-bad: SelectItem[];
+poor: SelectItem[];
 
 mileage: number;
 vehicleId: number;
 quantity: number;
 cost: number;
 comment: string;
+disabled = true;
+
 
   @Output()
   showShift = new EventEmitter<boolean>();
@@ -61,13 +63,9 @@ comment: string;
     this.date = this.shuttleService.getDate();
   }
 
-//  getVehicles() {
-//   this.shuttleService.vehicleOptions();
-//   }
 
 ngOnInit() {
   this.setupForm();
- // this.getVehicles();
   this.getDate();
  }
 
@@ -83,12 +81,18 @@ private setupForm() {
 
 submitEndData(info: string) {
   this.vehicleId = this.gpsService.getShuttleId();
-
   this.messageService.add({severity: info, summary: 'Success', detail: 'Saved Successfully'});
 
   this.shuttleService.createEndInfo(this.vehicleId, this.mileage, this.condition, this.quantity, this.cost, this.date);
   this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comment);
+}
 
+verify(status: string) {
+  if (status === 'fair' || status === 'poor') {
+  this.disabled = false;
+} else {
+  this.disabled = true;
+}
 }
 }
 
