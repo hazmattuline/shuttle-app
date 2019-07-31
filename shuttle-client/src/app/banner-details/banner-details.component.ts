@@ -38,6 +38,8 @@ export class BannerDetailsComponent implements OnInit {
 
   possibleVehicles: Shuttle[] = [];
   selectedVehicle: Shuttle;
+  baileyVehicle: Shuttle;
+  baileyRentalVehicle: Shuttle;
   isAlreadyActive: boolean;
 
   getCurrentUsername() {
@@ -75,12 +77,20 @@ export class BannerDetailsComponent implements OnInit {
     this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
       this.possibleVehicles = vehicles;
 
+      for (const vehicle of this.possibleVehicles) {
+        if (vehicle.name === 'BAILEY') {
+          this.baileyVehicle = vehicle;
+        }
+        if (vehicle.name === 'BAILEY RENTAL') {
+          this.baileyRentalVehicle = vehicle;
+        }
+      }
       this.bailey = [
-        { label: this.possibleVehicles[0].name, value: 'BAILEY' }
+        { label: this.baileyVehicle.name, value: 'BAILEY' }
       ],
 
       this.baileyRental = [
-        { label: this.possibleVehicles[3].name, value: 'BAILEY RENTAL' }
+        { label: this.baileyRentalVehicle.name, value: 'BAILEY RENTAL' }
       ];
     });
 
@@ -105,14 +115,13 @@ export class BannerDetailsComponent implements OnInit {
   selected(name: string) {
 
     this.toggleBoolean = false;
-    this.shuttleApi.getVehicleOptions().subscribe(vehicles => { this.possibleVehicles = vehicles; });
-
-    for (const vehicle of this.possibleVehicles) {
-      if (vehicle.name === name) {
-        this.selectedVehicle = vehicle;
-      }
+    
+    if (name === 'BAILEY') {
+      this.selectedVehicle = this.baileyVehicle;
     }
-
+    if (name === 'BAILEY RENTAL') {
+      this.selectedVehicle = this.baileyRentalVehicle;
+    }
 
 
     this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);

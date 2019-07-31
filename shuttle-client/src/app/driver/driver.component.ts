@@ -16,7 +16,6 @@ export class DriverComponent implements OnInit, OnDestroy {
   currentUsername: string;
   isOnLoginPage: boolean;
   routerSubscription: Subscription;
-
   constructor(public gpsService: GPSService, public shuttleService: ShuttleService, private authService: AuthService) { }
 
 ngOnInit() {

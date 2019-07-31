@@ -63,8 +63,7 @@ submitStartData(info: string) {
 
   this.messageService.add({severity: info, summary: 'Success', detail: 'Saved Successfully'});
 
-  this.shuttleService.createStartInfo(this.vehicleId, this.mileage, this.condition, this.date, this.comments);
-
+  this.shuttleService.createStartInfo(this.vehicleId, this.mileage, this.condition, this.date, this.comments, this.disabled);
 }
 verify(status: string) {
   if (status === 'fair' || status === 'poor') {
