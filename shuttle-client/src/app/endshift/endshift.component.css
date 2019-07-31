@@ -25,6 +25,11 @@
   .column2 {
     float: left;
     width: 65%;
+    margin-bottom: 15px;
+  }
+  .submit {
+    margin-left: 80.5%;
+    margin-bottom: 50px;
   }
 
   .format ::ng-deep .ui-button-text {
@@ -38,11 +43,10 @@
   .column1 {
     float:left;
     width:30%;
+    margin-left: 90px;
   }
 
-  .submit {
-    margin-left: 73.5%;
-  }
+ 
 
   .pSelectButtonStyle{
     margin-right: 6%;
