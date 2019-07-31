@@ -118,7 +118,6 @@ export class BannerDetailsComponent implements OnInit {
   }
 
   verify() {
-    
 
     if (this.selectedVehicle.status === 'A') {
       this.shuttleService.disabled = false;
