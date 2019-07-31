@@ -84,7 +84,9 @@ submitEndData(info: string) {
   this.messageService.add({severity: info, summary: 'Success', detail: 'Saved Successfully'});
 
   this.shuttleService.createEndInfo(this.vehicleId, this.mileage, this.condition, this.quantity, this.cost, this.date);
-  this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comment);
+  if (this.disabled === false) {
+    this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comment);
+  }
 }
 
 verify(status: string) {
