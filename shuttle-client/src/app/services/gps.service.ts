@@ -35,9 +35,6 @@ export class GPSService implements OnDestroy {
     if (this.gpsLocationTimer) {
       clearInterval(this.gpsLocationTimer);
     }
-    this.shuttleApiService.changeStatus('I', this.shuttleId).subscribe(newShuttle => {
-      this.shuttle = newShuttle;
-    });
   }
 
   handleAlreadyActive(shuttle: Shuttle) {

@@ -115,6 +115,7 @@ export class BannerDetailsComponent implements OnInit {
   selected(name: string) {
 
     this.toggleBoolean = false;
+    this.gpsService.stopGPSTracking();
     
     if (name === 'BAILEY') {
       this.selectedVehicle = this.baileyVehicle;
