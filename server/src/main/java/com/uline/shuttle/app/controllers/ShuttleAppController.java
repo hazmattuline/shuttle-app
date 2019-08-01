@@ -1,10 +1,12 @@
 package com.uline.shuttle.app.controllers;
 
 import com.uline.common.metrics.ExecutionTime;
+import com.uline.security.model.UserContext;
 import com.uline.shuttle.app.services.ShuttleAppService;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
