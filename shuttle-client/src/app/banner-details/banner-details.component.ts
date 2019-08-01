@@ -127,7 +127,6 @@ export class BannerDetailsComponent implements OnInit {
       this.selectedVehicle = this.baileyRentalVehicle;
     }
 
-console.log(this.selectedVehicle.vehicleID);
     this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
     
     this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleID);
