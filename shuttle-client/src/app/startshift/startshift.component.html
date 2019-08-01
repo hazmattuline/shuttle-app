@@ -2,7 +2,7 @@
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 <div class="leftHalf">
  
-<input [(ngModel)]="mileage" type="number" pInputText style="width: 310px; height: 50px;" [size]="20"   value="{{this.shuttleService.getMileage()}}" [minLength]="1" />
+<input [(ngModel)]="mileage" type="number" pInputText style="font-size:20px; width: 310px; height: 50px;" [size]="20"   value="{{this.shuttleService.getMileage()}}" [minLength]="1" />
 
 </div>
 <div class="rightHalf">
@@ -12,7 +12,7 @@
 </div>
 <br>
 <div class="bringDown" >
-  <textarea  id="disabled-input" pInputTextArea type="text" size="30" style="height: 80px; width: 310px" [(ngModel)]='comments' pInputText [disabled]="disabled"> </textarea>
+  <textarea  id="disabled-input" pInputTextArea type="text" size="30" style="font-size:20px; height: 80px; width: 310px" [(ngModel)]='comments' pInputText [disabled]="disabled"> </textarea>
 </div>
 <div class="save">
     <p-button  type="button" label="SAVE" class="ui-button-raised" (onClick)="submitStartData('success')"></p-button>

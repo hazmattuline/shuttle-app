@@ -5,7 +5,7 @@
 
 	<groupId>com.uline</groupId>
 	<artifactId>shuttle-app</artifactId>
-	<version>1.0.32-SNAPSHOT</version>
+	<version>1.0.33-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>shuttle-app</name>
