@@ -66,8 +66,7 @@ public class ShuttleAppController {
   @ExecutionTime("ShuttleAppService.getRoutes")
   @ApiOperation(value = "getting the routes from the database")
   @GetMapping(value = "/shuttle-routes")
-  public List<RouteResponse> getRoutes(@AuthenticationPrincipal UserContext userContext) {
-    System.out.println(userContext.getToken());
+  public List<RouteResponse> getRoutes() {
     return shuttleAppService.getRoutes();
   }
 
