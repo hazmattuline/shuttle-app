@@ -14,7 +14,6 @@ import { AuthService } from 'common-component-lib';
 export class DriverComponent implements OnInit, OnDestroy {
   showDriverShift = true;
   currentUsername: string;
-  isOnLoginPage: boolean;
   routerSubscription: Subscription;
   constructor(public gpsService: GPSService, public shuttleService: ShuttleService, private authService: AuthService) { }
 
@@ -38,7 +37,11 @@ changeActive() {
   }
 
   ngOnDestroy() {
+    if(this.gpsService.getShuttleId() === null) {
+      return;
+    }else {
     this.gpsService.stop();
+    }
   }
 
 }

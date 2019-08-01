@@ -8,8 +8,8 @@ import { Shuttle } from '../models/shuttle.model';
 export class GPSService implements OnDestroy {
 
   private latestCoordinates: Coordinates = null;
-  private shuttle: Shuttle;
-  private shuttleId;
+  private shuttle: Shuttle = null;
+  private shuttleId: number = null;
 
   private _isActive: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isActive: Observable<boolean> = this._isActive.asObservable();
@@ -22,6 +22,8 @@ export class GPSService implements OnDestroy {
 
   private watchId: number;
   private gpsLocationTimer: any = null;
+
+  public vehicle: Shuttle;
 
   constructor(private shuttleApiService: ShuttleApiService) { }
 
@@ -90,13 +92,22 @@ export class GPSService implements OnDestroy {
 
   stop() {
     this.stopGPSTracking();
+    if(this.shuttle === null) {
+      return;
+    } else {
     this.shuttleApiService.changeStatus('I', this.shuttle.vehicleID).subscribe(newShuttle => {
       this.shuttle = newShuttle;
     });
   }
+  }
 
   ngOnDestroy() {
+    if(this.shuttleId === null)
+    {
+      return;
+    }else {
     this.stop();
+    }
   }
 
   getShuttleId() {
