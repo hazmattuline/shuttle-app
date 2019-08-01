@@ -30,6 +30,8 @@ import { CommonModule } from '@angular/common';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import { MessageComponent } from './message/message.component';
 import { MenuModule, Menu } from 'primeng/menu';
+import { UccLoginModule } from 'common-component-lib';
+import { UccLoginComponent } from 'common-component-lib';
 
 const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
@@ -39,6 +41,7 @@ const httpInterceptorProviders = [
 
 const appRoutes: Routes =
 [
+  { path: 'login', component: UccLoginComponent },
   { path: 'driver', component: DriverComponent, canActivate: [AuthenticationGuard] },
   { path: 'user', component: UserComponent },
   { path: '',
@@ -80,7 +83,12 @@ const appRoutes: Routes =
     SplitButtonModule,
     ToastModule,
     CommonModule,
-    MenuModule
+    MenuModule,
+    UccLoginModule.forRoot({
+      appTitle: 'Shuttle App',
+      defaultRedirectPath: '/driver',
+      serverContextRoot: '/shuttle-app'
+    }),
   ],
   providers: [
     DatePipe,

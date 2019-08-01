@@ -100,12 +100,14 @@ export class BannerDetailsComponent implements OnInit {
     this.date = this.shuttleService.getDate();
   }
 
+
+
   openMenu(menu: Menu, event, ) {
     if (menu.visible) {
       menu.hide();
     } else {
       this.items = [
-        { label: 'Logout', icon: 'pi pi-sign-out', routerLink: [''] },
+        { label: 'Logout', icon: 'pi pi-sign-out', routerLink: ['/login'] },
       ];
       menu.show(event);
     }
@@ -115,6 +117,8 @@ export class BannerDetailsComponent implements OnInit {
   selected(name: string) {
 
     this.toggleBoolean = false;
+
+    // this.gpsService.stopGPSTracking(); 
     
     if (name === 'BAILEY') {
       this.selectedVehicle = this.baileyVehicle;
@@ -123,9 +127,9 @@ export class BannerDetailsComponent implements OnInit {
       this.selectedVehicle = this.baileyRentalVehicle;
     }
 
-
+console.log(this.selectedVehicle.vehicleID);
     this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
-
+    
     this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleID);
     this.verify();
 
