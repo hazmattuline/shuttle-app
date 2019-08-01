@@ -25,16 +25,6 @@ getCurrentUsername() {
   return this.authService.getName();
 }
 
-changeActive() {
-    if (this.gpsService.getIsGPSActive()) {
-      this.gpsService.stopGPSTracking();
-    } else {
-      this.gpsService.startGPSTracking();
-    }
-  }
-
-  //comment
-
   getShowShift(showShift: boolean) {
     this.showDriverShift = showShift;
   }

@@ -51,7 +51,7 @@ export class BannerDetailsComponent implements OnInit {
     if (!this.isAlreadyActive) {
       this.shuttleService.disabled = true;
 
-      this.gpsService.stopGPSTracking();
+      this.gpsService.stop();
       this.selectedVehicle.status = 'I';
     } else {
       this.shuttleService.disabled = false;
