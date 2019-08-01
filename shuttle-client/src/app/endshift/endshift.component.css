@@ -4,15 +4,18 @@
     align-items:center;
   }
 
+
   .info-label {
+    
     font-size: 24px;
     width: 30%;
     float: left;
     text-align: right;
     padding-top: 15px;
+    margin-right: 7px;
   }
 
-  
+
   .info-label2 {
     font-size: 24px;
     width: 30%;
@@ -26,9 +29,10 @@
     float: left;
     width: 65%;
     margin-bottom: 15px;
+    margin-left: 120px;
   }
   .submit {
-    margin-left: 80.5%;
+    margin-left: 87.5%;
     margin-bottom: 50px;
   }
 
@@ -38,19 +42,16 @@
     text-transform: uppercase;
 } 
 
-
-
   .column1 {
     float:left;
     width:30%;
-    margin-left: 90px;
+    margin-left: 60px;
   }
 
- 
 
   .pSelectButtonStyle{
     margin-right: 6%;
-    margin-left: 1%;
+    margin-left: 1.5%;
   }
 
   .inputText {
