@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { ShuttleTrackingService } from '../services/shuttle-tracking.service';
 import { Shuttle } from '../models/shuttle.model';
 import { Subscription } from 'rxjs';
@@ -20,7 +20,7 @@ export class UserComponent implements OnInit, OnDestroy {
   @ViewChild('markerContainer') markerContainer: ElementRef;
   currentShuttleMarkers: Map<number, ElementRef> = new Map();
 
-  constructor(private shuttleTrackingService: ShuttleTrackingService, private renderer: Renderer2, private vcRef: ViewContainerRef) {}
+  constructor(private shuttleTrackingService: ShuttleTrackingService, private renderer: Renderer2) {}
 
   ngOnInit() {
     this.shuttleTrackingService.startShuttleTracking();
@@ -51,15 +51,15 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   private hide(shuttle: Shuttle) {
-    if (this.currentShuttleMarkers.get(shuttle.vehicleID)) {
-      const marker = this.currentShuttleMarkers.get(shuttle.vehicleID);
+    if (this.currentShuttleMarkers.get(shuttle.vehicleId)) {
+      const marker = this.currentShuttleMarkers.get(shuttle.vehicleId);
       this.renderer.removeChild(this.markerContainer.nativeElement, marker);
-      this.currentShuttleMarkers.delete(shuttle.vehicleID);
+      this.currentShuttleMarkers.delete(shuttle.vehicleId);
     }
   }
 
   private removeInactiveShuttles(shuttleList: Shuttle[]) {
-    const activeVehicleIds = shuttleList.map(shuttle => shuttle.vehicleID);
+    const activeVehicleIds = shuttleList.map(shuttle => shuttle.vehicleId);
     for (const key of Array.from(this.currentShuttleMarkers.keys())) {
       if (!activeVehicleIds.includes(key)) {
         const marker = this.currentShuttleMarkers.get(key);
@@ -86,8 +86,8 @@ export class UserComponent implements OnInit, OnDestroy {
 
 
   private addOrUpdateShuttleMarker(shuttle: Shuttle) {
-    if (this.currentShuttleMarkers.get(shuttle.vehicleID)) {
-      const marker: ElementRef<any> = this.currentShuttleMarkers.get(shuttle.vehicleID);
+    if (this.currentShuttleMarkers.get(shuttle.vehicleId)) {
+      const marker: ElementRef<any> = this.currentShuttleMarkers.get(shuttle.vehicleId);
       this.setPlacement(marker, shuttle);
     } else {
       const shuttleMarker = this.renderer.createElement('img');
@@ -95,7 +95,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this.renderer.addClass(shuttleMarker, 'dot');
       this.setPlacement(shuttleMarker, shuttle);
       this.renderer.appendChild(this.markerContainer.nativeElement, shuttleMarker);
-      this.currentShuttleMarkers.set(shuttle.vehicleID, shuttleMarker);
+      this.currentShuttleMarkers.set(shuttle.vehicleId, shuttleMarker);
     }
   }
 
