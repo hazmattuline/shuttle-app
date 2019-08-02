@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { ShuttleApiService } from '../services/shuttle-api.service';
@@ -22,9 +22,10 @@ export class TripsComponent implements OnInit {
   loadedRowId: number;
   routeH1ToH2: ShuttleRoute;
   routeH2ToH1: ShuttleRoute;
+  date: string;
 
   constructor(private gpsService: GPSService, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService) { }
-  date: string;
+  
   getDate() {
     this.date = this.shuttleService.getDate();
   }

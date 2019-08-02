@@ -5,7 +5,6 @@ import { Shuttle } from '../models/shuttle.model';
 
 @Injectable()
 export class GPSService {
-
   private latestCoordinates: Coordinates = null;
   private shuttle: Shuttle = null;
   private shuttleId: number = null;
@@ -21,13 +20,14 @@ export class GPSService {
 
   private watchId: number;
   private gpsLocationTimer: any = null;
-
-  public vehicle: Shuttle;
-
   constructor(private shuttleApiService: ShuttleApiService) { }
 
   setTrackingVehicle(vehicleId: number) {
       this.shuttleId = vehicleId;
+  }
+
+  getShuttleId() {
+    return this.shuttleId;
   }
 
   stopGPSTracking() {
@@ -88,16 +88,12 @@ export class GPSService {
 
   stop() {
     this.stopGPSTracking();
-    if(this.shuttle === null) {
+    if (this.shuttle === null) {
       return;
     } else {
     this.shuttleApiService.changeStatus('I', this.shuttle.vehicleId).subscribe(newShuttle => {
       this.shuttle = newShuttle;
     });
   }
-  }
-
-  getShuttleId() {
-    return this.shuttleId;
   }
 }

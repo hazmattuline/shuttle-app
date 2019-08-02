@@ -12,8 +12,6 @@ import { AuthService } from 'common-component-lib';
     providers: [GPSService, ShuttleService]
     })
 export class DriverComponent implements OnInit {
-  showDriverShift = true;
-  currentUsername: string;
   routerSubscription: Subscription;
   constructor(public gpsService: GPSService, public shuttleService: ShuttleService, private authService: AuthService) { }
 
@@ -23,9 +21,5 @@ ngOnInit() {
 getCurrentUsername() {
   return this.authService.getName();
 }
-
-  getShowShift(showShift: boolean) {
-    this.showDriverShift = showShift;
-  }
 
 }

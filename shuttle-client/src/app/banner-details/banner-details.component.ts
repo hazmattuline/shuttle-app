@@ -15,61 +15,58 @@ import { AuthService } from 'common-component-lib';
 })
 export class BannerDetailsComponent implements OnInit {
 
-  constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService,
-              private authService: AuthService) {}
-
   driverName = this.getCurrentUsername();
 
   date: string;
   name: string;
-  toShow: boolean;
-  toggleBoolean: boolean;
+  isToggleDisabled: boolean;
   selectedType: string;
 
   items: MenuItem[] = null;
 
-  bailey: SelectItem[];
-  riley: SelectItem[];
-  baileyRental: SelectItem[];
-  rileyRental: SelectItem[];
+  baileyButton: SelectItem[];
+  rileyButton: SelectItem[];
+  baileyRentalButton: SelectItem[];
+  rileyRentalButton: SelectItem[];
 
   possibleVehicles: Shuttle[] = [];
   selectedVehicle: Shuttle;
   baileyVehicle: Shuttle;
   baileyRentalVehicle: Shuttle;
-  isActive: boolean;
+  isShuttleActive: boolean;
+
+  constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService,
+              private authService: AuthService) {}
 
   getCurrentUsername() {
     return this.authService.getName();
   }
 
-  changeActive() {
-    if (!this.isActive) {
-      this.shuttleService.disabled = true;
-
+  changeToggle() {
+    if (!this.isShuttleActive) {
+      this.shuttleService.isAccordionDisabled = true;
       this.gpsService.stop();
       this.selectedVehicle.status = 'I';
     } else {
-      this.shuttleService.disabled = false;
+      this.shuttleService.isAccordionDisabled = false;
       this.gpsService.startGPSTracking();
       this.selectedVehicle.status = 'A';
     }
  }
 
 
-  submit() {
+  pressToggle() {
     this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleId);
-    this.changeActive();
+    this.changeToggle();
   }
 
   ngOnInit() {
-    this.toggleBoolean = true;
+    this.isToggleDisabled = true;
     this.getDate();
-    this.isActive = false;
+    this.isShuttleActive = false;
 
     this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
       this.possibleVehicles = vehicles;
-
       for (const vehicle of this.possibleVehicles) {
         if (vehicle.name === 'BAILEY') {
           this.baileyVehicle = vehicle;
@@ -78,22 +75,18 @@ export class BannerDetailsComponent implements OnInit {
           this.baileyRentalVehicle = vehicle;
         }
       }
-      this.bailey = [
+      this.baileyButton = [
         { label: this.baileyVehicle.name, value: 'BAILEY' }
       ],
-
-      this.baileyRental = [
+      this.baileyRentalButton = [
         { label: this.baileyRentalVehicle.name, value: 'BAILEY RENTAL' }
       ];
     });
-
   }
 
   getDate() {
     this.date = this.shuttleService.getDate();
   }
-
-
 
   openMenu(menu: Menu, event, ) {
     if (menu.visible) {
@@ -107,10 +100,9 @@ export class BannerDetailsComponent implements OnInit {
   }
 
 
-  selected(name: string) {
-
-    this.toggleBoolean = false;
-    this.gpsService.stopGPSTracking(); 
+  changeSelectedVehicle(name: string) {
+    this.isToggleDisabled = false;
+    this.gpsService.stopGPSTracking();
 
     if (name === 'BAILEY') {
       this.selectedVehicle = this.baileyVehicle;
@@ -119,26 +111,18 @@ export class BannerDetailsComponent implements OnInit {
       this.selectedVehicle = this.baileyRentalVehicle;
     }
     this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleId);
-
     this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleId);
-    this.verify();
+    this.handleShuttleStatus();
   }
 
-  verify() {
-
+  handleShuttleStatus() {
     if (this.selectedVehicle.status === 'A') {
-      this.shuttleService.disabled = false;
-
+      this.shuttleService.isAccordionDisabled = false;
       this.gpsService.handleAlreadyActive(this.selectedVehicle);
-      this.isActive = true;
-      this.toShow = true;
+      this.isShuttleActive = true;
     } else {
-      this.shuttleService.disabled = true;
-      this.isActive = false;
-
-      this.toShow = true;
+      this.shuttleService.isAccordionDisabled = true;
+      this.isShuttleActive = false;
     }
-
    }
-
 }

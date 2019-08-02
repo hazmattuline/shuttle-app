@@ -1,20 +1,17 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ShuttleApiService } from './shuttle-api.service';
 import { Trip } from '../models/trip.model';
-import { SelectItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
-
 import { Day } from '../models/day.model';
 import { DayComment } from '../models/day-comment.model';
 import { Shuttle } from '../models/shuttle.model';
-import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class ShuttleService {
   constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe) {}
-  myDate = new Date();
+  date = new Date();
   vehicleValue: Shuttle;
-  disabled = true;
+  isAccordionDisabled = true;
   startMileage: number;
 
   static getDateISOStringForDate(date: Date): string | undefined {
@@ -25,7 +22,7 @@ export class ShuttleService {
   }
 
    getDate() {
-    return ShuttleService.getDateISOStringForDate(this.myDate);
+    return ShuttleService.getDateISOStringForDate(this.date);
    }
 
    createStartInfo(startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string, disabled: boolean) {
