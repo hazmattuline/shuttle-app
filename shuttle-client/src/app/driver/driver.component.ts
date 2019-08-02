@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import { AuthService } from 'common-component-lib';
     styleUrls: ['./driver.component.css'],
     providers: [GPSService, ShuttleService]
     })
-export class DriverComponent implements OnInit, OnDestroy {
+export class DriverComponent implements OnInit {
   showDriverShift = true;
   currentUsername: string;
   isOnLoginPage: boolean;
@@ -27,10 +27,6 @@ getCurrentUsername() {
 
   getShowShift(showShift: boolean) {
     this.showDriverShift = showShift;
-  }
-
-  ngOnDestroy() {
-    this.gpsService.stop();
   }
 
 }

@@ -1,10 +1,10 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ShuttleApiService } from './shuttle-api.service';
 import { Shuttle } from '../models/shuttle.model';
 
 @Injectable()
-export class GPSService implements OnDestroy {
+export class GPSService {
 
   private latestCoordinates: Coordinates = null;
   private shuttle: Shuttle;
@@ -89,10 +89,6 @@ export class GPSService implements OnDestroy {
     this.shuttleApiService.changeStatus('I', this.shuttle.vehicleId).subscribe(newShuttle => {
       this.shuttle = newShuttle;
     });
-  }
-
-  ngOnDestroy() {
-    this.stop();
   }
 
   getShuttleId() {

@@ -37,15 +37,14 @@ export class BannerDetailsComponent implements OnInit {
   selectedVehicle: Shuttle;
   baileyVehicle: Shuttle;
   baileyRentalVehicle: Shuttle;
-  isAlreadyActive: boolean;
+  isActive: boolean;
 
   getCurrentUsername() {
     return this.authService.getName();
-
   }
 
   changeActive() {
-    if (!this.isAlreadyActive) {
+    if (!this.isActive) {
       this.shuttleService.disabled = true;
 
       this.gpsService.stop();
@@ -66,7 +65,7 @@ export class BannerDetailsComponent implements OnInit {
   ngOnInit() {
     this.toggleBoolean = true;
     this.getDate();
-    this.isAlreadyActive = false;
+    this.isActive = false;
 
     this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
       this.possibleVehicles = vehicles;
@@ -123,8 +122,6 @@ export class BannerDetailsComponent implements OnInit {
 
     this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleId);
     this.verify();
-
-
   }
 
   verify() {
@@ -133,12 +130,11 @@ export class BannerDetailsComponent implements OnInit {
       this.shuttleService.disabled = false;
 
       this.gpsService.handleAlreadyActive(this.selectedVehicle);
-      this.isAlreadyActive = true;
+      this.isActive = true;
       this.toShow = true;
     } else {
       this.shuttleService.disabled = true;
-
-      this.isAlreadyActive = false;
+      this.isActive = false;
 
       this.toShow = true;
     }
