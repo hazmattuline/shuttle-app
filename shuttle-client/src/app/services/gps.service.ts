@@ -7,8 +7,8 @@ import { Shuttle } from '../models/shuttle.model';
 export class GPSService {
 
   private latestCoordinates: Coordinates = null;
-  private shuttle: Shuttle;
-  private shuttleId;
+  private shuttle: Shuttle = null;
+  private shuttleId: number = null;
 
   private _isActive: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isActive: Observable<boolean> = this._isActive.asObservable();
@@ -21,6 +21,8 @@ export class GPSService {
 
   private watchId: number;
   private gpsLocationTimer: any = null;
+
+  public vehicle: Shuttle;
 
   constructor(private shuttleApiService: ShuttleApiService) { }
 
@@ -86,9 +88,13 @@ export class GPSService {
 
   stop() {
     this.stopGPSTracking();
+    if(this.shuttle === null) {
+      return;
+    } else {
     this.shuttleApiService.changeStatus('I', this.shuttle.vehicleId).subscribe(newShuttle => {
       this.shuttle = newShuttle;
     });
+  }
   }
 
   getShuttleId() {

@@ -14,7 +14,6 @@ import { AuthService } from 'common-component-lib';
 export class DriverComponent implements OnInit {
   showDriverShift = true;
   currentUsername: string;
-  isOnLoginPage: boolean;
   routerSubscription: Subscription;
   constructor(public gpsService: GPSService, public shuttleService: ShuttleService, private authService: AuthService) { }
 
