@@ -1,76 +1,85 @@
 package rest.models.response;
 
 public class DayResponse {
-  private String date;
-  private Integer vehicleId;
-  private Double startMileage;
-  private Integer endMileage;
-  private String startCondition;
-  private String endCondition;
-  private Double fuelCost;
-  private Double fuelQuantity;
+	private String endCondition;
+	private String date;
+	private Double endMileage;
+	private Integer vehicleId;
+	private Double fuelCost;
+	private Double fuelQuantity;
+	private String startCondition;
+	private Double startMileage;
+	private Integer dayId;
 
-  public String getDate() {
-    return date;
-  }
+	public String getDate() {
+		return date;
+	}
 
-  public void setDate(String date) {
-    this.date = date;
-  }
+	public Integer getDayId() {
+		return dayId;
+	}
 
-  public Integer getVehicleId() {
-    return vehicleId;
-  }
+	public String getEndCondition() {
+		return endCondition;
+	}
 
-  public void setVehicleId(Integer vehicleId) {
-    this.vehicleId = vehicleId;
-  }
+	public Double getEndMileage() {
+		return endMileage;
+	}
 
-  public Double getStartMileage() {
-    return startMileage;
-  }
+	public Double getFuelCost() {
+		return fuelCost;
+	}
 
-  public void setStartMileage(Double startMileage) {
-    this.startMileage = startMileage;
-  }
+	public Double getFuelQuantity() {
+		return fuelQuantity;
+	}
 
-  public Integer getEndMileage() {
-    return endMileage;
-  }
+	public String getStartCondition() {
+		return startCondition;
+	}
 
-  public void setEndMileage(Integer endMileage) {
-    this.endMileage = endMileage;
-  }
+	public Double getStartMileage() {
+		return startMileage;
+	}
 
-  public String getStartCondition() {
-    return startCondition;
-  }
+	public Integer getVehicleId() {
+		return vehicleId;
+	}
 
-  public void setStartCondition(String startCondition) {
-    this.startCondition = startCondition;
-  }
+	public void setDate(String date) {
+		this.date = date;
+	}
 
-  public String getEndCondition() {
-    return endCondition;
-  }
+	public void setDayId(Integer dayId) {
+		this.dayId = dayId;
+	}
 
-  public void setEndCondition(String endCondition) {
-    this.endCondition = endCondition;
-  }
+	public void setEndCondition(String endCondition) {
+		this.endCondition = endCondition;
+	}
 
-  public Double getFuelCost() {
-    return fuelCost;
-  }
+	public void setEndMileage(Double endMileage) {
+		this.endMileage = endMileage;
+	}
 
-  public void setFuelCost(Double fuelCost) {
-    this.fuelCost = fuelCost;
-  }
+	public void setFuelCost(Double fuelCost) {
+		this.fuelCost = fuelCost;
+	}
 
-  public Double getFuelQuantity() {
-    return fuelQuantity;
-  }
+	public void setFuelQuantity(Double fuelQuantity) {
+		this.fuelQuantity = fuelQuantity;
+	}
 
-  public void setFuelQuantity(Double fuelQuantity) {
-    this.fuelQuantity = fuelQuantity;
-  }
+	public void setStartCondition(String startCondition) {
+		this.startCondition = startCondition;
+	}
+
+	public void setStartMileage(Double startMileage) {
+		this.startMileage = startMileage;
+	}
+
+	public void setVehicleId(Integer vehicleId) {
+		this.vehicleId = vehicleId;
+	}
 }
