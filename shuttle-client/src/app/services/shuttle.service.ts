@@ -11,15 +11,11 @@ import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class ShuttleService {
-  private _isActive: Subject<boolean> = new Subject();
-  public isActive: Observable<boolean> = this._isActive.asObservable();
-
   constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe) {}
   myDate = new Date();
   vehicleValue: Shuttle;
   disabled = true;
   startMileage: number;
-  isActive: boolean;
 
   static getDateISOStringForDate(date: Date): string | undefined {
     if (date) {
@@ -30,11 +26,6 @@ export class ShuttleService {
 
    getDate() {
     return ShuttleService.getDateISOStringForDate(this.myDate);
-   }
-
-   changeToggle(isActive: boolean) {
-    console.log(isActive);
-    this._isActive.next(isActive);
    }
 
    createStartInfo(startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string, disabled: boolean) {
