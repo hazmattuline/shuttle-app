@@ -5,10 +5,7 @@ import { ShuttleService } from '../services/shuttle.service';
 import { Shuttle } from '../models/shuttle.model';
 import { ShuttleApiService } from '../services/shuttle-api.service';
 import { Menu } from 'primeng/menu';
-import { DriverComponent } from '../driver/driver.component';
 import { AuthService } from 'common-component-lib';
-import { FormGroup } from '@angular/forms';
-
 
 @Component({
   selector: 'app-banner-details',
@@ -62,12 +59,9 @@ export class BannerDetailsComponent implements OnInit {
 
 
   submit() {
-          this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleId);
-             this.changeActive();
-          }
-
-
-  
+    this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleId);
+    this.changeActive();
+  }
 
   ngOnInit() {
     this.toggleBoolean = true;
@@ -116,7 +110,7 @@ export class BannerDetailsComponent implements OnInit {
 
     this.toggleBoolean = false;
     this.gpsService.stopGPSTracking();
-    
+
     if (name === 'BAILEY') {
       this.selectedVehicle = this.baileyVehicle;
     }
