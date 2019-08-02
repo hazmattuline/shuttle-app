@@ -5,7 +5,6 @@ import { Shuttle } from '../models/shuttle.model';
 import { StatusShuttles, Shuttles, Coordinates, Status, Trips, Days, Notes, AllShuttles, 
   Vehicle, ShuttleDate, Routes} from '../core/constants/endpoints.constant';
 import { Trip } from '../models/trip.model';
-import { StatusInfo } from '../models/status-info.model';
 import { Day } from '../models/day.model';
 import { DayComment } from '../models/day-comment.model';
 import { ShuttleRoute } from '../models/shuttle-route.model';
@@ -46,11 +45,12 @@ export class ShuttleApiService {
     return this.http.get<Shuttle[]>(StatusShuttles + status);
   }
 
-  changeStatus(status: string, id: number): Observable<Shuttle> {
-    const statusInfo: StatusInfo = {
-      statusCode: status
+  changeStatus(statusCode: string, id: number): Observable<Shuttle> {
+    const shuttle: Shuttle = {
+      vehicleId: id,
+      status: statusCode
     };
-    return this.http.patch<Shuttle>(Shuttles + '/' + id + Status, statusInfo);
+    return this.http.patch<Shuttle>(Shuttles + '/' + id + Status, shuttle);
   }
 
   submitDay(day: Day): Observable<Day> {

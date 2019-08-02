@@ -18,7 +18,6 @@ import com.uline.shuttle.app.client.ShuttleAppClient;
 import rest.models.requests.DayRequest;
 import rest.models.requests.NoteRequest;
 import rest.models.requests.ShuttleRequest;
-import rest.models.requests.StatusRequest;
 import rest.models.requests.TripRequest;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
@@ -67,7 +66,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 	}
 
 	@Override
-	public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
+	public ShuttleResponse changeStatus(ShuttleRequest shuttleRequest, Integer id) {
 
 		Map<String, Integer> params = new HashMap<>();
 		params.put("id", id);
@@ -78,7 +77,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 				.exchange(
 						builder.buildAndExpand(params).toUriString(),
 						HttpMethod.PATCH,
-						new HttpEntity<>(statusRequest),
+						new HttpEntity<>(shuttleRequest),
 						new ParameterizedTypeReference<ShuttleResponse>() {})
 				.getBody();
 	}

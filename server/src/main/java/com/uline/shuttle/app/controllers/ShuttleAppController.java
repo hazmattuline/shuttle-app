@@ -19,7 +19,6 @@ import io.swagger.annotations.ApiOperation;
 import rest.models.requests.DayRequest;
 import rest.models.requests.NoteRequest;
 import rest.models.requests.ShuttleRequest;
-import rest.models.requests.StatusRequest;
 import rest.models.requests.TripRequest;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
@@ -42,17 +41,17 @@ public class ShuttleAppController {
 	@ApiOperation(value = "change shuttle's status")
 	@PatchMapping(value = "/shuttles/{id}/status")
 	public ShuttleResponse changeStatus(
-			@RequestBody StatusRequest statusRequest, @PathVariable("id") Integer id) {
-		return shuttleAppService.changeStatus(statusRequest, id);
+			@RequestBody ShuttleRequest shuttleRequest, @PathVariable("id") Integer id) {
+		return shuttleAppService.changeStatus(shuttleRequest, id);
 	}
 
 	@ExecutionTime("ShuttleAppService.enRoute")
 	@ApiOperation(value = "posting the coordinates and storing in a database")
-	@PatchMapping(value = "/shuttles/{vehicleID}/coordinates")
+	@PatchMapping(value = "/shuttles/{id}/coordinates")
 	public ShuttleResponse enRoute(
-			@PathVariable("vehicleID") Integer vehicleID,
+			@PathVariable("id") Integer id,
 			@RequestBody ShuttleRequest shuttleRequest) {
-		return shuttleAppService.enRoute(vehicleID, shuttleRequest);
+		return shuttleAppService.enRoute(id, shuttleRequest);
 	}
 
 	@ApiOperation(value = "getting day from the database")

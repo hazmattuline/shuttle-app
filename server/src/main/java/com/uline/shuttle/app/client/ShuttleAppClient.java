@@ -5,7 +5,6 @@ import java.util.List;
 import rest.models.requests.DayRequest;
 import rest.models.requests.NoteRequest;
 import rest.models.requests.ShuttleRequest;
-import rest.models.requests.StatusRequest;
 import rest.models.requests.TripRequest;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
@@ -15,9 +14,9 @@ import rest.models.response.TripResponse;
 
 public interface ShuttleAppClient {
 
-	ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id);
+	ShuttleResponse changeStatus(ShuttleRequest shuttleRequest, Integer id);
 
-	ShuttleResponse enRoute(Integer vehicleID, ShuttleRequest shuttleRequest);
+	ShuttleResponse enRoute(Integer id, ShuttleRequest shuttleRequest);
 
 	DayResponse getDay(String date, Integer vehicleId);
 

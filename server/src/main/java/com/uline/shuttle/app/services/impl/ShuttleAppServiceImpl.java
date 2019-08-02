@@ -11,7 +11,6 @@ import com.uline.shuttle.app.services.ShuttleAppService;
 import rest.models.requests.DayRequest;
 import rest.models.requests.NoteRequest;
 import rest.models.requests.ShuttleRequest;
-import rest.models.requests.StatusRequest;
 import rest.models.requests.TripRequest;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
@@ -30,13 +29,13 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
 	}
 
 	@Override
-	public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
-		return shuttleAppClient.changeStatus(statusRequest, id);
+	public ShuttleResponse changeStatus(ShuttleRequest shuttleRequest, Integer id) {
+		return shuttleAppClient.changeStatus(shuttleRequest, id);
 	}
 
 	@Override
-	public ShuttleResponse enRoute(Integer vehicleID, ShuttleRequest shuttleRequest) {
-		return shuttleAppClient.enRoute(vehicleID, shuttleRequest);
+	public ShuttleResponse enRoute(Integer id, ShuttleRequest shuttleRequest) {
+		return shuttleAppClient.enRoute(id, shuttleRequest);
 	}
 
 	@Override
