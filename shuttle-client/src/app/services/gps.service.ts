@@ -1,7 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ShuttleApiService } from './shuttle-api.service';
-import { CoordinatesRequest } from '../models/coordinates-request.model';
 import { Shuttle } from '../models/shuttle.model';
 
 @Injectable()
@@ -66,12 +65,12 @@ export class GPSService implements OnDestroy {
 
   private sendShuttleCoordinates() {
     if (this.latestCoordinates) {
-      const coordinateRequest: CoordinatesRequest = {
-        vehicleID: this.shuttle.vehicleID,
+      const shuttle: Shuttle = {
+        vehicleId: this.shuttle.vehicleId,
         latitudeCoordinates: this.latestCoordinates.latitude,
         longitudeCoordinates: this.latestCoordinates.longitude
       };
-      this.shuttleApiService.sendShuttleCoordinates(coordinateRequest).subscribe();
+      this.shuttleApiService.sendShuttleCoordinates(shuttle).subscribe();
     }
   }
 
@@ -87,7 +86,7 @@ export class GPSService implements OnDestroy {
 
   stop() {
     this.stopGPSTracking();
-    this.shuttleApiService.changeStatus('I', this.shuttle.vehicleID).subscribe(newShuttle => {
+    this.shuttleApiService.changeStatus('I', this.shuttle.vehicleId).subscribe(newShuttle => {
       this.shuttle = newShuttle;
     });
   }

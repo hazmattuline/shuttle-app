@@ -62,7 +62,7 @@ export class BannerDetailsComponent implements OnInit {
 
 
   submit() {
-          this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
+          this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleId);
              this.changeActive();
           }
 
@@ -125,9 +125,9 @@ export class BannerDetailsComponent implements OnInit {
     }
 
 
-    this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleID);
+    this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleId);
 
-    this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleID);
+    this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleId);
     this.verify();
 
 

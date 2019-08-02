@@ -7,4 +7,5 @@ export interface Day {
     endCondition?: string;
     fuelCost?: number;
     fuelQuantity?: number;
+    dayId ?: number;
 }
