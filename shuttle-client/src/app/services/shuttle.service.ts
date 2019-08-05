@@ -25,15 +25,18 @@ export class ShuttleService {
     return ShuttleService.getDateISOStringForDate(this.date);
    }
 
-   createStartInfo(startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string, disabled: boolean) {
+   createStartInfo(startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string, isCommentDisabled: boolean) {
     const day: Day = {
-    vehicleId: startVehicleId,
-    startMileage: mileage,
-    startCondition: condition,
-    date: startDate
+      vehicleId: startVehicleId,
+      startMileage: mileage,
+      startCondition: condition,
+      date: startDate
     };
-    // calling the create Comment method in subscription to deal with snycronicity issues
-    this.shuttleApi.submitDay(day).subscribe(Comment => { if (!disabled) { this.createCommentInfo(startVehicleId, startDate, comments); } } );
+    this.shuttleApi.submitDay(day).subscribe(comment => { 
+      if (!isCommentDisabled) {
+        this.createCommentInfo(startVehicleId, startDate, comments);
+      }
+    } );
   }
 
   createCommentInfo(commentVehicleId: number, commentDate: string, commentMessage: string) {
@@ -46,7 +49,7 @@ export class ShuttleService {
   }
 
     createEndInfo(endVehicleId: number, mileage: number, condition: string,
-                  quantity: number, cost: number, endDate: string, comments: string, disabled: boolean ) {
+                  quantity: number, cost: number, endDate: string, comments: string, isCommentDisabled: boolean ) {
     const day: Day = {
       vehicleId: endVehicleId,
       endMileage: mileage,
@@ -55,13 +58,11 @@ export class ShuttleService {
       fuelCost: cost,
       fuelQuantity: quantity
     };
-  // calling the create Comment method in subscription to deal with snycronicity issues
-  this.shuttleApi.submitDay(day).subscribe(Comment => { if (!disabled) { this.createCommentInfo(endVehicleId, endDate, comments); } } );  }
-
-
-    vehicleOptions() {
-    this.shuttleApi.getVehicleOptions().subscribe(vehicles => {this.setVehicles(vehicles);
-    });
+    this.shuttleApi.submitDay(day).subscribe(comment => {
+      if (!isCommentDisabled) {
+      this.createCommentInfo(endVehicleId, endDate, comments);
+      }
+    } );
   }
 
   getDayInfo(date, vehicleId) {
@@ -70,13 +71,11 @@ export class ShuttleService {
   }
 
   setMileage(dayInfo) {
-
     if (dayInfo.startMileage === null) {
       this.startMileage = 0.0;
     } else {
       this.startMileage = dayInfo.startMileage;
     }
-
   }
 
   getMileage() {
