@@ -1,12 +1,18 @@
 package rest.models.response;
 
-public class ShuttleDayDetailsResponse {
+public class TripResponse {
   private Integer curbCount;
   private String date;
   private Integer passengerCount;
   private Integer vehicleId;
   private Integer id;
   private Integer routeId;
+  private String activityTimestamp;
+  private Integer dayId;
+
+  public String getActivityTimestamp() {
+    return activityTimestamp;
+  }
 
   public Integer getCurbCount() {
     return curbCount;
@@ -14,6 +20,10 @@ public class ShuttleDayDetailsResponse {
 
   public String getDate() {
     return date;
+  }
+
+  public Integer getDayId() {
+    return dayId;
   }
 
   public Integer getId() {
@@ -32,12 +42,20 @@ public class ShuttleDayDetailsResponse {
     return vehicleId;
   }
 
+  public void setActivityTimestamp(String activityTimestamp) {
+    this.activityTimestamp = activityTimestamp;
+  }
+
   public void setCurbCount(Integer curbCount) {
     this.curbCount = curbCount;
   }
 
   public void setDate(String date) {
     this.date = date;
+  }
+
+  public void setDayId(Integer dayId) {
+    this.dayId = dayId;
   }
 
   public void setId(Integer id) {

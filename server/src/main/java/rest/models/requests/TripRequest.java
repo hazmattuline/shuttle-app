@@ -1,6 +1,6 @@
 package rest.models.requests;
 
-public class ShuttleDayDetailsRequest {
+public class TripRequest {
   private Integer curbCount;
   private String date;
   private Integer passengerCount;

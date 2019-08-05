@@ -15,24 +15,31 @@ import { GPSService } from '../services/gps.service';
 
 })
 
-
 export class EndshiftComponent implements OnInit {
+  condition: string = 'GOOD';
+  goodButton: SelectItem[];
+  fairButton: SelectItem[];
+  poorButton: SelectItem[];
+  mileage: number;
+  vehicleId: number;
+  quantity: number;
+  cost: number;
+  comment: string;
+  isCommentDisabled = true;
 
-constructor(private fb: FormBuilder, public shuttleService: ShuttleService, private gpsService: GPSService, private messageService: MessageService) {
+  constructor(private fb: FormBuilder, public shuttleService: ShuttleService, 
+    private gpsService: GPSService, private messageService: MessageService) {
+      this.goodButton = [
+        {label: 'Good', value: 'GOOD'}
+        ],
 
-  this.good = [
-    {label: 'Good', value: 'GOOD'}
+        this.fairButton = [
+          {label: 'Fair', value: 'FAIR'}
+        ],
 
-    ],
-
-    this.fair = [
-      {label: 'Fair', value: 'FAIR'}
-    ],
-
-    this.poor = [
-
-      {label: 'Poor', value: 'POOR'}
-    ];
+        this.poorButton = [
+          {label: 'Poor', value: 'POOR'}
+        ];
 }
 
 
@@ -42,19 +49,6 @@ constructor(private fb: FormBuilder, public shuttleService: ShuttleService, priv
   conditionOptions: SelectItem[];
   endShiftForm: FormGroup;
   date: string;
-
-condition: string = 'GOOD';
-good: SelectItem[];
-fair: SelectItem[];
-poor: SelectItem[];
-
-mileage: number;
-vehicleId: number;
-quantity: number;
-cost: number;
-comment: string;
-disabled = true;
-
 
   @Output()
   showShift = new EventEmitter<boolean>();
@@ -83,14 +77,15 @@ submitEndData(info: string) {
   this.vehicleId = this.gpsService.getShuttleId();
   this.messageService.add({severity: info, summary: 'Success', detail: 'Saved Successfully'});
 
-  this.shuttleService.createEndInfo(this.vehicleId, this.mileage, this.condition, this.quantity, this.cost, this.date, this.comment, this.disabled);
+  this.shuttleService.createEndInfo(this.vehicleId, this.mileage, this.condition, 
+    this.quantity, this.cost, this.date, this.comment, this.isCommentDisabled);
 }
 
 verify(status: string) {
   if (status === 'fair' || status === 'poor') {
-  this.disabled = false;
+  this.isCommentDisabled = false;
 } else {
-  this.disabled = true;
+  this.isCommentDisabled = true;
 }
 }
 }

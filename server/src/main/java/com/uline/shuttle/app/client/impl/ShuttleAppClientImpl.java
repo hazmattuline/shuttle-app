@@ -12,22 +12,20 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
-import rest.models.requests.CoordinateRequest;
 import rest.models.requests.DayRequest;
 import rest.models.requests.NoteRequest;
-import rest.models.requests.ShuttleDayDetailsRequest;
-import rest.models.requests.StatusRequest;
-import rest.models.response.CoordinateResponse;
+import rest.models.requests.ShuttleRequest;
+import rest.models.requests.TripRequest;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
 import rest.models.response.RouteResponse;
-import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
+import rest.models.response.TripResponse;
 
 @Service
 public class ShuttleAppClientImpl implements ShuttleAppClient {
 
-  @Value("${shuttle.service.rc.url.get.status.shuttles}")
+  @Value("${shuttle.service.url.get.status.shuttles}")
   private String statusShuttlesURL;
 
   @Value("${shuttle.service.base.url}")
@@ -35,28 +33,28 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
 
   private UlineRestTemplate restTemplate;
 
-  @Value("${shuttle.service.rc.url.post.coordinates}")
+  @Value("${shuttle.service.url.post.coordinates}")
   private String shuttlePostCoordinates;
 
-  @Value("${shuttle.service.rc.url.post.trips.data}")
+  @Value("${shuttle.service.url.post.trips.data}")
   private String shuttleServiceForDayDetails;
 
-  @Value("${shuttle.service.rc.url.change.status}")
+  @Value("${shuttle.service.url.change.status}")
   private String changeStatusURL;
 
-  @Value("${shuttle.service.rc.url.submit.day}")
+  @Value("${shuttle.service.url.submit.day}")
   private String submitDayURL;
 
-  @Value("${shuttle.service.rc.url.submit.note}")
+  @Value("${shuttle.service.url.submit.note}")
   private String submitNoteURL;
 
-  @Value("${shuttle.service.rc.url.get.trip}")
+  @Value("${shuttle.service.url.get.trip}")
   private String getTripURL;
 
-  @Value("${shuttle.service.rc.url.get.routes}")
+  @Value("${shuttle.service.url.get.routes}")
   private String getRoutesURL;
 
-  @Value("${shuttle.service.rc.url.get.day}")
+  @Value("${shuttle.service.url.get.day}")
   private String getDayURL;
 
   @Autowired
@@ -65,7 +63,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
+  public ShuttleResponse changeStatus(ShuttleRequest shuttleRequest, Integer id) {
 
     Map<String, Integer> params = new HashMap<>();
     params.put("id", id);
@@ -76,13 +74,13 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
         .exchange(
             builder.buildAndExpand(params).toUriString(),
             HttpMethod.PATCH,
-            new HttpEntity<>(statusRequest),
+            new HttpEntity<>(shuttleRequest),
             new ParameterizedTypeReference<ShuttleResponse>() {})
         .getBody();
   }
 
   @Override
-  public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
+  public ShuttleResponse enRoute(Integer vehicleID, ShuttleRequest shuttleRequest) {
 
     Map<String, Integer> params = new HashMap<>();
     params.put("id", vehicleID);
@@ -94,8 +92,8 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
         .exchange(
             builder.buildAndExpand(params).toUriString(),
             HttpMethod.PATCH,
-            new HttpEntity<>(coordinateRequest),
-            new ParameterizedTypeReference<CoordinateResponse>() {})
+            new HttpEntity<>(shuttleRequest),
+            new ParameterizedTypeReference<ShuttleResponse>() {})
         .getBody();
   }
 
@@ -148,7 +146,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public ShuttleDayDetailsResponse getTrip(String date, Integer vehicleId) {
+  public TripResponse getTrip(String date, Integer vehicleId) {
     String vehicle = Integer.toString(vehicleId);
     Map<String, String> params = new HashMap<>();
     params.put("date", date);
@@ -161,12 +159,12 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             builder.buildAndExpand(params).toUriString(),
             HttpMethod.GET,
             new HttpEntity<>(null, null),
-            new ParameterizedTypeReference<ShuttleDayDetailsResponse>() {})
+            new ParameterizedTypeReference<TripResponse>() {})
         .getBody();
   }
 
   @Override
-  public ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest) {
+  public TripResponse postTrip(TripRequest shuttleDayRequest) {
 
     UriComponentsBuilder builder =
         UriComponentsBuilder.fromUriString(baseUrl + shuttleServiceForDayDetails);
@@ -176,7 +174,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             builder.build().toUriString(),
             HttpMethod.POST,
             new HttpEntity<>(shuttleDayRequest),
-            new ParameterizedTypeReference<ShuttleDayDetailsResponse>() {})
+            new ParameterizedTypeReference<TripResponse>() {})
         .getBody();
   }
 

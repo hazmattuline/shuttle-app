@@ -13,17 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import rest.models.requests.CoordinateRequest;
 import rest.models.requests.DayRequest;
 import rest.models.requests.NoteRequest;
-import rest.models.requests.ShuttleDayDetailsRequest;
-import rest.models.requests.StatusRequest;
-import rest.models.response.CoordinateResponse;
+import rest.models.requests.ShuttleRequest;
+import rest.models.requests.TripRequest;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
 import rest.models.response.RouteResponse;
-import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
+import rest.models.response.TripResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -40,17 +38,16 @@ public class ShuttleAppController {
   @ApiOperation(value = "change shuttle's status")
   @PatchMapping(value = "/shuttles/{id}/status")
   public ShuttleResponse changeStatus(
-      @RequestBody StatusRequest statusRequest, @PathVariable("id") Integer id) {
-    return shuttleAppService.changeStatus(statusRequest, id);
+      @RequestBody ShuttleRequest shuttleRequest, @PathVariable("id") Integer id) {
+    return shuttleAppService.changeStatus(shuttleRequest, id);
   }
 
   @ExecutionTime("ShuttleAppService.enRoute")
   @ApiOperation(value = "posting the coordinates and storing in a database")
-  @PatchMapping(value = "/shuttles/{vehicleID}/coordinates")
-  public CoordinateResponse enRoute(
-      @PathVariable("vehicleID") Integer vehicleID,
-      @RequestBody CoordinateRequest coordinateRequest) {
-    return shuttleAppService.enRoute(vehicleID, coordinateRequest);
+  @PatchMapping(value = "/shuttles/{id}/coordinates")
+  public ShuttleResponse enRoute(
+      @PathVariable("id") Integer id, @RequestBody ShuttleRequest shuttleRequest) {
+    return shuttleAppService.enRoute(id, shuttleRequest);
   }
 
   @ApiOperation(value = "getting day from the database")
@@ -79,7 +76,7 @@ public class ShuttleAppController {
   @ExecutionTime("ShuttleAppService.getTrip")
   @ApiOperation(value = "getting the passenger amount details from the database")
   @GetMapping(value = "/shuttle-trips")
-  public ShuttleDayDetailsResponse getTrip(
+  public TripResponse getTrip(
       @RequestParam(value = "date") String date,
       @RequestParam(value = "vehicle") Integer vehicleId) {
     return shuttleAppService.getTrip(date, vehicleId);
@@ -88,8 +85,7 @@ public class ShuttleAppController {
   @ExecutionTime("ShuttleAppService.postTrip")
   @ApiOperation(value = "posting the trip details to the database")
   @PostMapping(value = "/shuttle-trips")
-  public ShuttleDayDetailsResponse postTrip(
-      @RequestBody ShuttleDayDetailsRequest shuttleDayRequest) {
+  public TripResponse postTrip(@RequestBody TripRequest shuttleDayRequest) {
     return shuttleAppService.postTrip(shuttleDayRequest);
   }
 

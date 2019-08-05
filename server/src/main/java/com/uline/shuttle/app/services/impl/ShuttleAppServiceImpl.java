@@ -5,17 +5,15 @@ import com.uline.shuttle.app.services.ShuttleAppService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import rest.models.requests.CoordinateRequest;
 import rest.models.requests.DayRequest;
 import rest.models.requests.NoteRequest;
-import rest.models.requests.ShuttleDayDetailsRequest;
-import rest.models.requests.StatusRequest;
-import rest.models.response.CoordinateResponse;
+import rest.models.requests.ShuttleRequest;
+import rest.models.requests.TripRequest;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
 import rest.models.response.RouteResponse;
-import rest.models.response.ShuttleDayDetailsResponse;
 import rest.models.response.ShuttleResponse;
+import rest.models.response.TripResponse;
 
 @Service
 public class ShuttleAppServiceImpl implements ShuttleAppService {
@@ -28,13 +26,13 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public ShuttleResponse changeStatus(StatusRequest statusRequest, Integer id) {
-    return shuttleAppClient.changeStatus(statusRequest, id);
+  public ShuttleResponse changeStatus(ShuttleRequest shuttleRequest, Integer id) {
+    return shuttleAppClient.changeStatus(shuttleRequest, id);
   }
 
   @Override
-  public CoordinateResponse enRoute(Integer vehicleID, CoordinateRequest coordinateRequest) {
-    return shuttleAppClient.enRoute(vehicleID, coordinateRequest);
+  public ShuttleResponse enRoute(Integer id, ShuttleRequest shuttleRequest) {
+    return shuttleAppClient.enRoute(id, shuttleRequest);
   }
 
   @Override
@@ -53,12 +51,12 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public ShuttleDayDetailsResponse getTrip(String date, Integer vehicleId) {
+  public TripResponse getTrip(String date, Integer vehicleId) {
     return shuttleAppClient.getTrip(date, vehicleId);
   }
 
   @Override
-  public ShuttleDayDetailsResponse postTrip(ShuttleDayDetailsRequest shuttleDayRequest) {
+  public TripResponse postTrip(TripRequest shuttleDayRequest) {
     return shuttleAppClient.postTrip(shuttleDayRequest);
   }
 

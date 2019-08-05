@@ -1,12 +1,10 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ShuttleApiService } from './shuttle-api.service';
-import { CoordinatesRequest } from '../models/coordinates-request.model';
 import { Shuttle } from '../models/shuttle.model';
 
 @Injectable()
-export class GPSService implements OnDestroy {
-
+export class GPSService {
   private latestCoordinates: Coordinates = null;
   private shuttle: Shuttle = null;
   private shuttleId: number = null;
@@ -22,13 +20,14 @@ export class GPSService implements OnDestroy {
 
   private watchId: number;
   private gpsLocationTimer: any = null;
-
-  public vehicle: Shuttle;
-
   constructor(private shuttleApiService: ShuttleApiService) { }
 
   setTrackingVehicle(vehicleId: number) {
       this.shuttleId = vehicleId;
+  }
+
+  getShuttleId() {
+    return this.shuttleId;
   }
 
   stopGPSTracking() {
@@ -37,9 +36,6 @@ export class GPSService implements OnDestroy {
     if (this.gpsLocationTimer) {
       clearInterval(this.gpsLocationTimer);
     }
-    this.shuttleApiService.changeStatus('I', this.shuttleId).subscribe(newShuttle => {
-      this.shuttle = newShuttle;
-    });
   }
 
   handleAlreadyActive(shuttle: Shuttle) {
@@ -71,12 +67,12 @@ export class GPSService implements OnDestroy {
 
   private sendShuttleCoordinates() {
     if (this.latestCoordinates) {
-      const coordinateRequest: CoordinatesRequest = {
-        vehicleID: this.shuttle.vehicleID,
+      const shuttle: Shuttle = {
+        vehicleId: this.shuttle.vehicleId,
         latitudeCoordinates: this.latestCoordinates.latitude,
         longitudeCoordinates: this.latestCoordinates.longitude
       };
-      this.shuttleApiService.sendShuttleCoordinates(coordinateRequest).subscribe();
+      this.shuttleApiService.sendShuttleCoordinates(shuttle).subscribe();
     }
   }
 
@@ -92,25 +88,12 @@ export class GPSService implements OnDestroy {
 
   stop() {
     this.stopGPSTracking();
-    if(this.shuttle === null) {
+    if (this.shuttle === null) {
       return;
     } else {
-    this.shuttleApiService.changeStatus('I', this.shuttle.vehicleID).subscribe(newShuttle => {
+    this.shuttleApiService.changeStatus('I', this.shuttle.vehicleId).subscribe(newShuttle => {
       this.shuttle = newShuttle;
     });
   }
-  }
-
-  ngOnDestroy() {
-    if(this.shuttleId === null)
-    {
-      return;
-    }else {
-    this.stop();
-    }
-  }
-
-  getShuttleId() {
-    return this.shuttleId;
   }
 }
