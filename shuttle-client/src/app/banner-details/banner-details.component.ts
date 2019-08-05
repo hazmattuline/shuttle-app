@@ -137,7 +137,6 @@ export class BannerDetailsComponent implements OnInit {
 
     if (this.selectedVehicle.status === 'A') {
       this.shuttleService.disabled = false;
-
       this.gpsService.handleAlreadyActive(this.selectedVehicle);
       this.isAlreadyActive = true;
       this.toShow = true;
@@ -148,6 +147,7 @@ export class BannerDetailsComponent implements OnInit {
 
       this.toShow = true;
     }
+    this.shuttleService.endOfDay = false;
 
    }
 

@@ -16,6 +16,7 @@ export class ShuttleService {
   vehicleValue: Shuttle;
   disabled = true;
   startMileage: number;
+  endOfDay = true;
 
   static getDateISOStringForDate(date: Date): string | undefined {
     if (date) {
