@@ -3,6 +3,7 @@ import { ShuttleTrackingService } from '../services/shuttle-tracking.service';
 import { Shuttle } from '../models/shuttle.model';
 import { Subscription } from 'rxjs';
 import { MaximumLatitude, MinimumLatitude, MaximumLongitude, MinimumLongitude } from '../core/constants/coordinates.constant';
+import { ShuttleIconHeight, ShuttleIconWidth } from '../core/constants/image.constants';
 
 @Component
   ({
@@ -100,8 +101,8 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   private setPlacement(marker: ElementRef<any>, shuttle: Shuttle) {
-    this.renderer.setStyle(marker, 'top', `${shuttle.yPixelCoordinate - 25}px`);
-    this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - 25}px`);
+    this.renderer.setStyle(marker, 'top', `${shuttle.yPixelCoordinate - (ShuttleIconHeight / 2)}px`);
+    this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - (ShuttleIconWidth / 2)}px`);
   }
 
 

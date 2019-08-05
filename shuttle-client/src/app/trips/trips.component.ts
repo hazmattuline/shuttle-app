@@ -25,7 +25,7 @@ export class TripsComponent implements OnInit {
   date: string;
 
   constructor(private gpsService: GPSService, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService) { }
-  
+
   getDate() {
     this.date = this.shuttleService.getDate();
   }
