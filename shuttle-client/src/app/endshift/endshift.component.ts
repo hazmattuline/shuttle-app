@@ -51,9 +51,6 @@ good: SelectItem[];
 fair: SelectItem[];
 poor: SelectItem[];
 
-
-disabled = true;
-
 wholeNumCount;
 decimalNumCount;
 wholeGalCount;
