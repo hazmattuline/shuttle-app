@@ -11,9 +11,9 @@ export class ShuttleService {
   constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe) {}
   date = new Date();
   vehicleValue: Shuttle;
-  isAccordionDisabled = true;
+  isAccordionTopDisabled = true;
   startMileage: number;
-  endOfDay = true;
+  isEndOfDayDisabled = true;
 
   static getDateISOStringForDate(date: Date): string | undefined {
     if (date) {
@@ -83,22 +83,7 @@ export class ShuttleService {
     return this.startMileage;
   }
 
-  setVehicles(vehicles) {
-    this.vehicleValue = vehicles;
-  }
-  getVehicles() {
-    return this.vehicleValue;
-  }
 
-  createFuelInfo(quantity: number, cost: number, fuelDate: string, fuelVehicleId: number ) {
-    const day: Day = {
-      date: fuelDate,
-      vehicleId: fuelVehicleId,
-      fuelCost: cost,
-      fuelQuantity: quantity
-    };
-    this.shuttleApi.submitDay(day).subscribe();
-  }
 
   createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDate: string) {
     const trip: Trip = {

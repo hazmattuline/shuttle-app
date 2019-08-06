@@ -44,11 +44,11 @@ export class BannerDetailsComponent implements OnInit {
 
   changeToggle() {
     if (!this.isShuttleActive) {
-      this.shuttleService.isAccordionDisabled = true;
+      this.shuttleService.isAccordionTopDisabled = true;
       this.gpsService.stop();
       this.selectedVehicle.status = 'I';
     } else {
-      this.shuttleService.isAccordionDisabled = false;
+      this.shuttleService.isAccordionTopDisabled = false;
       this.gpsService.startGPSTracking();
       this.selectedVehicle.status = 'A';
     }
@@ -113,13 +113,13 @@ export class BannerDetailsComponent implements OnInit {
 
   handleShuttleStatus() {
     if (this.selectedVehicle.status === 'A') {
-      this.shuttleService.isAccordionDisabled = false;
+      this.shuttleService.isAccordionTopDisabled = false;
       this.gpsService.handleAlreadyActive(this.selectedVehicle);
       this.isShuttleActive = true;
     } else {
-      this.shuttleService.isAccordionDisabled = true;
+      this.shuttleService.isAccordionTopDisabled = true;
       this.isShuttleActive = false;
     }
-    this.shuttleService.endOfDay = false;
+    this.shuttleService.isEndOfDayDisabled = false;
    }
 }

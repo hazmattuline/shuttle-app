@@ -37,7 +37,7 @@ export class EndshiftComponent implements OnInit {
 
   constructor(private fb: FormBuilder, public shuttleService: ShuttleService,
               private gpsService: GPSService, private messageService: MessageService) {
-                
+
       this.goodButton = [
         {label: 'Good', value: 'GOOD'}
         ],
@@ -59,64 +59,60 @@ ngOnInit() {
  }
 
 submitEndData() {
-  const stringRepMile = this.mileage.toString();
-  const stringRepGal = this.quantity.toString();
-  const stringRepCost = this.cost.toString();
-  this.wholeNumCount = this.mileage.toString().length;
-  this.wholeGalCount = this.quantity.toString().length;
-  this.wholeCostCount = this.cost.toString().length;
-  let confirmation = 0;
-  for (const char of stringRepMile) {
-    if (char === '.') {
-      const splitMileage = this.mileage.toString().split('.');
-      const mileageArray = splitMileage.map(Number);
-      this.wholeNumCount = mileageArray[0].toString().length;
-      this.decimalNumCount = mileageArray[1].toString().length;
-    }
-  }
-  for (const char of stringRepGal) {
-    if (char === '.') {
-      const splitGal = this.quantity.toString().split('.');
-      const gallonArray = splitGal.map(Number);
-      this.wholeGalCount = gallonArray[0].toString().length;
-      this.decimalGalCount = gallonArray[1].toString().length;
-    }
-  }
-  for (const char of stringRepCost) {
-    if (char === '.') {
-      const splitCost = this.cost.toString().split('.');
-      const costArray = splitCost.map(Number);
-      this.wholeCostCount = costArray[0].toString().length;
-      this.decimalCostCount = costArray[1].toString().length;
-    }
-  }
 
-  if (this.wholeNumCount > 10 || this.decimalNumCount > 3) {
-    confirmation++;
-    this.messageService.add({severity: 'error', summary: 'Mileage', detail: 'Too many digits, Try again'});
-    this.decimalNumCount = null;
-  }
-  if (this.wholeGalCount > 10 || this.decimalGalCount > 3) {
-    confirmation++;
-    this.messageService.add({severity: 'error', summary: 'Gallon', detail: 'Too many digits, Try again'});
-    this.decimalGalCount = null;
-  }
-  if (this.wholeCostCount > 17 || this.decimalCostCount > 4) {
-    confirmation++;
-    this.messageService.add({severity: 'error', summary: 'Cost', detail: 'Too many digits, Try again'});
-    this.decimalCostCount = null;
-  } else if (confirmation === 0) {
+let currentStrRep = '';
 
+// digits allowed for decimal and whole number
+const totalDigitBounds = [10, 10, 17];
+const decimalDigitBounds = [3, 3, 4];
+const fieldNames = ['Mileage', 'Gallons', 'Cost'];
+
+// to use to display error message later
+let isFieldTooManyDigits = false;
+
+const stringReps = [this.mileage.toString(), this.quantity.toString(), this.cost.toString()];
+
+// nested loop to iterate over the fields 
+for (let i = 0; i < 3; i++) {
+  let isBeforeDecimal = true;
+  let numberBeforeDecimal = 0;
+  let numberAfterDecimal = 0;
+  currentStrRep = stringReps[i];
+
+  for (const char of currentStrRep) {
+    if (char === '.') {
+      isBeforeDecimal = false;
+    }
+    else if (isBeforeDecimal) {
+        numberBeforeDecimal++;
+    } else {
+        numberAfterDecimal++;
+    }
+  }
+  if (numberBeforeDecimal + numberAfterDecimal > totalDigitBounds[i] || numberAfterDecimal > decimalDigitBounds[i] || numberBeforeDecimal > 7) {
+      isFieldTooManyDigits = true;
+      this.messageService.add({severity: 'error', summary: fieldNames[i], detail: 'Too many digits, Try again'});
+      if (fieldNames[i] === 'Mileage') {
+          this.mileage = null;
+      } else if (fieldNames[i] === 'Gallons') {
+          this.quantity = null;
+      } else {
+          this.cost = null;
+      }
+    }
+}
+
+if (!isFieldTooManyDigits) {
   this.vehicleId = this.gpsService.getShuttleId();
-  this.messageService.add({severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
-
   this.shuttleService.createEndInfo(this.vehicleId, this.mileage, this.condition,
-    this.quantity, this.cost, this.date, this.comment, this.isCommentDisabled);
+  this.quantity, this.cost, this.date, this.comment, this.isCommentDisabled);
+  this.messageService.add({severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
 }
 }
 
 
-  verify(status: string) {
+
+verifyCommentAvailability(status: string) {
   if (status === 'fair' || status === 'poor') {
   this.isCommentDisabled = false;
 } else {

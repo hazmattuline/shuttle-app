@@ -3,15 +3,15 @@
 <app-banner-details></app-banner-details>
 <div class="spacing"></div>
   <p-accordion  styleClass="accordion-tab-styling" class="accordion-styling">
-    <p-accordionTab class= "accordion-tab-styling"  [disabled]="this.shuttleService.isAccordionDisabled"  header="Beginning of Day" >
-        <app-startshift *ngIf="this.shuttleService.isAccordionDisabled===false"></app-startshift>
+    <p-accordionTab class= "accordion-tab-styling"  [disabled]="this.shuttleService.isAccordionTopDisabled"  header="Beginning of Day" >
+        <app-startshift *ngIf="this.shuttleService.isAccordionTopDisabled===false"></app-startshift>
     </p-accordionTab>
     <div class="spacing"></div>
-    <p-accordionTab class= "accordion-tab-styling" [disabled]="this.shuttleService.isAccordionDisabled" header="Trip">
-      <app-trips *ngIf="this.shuttleService.isAccordionDisabled===false"></app-trips>
+    <p-accordionTab class= "accordion-tab-styling" [disabled]="this.shuttleService.isAccordionTopDisabled" header="Trip">
+      <app-trips *ngIf="this.shuttleService.isAccordionTopDisabled===false"></app-trips>
     </p-accordionTab>
     <div class="spacing"></div>
-    <p-accordionTab class= "accordion-tab-styling" [disabled]="this.shuttleService.endOfDay" header="End of Day">
+    <p-accordionTab class= "accordion-tab-styling" [disabled]="this.shuttleService.isEndOfDayDisabled" header="End of Day">
       <app-endshift></app-endshift>    
     </p-accordionTab>
     <div class="spacing"></div>
