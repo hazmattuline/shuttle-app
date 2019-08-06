@@ -19,15 +19,15 @@
         <div class="info-label">Condition:</div>
       <div >
           <div class="inputText">
-            <p-selectButton class="pSelectButtonStyle format" [options]="good" [(ngModel)]="condition"  (onChange)="verify('good')" ></p-selectButton>
-            <p-selectButton class="pSelectButtonStyle format" [options]="fair" [(ngModel)]="condition"  (onChange)="verify('fair')"></p-selectButton>
-            <p-selectButton class="pSelectButtonStyle format" [options]="poor"  [(ngModel)]="condition"  (onChange)="verify('poor')"></p-selectButton>
+            <p-selectButton class="pSelectButtonStyle format" [options]="goodButton" [(ngModel)]="condition"  (onChange)="verify('good')" ></p-selectButton>
+            <p-selectButton class="pSelectButtonStyle format" [options]="fairButton" [(ngModel)]="condition"  (onChange)="verify('fair')"></p-selectButton>
+            <p-selectButton class="pSelectButtonStyle format" [options]="poorButton"  [(ngModel)]="condition"  (onChange)="verify('poor')"></p-selectButton>
         </div>
       </div>
       <br>
       <div>
         <div class="info-label2">Comments:</div>
-        <div class="inputText">  <textarea  id="disabled-input" pInputTextArea type="text" size="30" style="font-size:20px; height: 105px; width: 310px" [(ngModel)]='comment' pInputText [disabled]="disabled"> </textarea>
+        <div class="inputText">  <textarea  id="disabled-input" pInputTextArea type="text" size="30" style="font-size:20px; height: 105px; width: 310px" [(ngModel)]='comment' pInputText [disabled]="isCommentDisabled"> </textarea>
         </div>
       </div>
     </div>

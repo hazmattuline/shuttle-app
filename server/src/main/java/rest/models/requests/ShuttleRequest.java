@@ -1,13 +1,10 @@
-package rest.models.response;
+package rest.models.requests;
 
-public class ShuttleResponse {
+public class ShuttleRequest {
   private Integer vehicleId;
-  private String name;
-  private String status;
   private Double latitudeCoordinates;
   private Double longitudeCoordinates;
-  private String shuttleType;
-  private String rentalIndicator;
+  private String status;
 
   public Double getLatitudeCoordinates() {
     return latitudeCoordinates;
@@ -15,18 +12,6 @@ public class ShuttleResponse {
 
   public Double getLongitudeCoordinates() {
     return longitudeCoordinates;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getRentalIndicator() {
-    return rentalIndicator;
-  }
-
-  public String getShuttleType() {
-    return shuttleType;
   }
 
   public String getStatus() {
@@ -43,18 +28,6 @@ public class ShuttleResponse {
 
   public void setLongitudeCoordinates(Double longitudeCoordinates) {
     this.longitudeCoordinates = longitudeCoordinates;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setRentalIndicator(String rentalIndicator) {
-    this.rentalIndicator = rentalIndicator;
-  }
-
-  public void setShuttleType(String shuttleType) {
-    this.shuttleType = shuttleType;
   }
 
   public void setStatus(String status) {

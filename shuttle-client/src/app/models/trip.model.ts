@@ -5,4 +5,6 @@ export interface Trip {
     curbCount: number;
     date?: string;
     routeId: number;
+    activityTimestamp?: string;
+    dayId?: number;
 }

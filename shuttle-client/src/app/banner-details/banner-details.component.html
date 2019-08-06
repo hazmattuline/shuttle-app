@@ -9,16 +9,16 @@
 <p-menu #appMenu [popup]="true" [model]="items"></p-menu>
 
 <div class="background">
-  <p-selectButton class="pSelectButtonStyle format" [options]="bailey" [(ngModel)]="selectedType" (onChange)=" selected('BAILEY')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle format" [options]="baileyRental" [(ngModel)]="selectedType" (onChange)=" selected('BAILEY RENTAL')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle format" [options]="riley" [(ngModel)]="selectedType"  (onChange)=" selected('RILEY')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle format" [options]="rileyRental" [(ngModel)]="selectedType"  (onChange)=" selected('RILEY RENTAL')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle format" [options]="baileyButton" [(ngModel)]="selectedType" (onChange)=" changeSelectedVehicle('BAILEY')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle format" [options]="baileyRentalButton" [(ngModel)]="selectedType" (onChange)=" changeSelectedVehicle('BAILEY RENTAL')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle format" [options]="rileyButton" [(ngModel)]="selectedType"  (onChange)=" changeSelectedVehicle('RILEY')"></p-selectButton>
+  <p-selectButton class="pSelectButtonStyle format" [options]="rileyRentalButton" [(ngModel)]="selectedType"  (onChange)=" changeSelectedVehicle('RILEY RENTAL')"></p-selectButton>
 
   <div class="Top-BG-Copy-2"></div>
   <div class="Label-Copy">Offline</div>
 
   <div class="toggle">
-      <p-inputSwitch [(ngModel)]="isAlreadyActive"  class="forToggle"  switchColor="#ffffff"  color="#127cb5"  (click)="submit()" [disabled]="toggleBoolean"></p-inputSwitch>
+      <p-inputSwitch [(ngModel)]="isShuttleActive"  class="forToggle"  switchColor="#ffffff"  color="#127cb5"  (click)="pressToggle()" [disabled]="isToggleDisabled"></p-inputSwitch>
   </div>
   
 

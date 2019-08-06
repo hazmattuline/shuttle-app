@@ -15,44 +15,43 @@ import { GPSService } from '../services/gps.service';
 
 })
 
-
 export class EndshiftComponent implements OnInit {
+  condition = 'GOOD';
+  goodButton: SelectItem[];
+  fairButton: SelectItem[];
+  poorButton: SelectItem[];
+  mileage: number;
+  vehicleId: number;
+  quantity: number;
+  cost: number;
+  comment: string;
+  isCommentDisabled = true;
 
-constructor(private fb: FormBuilder, public shuttleService: ShuttleService, private gpsService: GPSService, private messageService: MessageService) {
+  constructor(private fb: FormBuilder, public shuttleService: ShuttleService,
+              private gpsService: GPSService, private messageService: MessageService) {
+      this.goodButton = [
+        {label: 'Good', value: 'GOOD'}
+        ],
 
-  this.good = [
-    {label: 'Good', value: 'GOOD'}
+        this.fairButton = [
+          {label: 'Fair', value: 'FAIR'}
+        ],
 
-    ],
-
-    this.fair = [
-      {label: 'Fair', value: 'FAIR'}
-    ],
-
-    this.poor = [
-
-      {label: 'Poor', value: 'POOR'}
-    ];
+        this.poorButton = [
+          {label: 'Poor', value: 'POOR'}
+        ];
 }
 
 
-  @Input()
-  endShift: DriverComponent;
-  driverOptions: SelectItem[];
-  conditionOptions: SelectItem[];
-  endShiftForm: FormGroup;
-  date: string;
+@Input()
 
-condition = 'GOOD';
+date: string;
+
 good: SelectItem[];
 fair: SelectItem[];
 poor: SelectItem[];
 
-mileage: number;
-vehicleId: number;
-quantity: number;
-cost: number;
-comment: string;
+
 disabled = true;
 
 wholeNumCount;
@@ -71,19 +70,8 @@ decimalCostCount;
 
 
 ngOnInit() {
-  this.setupForm();
   this.getDate();
  }
-
-private setupForm() {
-  this.endShiftForm = this.fb.group({
-    vehicle: '',
-    mileage: '',
-    condition: '',
-    quantity: '',
-    cost: ''
-  });
-}
 
 submitEndData() {
   const stringRepMile = this.mileage.toString();
@@ -137,19 +125,21 @@ submitEndData() {
   this.vehicleId = this.gpsService.getShuttleId();
   this.messageService.add({severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
 
-  this.shuttleService.createEndInfo(this.vehicleId, this.mileage, this.condition, this.quantity, this.cost, this.date, this.comment, this.disabled);
-  }
+  this.shuttleService.createEndInfo(this.vehicleId, this.mileage, this.condition,
+    this.quantity, this.cost, this.date, this.comment, this.isCommentDisabled);
+}
 }
 
-verify(status: string) {
+
+  verify (status: string) {
   if (status === 'fair' || status === 'poor') {
-  this.disabled = false;
+  this.isCommentDisabled = false;
 } else {
-  this.disabled = true;
-}
+  this.isCommentDisabled = true;
 }
 }
 
 
 
+}
 

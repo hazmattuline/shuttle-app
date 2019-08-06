@@ -1,10 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {SelectItem, MessageService} from 'primeng/api';
-import { DriverComponent } from '../driver/driver.component';
-import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
 import { GPSService } from '../services/gps.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-startshift',
@@ -16,37 +14,39 @@ import { CommonModule } from '@angular/common';
 
 
 export class StartshiftComponent implements OnInit {
+  comments: string = '';
+  condition: string = 'GOOD';
+  goodButton: SelectItem[];
+  fairButton: SelectItem[];
+  poorButton: SelectItem[];
+  date: string;
+  isCommentDisabled = true;
+  mileage: number;
+  vehicleId: number;
 
+  constructor(private messageService: MessageService,
+    private fb: FormBuilder, private gpsService: GPSService, public shuttleService: ShuttleService) {
 
-constructor(private messageService: MessageService, private fb: FormBuilder, private gpsService: GPSService, public shuttleService: ShuttleService) {
-
-  this.good = [
+  this.goodButton = [
     {label: 'Good', value: 'GOOD'}
     ],
 
-    this.fair = [
+    this.fairButton = [
       {label: 'Fair', value: 'FAIR'}
     ],
 
-    this.poor = [
+    this.poorButton = [
       {label: 'Poor', value: 'POOR'}
     ];
 }
 
-comments = '';
-
-condition = 'GOOD';
 good: SelectItem[];
 fair: SelectItem[];
 poor: SelectItem[];
 
-date: string;
 
 disabled = true;
 
-mileage: number;
-
-vehicleId: number;
 
 wholeNumCount;
 decimalNumCount;
@@ -82,14 +82,14 @@ submitStartData() {
 
   this.messageService.add({severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
 
-  this.shuttleService.createStartInfo(this.vehicleId, this.mileage, this.condition, this.date, this.comments, this.disabled);
+  this.shuttleService.createStartInfo(this.vehicleId, this.mileage, this.condition, this.date, this.comments, this.isCommentDisabled);
 }
 }
 verify(status: string) {
   if (status === 'fair' || status === 'poor') {
-  this.disabled = false;
+  this.isCommentDisabled = false;
 } else {
-  this.disabled = true;
+  this.isCommentDisabled = true;
 }
 }
 

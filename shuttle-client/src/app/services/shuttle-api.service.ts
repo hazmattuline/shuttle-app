@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
-import { CoordinatesRequest } from '../models/coordinates-request.model';
 import { StatusShuttles, Shuttles, Coordinates, Status, Trips, Days, Notes, AllShuttles, 
   Vehicle, ShuttleDate, Routes} from '../core/constants/endpoints.constant';
 import { Trip } from '../models/trip.model';
-import { StatusInfo } from '../models/status-info.model';
 import { Day } from '../models/day.model';
 import { DayComment } from '../models/day-comment.model';
 import { ShuttleRoute } from '../models/shuttle-route.model';
@@ -19,8 +17,8 @@ import { ShuttleRoute } from '../models/shuttle-route.model';
 export class ShuttleApiService {
   constructor(private http: HttpClient) { }
 
-  sendShuttleCoordinates(coordinates: CoordinatesRequest): Observable<Shuttle> {
-    return this.http.patch<Shuttle>(Shuttles + '/' + coordinates.vehicleID + Coordinates, coordinates);
+  sendShuttleCoordinates(shuttle: Shuttle): Observable<Shuttle> {
+    return this.http.patch<Shuttle>(Shuttles + '/' + shuttle.vehicleId + Coordinates, shuttle);
   }
 
   getTrip(date: string, vehicle: number): Observable<Trip> {
@@ -47,11 +45,12 @@ export class ShuttleApiService {
     return this.http.get<Shuttle[]>(StatusShuttles + status);
   }
 
-  changeStatus(status: string, id: number): Observable<Shuttle> {
-    const statusInfo: StatusInfo = {
-      statusCode: status
+  changeStatus(statusCode: string, id: number): Observable<Shuttle> {
+    const shuttle: Shuttle = {
+      vehicleId: id,
+      status: statusCode
     };
-    return this.http.patch<Shuttle>(Shuttles + '/' + id + Status, statusInfo);
+    return this.http.patch<Shuttle>(Shuttles + '/' + id + Status, shuttle);
   }
 
   submitDay(day: Day): Observable<Day> {
