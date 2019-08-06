@@ -23,9 +23,10 @@ export class StartshiftComponent implements OnInit {
   isCommentDisabled = true;
   mileage: number;
   vehicleId: number;
+  wholeNumCount;
+  decimalNumCount;
 
-  constructor(private messageService: MessageService,
-    private fb: FormBuilder, private gpsService: GPSService, public shuttleService: ShuttleService) {
+  constructor(private messageService: MessageService, private gpsService: GPSService, public shuttleService: ShuttleService) {
 
   this.goodButton = [
     {label: 'Good', value: 'GOOD'}
@@ -40,28 +41,17 @@ export class StartshiftComponent implements OnInit {
     ];
 }
 
-good: SelectItem[];
-fair: SelectItem[];
-poor: SelectItem[];
 
-
-wholeNumCount;
-decimalNumCount;
-
-getDate() {
-  this.date = this.shuttleService.getDate();
-  }
 
 ngOnInit() {
-  this.getDate();
-
+  this.date = this.shuttleService.getDate();
  }
 
 submitStartData() {
 
   const stringRepMile = this.mileage.toString();
   this.wholeNumCount = this.mileage.toString().length;
-  
+
 
   for (const char of stringRepMile) {
     if (char === '.') {

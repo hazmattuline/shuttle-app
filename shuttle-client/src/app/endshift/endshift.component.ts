@@ -26,9 +26,18 @@ export class EndshiftComponent implements OnInit {
   cost: number;
   comment: string;
   isCommentDisabled = true;
+  date: string;
+
+  wholeNumCount;
+  decimalNumCount;
+  wholeGalCount;
+  decimalGalCount;
+  wholeCostCount;
+  decimalCostCount;
 
   constructor(private fb: FormBuilder, public shuttleService: ShuttleService,
               private gpsService: GPSService, private messageService: MessageService) {
+                
       this.goodButton = [
         {label: 'Good', value: 'GOOD'}
         ],
@@ -43,31 +52,10 @@ export class EndshiftComponent implements OnInit {
 }
 
 
-@Input()
-
-date: string;
-
-good: SelectItem[];
-fair: SelectItem[];
-poor: SelectItem[];
-
-wholeNumCount;
-decimalNumCount;
-wholeGalCount;
-decimalGalCount;
-wholeCostCount;
-decimalCostCount;
-
-  @Output()
-  showShift = new EventEmitter<boolean>();
-
-  getDate() {
-    this.date = this.shuttleService.getDate();
-  }
 
 
 ngOnInit() {
-  this.getDate();
+  this.date = this.shuttleService.getDate();
  }
 
 submitEndData() {
@@ -128,7 +116,7 @@ submitEndData() {
 }
 
 
-  verify (status: string) {
+  verify(status: string) {
   if (status === 'fair' || status === 'poor') {
   this.isCommentDisabled = false;
 } else {

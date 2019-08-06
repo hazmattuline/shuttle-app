@@ -62,7 +62,7 @@ export class BannerDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.isToggleDisabled = true;
-    this.getDate();
+    this.date = this.shuttleService.getDate();
     this.isShuttleActive = false;
 
     this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
@@ -82,10 +82,6 @@ export class BannerDetailsComponent implements OnInit {
         { label: this.baileyRentalVehicle.name, value: 'BAILEY RENTAL' }
       ];
     });
-  }
-
-  getDate() {
-    this.date = this.shuttleService.getDate();
   }
 
   openMenu(menu: Menu, event, ) {
