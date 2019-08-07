@@ -105,10 +105,17 @@ for (let i = 0; i < 3; i++) {
 if (!isFieldTooManyDigits) {
   this.vehicleId = this.gpsService.getShuttleId();
   this.shuttleService.createEndInfo(this.vehicleId, this.mileage, this.condition,
-  this.quantity, this.cost, this.date, this.comment, this.isCommentDisabled);
-  this.messageService.add({severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
+  this.quantity, this.cost, this.date, this.comment, this.isCommentDisabled).subscribe(comment => {
+    if (!this.isCommentDisabled) {
+    this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comment);
+    }
+    this.messageService.add({severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
+
+  } , err => {this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occured'});
+} );
 }
 }
+
 
 
 

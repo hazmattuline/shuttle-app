@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { Day } from '../models/day.model';
 import { DayComment } from '../models/day-comment.model';
 import { Shuttle } from '../models/shuttle.model';
+import { Subscription, Observable } from 'rxjs';
 
 @Injectable()
 export class ShuttleService {
@@ -26,18 +27,14 @@ export class ShuttleService {
     return ShuttleService.getDateISOStringForDate(this.date);
    }
 
-   createStartInfo(startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string, isCommentDisabled: boolean) {
+   createStartInfo(startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string, isCommentDisabled: boolean): Observable<Day> {
     const day: Day = {
       vehicleId: startVehicleId,
       startMileage: mileage,
       startCondition: condition,
       date: startDate
     };
-    this.shuttleApi.submitDay(day).subscribe(comment => { 
-      if (!isCommentDisabled) {
-        this.createCommentInfo(startVehicleId, startDate, comments);
-      }
-    } );
+    return this.shuttleApi.submitDay(day);
   }
 
   createCommentInfo(commentVehicleId: number, commentDate: string, commentMessage: string) {
@@ -50,7 +47,7 @@ export class ShuttleService {
   }
 
     createEndInfo(endVehicleId: number, mileage: number, condition: string,
-                  quantity: number, cost: number, endDate: string, comments: string, isCommentDisabled: boolean ) {
+                  quantity: number, cost: number, endDate: string, comments: string, isCommentDisabled: boolean ): Observable<Day> {
     const day: Day = {
       vehicleId: endVehicleId,
       endMileage: mileage,
@@ -59,11 +56,7 @@ export class ShuttleService {
       fuelCost: cost,
       fuelQuantity: quantity
     };
-    this.shuttleApi.submitDay(day).subscribe(comment => {
-      if (!isCommentDisabled) {
-      this.createCommentInfo(endVehicleId, endDate, comments);
-      }
-    } );
+    return this.shuttleApi.submitDay(day);
   }
 
   getDayInfo(date, vehicleId) {
