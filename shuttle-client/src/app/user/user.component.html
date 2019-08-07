@@ -1,10 +1,10 @@
-<!-- <div *ngIf="this.currentTime >= 17 || this.currentTime < 7">
+<div *ngIf="!isAnyActiveShuttle">
 
   <app-message></app-message>
 </div>
 
 
-<div *ngIf="this.currentTime < 17 && this.currentTime >= 7"> -->
+<div *ngIf="isAnyActiveShuttle">
 <meta name="viewport" content="width=500, user-scalable=0" />
 <div style="text-align:center">
   <br>
@@ -13,5 +13,5 @@
  </div>
  </div>
  </div>
-<!-- </div> -->
+</div>
  <router-outlet></router-outlet>
