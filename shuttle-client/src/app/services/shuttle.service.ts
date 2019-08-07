@@ -7,6 +7,7 @@ import { Shuttle } from '../models/shuttle.model';
 import { Subscription, Observable } from 'rxjs';
 import { TripDisplay } from '../trips/trips.component';
 import { GPSService } from './gps.service';
+import { switchMap, map, takeWhile } from 'rxjs/operators';
 import { ShuttleRoute } from '../models/shuttle-route.model';
 
 @Injectable()
@@ -71,18 +72,10 @@ export class ShuttleService {
     err => {this.startMileage = 0.0; });
   }
 
-  loadPreviousDriverInfo() {
-    this.shuttleApi.getTrip(this.getDate(), this.gpsService.getShuttleId()).subscribe(previousTrip => {
-      if (previousTrip != null && previousTrip.passengerCount != null) {
-        let lastRoute = (this.isTowardsH2) ? 'H1 > H2' : 'H1 < H2';
-        this.previousDriverTrip = {
-          tripNumber: 0,
-          route: lastRoute,
-          passengers: previousTrip.passengerCount,
-          curb: previousTrip.curbCount,
-        };
-      }
-    });
+  loadPreviousDriverInfo(): Observable<Trip> {
+    return this.gpsService.shuttleIdObservable.pipe(
+      switchMap((vehicleId => this.shuttleApi.getTrip(this.getDate(), this.gpsService.getShuttleId())
+      .pipe(map(trip => trip)))));
   }
 
   setMileage(dayInfo) {

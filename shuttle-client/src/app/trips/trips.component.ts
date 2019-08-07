@@ -22,19 +22,28 @@ export class TripsComponent implements OnInit {
   loadedRowId: number;
   date: string;
 
+  routeH1ToH2: ShuttleRoute;
+  routeH2ToH1: ShuttleRoute;
+  isTowardsH2 = true;
+
   constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService) { }
 
   getDate() {
     this.date = this.shuttleService.getDate();
   }
 
+  changeTripDisplayed(tripDisplay: TripDisplay) {
+    console.log(tripDisplay);
+    this.trips = [tripDisplay];
+  }
+
   makeRoutes() {
     this.shuttleApiService.getRouteOptions().subscribe(routeList => {
       for (let route of routeList) {
         if ( route.fromWarehouse === 'H2' && route.toWarehouse === 'H1') {
-          this.shuttleService.routeH2ToH1 = route;
+          this.routeH2ToH1 = route;
         } else if (route.fromWarehouse === 'H1' && route.toWarehouse === 'H2') {
-          this.shuttleService.routeH1ToH2 = route;
+          this.routeH1ToH2 = route;
         }
       }
     });
@@ -43,6 +52,20 @@ export class TripsComponent implements OnInit {
   ngOnInit() {
     this.getDate();
     this.makeRoutes();
+    this.shuttleService.loadPreviousDriverInfo().subscribe(previousTrip => {
+      if (previousTrip != null && previousTrip.passengerCount != null) {
+              const lastRoute = (this.isTowardsH2) ? 'H1 > H2' : 'H1 < H2';
+              const previousDriverTrip = {
+                tripNumber: 0,
+                route: lastRoute,
+                passengers: previousTrip.passengerCount,
+                curb: previousTrip.curbCount,
+              };
+              this.changeTripDisplayed(previousDriverTrip);
+    } else {
+      this.trips = [];
+    }
+  });
   }
 
   submitNumber(inputNumber: number) {
@@ -96,10 +119,10 @@ export class TripsComponent implements OnInit {
   }
 
   findRoute() {
-    if (this.shuttleService.isTowardsH2) {
-      return this.shuttleService.routeH1ToH2.id;
+    if (this.isTowardsH2) {
+      return this.routeH1ToH2.id;
     } else {
-      return this.shuttleService.routeH2ToH1.id;
+      return this.routeH2ToH1.id;
     }
   }
   submitTripInfo() {
@@ -124,20 +147,20 @@ export class TripsComponent implements OnInit {
 changeRoute(isH1toH2: boolean) {
   if (isH1toH2) {
     this.route = 'H1 > H2';
-    this.shuttleService.isTowardsH2 = true;
+    this.isTowardsH2 = true;
   } else {
     this.route = 'H1 < H2';
-    this.shuttleService.isTowardsH2 = false;
+    this.isTowardsH2 = false;
   }
 }
 
 toggleRoute() {
-  if (!this.shuttleService.isTowardsH2) {
+  if (!this.isTowardsH2) {
     this.route = 'H1 < H2';
-    this.shuttleService.isTowardsH2 = true;
+    this.isTowardsH2 = true;
   } else {
     this.route = 'H1 > H2';
-    this.shuttleService.isTowardsH2 = false;
+    this.isTowardsH2 = false;
   }
 }
 
@@ -147,6 +170,11 @@ reloadRow() {
     this.passengerNumber = loadedTrip.passengerCount;
     this.isCurb = false;
     this.loadedRowId = loadedTrip.id;
+    if (loadedTrip.routeId === this.routeH1ToH2.id) {
+      this.changeRoute(true);
+    } else {
+      this.changeRoute(false);
+    }
   });
 
 }
