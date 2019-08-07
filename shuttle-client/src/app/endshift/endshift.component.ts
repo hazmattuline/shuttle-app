@@ -115,7 +115,7 @@ if (!isFieldTooManyDigits) {
   } , err => {this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred'});
 } );
 }
-    this.shuttleService.isShuttleActive = false;
+this.shuttleService.isShuttleActive = false;
 
 
 }
