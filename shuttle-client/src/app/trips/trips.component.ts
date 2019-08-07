@@ -3,6 +3,7 @@ import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { ShuttleApiService } from '../services/shuttle-api.service';
 import { ShuttleRoute } from '../models/shuttle-route.model';
+import { MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-trips',
@@ -24,7 +25,7 @@ export class TripsComponent implements OnInit {
   routeH2ToH1: ShuttleRoute;
   date: string;
 
-  constructor(private gpsService: GPSService, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService) { }
+  constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService) { }
 
   getDate() {
     this.date = this.shuttleService.getDate();
@@ -108,14 +109,18 @@ export class TripsComponent implements OnInit {
     this.toggleRoute();
     if (!this.isChangeLatest) {
       this.shuttleService.createTrip(this.gpsService.getShuttleId(),
-      this.passengerNumber, this.curbNumber, routeId, this.date);
-      this.updateTripDisplay();
+      this.passengerNumber, this.curbNumber, routeId, this.date)
+      .subscribe
+      ( success => { console.log("in here"); this.updateTripDisplay();  this.reset(); } ,
+        err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred'});})
+
+
     } else if (this.isChangeLatest) {
-      this.updateTripDisplay();
-      this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId);
-      this.isChangeLatest = false;
+      this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
+      .subscribe
+      ( success => {this.updateTripDisplay(); this.isChangeLatest = false; this.reset(); } ,
+      err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred'});})
     }
-    this.reset();
 }
 
 changeRoute(isH1toH2: boolean) {

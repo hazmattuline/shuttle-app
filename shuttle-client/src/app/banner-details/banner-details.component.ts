@@ -33,7 +33,6 @@ export class BannerDetailsComponent implements OnInit {
   selectedVehicle: Shuttle;
   baileyVehicle: Shuttle;
   baileyRentalVehicle: Shuttle;
-  isShuttleActive: boolean;
 
   constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService,
               private authService: AuthService) {}
@@ -43,12 +42,12 @@ export class BannerDetailsComponent implements OnInit {
   }
 
   changeToggle() {
-    if (!this.isShuttleActive) {
-      this.shuttleService.isAccordionDisabled = true;
+    if (!this.shuttleService.isShuttleActive) {
+      this.shuttleService.isAccordionTopDisabled = true;
       this.gpsService.stop();
       this.selectedVehicle.status = 'I';
     } else {
-      this.shuttleService.isAccordionDisabled = false;
+      this.shuttleService.isAccordionTopDisabled = false;
       this.gpsService.startGPSTracking();
       this.selectedVehicle.status = 'A';
     }
@@ -62,8 +61,8 @@ export class BannerDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.isToggleDisabled = true;
-    this.getDate();
-    this.isShuttleActive = false;
+    this.date = this.shuttleService.getDate();
+    this.shuttleService.isShuttleActive = false;
 
     this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
       this.possibleVehicles = vehicles;
@@ -82,10 +81,6 @@ export class BannerDetailsComponent implements OnInit {
         { label: this.baileyRentalVehicle.name, value: 'BAILEY RENTAL' }
       ];
     });
-  }
-
-  getDate() {
-    this.date = this.shuttleService.getDate();
   }
 
   openMenu(menu: Menu, event, ) {
@@ -117,12 +112,13 @@ export class BannerDetailsComponent implements OnInit {
 
   handleShuttleStatus() {
     if (this.selectedVehicle.status === 'A') {
-      this.shuttleService.isAccordionDisabled = false;
+      this.shuttleService.isAccordionTopDisabled = false;
       this.gpsService.handleAlreadyActive(this.selectedVehicle);
-      this.isShuttleActive = true;
+      this.shuttleService.isShuttleActive = true;
     } else {
-      this.shuttleService.isAccordionDisabled = true;
-      this.isShuttleActive = false;
+      this.shuttleService.isAccordionTopDisabled = true;
+      this.shuttleService.isShuttleActive = false;
     }
+    this.shuttleService.isEndOfDayDisabled = false;
    }
 }

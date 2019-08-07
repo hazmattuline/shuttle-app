@@ -19,9 +19,9 @@
         <div class="info-label">Condition:</div>
       <div >
           <div class="inputText">
-            <p-selectButton class="pSelectButtonStyle format" [options]="goodButton" [(ngModel)]="condition"  (onChange)="verify('good')" ></p-selectButton>
-            <p-selectButton class="pSelectButtonStyle format" [options]="fairButton" [(ngModel)]="condition"  (onChange)="verify('fair')"></p-selectButton>
-            <p-selectButton class="pSelectButtonStyle format" [options]="poorButton"  [(ngModel)]="condition"  (onChange)="verify('poor')"></p-selectButton>
+            <p-selectButton class="pSelectButtonStyle format" [options]="goodButton" [(ngModel)]="condition"  (onChange)="verifyCommentAvailability('good')" ></p-selectButton>
+            <p-selectButton class="pSelectButtonStyle format" [options]="fairButton" [(ngModel)]="condition"  (onChange)="verifyCommentAvailability('fair')"></p-selectButton>
+            <p-selectButton class="pSelectButtonStyle format" [options]="poorButton"  [(ngModel)]="condition"  (onChange)="verifyCommentAvailability('poor')"></p-selectButton>
         </div>
       </div>
       <br>
@@ -35,7 +35,7 @@
     
     </div>
     <div class="submit">
-      <button pButton (click)="submitEndData('success');" label="Save"></button>
+      <button pButton (click)="submitEndData();" label="Save"></button>
     </div>
       
     <br>

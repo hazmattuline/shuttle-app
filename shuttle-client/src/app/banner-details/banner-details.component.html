@@ -18,7 +18,7 @@
   <div class="Label-Copy">Offline</div>
 
   <div class="toggle">
-      <p-inputSwitch [(ngModel)]="isShuttleActive"  class="forToggle"  switchColor="#ffffff"  color="#127cb5"  (click)="pressToggle()" [disabled]="isToggleDisabled"></p-inputSwitch>
+      <p-inputSwitch [(ngModel)]="this.shuttleService.isShuttleActive"  class="forToggle"  switchColor="#ffffff"  color="#127cb5"  (click)="pressToggle()" [disabled]="isToggleDisabled"></p-inputSwitch>
   </div>
   
 

@@ -2,20 +2,20 @@
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
 <div class="leftHalf">
  
-<input [(ngModel)]="mileage" type="number" pInputText style="font-size:20px; width: 310px; height: 50px;" [size]="20"   value="{{this.shuttleService.getMileage()}}" [minLength]="1" />
+<input [(ngModel)]="mileage" pInputText type="number" style="font-size:20px; width: 310px; height: 50px;"  value="{{this.shuttleService.getMileage()}}"/>
 
 </div>
 <div class="rightHalf">
-    <p-selectButton class="pSelectButtonStyle format" [options]="goodButton" [(ngModel)]="condition"  (onChange)="verify('good')" ></p-selectButton>
-    <p-selectButton class="pSelectButtonStyle format" [options]="fairButton" [(ngModel)]="condition"  (onChange)="verify('fair')"></p-selectButton>
-    <p-selectButton class="pSelectButtonStyle format" [options]="poorButton"  [(ngModel)]="condition"  (onChange)="verify('poor')"></p-selectButton>
+    <p-selectButton class="pSelectButtonStyle format" [options]="goodButton" [(ngModel)]="condition"  (onChange)="verifyCommentAvailability('good')" ></p-selectButton>
+    <p-selectButton class="pSelectButtonStyle format" [options]="fairButton" [(ngModel)]="condition"  (onChange)="verifyCommentAvailability('fair')"></p-selectButton>
+    <p-selectButton class="pSelectButtonStyle format" [options]="poorButton"  [(ngModel)]="condition"  (onChange)="verifyCommentAvailability('poor')"></p-selectButton>
 </div>
 <br>
 <div class="bringDown" >
-  <textarea  id="disabled-input" pInputTextArea type="text" size="30" style="font-size:20px; height: 80px; width: 310px" [(ngModel)]='comments' pInputText [disabled]="isCommentDisabled"> </textarea>
+  <textarea maxlength="1000"  id="disabled-input" pInputTextArea type="text" style="font-size:20px; height: 80px; width: 310px" [(ngModel)]='comments' pInputText [disabled]="isCommentDisabled"> </textarea>
 </div>
 <div class="save">
-    <p-button  type="button" label="SAVE" class="ui-button-raised" (onClick)="submitStartData('success')"></p-button>
+    <p-button  type="button" label="SAVE" class="ui-button-raised" (onClick)="submitStartData()"></p-button>
 </div>
 <div class="Mileage">Mileage:</div>
 <div class="Condition">Condition:</div>

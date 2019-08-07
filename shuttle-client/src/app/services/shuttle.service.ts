@@ -5,14 +5,17 @@ import { DatePipe } from '@angular/common';
 import { Day } from '../models/day.model';
 import { DayComment } from '../models/day-comment.model';
 import { Shuttle } from '../models/shuttle.model';
+import { Subscription, Observable } from 'rxjs';
 
 @Injectable()
 export class ShuttleService {
   constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe) {}
   date = new Date();
   vehicleValue: Shuttle;
-  isAccordionDisabled = true;
+  isAccordionTopDisabled = true;
   startMileage: number;
+  isEndOfDayDisabled = true;
+  isShuttleActive: boolean; 
 
   static getDateISOStringForDate(date: Date): string | undefined {
     if (date) {
@@ -25,18 +28,14 @@ export class ShuttleService {
     return ShuttleService.getDateISOStringForDate(this.date);
    }
 
-   createStartInfo(startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string, isCommentDisabled: boolean) {
+   createStartInfo(startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string, isCommentDisabled: boolean): Observable<Day> {
     const day: Day = {
       vehicleId: startVehicleId,
       startMileage: mileage,
       startCondition: condition,
       date: startDate
     };
-    this.shuttleApi.submitDay(day).subscribe(comment => { 
-      if (!isCommentDisabled) {
-        this.createCommentInfo(startVehicleId, startDate, comments);
-      }
-    } );
+    return this.shuttleApi.submitDay(day);
   }
 
   createCommentInfo(commentVehicleId: number, commentDate: string, commentMessage: string) {
@@ -49,7 +48,7 @@ export class ShuttleService {
   }
 
     createEndInfo(endVehicleId: number, mileage: number, condition: string,
-                  quantity: number, cost: number, endDate: string, comments: string, isCommentDisabled: boolean ) {
+                  quantity: number, cost: number, endDate: string, comments: string, isCommentDisabled: boolean ): Observable<Day> {
     const day: Day = {
       vehicleId: endVehicleId,
       endMileage: mileage,
@@ -58,11 +57,7 @@ export class ShuttleService {
       fuelCost: cost,
       fuelQuantity: quantity
     };
-    this.shuttleApi.submitDay(day).subscribe(comment => {
-      if (!isCommentDisabled) {
-      this.createCommentInfo(endVehicleId, endDate, comments);
-      }
-    } );
+    return this.shuttleApi.submitDay(day);
   }
 
   getDayInfo(date, vehicleId) {
@@ -82,24 +77,9 @@ export class ShuttleService {
     return this.startMileage;
   }
 
-  setVehicles(vehicles) {
-    this.vehicleValue = vehicles;
-  }
-  getVehicles() {
-    return this.vehicleValue;
-  }
 
-  createFuelInfo(quantity: number, cost: number, fuelDate: string, fuelVehicleId: number ) {
-    const day: Day = {
-      date: fuelDate,
-      vehicleId: fuelVehicleId,
-      fuelCost: cost,
-      fuelQuantity: quantity
-    };
-    this.shuttleApi.submitDay(day).subscribe();
-  }
 
-  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDate: string) {
+  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDate: string): Observable<Trip> {
     const trip: Trip = {
       vehicleId: tripVehicleId,
       passengerCount: tripPassengers,
@@ -107,16 +87,16 @@ export class ShuttleService {
       date: tripDate,
       routeId: tripRouteId,
     };
-    this.shuttleApi.submitTrip(trip).subscribe();
+    return this.shuttleApi.submitTrip(trip);
   }
 
-  modifyTrip(tripId: number, tripPassengers: number, tripCurb: number, tripRouteId: number) {
+  modifyTrip(tripId: number, tripPassengers: number, tripCurb: number, tripRouteId: number): Observable<Trip> {
     const trip: Trip = {
       passengerCount: tripPassengers,
       curbCount: tripCurb,
       id: tripId,
       routeId: tripRouteId
     };
-    this.shuttleApi.submitTrip(trip).subscribe();
+    return this.shuttleApi.submitTrip(trip);
   }
 }

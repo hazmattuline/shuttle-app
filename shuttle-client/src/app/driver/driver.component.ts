@@ -13,7 +13,7 @@ import { AuthService } from 'common-component-lib';
     })
 export class DriverComponent implements OnInit {
   routerSubscription: Subscription;
-  constructor(public gpsService: GPSService, public shuttleService: ShuttleService, private authService: AuthService) { }
+  constructor(public shuttleService: ShuttleService, private authService: AuthService) { }
 
 ngOnInit() {
 }
