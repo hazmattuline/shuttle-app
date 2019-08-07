@@ -4,6 +4,7 @@ import { Shuttle } from '../models/shuttle.model';
 import { Subscription } from 'rxjs';
 import { MaximumLatitude, MinimumLatitude, MaximumLongitude, MinimumLongitude } from '../core/constants/coordinates.constant';
 import { ShuttleIconHeight, ShuttleIconWidth } from '../core/constants/image.constants';
+import { ShuttleService } from '../services/shuttle.service';
 
 @Component
   ({
@@ -15,21 +16,20 @@ import { ShuttleIconHeight, ShuttleIconWidth } from '../core/constants/image.con
 
 export class UserComponent implements OnInit, OnDestroy {
 
+  constructor(private shuttleTrackingService: ShuttleTrackingService, private renderer: Renderer2) {}
+
   currentTime: number;
 
   private shuttleSubscription: Subscription;
   @ViewChild('markerContainer') markerContainer: ElementRef;
   currentShuttleMarkers: Map<number, ElementRef> = new Map();
 
-  constructor(private shuttleTrackingService: ShuttleTrackingService, private renderer: Renderer2) {}
+  isAnyActiveShuttle: boolean;
 
   ngOnInit() {
     this.shuttleTrackingService.startShuttleTracking();
     this.listenForShuttleMarkers();
-    this.currentTime = new Date().getHours();
-
   }
-
 
   ngOnDestroy() {
     if (this.shuttleSubscription) {
@@ -71,8 +71,10 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   private listenForShuttleMarkers() {
-    this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttleList => {
-      if (this.markerContainer) {
+    this.shuttleSubscription =  this.shuttleTrackingService.shuttles.subscribe(shuttleList => { if (shuttleList.length === 0) {
+      this.isAnyActiveShuttle = false;
+    } else { this.isAnyActiveShuttle = true; }
+                                                                                                if (this.markerContainer) {
         for (const shuttle of shuttleList) {
           if (!this.isOutsideBounds(shuttle.latitudeCoordinates, shuttle.longitudeCoordinates)) {
             this.addOrUpdateShuttleMarker(shuttle);

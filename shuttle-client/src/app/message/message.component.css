@@ -6,3 +6,12 @@
  height: 504px;
  background-color: lightgray;
 }
+
+
+.background {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    height: 694px;
+  }
