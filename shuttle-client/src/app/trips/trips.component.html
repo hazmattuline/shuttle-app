@@ -41,17 +41,17 @@
   <div class="column">
     <div class="first-line">
     <div class="line center-vertically">
-          <button pButton type="button" label="H1" class="route" [ngClass] =  "isTowardsH2 ? '' : 'second-destination'" (click) = "changeRoute(true)"></button>
+          <button pButton type="button" label="H1" class="route" [ngClass] =  "this.shuttleService.isTowardsH2 ? '' : 'second-destination'" (click) = "changeRoute(true)"></button>
     </div>
     <div class="img-container center-vertically" *ngIf="!isTowardsH2" (click) = "toggleRoute()">
         <img src="assets/point_left.png"  alt="picture">
     </div>
-    <div class="img-container center-vertically" *ngIf="isTowardsH2" (click) = "toggleRoute()">
+    <div class="img-container center-vertically" *ngIf="this.shuttleService.isTowardsH2" (click) = "toggleRoute()">
         <img src="assets/point_right.png"  alt="picture" >
     </div>
     
     <div class="line center-vertically">
-        <button pButton type="button" label="H2" class="route route-H2"  [ngClass] =  "isTowardsH2 ? 'second-destination' : ''" (click) = "changeRoute(false)"></button>
+        <button pButton type="button" label="H2" class="route route-H2"  [ngClass] =  "this.shuttleService.isTowardsH2 ? 'second-destination' : ''" (click) = "changeRoute(false)"></button>
     </div>
   <div class="around-start">
      <button pButton type="button" [label]="isChangeLatest ? 'Update' : 'Start'" class = "start-button center-vertically" (click) = "submitTripInfo()"></button>

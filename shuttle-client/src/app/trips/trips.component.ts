@@ -19,13 +19,10 @@ export class TripsComponent implements OnInit {
   isCurb = false;
   trips: TripDisplay[] = [];
   isChangeLatest = false;
-  isTowardsH2 = true;
   loadedRowId: number;
-  routeH1ToH2: ShuttleRoute;
-  routeH2ToH1: ShuttleRoute;
   date: string;
 
-  constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService) { }
+  constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService) { }
 
   getDate() {
     this.date = this.shuttleService.getDate();
@@ -35,9 +32,9 @@ export class TripsComponent implements OnInit {
     this.shuttleApiService.getRouteOptions().subscribe(routeList => {
       for (let route of routeList) {
         if ( route.fromWarehouse === 'H2' && route.toWarehouse === 'H1') {
-          this.routeH2ToH1 = route;
+          this.shuttleService.routeH2ToH1 = route;
         } else if (route.fromWarehouse === 'H1' && route.toWarehouse === 'H2') {
-          this.routeH1ToH2 = route;
+          this.shuttleService.routeH1ToH2 = route;
         }
       }
     });
@@ -54,6 +51,7 @@ export class TripsComponent implements OnInit {
     } else {
       this.curbNumber = 10 * this.curbNumber + inputNumber;
     }
+    console.log(this.shuttleService.previousDriverTrip);
   }
 
   clearNumbers() {
@@ -98,10 +96,10 @@ export class TripsComponent implements OnInit {
   }
 
   findRoute() {
-    if (this.isTowardsH2) {
-      return this.routeH1ToH2.id;
+    if (this.shuttleService.isTowardsH2) {
+      return this.shuttleService.routeH1ToH2.id;
     } else {
-      return this.routeH2ToH1.id;
+      return this.shuttleService.routeH2ToH1.id;
     }
   }
   submitTripInfo() {
@@ -126,20 +124,20 @@ export class TripsComponent implements OnInit {
 changeRoute(isH1toH2: boolean) {
   if (isH1toH2) {
     this.route = 'H1 > H2';
-    this.isTowardsH2 = true;
+    this.shuttleService.isTowardsH2 = true;
   } else {
     this.route = 'H1 < H2';
-    this.isTowardsH2 = false;
+    this.shuttleService.isTowardsH2 = false;
   }
 }
 
 toggleRoute() {
-  if (!this.isTowardsH2) {
+  if (!this.shuttleService.isTowardsH2) {
     this.route = 'H1 < H2';
-    this.isTowardsH2 = true;
+    this.shuttleService.isTowardsH2 = true;
   } else {
     this.route = 'H1 > H2';
-    this.isTowardsH2 = false;
+    this.shuttleService.isTowardsH2 = false;
   }
 }
 

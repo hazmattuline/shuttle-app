@@ -1,21 +1,27 @@
 import { Injectable } from '@angular/core';
 import { ShuttleApiService } from './shuttle-api.service';
 import { Trip } from '../models/trip.model';
-import { DatePipe } from '@angular/common';
 import { Day } from '../models/day.model';
 import { DayComment } from '../models/day-comment.model';
 import { Shuttle } from '../models/shuttle.model';
 import { Subscription, Observable } from 'rxjs';
+import { TripDisplay } from '../trips/trips.component';
+import { GPSService } from './gps.service';
+import { ShuttleRoute } from '../models/shuttle-route.model';
 
 @Injectable()
 export class ShuttleService {
-  constructor(private shuttleApi: ShuttleApiService, private datePipe: DatePipe) {}
+  constructor(private shuttleApi: ShuttleApiService, private gpsService: GPSService) {}
   date = new Date();
   vehicleValue: Shuttle;
   isAccordionTopDisabled = true;
   startMileage: number;
   isEndOfDayDisabled = true;
-  isShuttleActive: boolean; 
+  isShuttleActive: boolean;
+  routeH1ToH2: ShuttleRoute;
+  routeH2ToH1: ShuttleRoute;
+  isTowardsH2 = true;
+  previousDriverTrip: TripDisplay = null;
 
   static getDateISOStringForDate(date: Date): string | undefined {
     if (date) {
@@ -63,6 +69,20 @@ export class ShuttleService {
   getDayInfo(date, vehicleId) {
     this.shuttleApi.getDayInfo(date, vehicleId).subscribe(dayInfo => {this.setMileage(dayInfo); },
     err => {this.startMileage = 0.0; });
+  }
+
+  loadPreviousDriverInfo() {
+    this.shuttleApi.getTrip(this.getDate(), this.gpsService.getShuttleId()).subscribe(previousTrip => {
+      if (previousTrip != null && previousTrip.passengerCount != null) {
+        let lastRoute = (this.isTowardsH2) ? 'H1 > H2' : 'H1 < H2';
+        this.previousDriverTrip = {
+          tripNumber: 0,
+          route: lastRoute,
+          passengers: previousTrip.passengerCount,
+          curb: previousTrip.curbCount,
+        };
+      }
+    });
   }
 
   setMileage(dayInfo) {
