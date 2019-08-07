@@ -116,6 +116,7 @@ if (!isFieldTooManyDigits) {
 } );
 }
 this.shuttleService.isShuttleActive = false;
+this.gpsService.stop();
 
 
 }
