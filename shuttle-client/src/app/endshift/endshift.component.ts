@@ -11,7 +11,7 @@ import { GPSService } from '../services/gps.service';
   selector: 'app-endshift',
   templateUrl: './endshift.component.html',
   styleUrls: ['./endshift.component.css'],
-  providers: [ShuttleService]
+  providers: []
 
 })
 
@@ -109,11 +109,15 @@ if (!isFieldTooManyDigits) {
     if (!this.isCommentDisabled) {
     this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comment);
     }
+
     this.messageService.add({severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
 
-  } , err => {this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occured'});
+  } , err => {this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred'});
 } );
 }
+    this.shuttleService.isShuttleActive = false;
+
+
 }
 
 

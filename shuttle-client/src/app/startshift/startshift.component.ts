@@ -96,7 +96,7 @@ submitStartData() {
     }
     this.messageService.add({severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
 
-  } , err => {this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occured'});
+  } , err => {this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred'});
 } );
 }
 }

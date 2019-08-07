@@ -33,7 +33,6 @@ export class BannerDetailsComponent implements OnInit {
   selectedVehicle: Shuttle;
   baileyVehicle: Shuttle;
   baileyRentalVehicle: Shuttle;
-  isShuttleActive: boolean;
 
   constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService,
               private authService: AuthService) {}
@@ -43,7 +42,7 @@ export class BannerDetailsComponent implements OnInit {
   }
 
   changeToggle() {
-    if (!this.isShuttleActive) {
+    if (!this.shuttleService.isShuttleActive) {
       this.shuttleService.isAccordionTopDisabled = true;
       this.gpsService.stop();
       this.selectedVehicle.status = 'I';
@@ -63,7 +62,7 @@ export class BannerDetailsComponent implements OnInit {
   ngOnInit() {
     this.isToggleDisabled = true;
     this.date = this.shuttleService.getDate();
-    this.isShuttleActive = false;
+    this.shuttleService.isShuttleActive = false;
 
     this.shuttleApi.getVehicleOptions().subscribe(vehicles => {
       this.possibleVehicles = vehicles;
@@ -115,10 +114,10 @@ export class BannerDetailsComponent implements OnInit {
     if (this.selectedVehicle.status === 'A') {
       this.shuttleService.isAccordionTopDisabled = false;
       this.gpsService.handleAlreadyActive(this.selectedVehicle);
-      this.isShuttleActive = true;
+      this.shuttleService.isShuttleActive = true;
     } else {
       this.shuttleService.isAccordionTopDisabled = true;
-      this.isShuttleActive = false;
+      this.shuttleService.isShuttleActive = false;
     }
     this.shuttleService.isEndOfDayDisabled = false;
    }

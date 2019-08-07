@@ -15,6 +15,7 @@ export class ShuttleService {
   isAccordionTopDisabled = true;
   startMileage: number;
   isEndOfDayDisabled = true;
+  isShuttleActive: boolean; 
 
   static getDateISOStringForDate(date: Date): string | undefined {
     if (date) {
@@ -78,7 +79,7 @@ export class ShuttleService {
 
 
 
-  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDate: string) {
+  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDate: string): Observable<Trip> {
     const trip: Trip = {
       vehicleId: tripVehicleId,
       passengerCount: tripPassengers,
@@ -86,16 +87,16 @@ export class ShuttleService {
       date: tripDate,
       routeId: tripRouteId,
     };
-    this.shuttleApi.submitTrip(trip).subscribe();
+    return this.shuttleApi.submitTrip(trip);
   }
 
-  modifyTrip(tripId: number, tripPassengers: number, tripCurb: number, tripRouteId: number) {
+  modifyTrip(tripId: number, tripPassengers: number, tripCurb: number, tripRouteId: number): Observable<Trip> {
     const trip: Trip = {
       passengerCount: tripPassengers,
       curbCount: tripCurb,
       id: tripId,
       routeId: tripRouteId
     };
-    this.shuttleApi.submitTrip(trip).subscribe();
+    return this.shuttleApi.submitTrip(trip);
   }
 }
