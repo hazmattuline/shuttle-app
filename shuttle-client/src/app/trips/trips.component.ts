@@ -33,7 +33,6 @@ export class TripsComponent implements OnInit {
   }
 
   changeTripDisplayed(tripDisplay: TripDisplay) {
-    console.log(tripDisplay);
     this.trips = [tripDisplay];
   }
 

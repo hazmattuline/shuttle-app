@@ -80,7 +80,7 @@ export class ShuttleService {
 
   setMileage(dayInfo) {
     if (dayInfo.startMileage === null) {
-      this.startMileage = 0.0;
+      this.startMileage = null;
     } else {
       this.startMileage = dayInfo.startMileage;
     }
