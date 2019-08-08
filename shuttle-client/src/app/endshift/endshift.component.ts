@@ -18,25 +18,11 @@ import { Subscription } from 'rxjs';
 
 export class EndshiftComponent implements OnInit, OnDestroy {
   condition = 'GOOD';
-  fairButton: SelectItem[];
-  poorButton: SelectItem[];
-  mileage: number;
   vehicleId: number;
-  quantity: number;
-  cost: number;
-  comment: string;
-  isCommentDisabled = true;
   date: string;
   endOfDayForm: FormGroup;
   conditions: SelectItem[];
   conditionSubscription: Subscription;
-
-  wholeNumCount;
-  decimalNumCount;
-  wholeGalCount;
-  decimalGalCount;
-  wholeCostCount;
-  decimalCostCount;
 
   constructor(private fb: FormBuilder, public shuttleService: ShuttleService,
               private gpsService: GPSService, private messageService: MessageService) {
@@ -45,18 +31,10 @@ export class EndshiftComponent implements OnInit, OnDestroy {
         {label: 'Good', value: 'GOOD'},
         {label: 'Fair', value: 'FAIR'},
         {label: 'Poor', value: 'POOR'}
-        ],
-
-        this.fairButton = [
-          {label: 'Fair', value: 'FAIR'}
-        ],
-
-        this.poorButton = [
-          {label: 'Poor', value: 'POOR'}
         ];
 }
 
-private setupConditionListner() {
+private setupConditionListener() {
   if (this.endOfDayForm) {
     this.conditionSubscription = this.endOfDayForm.get('condition').valueChanges.subscribe(value => {
       if (value === 'GOOD') {
@@ -77,7 +55,7 @@ ngOnInit() {
     condition: [this.condition, Validators.required],
     comments: [{value: '', disabled: true}, [Validators.maxLength(2000)]]
   });
-  this.setupConditionListner();
+  this.setupConditionListener();
  }
 
   submitEndData() {
@@ -95,7 +73,7 @@ ngOnInit() {
         this.endOfDayForm.get('comments').value,
         this.endOfDayForm.get('comments').disabled).subscribe(comment => {
           if (!this.endOfDayForm.get('comments').disabled) {
-            this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comment);
+            this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.endOfDayForm.get('comments').value);
             console.log('reached success');
           }
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully' });
@@ -106,18 +84,6 @@ ngOnInit() {
       this.gpsService.stop();
     }
   }
-
-
-
-
-
-verifyCommentAvailability(status: string) {
-  if (status === 'fair' || status === 'poor') {
-  this.isCommentDisabled = false;
-} else {
-  this.isCommentDisabled = true;
-}
-}
 
  public ngOnDestroy(): void {
   if (this.conditionSubscription) {

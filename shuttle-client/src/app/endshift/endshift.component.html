@@ -19,13 +19,13 @@
         <div class="info-label">Condition:</div>
       <div >
           <div class="inputText">
-            <p-selectButton class="pSelectButtonStyle format conditions" [options]="conditions" formControlName="condition"  (onChange)="verifyCommentAvailability('good')" ></p-selectButton>
+            <p-selectButton class="pSelectButtonStyle format conditions" [options]="conditions" formControlName="condition"></p-selectButton>
         </div>
       </div>
       <br>
       <div>
         <div class="info-label2">Comments:</div>
-        <div class="inputText">  <textarea  id="disabled-input" formControlName="comments" pInputTextArea type="text" size="30" style="font-size:20px; height: 105px; width: 310px"  pInputText [disabled]="isCommentDisabled"> </textarea>
+        <div class="inputText">  <textarea  id="disabled-input" formControlName="comments" pInputTextArea type="text" size="30" style="font-size:20px; height: 105px; width: 310px"  pInputText> </textarea>
         </div>
       </div>
     </div>
