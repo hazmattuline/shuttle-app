@@ -74,7 +74,6 @@ ngOnInit() {
         this.endOfDayForm.get('comments').disabled).subscribe(comment => {
           if (!this.endOfDayForm.get('comments').disabled) {
             this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.endOfDayForm.get('comments').value);
-            console.log('reached success');
           }
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully' });
         }, () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred' }));

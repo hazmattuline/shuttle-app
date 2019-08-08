@@ -32,7 +32,6 @@ export class StartshiftComponent implements OnInit, OnDestroy {
 }
 
 private setupConditionListener() {
-  console.log("listener");
   if (this.beginningOfDayForm) {
     this.conditionSubscription = this.beginningOfDayForm.get('condition').valueChanges.subscribe(value => {
       if (value === 'GOOD') {

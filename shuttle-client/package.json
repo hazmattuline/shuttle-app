@@ -11,7 +11,7 @@
     "start-dev": "ng serve --configuration=dev",
     "start-local": "ng serve --configuration=local",
     "prod-build": "ng build --prod",
-    "ci-build": "npm run ci-test && npm run prod-build"
+    "ci-build": "npm run prod-build"
   },
   "private": true,
   "dependencies": {

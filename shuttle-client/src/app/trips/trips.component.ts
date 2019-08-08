@@ -75,7 +75,6 @@ export class TripsComponent implements OnInit, OnDestroy {
     } else {
       this.curbNumber = 10 * this.curbNumber + inputNumber;
     }
-    console.log(this.shuttleService.previousDriverTrip);
   }
 
   clearNumbers() {
@@ -133,7 +132,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.shuttleService.createTrip(this.gpsService.getShuttleId(),
       this.passengerNumber, this.curbNumber, routeId, this.date)
       .subscribe
-      ( success => { console.log("in here"); this.updateTripDisplay();  this.reset(); } ,
+      ( success => { this.updateTripDisplay();  this.reset(); } ,
         err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred'});})
 
 
