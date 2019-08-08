@@ -15,6 +15,23 @@
     margin-right: 7px;
   }
 
+  .conditions ::ng-deep .ui-selectbutton > .ui-button:nth-child(2) {
+    margin-left: 30px;
+    margin-right: 10px;
+  }
+
+  .conditions ::ng-deep .ui-selectbutton > .ui-button:nth-child(3) {
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+
+  .conditions ::ng-deep .ui-selectbutton > .ui-button {
+    border-radius: 2px;
+  }
+  
+  .conditions {
+    padding-right: 10px;
+  }
 
   .info-label2 {
     font-size: 24px;
@@ -50,8 +67,7 @@
 
 
   .pSelectButtonStyle{
-    margin-right: 6%;
-    margin-left: 1.5%;
+    margin-left: -6px;
   }
 
   .inputText {

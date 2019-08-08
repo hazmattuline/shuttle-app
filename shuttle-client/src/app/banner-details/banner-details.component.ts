@@ -107,6 +107,7 @@ export class BannerDetailsComponent implements OnInit {
     }
     this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleId);
     this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleId);
+    this.shuttleService.loadPreviousDriverInfo();
     this.handleShuttleStatus();
   }
 

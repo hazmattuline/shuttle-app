@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { ShuttleApiService } from '../services/shuttle-api.service';
 import { ShuttleRoute } from '../models/shuttle-route.model';
 import { MessageService} from 'primeng/api';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-trips',
   templateUrl: './trips.component.html',
   styleUrls: ['./trips.component.css']
 })
-export class TripsComponent implements OnInit {
+export class TripsComponent implements OnInit, OnDestroy {
   passengerNumber = 0;
   curbNumber = 0;
   tripNumber = 1;
@@ -19,16 +20,22 @@ export class TripsComponent implements OnInit {
   isCurb = false;
   trips: TripDisplay[] = [];
   isChangeLatest = false;
-  isTowardsH2 = true;
   loadedRowId: number;
+  date: string;
+  previousDriverSubscription: Subscription;
+
   routeH1ToH2: ShuttleRoute;
   routeH2ToH1: ShuttleRoute;
-  date: string;
+  isTowardsH2 = true;
 
-  constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, private shuttleService: ShuttleService) { }
+  constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService) { }
 
   getDate() {
     this.date = this.shuttleService.getDate();
+  }
+
+  changeTripDisplayed(tripDisplay: TripDisplay) {
+    this.trips = [tripDisplay];
   }
 
   makeRoutes() {
@@ -46,6 +53,20 @@ export class TripsComponent implements OnInit {
   ngOnInit() {
     this.getDate();
     this.makeRoutes();
+    this.previousDriverSubscription = this.shuttleService.loadPreviousDriverInfo().subscribe(previousTrip => {
+      if (previousTrip != null && previousTrip.passengerCount != null) {
+              const lastRoute = (this.isTowardsH2) ? 'H1 > H2' : 'H1 < H2';
+              const previousDriverTrip = {
+                tripNumber: 0,
+                route: lastRoute,
+                passengers: previousTrip.passengerCount,
+                curb: previousTrip.curbCount,
+              };
+              this.changeTripDisplayed(previousDriverTrip);
+    } else {
+      this.trips = [];
+    }
+  });
   }
 
   submitNumber(inputNumber: number) {
@@ -111,7 +132,7 @@ export class TripsComponent implements OnInit {
       this.shuttleService.createTrip(this.gpsService.getShuttleId(),
       this.passengerNumber, this.curbNumber, routeId, this.date)
       .subscribe
-      ( success => { console.log("in here"); this.updateTripDisplay();  this.reset(); } ,
+      ( success => { this.updateTripDisplay();  this.reset(); } ,
         err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred'});})
 
 
@@ -149,6 +170,11 @@ reloadRow() {
     this.passengerNumber = loadedTrip.passengerCount;
     this.isCurb = false;
     this.loadedRowId = loadedTrip.id;
+    if (loadedTrip.routeId === this.routeH1ToH2.id) {
+      this.changeRoute(true);
+    } else {
+      this.changeRoute(false);
+    }
   });
 
 }
@@ -162,6 +188,11 @@ loadRow() {
   }
 }
 
+public ngOnDestroy(): void {
+  if (this.previousDriverSubscription) {
+    this.previousDriverSubscription.unsubscribe();
+  }
+ }
 
 }
 
@@ -171,5 +202,7 @@ export interface TripDisplay {
   passengers: number;
   curb: number;
 }
+
+
 
 

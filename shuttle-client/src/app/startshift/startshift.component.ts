@@ -1,8 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import {SelectItem, MessageService} from 'primeng/api';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
 import { GPSService } from '../services/gps.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-startshift',
@@ -13,86 +14,56 @@ import { GPSService } from '../services/gps.service';
 })
 
 
-export class StartshiftComponent implements OnInit {
-  comments = '';
+export class StartshiftComponent implements OnInit, OnDestroy {
   condition = 'GOOD';
-  goodButton: SelectItem[];
-  fairButton: SelectItem[];
-  poorButton: SelectItem[];
+  conditions: SelectItem[];
   date: string;
-  isCommentDisabled = true;
-  mileage: number;
   vehicleId: number;
-  wholeNumCount;
-  decimalNumCount;
+  beginningOfDayForm: FormGroup;
+  conditionSubscription: Subscription;
 
-  constructor(private messageService: MessageService, private gpsService: GPSService, public shuttleService: ShuttleService) {
+  constructor(private fb: FormBuilder, private messageService: MessageService, private gpsService: GPSService, public shuttleService: ShuttleService) {
 
-  this.goodButton = [
-    {label: 'Good', value: 'GOOD'}
-    ],
-
-    this.fairButton = [
-      {label: 'Fair', value: 'FAIR'}
-    ],
-
-    this.poorButton = [
+    this.conditions = [
+      {label: 'Good', value: 'GOOD'},
+      {label: 'Fair', value: 'FAIR'},
       {label: 'Poor', value: 'POOR'}
-    ];
+      ];
 }
 
-
+private setupConditionListener() {
+  if (this.beginningOfDayForm) {
+    this.conditionSubscription = this.beginningOfDayForm.get('condition').valueChanges.subscribe(value => {
+      if (value === 'GOOD') {
+        this.beginningOfDayForm.get('comments').disable();
+      } else {
+        this.beginningOfDayForm.get('comments').enable();
+      }
+    });
+  }
+}
 
 ngOnInit() {
   this.date = this.shuttleService.getDate();
+  this.beginningOfDayForm = this.fb.group({
+    mileage: ['', [Validators.required, Validators.max(2147483640)]],
+    condition: [this.condition, Validators.required],
+    comments: [{value: '', disabled: true}, [Validators.maxLength(2000)]]
+  });
+  this.setupConditionListener();
  }
 
 submitStartData() {
-
-  let currentStrRep = '';
-
-  // digits allowed for decimal and whole number
-  const totalDigitBounds = [10];
-  const decimalDigitBounds = [3];
-  const fieldNames = ['Mileage'];
-
-  // to use to display error message later
-  let isFieldTooManyDigits = false;
-
-  const stringReps = [this.mileage.toString()];
-
-  // nested loop to iterate over the fields
-  for (let i = 0; i < 1; i++) {
-  let isBeforeDecimal = true;
-  let numberBeforeDecimal = 0;
-  let numberAfterDecimal = 0;
-  currentStrRep = stringReps[i];
-
-  for (const char of currentStrRep) {
-    if (char === '.') {
-      isBeforeDecimal = false;
-    } else if (isBeforeDecimal) {
-        numberBeforeDecimal++;
-    } else {
-        numberAfterDecimal++;
-    }
-  }
-  if (numberBeforeDecimal + numberAfterDecimal > totalDigitBounds[i] || numberAfterDecimal > decimalDigitBounds[i] || numberBeforeDecimal > 7) {
-      isFieldTooManyDigits = true;
-      this.messageService.add({severity: 'error', summary: fieldNames[i], detail: 'Too many digits, Try again'});
-      if (fieldNames[i] === 'Mileage') {
-          this.mileage = null;
-      }
-      }
-    }
-
-
-  if (!isFieldTooManyDigits) {
+  if (this.beginningOfDayForm.errors) {
+    this.messageService.add({ severity: 'error', summary: 'There are errors with the form, please review', detail: 'Too many digits, Try again' });
+  } else {
   this.vehicleId = this.gpsService.getShuttleId();
-  this.shuttleService.createStartInfo(this.vehicleId, this.mileage, this.condition, this.date, this.comments, this.isCommentDisabled)
+  this.shuttleService.createStartInfo(this.vehicleId, this.beginningOfDayForm.get('mileage').value, 
+  this.beginningOfDayForm.get('condition').value, this.date, this.beginningOfDayForm.get('comments').value, 
+  this.beginningOfDayForm.get('comments').disabled)
   .subscribe(comment => {
-    if (!this.isCommentDisabled) {
-      this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.comments);
+    if (!this.beginningOfDayForm.get('comments').disabled) {
+      this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.beginningOfDayForm.get('comments').value);
     }
     this.messageService.add({severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
 
@@ -101,14 +72,11 @@ submitStartData() {
 }
 }
 
-
-verifyCommentAvailability(status: string) {
-  if (status === 'fair' || status === 'poor') {
-  this.isCommentDisabled = false;
-} else {
-  this.isCommentDisabled = true;
-}
-}
+public ngOnDestroy(): void {
+  if (this.conditionSubscription) {
+    this.conditionSubscription.unsubscribe();
+  }
+ }
 
 
 }

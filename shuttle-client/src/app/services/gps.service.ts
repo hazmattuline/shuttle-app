@@ -12,6 +12,9 @@ export class GPSService {
   private _isActive: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public isActive: Observable<boolean> = this._isActive.asObservable();
 
+  private _shuttleId: BehaviorSubject<number> = new BehaviorSubject(null);
+  public shuttleIdObservable: Observable<number> = this._shuttleId.asObservable();
+
   private options = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -24,6 +27,7 @@ export class GPSService {
 
   setTrackingVehicle(vehicleId: number) {
       this.shuttleId = vehicleId;
+      this._shuttleId.next(vehicleId);
   }
 
   getShuttleId() {
