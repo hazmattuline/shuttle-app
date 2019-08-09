@@ -3,25 +3,19 @@ import { ShuttleApiService } from './shuttle-api.service';
 import { Trip } from '../models/trip.model';
 import { Day } from '../models/day.model';
 import { DayComment } from '../models/day-comment.model';
-import { Shuttle } from '../models/shuttle.model';
-import { Subscription, Observable } from 'rxjs';
+import {  Observable } from 'rxjs';
 import { TripDisplay } from '../trips/trips.component';
 import { GPSService } from './gps.service';
-import { switchMap, map, takeWhile } from 'rxjs/operators';
-import { ShuttleRoute } from '../models/shuttle-route.model';
+import { switchMap, map } from 'rxjs/operators';
 
 @Injectable()
 export class ShuttleService {
   constructor(private shuttleApi: ShuttleApiService, private gpsService: GPSService) {}
   date = new Date();
-  vehicleValue: Shuttle;
   isAccordionTopDisabled = true;
   startMileage: number;
   isEndOfDayDisabled = true;
   isShuttleActive: boolean;
-  routeH1ToH2: ShuttleRoute;
-  routeH2ToH1: ShuttleRoute;
-  isTowardsH2 = true;
   previousDriverTrip: TripDisplay = null;
 
   static getDateISOStringForDate(date: Date): string | undefined {

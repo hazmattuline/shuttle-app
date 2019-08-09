@@ -1,9 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import {SelectItem, MessageService} from 'primeng/api';
-import { DriverComponent } from '../driver/driver.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
-import {InputTextModule} from 'primeng/inputtext';
 import { GPSService } from '../services/gps.service';
 import { Subscription } from 'rxjs';
 
