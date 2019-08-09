@@ -29,6 +29,17 @@ export class UserComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.shuttleTrackingService.startShuttleTracking();
     this.listenForShuttleMarkers();
+
+    // For seeing total number of users on our page.
+    const fhs = document.createElement('script');
+    let fhs_id = '5618489';
+    const pn =  window.location;
+    let w_h = window.screen.width + ' x ' + window.screen.height;
+    fhs.src = '//freehostedscripts.net/ocounter.php?site=' +
+    fhs_id + '&e1=Online User&e2=Online Users&r=' +
+    '&m=0&wh=' + w_h + '&a=1&pn=' + pn + '';
+    document.head.appendChild(fhs);
+    document.write('<span style="font-size: 0px;" id=\'o_' + fhs_id + '\'></span>');
   }
 
   ngOnDestroy() {
