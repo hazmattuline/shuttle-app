@@ -16,15 +16,19 @@ export class ShuttleTrackingService implements OnDestroy {
   constructor(private shuttleApi: ShuttleApiService) { }
 
   private startTimer() {
+
     this.getActiveShuttles();
     this.shuttleLocationTimer = setInterval(() => {
-      this.getActiveShuttles();
+      if (!document.hidden) 
+      {
+        this.getActiveShuttles();
+      }
     }, 2000);
   }
 
   private getActiveShuttles() {
-    this.shuttleApi.getShuttlesStatus("A").subscribe(shuttleList => {
-      let shuttles: Shuttle[] = [];
+    this.shuttleApi.getShuttlesStatus('A').subscribe(shuttleList => {
+      const shuttles: Shuttle[] = [];
       for (let shuttle of shuttleList) {
         shuttle = this.calculateXYPixelCoordinates(shuttle);
         shuttles.push(shuttle);
@@ -51,7 +55,7 @@ export class ShuttleTrackingService implements OnDestroy {
       const imageWidth = MapImageWidth;
 
       const longitudeDistanceFromTopLeft = (shuttleLongitude - MinimumLongitude) * Math.cos(Math.abs(shuttleLatitude));
-       
+
       const latitudeDistanceFromTopLeft = (MaximumLatitude - shuttleLatitude);
 
       const maxLatitudeDistanceFromTopLeft = (MaximumLatitude - MinimumLatitude);
