@@ -9,4 +9,4 @@ export const Notes = '/shuttle-notes';
 export const ShuttleDate = '?date=';
 export const Vehicle = '&vehicle=';
 export const Routes = '/shuttle-routes';
-
+export const EveryDay = '/all-shuttle-days';

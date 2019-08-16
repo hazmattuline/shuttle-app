@@ -1,0 +1,8 @@
+<div class="admin-content">
+  <h3 id="adminHeader">Data Maintenance</h3>
+  <p-dropdown [options]="dataContexts" placeholder="Select an option" (onChange)="onDataContextChange($event.value)" [(ngModel)]="selectedDataContext"></p-dropdown>
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Set z-index explicitly, so toast appears above any dialog overlay. -->
+<!-- <p-toast key="adminToast" position="top-center" baseZIndex="7001"></p-toast> -->

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
 import { StatusShuttles, Shuttles, Coordinates, Status, Trips, Days, Notes, AllShuttles, 
-  Vehicle, ShuttleDate, Routes} from '../core/constants/endpoints.constant';
+  Vehicle, ShuttleDate, Routes, EveryDay} from '../core/constants/endpoints.constant';
 import { Trip } from '../models/trip.model';
 import { Day } from '../models/day.model';
 import { DayComment } from '../models/day-comment.model';
@@ -59,5 +59,9 @@ export class ShuttleApiService {
 
   getDayInfo(date: string, vehicle: number){
     return this.http.get<Day>(Days + ShuttleDate + date + Vehicle + vehicle);
+  }
+  
+  getAllDayInfo(): Observable<Day[]> {
+    return this.http.get<Day[]>(EveryDay);
   }
 }
