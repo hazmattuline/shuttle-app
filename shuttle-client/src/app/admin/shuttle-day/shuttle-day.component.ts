@@ -9,6 +9,7 @@ import { StagedEntity } from 'src/app/models/staged-entity';
 import { StagedRequest } from 'src/app/models/staged-request.model';
 import { ShuttleService } from 'src/app/services/shuttle.service';
 import { ShuttleApiService } from 'src/app/services/shuttle-api.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shuttle-day',
@@ -42,15 +43,16 @@ export class ShuttleDayComponent extends MaintenanceComponent implements OnInit 
 
   ngOnInit() {
     this.isLoading = true;
-    this.shuttleApiService.getAllAppRoles().pipe(takeUntil(this.destroy$))
+    this.shuttleApiService.getAllDayInfo().pipe(takeUntil(this.destroy$))
       .subscribe(
-        appRoles => {
+        shuttleDay => {
+          console.log(shuttleDay);
           this.isLoading = false;
-          this.appRoles = appRoles;
-          this.appRoles.forEach(appRole => {
-            appRole.personWindowsIds = appRole.persons ? appRole.persons.map(person => person.windowsId).join(', ') : '';
-          });
+          this.shuttleDayList = shuttleDay;
         },
+        // this.shuttleDayList.forEach(shuttleDay => {
+        //   shuttleDay. = appRole.persons ? appRole.persons.map(person => person.windowsId).join(', ') : '';
+        // });
         error => {
           this.isLoading = false;
           // TODO: Implement standard table error message once determined
@@ -98,7 +100,7 @@ export class ShuttleDayComponent extends MaintenanceComponent implements OnInit 
     const stagedRequest = new StagedRequest();
     stagedRequest.stagedRequestText = stagedReason.requestNotes;
 
-    //implement rest call
+    // implement rest call
 
 
     // if (this.selectedShuttleDay) {

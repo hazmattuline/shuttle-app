@@ -4,7 +4,7 @@
 </div>
 
 <p-table #shuttleDayTable id="shuttleDayTable" [value]="shuttleDayList" [paginator]="true" [rows]="15" [totalRecords]="shuttleDayList.length" [rowsPerPageOptions]="[15,30,45]" 
-  [loading]="isLoading" sortField="code">
+  [loading]="isLoading" sortField="date">
   <ng-template pTemplate="header">
       <tr>
           <th pSortableColumn="shuttleId">Vehicle Name<p-sortIcon field="shuttleId"></p-sortIcon></th>
@@ -32,9 +32,9 @@
 
   <ng-template pTemplate="body" let-shuttleDay>
       <tr>
-          <td>{{shuttleDay.code}}</td>
-          <td>{{shuttleDay.name}}</td>
-          <td>{{shuttleDay.email}}</td>
+          <td>{{shuttleDay.vehicleId}}</td>
+          <td>{{shuttleDay.date}}</td>
+          <td>{{shuttleDay.fuelCost}}</td>
           <td>{{shuttleDay.email}}</td>
           <td>{{shuttleDay.email}}</td>
           <td>{{shuttleDay.email}}</td>

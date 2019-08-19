@@ -102,4 +102,11 @@ public class ShuttleAppController {
   public NoteResponse submitNote(@RequestBody NoteRequest noteRequest) {
     return shuttleAppService.submitNote(noteRequest);
   }
+
+  @ExecutionTime("ShuttleAppService.getAllDayInfo")
+  @ApiOperation(value = "Getting all the day info from database")
+  @GetMapping(value = "/all-shuttle-days")
+  public List<DayResponse> getAllDayInfo() {
+    return shuttleAppService.getAllDayInfo();
+  }
 }

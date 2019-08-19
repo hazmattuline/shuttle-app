@@ -69,4 +69,9 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   public NoteResponse submitNote(NoteRequest noteRequest) {
     return shuttleAppClient.submitNote(noteRequest);
   }
+
+  @Override
+  public List<DayResponse> getAllDayInfo() {
+    return shuttleAppClient.getAllDayInfo();
+  }
 }
