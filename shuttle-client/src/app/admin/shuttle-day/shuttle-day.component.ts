@@ -19,8 +19,8 @@ import { takeUntil } from 'rxjs/operators';
 export class ShuttleDayComponent extends MaintenanceComponent implements OnInit {
 
   // value cannot be changed 
-  readonly ADD_SHUTTLE_DAY_HEADER= 'Add App Role';
-  readonly UPDATE_SHUTTLE_DAY_HEADER = 'Update App Role';
+  readonly ADD_SHUTTLE_DAY_HEADER= 'Add Shuttle Day Record';
+  readonly UPDATE_SHUTTLE_DAY_HEADER = 'Update Shuttle Day Record';
 
 
 

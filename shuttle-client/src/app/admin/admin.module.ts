@@ -12,6 +12,7 @@ import { ShuttleDayFormComponent } from './shuttle-day/shuttle-day-form/shuttle-
 import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
 import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 
 
 
@@ -27,6 +28,7 @@ import { DialogModule } from 'primeng/dialog';
     TableModule,
     MenuModule,
     DialogModule,
+    ButtonModule,
 
     ],
 
