@@ -36,8 +36,11 @@ export class ShuttleDayComponent extends MaintenanceComponent implements OnInit 
 
 
   // private stagedRequestService: StagedRequestService
-  constructor(private shuttleApiService: ShuttleApiService,messageService: MessageService) {
+  constructor(private shuttleApiService: ShuttleApiService, messageService: MessageService, 
+    private stagedRequestService: StagedRequestService) {
+
     super(messageService);
+
   }
 
 
@@ -103,17 +106,33 @@ export class ShuttleDayComponent extends MaintenanceComponent implements OnInit 
     // implement rest call
 
 
-    // if (this.selectedShuttleDay) {
-    //   stagedRequest.stagedJson = JSON.stringify(this.createShuttleDayRequest(stagedReason.entity));
-    //   this.handleStagedRequestCreation(this.stagedRequestService.updateAppRole(stagedRequest, this.selectedAppRole.id),
-    //     this.appRoleDialogErrorHandler);
-    // } else {
-    //   stagedRequest.stagedJson = JSON.stringify(this.createAppRoleRequest(stagedReason.entity));
-    //   this.handleStagedRequestCreation(this.stagedRequestService.addAppRole(stagedRequest), this.appRoleDialogErrorHandler);
-    // }
+    if (this.selectedShuttleDay) {
+      stagedRequest.stagedJson = JSON.stringify(this.createShuttleDayRequest(stagedReason.entity));
+      this.handleStagedRequestCreation(this.stagedRequestService.updateShuttleDay(stagedRequest, this.selectedShuttleDay.dayId),
+        this.shuttleDayDialogErrorHandler);
+    } else {
+      stagedRequest.stagedJson = JSON.stringify(this.createShuttleDayRequest(stagedReason.entity));
+      this.handleStagedRequestCreation(this.stagedRequestService.addShuttleDay(stagedRequest), this.shuttleDayDialogErrorHandler);
+    }
 
     this.displayShuttleDayDialog = false;
   }
 
+
+  private createShuttleDayRequest(shuttleDay: Day): Day {
+    const shuttleDayRequest: Day = {
+      vehicleId : shuttleDay.vehicleId,
+      date : shuttleDay.date,
+      fuelCost : shuttleDay.fuelCost,
+      fuelQuantity : shuttleDay.fuelQuantity,
+      startMileage : shuttleDay.startMileage,
+      endMileage : shuttleDay.endMileage
+      };
+    return shuttleDayRequest;
+  }
+
+  private shuttleDayDialogErrorHandler = () => {
+    this.displayShuttleDayDialog = true;
+  }
 
 }

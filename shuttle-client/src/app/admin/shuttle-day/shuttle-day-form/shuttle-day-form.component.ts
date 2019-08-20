@@ -68,8 +68,8 @@ export class ShuttleDayFormComponent extends BaseComponent implements OnInit {
   }
 
   onSaveClick() {
-    const appRole = this.createShuttleDayFromForm();
-    this.saveClick.emit(appRole);
+    const shuttleDay = this.createShuttleDayFromForm();
+    this.saveClick.emit(shuttleDay);
   }
 
 
