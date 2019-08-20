@@ -29,4 +29,50 @@
           margin-left: 18px;
       }
     
-  
+      .table-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .action-link {
+        font-size: 14px;
+        color:  #1f9bde;
+        cursor: pointer;
+      }
+      .image {
+            vertical-align: middle;
+            font-size: 1.4em;
+            margin: 6px;
+        }
+
+        td.table-menu {
+          text-align: center;
+        }
+        
+        td.table-menu .table-menu {
+          cursor: pointer;
+        }
+
+        .empty-message {
+          text-align: center;
+          font-size: 18px;
+          color: #969492;
+          padding: 32px 32px;
+          margin: 0px;
+          font-family: "Arial Regular";
+        }
+      
+        .form-footer {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 48px;
+          padding-bottom: 18px;
+        }
+          button {
+              margin-left: 18px;
+          }
+          .admin-content td {
+            overflow-wrap: break-word;
+            word-break: break-word;
+          }
+        
