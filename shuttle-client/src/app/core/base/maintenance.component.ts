@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 export class MaintenanceComponent extends BaseComponent {
     readonly STAGED_REQUEST_SUCCESS_MESSAGE = 'Staged change successfully created!';
+    readonly STAGED_REQUEST_ERROR_MESSAGE = 'Connection Error!';
 
     constructor(protected messageService: MessageService) {
         super();
@@ -15,7 +16,7 @@ export class MaintenanceComponent extends BaseComponent {
     }
 
     protected displayStagedRequestErrorMessage(error: string): void {
-        this.messageService.add({key: 'adminToast', severity: 'error', detail: error, sticky: true});
+        this.messageService.add({key: 'adminToast', severity: 'error', detail: this.STAGED_REQUEST_ERROR_MESSAGE, sticky: true});
     }
 
     protected handleStagedRequestCreation(createStagedRequest$: Observable<{}>, errorHandler?: (error) => any): void {

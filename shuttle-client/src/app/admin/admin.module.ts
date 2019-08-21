@@ -13,6 +13,7 @@ import { TableModule } from 'primeng/table';
 import { MenuModule } from 'primeng/menu';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 
 
 
@@ -29,6 +30,7 @@ import { ButtonModule } from 'primeng/button';
     MenuModule,
     DialogModule,
     ButtonModule,
+    ToastModule
 
     ],
 
