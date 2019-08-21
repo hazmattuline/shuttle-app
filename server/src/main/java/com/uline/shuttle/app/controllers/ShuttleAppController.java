@@ -118,7 +118,6 @@ public class ShuttleAppController {
   @PutMapping(value = "/staged-requests/shuttle-days/{id}")
   public ResponseEntity<Void> updatedDayRecord(
       @PathVariable("id") Integer id, @RequestBody StagedRequest stagedRequest) {
-    System.out.println(stagedRequest.getStagedJson());
     return null;
   }
 }
