@@ -1,20 +1,3 @@
-#membersListBox {
-    margin-top: 12px;
-    width: 250px;
-    /* ::ng-deep.ui-listbox {
-        width: 100%;
-        height: 152px !important;
-    } */
-}
-
-#membersInputGroup {
-    width: 250px;
-}
-
-#removeMemberButton {
-    margin-top: 12px;
-    width: unset;
-}
 
 .error-text {
     color: #da3f52;

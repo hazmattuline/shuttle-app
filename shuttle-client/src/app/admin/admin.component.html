@@ -1,3 +1,12 @@
+<ucc-header [headerTitle]="title" [menuItems]="items" *ngIf="!isOnLoginPage">
+  <ng-template #rightSection>
+    <button *ngIf="!isLoggedIn()" pButton class="ui-button-sm managerLogin" label="Manager Login"
+      (click)="navigateToLogin()"></button>
+    <span *ngIf="isLoggedIn()">{{getCurrentUsername() | uppercase}}</span>
+    <ucc-settings-menu loginPath="/login" *ngIf="isLoggedIn()"></ucc-settings-menu>
+  </ng-template>
+</ucc-header>
+
 <div class="admin-content">
   <h3 id="adminHeader">Data Maintenance</h3>
   <p-dropdown [options]="dataContexts" placeholder="Select an option" (onChange)="onDataContextChange($event.value)" [(ngModel)]="selectedDataContext"></p-dropdown>

@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { Component, OnDestroy } from '@angular/core';
+import { SelectItem, MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
 import { adminRoutesNames } from './admin.routes.names';
+import { AuthService } from 'common-component-lib';
 
 @Component({
   selector: 'app-admin',
@@ -14,8 +15,12 @@ export class AdminComponent implements OnDestroy {
   dataContexts: SelectItem[];
   selectedDataContext: SelectItem;
   routerSubscription: Subscription;
+  items: MenuItem[] = null;
 
-  constructor(private router: Router) {
+  title = 'Admin';
+
+  constructor(private router: Router, private authService: AuthService) {
+
     this.dataContexts = [
       { label: 'Shuttle Day', value: { path: `/${adminRoutesNames.ADMIN}/${adminRoutesNames.Shuttle_Day}` } },
       { label: 'Shuttle Day Details', value: { path: `/${adminRoutesNames.ADMIN}/${adminRoutesNames.Shuttle_Day_Details}`} },
@@ -23,6 +28,7 @@ export class AdminComponent implements OnDestroy {
 
 
     ];
+
     this.routerSubscription = this.router.events.subscribe(
       event => {
         if (event instanceof NavigationEnd) {
@@ -39,6 +45,10 @@ export class AdminComponent implements OnDestroy {
 
    }
 
+   isLoggedIn(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
    ngOnDestroy(): void {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
@@ -47,5 +57,13 @@ export class AdminComponent implements OnDestroy {
 
   onDataContextChange(selectedDataContext): void {
     this.router.navigate([selectedDataContext.path]);
+  }
+
+  getCurrentUsername(): string {
+    return this.authService.getName();
+  }
+
+  navigateToLogin() {
+    this.router.navigateByUrl('/login');
   }
 }

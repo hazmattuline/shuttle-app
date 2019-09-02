@@ -14,6 +14,8 @@ import { MenuModule } from 'primeng/menu';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { UccHeaderModule, UccSettingsMenuModule } from 'common-component-lib';
+import { ShuttleVehiclesFormComponent } from './shuttle-vehicles/shuttle-vehicles-form/shuttle-vehicles-form.component';
 
 
 
@@ -30,7 +32,9 @@ import { ToastModule } from 'primeng/toast';
     MenuModule,
     DialogModule,
     ButtonModule,
-    ToastModule
+    ToastModule,
+    UccHeaderModule,
+    UccSettingsMenuModule
 
     ],
 
@@ -39,7 +43,8 @@ import { ToastModule } from 'primeng/toast';
     AdminComponent,
     ShuttleDayDetailsComponent,
     ShuttleVehiclesComponent,
-    ShuttleDayFormComponent
+    ShuttleDayFormComponent,
+    ShuttleVehiclesFormComponent
     ],
 })
 export class AdminModule { }
