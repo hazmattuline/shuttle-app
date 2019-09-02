@@ -1,4 +1,4 @@
-<ucc-header [headerTitle]="title" [menuItems]="items" *ngIf="!isOnLoginPage">
+<ucc-header [headerTitle]="title">
   <ng-template #rightSection>
     <button *ngIf="!isLoggedIn()" pButton class="ui-button-sm managerLogin" label="Manager Login"
       (click)="navigateToLogin()"></button>

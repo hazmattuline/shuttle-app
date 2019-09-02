@@ -15,7 +15,6 @@ export class AdminComponent implements OnDestroy {
   dataContexts: SelectItem[];
   selectedDataContext: SelectItem;
   routerSubscription: Subscription;
-  items: MenuItem[] = null;
 
   title = 'Admin';
 
