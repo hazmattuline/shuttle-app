@@ -46,7 +46,7 @@ export class ShuttleDayComponent extends MaintenanceComponent implements OnInit 
 
   ngOnInit() {
     this.isLoading = true;
-    this.shuttleApiService.getAllDayInfo().pipe(takeUntil(this.destroy$))
+    this.shuttleApiService.getDayInfo('none', 0).pipe(takeUntil(this.destroy$))
       .subscribe(
         shuttleDay => {
           console.log(shuttleDay);

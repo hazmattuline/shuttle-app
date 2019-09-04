@@ -55,7 +55,7 @@ public class ShuttleAppController {
 
   @ApiOperation(value = "getting day from the database")
   @GetMapping(value = "/shuttle-days")
-  public DayResponse getDay(
+  public List<DayResponse> getDay(
       @RequestParam(value = "date") String date,
       @RequestParam(value = "vehicle") Integer vehicleId) {
     return shuttleAppService.getDay(date, vehicleId);
@@ -104,13 +104,6 @@ public class ShuttleAppController {
   @PostMapping(value = "/shuttle-notes")
   public NoteResponse submitNote(@RequestBody NoteRequest noteRequest) {
     return shuttleAppService.submitNote(noteRequest);
-  }
-
-  @ExecutionTime("ShuttleAppService.getAllDayInfo")
-  @ApiOperation(value = "Getting all the day info from database")
-  @GetMapping(value = "/all-shuttle-days")
-  public List<DayResponse> getAllDayInfo() {
-    return shuttleAppService.getAllDayInfo();
   }
 
   @ExecutionTime("ShuttleAppService.updateDayRecord")

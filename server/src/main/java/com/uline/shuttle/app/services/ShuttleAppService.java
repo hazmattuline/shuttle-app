@@ -17,7 +17,7 @@ public interface ShuttleAppService {
 
   ShuttleResponse enRoute(Integer id, ShuttleRequest shuttleRequest);
 
-  DayResponse getDay(String date, Integer vehicleId);
+  List<DayResponse> getDay(String date, Integer vehicleId);
 
   List<RouteResponse> getRoutes();
 
@@ -31,5 +31,4 @@ public interface ShuttleAppService {
 
   NoteResponse submitNote(NoteRequest noteRequest);
 
-  List<DayResponse> getAllDayInfo();
 }

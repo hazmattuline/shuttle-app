@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Shuttle } from '../models/shuttle.model';
-import { StatusShuttles, Shuttles, Coordinates, Status, Trips, Days, Notes, AllShuttles, 
+import { StatusShuttles, Shuttles, Coordinates, Status, Trips, Days, Notes, AllShuttles,
   Vehicle, ShuttleDate, Routes, EveryDay} from '../core/constants/endpoints.constant';
 import { Trip } from '../models/trip.model';
 import { Day } from '../models/day.model';
@@ -22,7 +22,7 @@ export class ShuttleApiService {
   }
 
   getTrip(date: string, vehicle: number): Observable<Trip> {
-    return this.http.get<Trip>(Trips+ShuttleDate+date+Vehicle+vehicle);
+    return this.http.get<Trip>(Trips + ShuttleDate + date + Vehicle + vehicle);
   }
 
   sendComment(comment: DayComment): Observable<DayComment> {
@@ -57,10 +57,10 @@ export class ShuttleApiService {
     return this.http.post<Day>(Days, day);
   }
 
-  getDayInfo(date: string, vehicle: number){
-    return this.http.get<Day>(Days + ShuttleDate + date + Vehicle + vehicle);
+  getDayInfo(date: string, vehicle: number): Observable<Day[]> {
+    return this.http.get<Day[]>(Days + ShuttleDate + date + Vehicle + vehicle);
   }
-  
+
   getAllDayInfo(): Observable<Day[]> {
     return this.http.get<Day[]>(EveryDay);
   }
