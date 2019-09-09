@@ -73,10 +73,10 @@ export class ShuttleService {
   }
 
   setMileage(dayInfo) {
-    if (dayInfo.startMileage === null) {
+    if (dayInfo[0].startMileage === null) {
       this.startMileage = null;
     } else {
-      this.startMileage = dayInfo.startMileage;
+      this.startMileage = dayInfo[0].startMileage;
     }
   }
 

@@ -36,7 +36,7 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   }
 
   @Override
-  public DayResponse getDay(String date, Integer vehicleId) {
+  public List<DayResponse> getDay(String date, Integer vehicleId) {
     return shuttleAppClient.getDay(date, vehicleId);
   }
 
@@ -69,4 +69,5 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   public NoteResponse submitNote(NoteRequest noteRequest) {
     return shuttleAppClient.submitNote(noteRequest);
   }
+
 }

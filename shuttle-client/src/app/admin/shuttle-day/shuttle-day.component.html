@@ -1,0 +1,55 @@
+<div class="table-actions">
+  <!-- display the add a record link  -->
+    <a class="action-link" (click)="onAddShuttleDayClick()"><i class="action-link image fa fa-plus"></i>Add A Record</a>
+</div>
+
+<p-table #shuttleDayTable id="shuttleDayTable" [value]="shuttleDayList" [paginator]="true" [rows]="15" [totalRecords]="shuttleDayList.length" [rowsPerPageOptions]="[15,30,45]" 
+  [loading]="isLoading" sortField="date">
+  <ng-template pTemplate="header">
+      <tr>
+          <th pSortableColumn="vehicleId">Vehicle Id<p-sortIcon field="vehicleId"></p-sortIcon></th>
+          <th pSortableColumn="date">Date<p-sortIcon field="date"></p-sortIcon></th>
+          <th pSortableColumn="fuelCost">Cost<p-sortIcon field="fuelCost"></p-sortIcon></th>
+          <th pSortableColumn="fuelQuantity">Gallons<p-sortIcon field="fuelQuantity"></p-sortIcon></th>
+          <th pSortableColumn="startMileage">Start Mileage<p-sortIcon field="startMileage"></p-sortIcon></th>
+          <th pSortableColumn="endMileage">End Mileage<p-sortIcon field="endMileage"></p-sortIcon></th>
+          <th></th>
+      </tr>
+      <tr>
+          <th><input pInputText type="text" placeholder="Filter vehicleId" (input)="shuttleDayTable.filter($event.target.value, 'vehicleId', 'contains')"></th>
+          <th><input pInputText type="text" placeholder="Filter shuttleDt" (input)="shuttleDayTable.filter($event.target.value, 'date', 'contains')"></th>
+          <th><input pInputText type="text" placeholder="Filter fuelCost" (input)="shuttleDayTable.filter($event.target.value, 'fuelCost', 'contains')"></th>
+          <th><input pInputText type="text" placeholder="Filter fuelQuantity" (input)="shuttleDayTable.filter($event.target.value, 'fuelQuantity', 'contains')"></th>
+          <th><input pInputText type="text" placeholder="Filter startMileage" (input)="shuttleDayTable.filter($event.target.value, 'startMileage', 'contains')"></th>
+          <th><input pInputText type="text" placeholder="Filter endMileage" (input)="shuttleDayTable.filter($event.target.value, 'endMileage', 'contains')"></th>
+          <th></th>
+      </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-shuttleDay>
+      <tr>
+          <td>{{shuttleDay.vehicleId}}</td>
+          <td>{{shuttleDay.date}}</td>
+          <td>{{shuttleDay.fuelCost}}</td>
+          <td>{{shuttleDay.fuelQuantity}}</td>
+          <td>{{shuttleDay.startMileage}}</td>
+          <td>{{shuttleDay.endMileage}}</td>
+          <td class="table-menu">
+              <span class="fa fa-ellipsis-h table-menu" (click)="openMenu(shuttleDayMenu, $event, shuttleDay)"></span>
+          </td>
+      </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+      <tr>
+        <td [attr.colspan]="8">
+            <p class="empty-message">No Shuttle Days are available for the selected filters.</p>
+        </td>
+      </tr>
+    </ng-template>
+</p-table>
+
+<p-menu #shuttleDayMenu [popup]="true" [model]="menuItems"></p-menu>
+
+<p-dialog [header]="shuttleDayDialogHeader" [(visible)]="displayShuttleDayDialog" [resizable]="false" [modal]="true" [draggable]="false">
+    <app-shuttle-day-form #shuttleDayForm (saveClick)="onShuttleDaySaveClick($event)" (cancelClick)="onShuttleDayCancelClick()"></app-shuttle-day-form>

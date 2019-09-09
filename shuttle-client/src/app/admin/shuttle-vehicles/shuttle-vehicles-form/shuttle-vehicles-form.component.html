@@ -1,0 +1,53 @@
+<form [formGroup]="shuttleVehiclesForm">
+  <div class="ui-fluid">
+
+    <span class="form-input">
+      <label for="vehicleInput" class="required">Vehicle Id</label>
+      <input id="codeInput" class="small" formControlName="vehicleId" type="number" size="15" pInputText>
+    </span>
+    
+    <span class="form-input">
+      <label for="latInput" >Latitude Coordinates</label>
+      <input id="latInput" class="small" formControlName="latitudeCoordinates" type="number" size="15" pInputText>
+    </span>
+
+    <span class="form-input">
+      <label for="lonInput">Longitude Coordinates</label>
+      <input id="lonInput" class="medium" formControlName="longitudeCoordinates" type="number" pInputText>
+    </span>
+
+    <span class="form-input">
+      <label for="statusInput" class="required">Status</label>
+      <input id="statusInput" class="medium" formControlName="status" type="text" pInputText>
+    </span>
+
+    <span class="form-input">
+      <label for="nameInput" class="required">Name</label>
+      <input id="nameInput" class="medium" formControlName="name" type="text" pInputText>
+    </span>
+
+    
+    <span class="form-input">
+      <label for="shuttleTypeInput" class="required">Shuttle Type</label>
+      <input id="shuttleTypeInput" class="medium" formControlName="shuttleType" type="text" pInputText>
+    </span>
+
+    <span class="form-input">
+      <label for="rentalIndicatorInput" class="required">Rental Indicator</label>
+      <input id="rentalIndicatorInput" class="medium" formControlName="rentalIndicator" type="text" pInputText>
+    </span>
+    
+    <span class="form-input">
+      <label for="requestNotesInput" class="required">Request Notes</label>
+      <textarea id="requestNotesInput" formControlName="requestNotes" [rows]="5" [cols]="25" pInputTextarea></textarea>
+    </span>
+
+  </div>
+
+  
+  <span class="form-footer">
+    <button pButton type="button" label="CANCEL" class="ui-button-secondary" (click)="onCancelClick()"></button>
+    <button pButton type="button" label="SUBMIT" (click)="onSaveClick()" [disabled]="!shuttleVehiclesForm.valid"></button>
+</span>
+
+</form>

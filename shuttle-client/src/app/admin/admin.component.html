@@ -1,0 +1,17 @@
+<ucc-header [headerTitle]="title">
+  <ng-template #rightSection>
+    <button *ngIf="!isLoggedIn()" pButton class="ui-button-sm managerLogin" label="Manager Login"
+      (click)="navigateToLogin()"></button>
+    <span *ngIf="isLoggedIn()">{{getCurrentUsername() | uppercase}}</span>
+    <ucc-settings-menu loginPath="/login" *ngIf="isLoggedIn()"></ucc-settings-menu>
+  </ng-template>
+</ucc-header>
+
+<div class="admin-content">
+  <h3 id="adminHeader">Data Maintenance</h3>
+  <p-dropdown [options]="dataContexts" placeholder="Select an option" (onChange)="onDataContextChange($event.value)" [(ngModel)]="selectedDataContext"></p-dropdown>
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Set z-index explicitly, so toast appears above any dialog overlay. -->
+<p-toast key="adminToast" position="top-center" baseZIndex="7001"></p-toast>

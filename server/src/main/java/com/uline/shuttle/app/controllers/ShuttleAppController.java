@@ -5,10 +5,12 @@ import com.uline.shuttle.app.services.ShuttleAppService;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rest.models.requests.DayRequest;
 import rest.models.requests.NoteRequest;
 import rest.models.requests.ShuttleRequest;
+import rest.models.requests.StagedRequest;
 import rest.models.requests.TripRequest;
 import rest.models.response.DayResponse;
 import rest.models.response.NoteResponse;
@@ -52,7 +55,7 @@ public class ShuttleAppController {
 
   @ApiOperation(value = "getting day from the database")
   @GetMapping(value = "/shuttle-days")
-  public DayResponse getDay(
+  public List<DayResponse> getDay(
       @RequestParam(value = "date") String date,
       @RequestParam(value = "vehicle") Integer vehicleId) {
     return shuttleAppService.getDay(date, vehicleId);
@@ -101,5 +104,13 @@ public class ShuttleAppController {
   @PostMapping(value = "/shuttle-notes")
   public NoteResponse submitNote(@RequestBody NoteRequest noteRequest) {
     return shuttleAppService.submitNote(noteRequest);
+  }
+
+  @ExecutionTime("ShuttleAppService.updateDayRecord")
+  @ApiOperation(value = "sending record to CM to be staged")
+  @PutMapping(value = "/staged-requests/shuttle-days/{id}")
+  public ResponseEntity<Void> updatedDayRecord(
+      @PathVariable("id") Integer id, @RequestBody StagedRequest stagedRequest) {
+    return null;
   }
 }

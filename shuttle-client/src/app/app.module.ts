@@ -32,6 +32,8 @@ import { MessageComponent } from './message/message.component';
 import { MenuModule, Menu } from 'primeng/menu';
 import { UccLoginModule } from 'common-component-lib';
 import { UccLoginComponent } from 'common-component-lib';
+import {adminRoutesNames} from './admin/admin.routes.names';
+
 
 const httpInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
@@ -44,6 +46,7 @@ const appRoutes: Routes =
   { path: 'login', component: UccLoginComponent },
   { path: 'driver', component: DriverComponent, canActivate: [AuthenticationGuard] },
   { path: 'user', component: UserComponent },
+  { path: adminRoutesNames.ADMIN, loadChildren: './admin#AdminModule'},
   { path: '',
   redirectTo: '/user',
   pathMatch: 'full'
@@ -59,7 +62,7 @@ const appRoutes: Routes =
     EndshiftComponent,
     TripsComponent,
     BannerDetailsComponent,
-    MessageComponent
+    MessageComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { useHash: true }),

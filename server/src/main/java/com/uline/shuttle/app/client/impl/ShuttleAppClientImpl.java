@@ -57,6 +57,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   @Value("${shuttle.service.url.get.day}")
   private String getDayURL;
 
+
   @Autowired
   public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
     this.restTemplate = restTemplate;
@@ -98,7 +99,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   }
 
   @Override
-  public DayResponse getDay(String date, Integer vehicleId) {
+  public List<DayResponse> getDay(String date, Integer vehicleId) {
     UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(baseUrl + getDayURL);
 
     String vehicle = Integer.toString(vehicleId);
@@ -113,7 +114,7 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             builder.buildAndExpand(params).toUriString(),
             HttpMethod.GET,
             new HttpEntity<>(null, null),
-            new ParameterizedTypeReference<DayResponse>() {})
+            new ParameterizedTypeReference<List<DayResponse>>() {})
         .getBody();
   }
 
@@ -205,4 +206,5 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             new ParameterizedTypeReference<NoteResponse>() {})
         .getBody();
   }
+
 }

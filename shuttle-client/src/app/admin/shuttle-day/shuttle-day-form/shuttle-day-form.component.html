@@ -1,0 +1,48 @@
+<form [formGroup]="shuttleDayForm">
+  <div class="ui-fluid">
+
+    <span class="form-input">
+      <label for="vehicleInput" class="required">Vehicle Id</label>
+      <input id="codeInput" class="small" formControlName="vehicleId" type="number" size="15" pInputText>
+    </span>
+    
+    <span class="form-input">
+      <label for="dateInput" class="required">Date</label>
+      <input id="dateInput" class="small" formControlName="date" type="text" size="15" pInputText>
+    </span>
+
+    <span class="form-input">
+      <label for="costInput">Cost</label>
+      <input id="costInput" class="medium" formControlName="cost" type="number" pInputText>
+    </span>
+
+    <span class="form-input">
+      <label for="gallonsInput">Gallons</label>
+      <input id="gallonsInput" class="medium" formControlName="gallons" type="number" pInputText>
+    </span>
+
+    <span class="form-input">
+      <label for="startMileageInput">Start Mileage</label>
+      <input id="startMileageInput" class="medium" formControlName="startMileage" type="number" pInputText>
+    </span>
+
+    
+    <span class="form-input">
+      <label for="endMileageInput">End Mileage</label>
+      <input id="endMileageInput" class="medium" formControlName="endMileage" type="number" pInputText>
+    </span>
+    
+    <span class="form-input">
+      <label for="requestNotesInput" class="required">Request Notes</label>
+      <textarea id="requestNotesInput" formControlName="requestNotes" [rows]="5" [cols]="25" pInputTextarea></textarea>
+    </span>
+
+  </div>
+
+  
+  <span class="form-footer">
+    <button pButton type="button" label="CANCEL" class="ui-button-secondary" (click)="onCancelClick()"></button>
+    <button pButton type="button" label="SUBMIT" (click)="onSaveClick()" [disabled]="!shuttleDayForm.valid"></button>
+</span>
+
+</form>
