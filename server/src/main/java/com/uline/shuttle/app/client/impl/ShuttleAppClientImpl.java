@@ -57,7 +57,6 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
   @Value("${shuttle.service.url.get.day}")
   private String getDayURL;
 
-
   @Autowired
   public ShuttleAppClientImpl(UlineRestTemplate restTemplate) {
     this.restTemplate = restTemplate;
@@ -206,5 +205,4 @@ public class ShuttleAppClientImpl implements ShuttleAppClient {
             new ParameterizedTypeReference<NoteResponse>() {})
         .getBody();
   }
-
 }

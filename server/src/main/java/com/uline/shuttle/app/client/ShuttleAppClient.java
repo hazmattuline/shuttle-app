@@ -30,5 +30,4 @@ public interface ShuttleAppClient {
   DayResponse submitDay(DayRequest dayRequest);
 
   NoteResponse submitNote(NoteRequest noteRequest);
-
 }
