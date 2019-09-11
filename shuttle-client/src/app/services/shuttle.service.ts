@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, SkipSelf, Optional } from '@angular/core';
 import { ShuttleApiService } from './shuttle-api.service';
 import { Trip } from '../models/trip.model';
 import { Day } from '../models/day.model';
@@ -10,7 +10,7 @@ import { switchMap, map } from 'rxjs/operators';
 
 @Injectable()
 export class ShuttleService {
-  constructor(private shuttleApi: ShuttleApiService, private gpsService: GPSService) {}
+  constructor( private shuttleApi: ShuttleApiService, @Optional() private gpsService: GPSService) {}
   date = new Date();
   isAccordionTopDisabled = true;
   startMileage: number;

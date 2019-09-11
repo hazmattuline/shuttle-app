@@ -14,7 +14,9 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-shuttle-day',
   templateUrl: './shuttle-day.component.html',
-  styleUrls: ['./shuttle-day.component.css']
+  styleUrls: ['./shuttle-day.component.css'],
+  providers: [ShuttleService]
+
 })
 export class ShuttleDayComponent extends MaintenanceComponent implements OnInit {
 
@@ -33,11 +35,10 @@ export class ShuttleDayComponent extends MaintenanceComponent implements OnInit 
   shuttleDayDialogHeader: string;
   displayShuttleDayDialog: boolean;
   menuItems: MenuItem[] = [];
+  date: string;
 
-
-  // private stagedRequestService: StagedRequestService
-  constructor(private shuttleApiService: ShuttleApiService, messageService: MessageService, 
-    private stagedRequestService: StagedRequestService) {
+  constructor( private shuttleService: ShuttleService, private shuttleApiService: ShuttleApiService, messageService: MessageService, 
+    private stagedRequestService: StagedRequestService ) {
 
     super(messageService);
 
@@ -103,12 +104,9 @@ export class ShuttleDayComponent extends MaintenanceComponent implements OnInit 
     const stagedRequest = new StagedRequest();
     stagedRequest.stagedRequestText = stagedReason.requestNotes;
 
-    // implement rest call
-
-
     if (this.selectedShuttleDay) {
       stagedRequest.stagedJson = JSON.stringify(this.createShuttleDayRequest(stagedReason.entity));
-      this.handleStagedRequestCreation(this.stagedRequestService.updateShuttleDay(stagedRequest, this.selectedShuttleDay.dayId),
+      this.handleStagedRequestCreation(this.stagedRequestService.updateShuttleDay(stagedRequest, this.selectedShuttleDay.vehicleId, this.selectedShuttleDay.date),
         this.shuttleDayDialogErrorHandler);
     } else {
       stagedRequest.stagedJson = JSON.stringify(this.createShuttleDayRequest(stagedReason.entity));

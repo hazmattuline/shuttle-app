@@ -26,7 +26,7 @@ export class MaintenanceComponent extends BaseComponent {
                     this.displayStagedRequestSuccessMessage();
                 },
                 error => {
-                    this.displayStagedRequestErrorMessage(error.error.message);
+                    this.displayStagedRequestErrorMessage(error.message);
                     if (errorHandler) {
                         errorHandler(error);
                     }

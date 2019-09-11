@@ -4,7 +4,7 @@
 </div>
 
 <p-table #shuttleDayTable id="shuttleDayTable" [value]="shuttleDayList" [paginator]="true" [rows]="15" [totalRecords]="shuttleDayList.length" [rowsPerPageOptions]="[15,30,45]" 
-  [loading]="isLoading" sortField="date">
+  [loading]="isLoading" sortField="date" [sortOrder]="-1">
   <ng-template pTemplate="header">
       <tr>
           <th pSortableColumn="vehicleId">Vehicle Id<p-sortIcon field="vehicleId"></p-sortIcon></th>
