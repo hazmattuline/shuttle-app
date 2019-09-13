@@ -1,6 +1,6 @@
 <div class="table-actions">
   <!-- display the add a record link  -->
-    <a class="action-link" (click)="onAddShuttleDayClick()"><i class="action-link image fa fa-plus"></i>Add A Record</a>
+    <a class="action-link" (click)="onAddShuttleDayClick()"><i class="action-link image fa fa-plus"></i>Add Day</a>
 </div>
 
 <p-table #shuttleDayTable id="shuttleDayTable" [value]="shuttleDayList" [paginator]="true" [rows]="15" [totalRecords]="shuttleDayList.length" [rowsPerPageOptions]="[15,30,45]" 
@@ -9,19 +9,19 @@
       <tr>
           <th pSortableColumn="vehicleId">Vehicle Id<p-sortIcon field="vehicleId"></p-sortIcon></th>
           <th pSortableColumn="date">Date<p-sortIcon field="date"></p-sortIcon></th>
-          <th pSortableColumn="fuelCost">Cost<p-sortIcon field="fuelCost"></p-sortIcon></th>
-          <th pSortableColumn="fuelQuantity">Gallons<p-sortIcon field="fuelQuantity"></p-sortIcon></th>
-          <th pSortableColumn="startMileage">Start Mileage<p-sortIcon field="startMileage"></p-sortIcon></th>
-          <th pSortableColumn="endMileage">End Mileage<p-sortIcon field="endMileage"></p-sortIcon></th>
+          <th>Cost</th>
+          <th>Gallons</th>
+          <th>Start Mileage</th>
+          <th>End Mileage</th>
           <th></th>
       </tr>
       <tr>
-          <th><input pInputText type="text" placeholder="Filter vehicleId" (input)="shuttleDayTable.filter($event.target.value, 'vehicleId', 'contains')"></th>
-          <th><input pInputText type="text" placeholder="Filter shuttleDt" (input)="shuttleDayTable.filter($event.target.value, 'date', 'contains')"></th>
-          <th><input pInputText type="text" placeholder="Filter fuelCost" (input)="shuttleDayTable.filter($event.target.value, 'fuelCost', 'contains')"></th>
-          <th><input pInputText type="text" placeholder="Filter fuelQuantity" (input)="shuttleDayTable.filter($event.target.value, 'fuelQuantity', 'contains')"></th>
-          <th><input pInputText type="text" placeholder="Filter startMileage" (input)="shuttleDayTable.filter($event.target.value, 'startMileage', 'contains')"></th>
-          <th><input pInputText type="text" placeholder="Filter endMileage" (input)="shuttleDayTable.filter($event.target.value, 'endMileage', 'contains')"></th>
+          <th><input style="width:100%" pInputText type="text" placeholder="Filter id" (input)="shuttleDayTable.filter($event.target.value, 'vehicleId', 'contains')"></th>
+          <th><input style="width:100%" pInputText type="text" placeholder="Filter date" (input)="shuttleDayTable.filter($event.target.value, 'date', 'contains')"></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
           <th></th>
       </tr>
   </ng-template>

@@ -12,4 +12,6 @@ public interface StagedRequestService {
   URI updateVehicle(Integer id, StagedRequest stagedRequestIn) throws JsonProcessingException;
 
   URI addDayRecord(StagedRequest stagedRequestIn);
+
+  URI addVehicle(StagedRequest stagedRequestIn);
 }

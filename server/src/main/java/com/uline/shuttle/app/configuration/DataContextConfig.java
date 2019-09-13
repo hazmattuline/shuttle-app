@@ -16,7 +16,8 @@ public class DataContextConfig {
   public enum Activity {
     UPDATE_SHUTTLE_DAY,
     UPDATE_SHUTTLE_VEHICLE,
-    ADD_SHUTTLE_DAY
+    ADD_SHUTTLE_DAY,
+    ADD_SHUTTLE_VEHICLE
   }
 
   private Map<String, StagedRequestConfig> config;

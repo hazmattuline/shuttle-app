@@ -43,7 +43,7 @@ public class ShuttleAppController {
     this.shuttleAppService = shuttleAppService;
   }
 
-  @ExecutionTime("ShuttleAppService.changeStatus")
+  @ExecutionTime("ShuttleAppController.changeStatus")
   @ApiOperation(value = "change shuttle's status")
   @PatchMapping(value = "/shuttles/{id}/status")
   public ShuttleResponse changeStatus(
@@ -51,7 +51,7 @@ public class ShuttleAppController {
     return shuttleAppService.changeStatus(shuttleRequest, id);
   }
 
-  @ExecutionTime("ShuttleAppService.enRoute")
+  @ExecutionTime("ShuttleAppController.enRoute")
   @ApiOperation(value = "posting the coordinates and storing in a database")
   @PatchMapping(value = "/shuttles/{id}/coordinates")
   public ShuttleResponse enRoute(
@@ -67,14 +67,14 @@ public class ShuttleAppController {
     return shuttleAppService.getDay(date, vehicleId);
   }
 
-  @ExecutionTime("ShuttleAppService.getRoutes")
+  @ExecutionTime("ShuttleAppController.getRoutes")
   @ApiOperation(value = "getting the routes from the database")
   @GetMapping(value = "/shuttle-routes")
   public List<RouteResponse> getRoutes() {
     return shuttleAppService.getRoutes();
   }
 
-  @ExecutionTime("ShuttleAppService.getShuttlesStatus")
+  @ExecutionTime("ShuttleAppController.getShuttlesStatus")
   @ApiOperation(value = "getting the shuttles by status")
   @GetMapping(value = "/shuttles")
   public List<ShuttleResponse> getShuttlesStatus(
@@ -82,7 +82,7 @@ public class ShuttleAppController {
     return shuttleAppService.getShuttlesStatus(status);
   }
 
-  @ExecutionTime("ShuttleAppService.getTrip")
+  @ExecutionTime("ShuttleAppController.getTrip")
   @ApiOperation(value = "getting the passenger amount details from the database")
   @GetMapping(value = "/shuttle-trips")
   public TripResponse getTrip(
@@ -91,28 +91,28 @@ public class ShuttleAppController {
     return shuttleAppService.getTrip(date, vehicleId);
   }
 
-  @ExecutionTime("ShuttleAppService.postTrip")
+  @ExecutionTime("ShuttleAppController.postTrip")
   @ApiOperation(value = "posting the trip details to the database")
   @PostMapping(value = "/shuttle-trips")
   public TripResponse postTrip(@RequestBody TripRequest shuttleDayRequest) {
     return shuttleAppService.postTrip(shuttleDayRequest);
   }
 
-  @ExecutionTime("ShuttleAppService.submitDay")
+  @ExecutionTime("ShuttleAppController.submitDay")
   @ApiOperation(value = "posting to the Shuttle Vehicle Day table")
   @PostMapping(value = "/shuttle-days")
   public DayResponse submitDay(@RequestBody DayRequest dayRequest) {
     return shuttleAppService.submitDay(dayRequest);
   }
 
-  @ExecutionTime("ShuttleAppService.submitNote")
+  @ExecutionTime("ShuttleAppController.submitNote")
   @ApiOperation(value = "posting note to database")
   @PostMapping(value = "/shuttle-notes")
   public NoteResponse submitNote(@RequestBody NoteRequest noteRequest) {
     return shuttleAppService.submitNote(noteRequest);
   }
 
-  @ExecutionTime("ShuttleAppService.addDayRecord")
+  @ExecutionTime("ShuttleAppController.addDayRecord")
   @ApiOperation(value = "sending record to CM to be staged")
   @PostMapping(value = "/staged-requests/add-shuttle-days")
   public ResponseEntity<Void> addDayRecord(@RequestBody StagedRequest stagedRequest) {
@@ -122,7 +122,17 @@ public class ShuttleAppController {
     return ResponseEntity.created(stagedRequestLocation).build();
   }
 
-  @ExecutionTime("ShuttleAppService.updateDayRecord")
+  @ExecutionTime("ShuttleAppController.addVehicle")
+  @ApiOperation(value = "sending record to CM to be staged")
+  @PostMapping(value = "/staged-requests/add-shuttle-vehicle")
+  public ResponseEntity<Void> addVehicle(@RequestBody StagedRequest stagedRequest) {
+
+    URI stagedRequestLocation = stagedRequestService.addVehicle(stagedRequest);
+
+    return ResponseEntity.created(stagedRequestLocation).build();
+  }
+
+  @ExecutionTime("ShuttleAppController.updateDayRecord")
   @ApiOperation(value = "sending record to CM to be staged")
   @PostMapping(value = "/staged-requests/shuttle-days")
   public ResponseEntity<Void> updatedDayRecord(
@@ -136,7 +146,7 @@ public class ShuttleAppController {
     return ResponseEntity.created(stagedRequestLocation).build();
   }
 
-  @ExecutionTime("ShuttleAppService.updateShuttle")
+  @ExecutionTime("ShuttleAppController.updateShuttle")
   @ApiOperation(value = "sending shuttle change to CM to be staged")
   @PostMapping(value = "/staged-requests/shuttle-vehicle/{id}")
   public ResponseEntity<Void> updateVehicle(

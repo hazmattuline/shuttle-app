@@ -7,7 +7,6 @@ import { Menu } from 'primeng/menu';
 import { StagedRequestService } from 'src/app/services/staged-request.service';
 import { StagedEntity } from 'src/app/models/staged-entity';
 import { StagedRequest } from 'src/app/models/staged-request.model';
-import { ShuttleService } from 'src/app/services/shuttle.service';
 import { ShuttleApiService } from 'src/app/services/shuttle-api.service';
 import { takeUntil } from 'rxjs/operators';
 
@@ -15,7 +14,7 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'app-shuttle-day',
   templateUrl: './shuttle-day.component.html',
   styleUrls: ['./shuttle-day.component.css'],
-  providers: [ShuttleService]
+  providers: []
 
 })
 export class ShuttleDayComponent extends MaintenanceComponent implements OnInit {
@@ -37,7 +36,7 @@ export class ShuttleDayComponent extends MaintenanceComponent implements OnInit 
   menuItems: MenuItem[] = [];
   date: string;
 
-  constructor( private shuttleService: ShuttleService, private shuttleApiService: ShuttleApiService, messageService: MessageService, 
+  constructor(private shuttleApiService: ShuttleApiService, messageService: MessageService, 
     private stagedRequestService: StagedRequestService ) {
 
     super(messageService);

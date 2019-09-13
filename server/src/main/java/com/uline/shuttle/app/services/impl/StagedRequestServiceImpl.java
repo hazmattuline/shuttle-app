@@ -142,6 +142,11 @@ public class StagedRequestServiceImpl implements StagedRequestService {
   }
 
   @Override
+  public URI addVehicle(StagedRequest stagedRequestIn) {
+    return addDataContext(stagedRequestIn, Activity.ADD_SHUTTLE_VEHICLE);
+  }
+
+  @Override
   public URI addDayRecord(StagedRequest stagedRequestIn) {
     return addDataContext(stagedRequestIn, Activity.ADD_SHUTTLE_DAY);
   }
