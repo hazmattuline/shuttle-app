@@ -11,4 +11,6 @@ export const Vehicle = '&vehicle=';
 export const Routes = '/shuttle-routes';
 export const EveryDay = '/all-shuttle-days';
 export const STAGED_REQUEST_SHUTTLE_DAYS = '/staged-requests/shuttle-days';
-export const STAGED_REQUEST_SHUTTLE_VEHICLES = '/staged-requests/shuttle-vehicles';
+export const STAGED_REQUEST_SHUTTLE_VEHICLES = '/staged-requests/shuttle-vehicle';
+export const STAGED_REQUEST_ADD_SHUTTLE_VEHICLES = '/staged-requests/add-shuttle-vehicle';
+export const STAGED_REQUEST_ADD_SHUTTLE_DAYS = '/staged-requests/add-shuttle-days';

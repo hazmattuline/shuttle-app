@@ -61,7 +61,4 @@ export class ShuttleApiService {
     return this.http.get<Day[]>(Days + ShuttleDate + date + Vehicle + vehicle);
   }
 
-  getAllDayInfo(): Observable<Day[]> {
-    return this.http.get<Day[]>(EveryDay);
-  }
 }

@@ -1,30 +1,28 @@
-<!-- <div class="table-actions">
-    <a class="action-link" (click)="onAddShuttleClick()"><i class="action-link image fa fa-plus"></i>Add A Record</a>
-</div> -->
+<div class="table-actions">
+    <a class="action-link" (click)="onAddShuttleClick()"><i class="action-link image fa fa-plus"></i>Add Shuttle</a>
+</div>
 
 <p-table #shuttleVehicleTable id="shuttleVehicleTable" [value]="shuttleVehicleList" [paginator]="true" [rows]="15" [totalRecords]="shuttleVehicleList.length" [rowsPerPageOptions]="[15,30,45]" 
   [loading]="isLoading" sortField="date">
   <ng-template pTemplate="header">
       <tr>
           <th pSortableColumn="vehicleId">Vehicle Id<p-sortIcon field="vehicleId"></p-sortIcon></th>
-          <th pSortableColumn="latitudeCoordinates">Lat Coords<p-sortIcon field="latitudeCoordinates"></p-sortIcon></th>
-          <th pSortableColumn="longitudeCoordinates">Lon Coords<p-sortIcon field="longitudeCoordinates"></p-sortIcon></th>
-          <th pSortableColumn="status">Status<p-sortIcon field="status"></p-sortIcon></th>
           <th pSortableColumn="name">Vehicle Name<p-sortIcon field="name"></p-sortIcon></th>
-          <th pSortableColumn="shuttleType">Shuttle Type<p-sortIcon field="shuttleType"></p-sortIcon></th>
-          <th pSortableColumn="rentalIndicator">Rental Indicator<p-sortIcon field="rentalIndicator"></p-sortIcon></th>
-
+          <th>Status</th>
+          <th>Shuttle Type</th>
+          <th>Rental Indicator</th>
+          <th>Lat Coords</th>
+          <th>Lon Coords</th>
           <th></th>
       </tr>
       <tr>
-          <th><input pInputText type="text" placeholder="Filter vehicleId" (input)="shuttleVehicleTable.filter($event.target.value, 'vehicleId', 'contains')"></th>
-          <th><input pInputText type="text" placeholder="Filter Lat Coords" (input)="shuttleVehicleTable.filter($event.target.value, 'latitudeCoordinates', 'contains')"></th>
-          <th><input pInputText type="text" placeholder="Filter Lon Coords" (input)="shuttleVehicleTable.filter($event.target.value, 'longitudeCoordinates', 'contains')"></th>
-          <th><input pInputText type="text" placeholder="Filter Status" (input)="shuttleVehicleTable.filter($event.target.value, 'status', 'contains')"></th>
-          <th><input pInputText type="text" placeholder="Filter Name" (input)="shuttleVehicleTable.filter($event.target.value, 'name', 'contains')"></th>
-          <th><input pInputText type="text" placeholder="Filter Shuttle Type" (input)="shuttleVehicleTable.filter($event.target.value, 'shuttleType', 'contains')"></th>
-          <th><input pInputText type="text" placeholder="Filter Rental Indicator" (input)="shuttleVehicleTable.filter($event.target.value, 'rentalIndicator', 'contains')"></th>
-
+          <th><input style="width: 100%" pInputText type="text" placeholder="Filter vehicleId" (input)="shuttleVehicleTable.filter($event.target.value, 'vehicleId', 'contains')"></th>
+          <th><input style="width: 100%" pInputText type="text" placeholder="Filter Name" (input)="shuttleVehicleTable.filter($event.target.value, 'name', 'contains')"></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
           <th></th>
       </tr>
   </ng-template>
@@ -32,12 +30,13 @@
   <ng-template pTemplate="body" let-shuttleVehicle>
       <tr>
           <td>{{shuttleVehicle.vehicleId}}</td>
-          <td>{{shuttleVehicle.latitudeCoordinates}}</td>
-          <td>{{shuttleVehicle.longitudeCoordinates}}</td>
-          <td>{{shuttleVehicle.status}}</td>
           <td>{{shuttleVehicle.name}}</td>
+          <td>{{shuttleVehicle.status}}</td>
           <td>{{shuttleVehicle.shuttleType}}</td>
           <td>{{shuttleVehicle.rentalIndicator}}</td>
+          <td>{{shuttleVehicle.latitudeCoordinates}}</td>
+          <td>{{shuttleVehicle.longitudeCoordinates}}</td>
+        
 
           <td class="table-menu">
               <span class="fa fa-ellipsis-h table-menu" (click)="openMenu(shuttleVehiclesMenu, $event, shuttleVehicle)"></span>

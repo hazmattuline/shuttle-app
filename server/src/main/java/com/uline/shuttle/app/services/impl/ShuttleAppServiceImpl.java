@@ -69,5 +69,4 @@ public class ShuttleAppServiceImpl implements ShuttleAppService {
   public NoteResponse submitNote(NoteRequest noteRequest) {
     return shuttleAppClient.submitNote(noteRequest);
   }
-
 }

@@ -1,8 +1,11 @@
 package com.uline.shuttle.app.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uline.common.metrics.ExecutionTime;
 import com.uline.shuttle.app.services.ShuttleAppService;
+import com.uline.shuttle.app.services.StagedRequestService;
 import io.swagger.annotations.ApiOperation;
+import java.net.URI;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,13 +33,17 @@ import rest.models.response.TripResponse;
 public class ShuttleAppController {
 
   private ShuttleAppService shuttleAppService;
+  private StagedRequestService stagedRequestService;
 
   @Autowired
-  public ShuttleAppController(ShuttleAppService shuttleAppService) {
+  public ShuttleAppController(
+      ShuttleAppService shuttleAppService, StagedRequestService stagedRequestService) {
+    this.stagedRequestService = stagedRequestService;
+
     this.shuttleAppService = shuttleAppService;
   }
 
-  @ExecutionTime("ShuttleAppService.changeStatus")
+  @ExecutionTime("ShuttleAppController.changeStatus")
   @ApiOperation(value = "change shuttle's status")
   @PatchMapping(value = "/shuttles/{id}/status")
   public ShuttleResponse changeStatus(
@@ -45,7 +51,7 @@ public class ShuttleAppController {
     return shuttleAppService.changeStatus(shuttleRequest, id);
   }
 
-  @ExecutionTime("ShuttleAppService.enRoute")
+  @ExecutionTime("ShuttleAppController.enRoute")
   @ApiOperation(value = "posting the coordinates and storing in a database")
   @PatchMapping(value = "/shuttles/{id}/coordinates")
   public ShuttleResponse enRoute(
@@ -61,14 +67,14 @@ public class ShuttleAppController {
     return shuttleAppService.getDay(date, vehicleId);
   }
 
-  @ExecutionTime("ShuttleAppService.getRoutes")
+  @ExecutionTime("ShuttleAppController.getRoutes")
   @ApiOperation(value = "getting the routes from the database")
   @GetMapping(value = "/shuttle-routes")
   public List<RouteResponse> getRoutes() {
     return shuttleAppService.getRoutes();
   }
 
-  @ExecutionTime("ShuttleAppService.getShuttlesStatus")
+  @ExecutionTime("ShuttleAppController.getShuttlesStatus")
   @ApiOperation(value = "getting the shuttles by status")
   @GetMapping(value = "/shuttles")
   public List<ShuttleResponse> getShuttlesStatus(
@@ -76,7 +82,7 @@ public class ShuttleAppController {
     return shuttleAppService.getShuttlesStatus(status);
   }
 
-  @ExecutionTime("ShuttleAppService.getTrip")
+  @ExecutionTime("ShuttleAppController.getTrip")
   @ApiOperation(value = "getting the passenger amount details from the database")
   @GetMapping(value = "/shuttle-trips")
   public TripResponse getTrip(
@@ -85,32 +91,70 @@ public class ShuttleAppController {
     return shuttleAppService.getTrip(date, vehicleId);
   }
 
-  @ExecutionTime("ShuttleAppService.postTrip")
+  @ExecutionTime("ShuttleAppController.postTrip")
   @ApiOperation(value = "posting the trip details to the database")
   @PostMapping(value = "/shuttle-trips")
   public TripResponse postTrip(@RequestBody TripRequest shuttleDayRequest) {
     return shuttleAppService.postTrip(shuttleDayRequest);
   }
 
-  @ExecutionTime("ShuttleAppService.submitDay")
+  @ExecutionTime("ShuttleAppController.submitDay")
   @ApiOperation(value = "posting to the Shuttle Vehicle Day table")
   @PostMapping(value = "/shuttle-days")
   public DayResponse submitDay(@RequestBody DayRequest dayRequest) {
     return shuttleAppService.submitDay(dayRequest);
   }
 
-  @ExecutionTime("ShuttleAppService.submitNote")
+  @ExecutionTime("ShuttleAppController.submitNote")
   @ApiOperation(value = "posting note to database")
   @PostMapping(value = "/shuttle-notes")
   public NoteResponse submitNote(@RequestBody NoteRequest noteRequest) {
     return shuttleAppService.submitNote(noteRequest);
   }
 
-  @ExecutionTime("ShuttleAppService.updateDayRecord")
+  @ExecutionTime("ShuttleAppController.addDayRecord")
   @ApiOperation(value = "sending record to CM to be staged")
-  @PutMapping(value = "/staged-requests/shuttle-days/{id}")
+  @PostMapping(value = "/staged-requests/add-shuttle-days")
+  public ResponseEntity<Void> addDayRecord(@RequestBody StagedRequest stagedRequest) {
+
+    URI stagedRequestLocation = stagedRequestService.addDayRecord(stagedRequest);
+
+    return ResponseEntity.created(stagedRequestLocation).build();
+  }
+
+  @ExecutionTime("ShuttleAppController.addVehicle")
+  @ApiOperation(value = "sending record to CM to be staged")
+  @PostMapping(value = "/staged-requests/add-shuttle-vehicle")
+  public ResponseEntity<Void> addVehicle(@RequestBody StagedRequest stagedRequest) {
+
+    URI stagedRequestLocation = stagedRequestService.addVehicle(stagedRequest);
+
+    return ResponseEntity.created(stagedRequestLocation).build();
+  }
+
+  @ExecutionTime("ShuttleAppController.updateDayRecord")
+  @ApiOperation(value = "sending record to CM to be staged")
+  @PostMapping(value = "/staged-requests/shuttle-days")
   public ResponseEntity<Void> updatedDayRecord(
-      @PathVariable("id") Integer id, @RequestBody StagedRequest stagedRequest) {
-    return null;
+      @RequestParam(value = "date") String date,
+      @RequestParam(value = "vehicle") Integer id,
+      @RequestBody StagedRequest stagedRequest)
+      throws JsonProcessingException {
+
+    URI stagedRequestLocation = stagedRequestService.updateDayRecord(id, date, stagedRequest);
+
+    return ResponseEntity.created(stagedRequestLocation).build();
+  }
+
+  @ExecutionTime("ShuttleAppController.updateShuttle")
+  @ApiOperation(value = "sending shuttle change to CM to be staged")
+  @PostMapping(value = "/staged-requests/shuttle-vehicle/{id}")
+  public ResponseEntity<Void> updateVehicle(
+      @PathVariable("id") Integer id, @RequestBody StagedRequest stagedRequest)
+      throws JsonProcessingException {
+
+    URI stagedRequestLocation = stagedRequestService.updateVehicle(id, stagedRequest);
+
+    return ResponseEntity.created(stagedRequestLocation).build();
   }
 }

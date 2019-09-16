@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ShuttleDayComponent } from './shuttle-day/shuttle-day.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
@@ -16,6 +16,7 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { UccHeaderModule, UccSettingsMenuModule } from 'common-component-lib';
 import { ShuttleVehiclesFormComponent } from './shuttle-vehicles/shuttle-vehicles-form/shuttle-vehicles-form.component';
+import { ShuttleService } from '../services/shuttle.service';
 
 
 
@@ -37,7 +38,9 @@ import { ShuttleVehiclesFormComponent } from './shuttle-vehicles/shuttle-vehicle
     UccSettingsMenuModule
 
     ],
-
+    providers: [
+      DatePipe,
+    ],
   declarations: [
     ShuttleDayComponent,
     AdminComponent,
