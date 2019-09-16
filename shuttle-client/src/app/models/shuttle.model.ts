@@ -1,5 +1,5 @@
 export interface Shuttle {
-    vehicleId: number;
+    vehicleId?: number;
     latitudeCoordinates?: number;
     longitudeCoordinates?: number;
     xPixelCoordinate?: number;

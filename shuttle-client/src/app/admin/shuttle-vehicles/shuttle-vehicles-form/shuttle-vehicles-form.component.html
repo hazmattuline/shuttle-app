@@ -2,23 +2,8 @@
   <div class="ui-fluid">
 
     <span class="form-input">
-      <label for="vehicleInput" class="required">Vehicle Id</label>
-      <input id="codeInput" class="small" formControlName="vehicleId" type="number" size="15" pInputText>
-    </span>
-    
-    <span class="form-input">
-      <label for="latInput" >Latitude Coordinates</label>
-      <input id="latInput" class="small" formControlName="latitudeCoordinates" type="number" size="15" pInputText>
-    </span>
-
-    <span class="form-input">
-      <label for="lonInput">Longitude Coordinates</label>
-      <input id="lonInput" class="medium" formControlName="longitudeCoordinates" type="number" pInputText>
-    </span>
-
-    <span class="form-input">
       <label for="statusInput" class="required">Status</label>
-      <input id="statusInput" class="medium" formControlName="status" type="text" pInputText>
+      <input id="statusInput" class="medium" maxlength="1" formControlName="status" placeholder="A or I" type="text" pInputText>
     </span>
 
     <span class="form-input">
@@ -29,12 +14,12 @@
     
     <span class="form-input">
       <label for="shuttleTypeInput" class="required">Shuttle Type</label>
-      <input id="shuttleTypeInput" class="medium" formControlName="shuttleType" type="text" pInputText>
+      <input id="shuttleTypeInput" class="medium" formControlName="shuttleType" placeholder="VAN or CAR" type="text" pInputText>
     </span>
 
     <span class="form-input">
       <label for="rentalIndicatorInput" class="required">Rental Indicator</label>
-      <input id="rentalIndicatorInput" class="medium" formControlName="rentalIndicator" type="text" pInputText>
+      <input id="rentalIndicatorInput" class="medium" formControlName="rentalIndicator" placeholder="N or Y" type="text" pInputText>
     </span>
     
     <span class="form-input">
