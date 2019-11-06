@@ -65,7 +65,10 @@ export class GPSService {
 
   private startGPSUpdateTimer() {
     this.gpsLocationTimer = setInterval(() => {
-      this.sendShuttleCoordinates();
+      if (!document.hidden) 
+      {
+        this.sendShuttleCoordinates();
+      }
     }, 2000);
   }
 

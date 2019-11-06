@@ -8,6 +8,15 @@ public class ShuttleResponse {
   private Double longitudeCoordinates;
   private String shuttleType;
   private String rentalIndicator;
+  private Integer personId;
+
+  public Integer getPersonId() {
+    return personId;
+  }
+
+  public void setPersonId(Integer personId) {
+    this.personId = personId;
+  }
 
   public Double getLatitudeCoordinates() {
     return latitudeCoordinates;

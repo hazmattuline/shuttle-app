@@ -8,4 +8,5 @@ export interface Shuttle {
     name?: string;
     shuttleType?: string;
     rentalIndicator?: string;
+    personId?: string;
 }
