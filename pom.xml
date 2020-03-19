@@ -14,7 +14,7 @@
   <parent>
 		<groupId>com.uline.base</groupId>
 		<artifactId>common-service-base</artifactId>
-		<version>4.14</version>
+		<version>4.20</version>
 	</parent>
 
 	<modules>
