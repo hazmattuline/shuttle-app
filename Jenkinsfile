@@ -1,7 +1,9 @@
 #!groovy
 
 @Library('common-jenkins-library')
-import common.uline.jenkins.*
+import common.uline.jenkins.configs.PipelineConfigs
+import common.uline.jenkins.bootstrap.PipelineBootstrap
+
 
 //################################### Define Jenkins Pipeline specific configurations ###################################
 
