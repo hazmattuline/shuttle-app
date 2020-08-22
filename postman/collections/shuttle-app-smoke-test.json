@@ -1,17 +1,158 @@
 {
 	"info": {
-		"_postman_id": "2b3ebc62-6e0a-4ce8-ab1e-14d09be9e513",
+		"_postman_id": "c0a04c68-06b9-4907-ae4a-9f0707bcc53e",
 		"name": "Shuttle app smoke tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Get Security Token From Auth Service and Initialize",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "32e714aa-a349-4aa0-a44d-5c515548ad4a",
+								"exec": [
+									"//var jsonData = pm.response.json();",
+									"try{",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    console.log(\"json data: \" + jsonData);",
+									"    var expectedStatus = 200;",
+									"    var responseTest = responseCode.code === expectedStatus;",
+									"",
+									"if(responseTest === true){",
+									"        tests[\"Status code is \" + responseCode.code] = responseTest;",
+									"       // var jsonData = JSON.parse(responseBody);",
+									"        var auth_token = jsonData.token;",
+									"        postman.setGlobalVariable(\"security_token\", auth_token);",
+									"        postman.setEnvironmentVariable(\"token\", auth_token);",
+									"        ",
+									"       tests[\"Country is US\"] = responseBody.has(\"US\");",
+									"        tests[\"Person name matches\"] = jsonData.fullName;",
+									"        ",
+									"    }else{",
+									"        console.log(request.data);",
+									"        tests[\"Status code is \" + responseCode.code + \" - Expecting: \" + expectedStatus] = responseTest;",
+									"       ",
+									"    }",
+									"",
+									"/*pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"*/",
+									"",
+									"",
+									"/*pm.test(\"Set Security Token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.country).to.eql(\"US\");",
+									"    pm.expect(jsonData.fullName).to.eql(\"PERFORM5\");",
+									"    var auth_token = jsonData.token;",
+									"    pm.globals.set(\"security_token\", auth_token);",
+									"    pm.environment.set(\"token\", auth_token);",
+									"    console.log(pm.globals.get(\"security_token\"));",
+									"});*/",
+									"",
+									"}catch(e){",
+									"    tests[\"Test Code Failure - \" + e] = false;",
+									"    console.log(e);",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d3478a61-c270-476f-878f-9f17a5bfefd6",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Uline123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "perform5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://dc2-svzsys02.ulinedm.com:11114/security-services/v2/auth",
+							"protocol": "http",
+							"host": [
+								"dc2-svzsys02",
+								"ulinedm",
+								"com"
+							],
+							"port": "11114",
+							"path": [
+								"security-services",
+								"v2",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "141324ac-e968-4f6d-98e3-657ae555d42c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "7dbddec6-062a-4413-ad49-75b3f4c53e1c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
 		{
 			"name": "http://{{shuttle-app-uri}}/shuttle-app/info",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "61f43fed-a925-4ec6-a0dc-a9fac43c1dd1",
+						"id": "4d3b7997-7f94-49d7-9fe1-be65b5d7ac64",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
 							"",
@@ -26,10 +167,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://{{shuttle-app-uri}}/shuttle-app/info",
 					"protocol": "http",
@@ -43,6 +180,115 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://{{shuttle-app-uri}}/shuttle-app/info Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1c0f0de6-a069-426b-b1cf-6ab1b9c13e8e",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{shuttle-app-uri}}/shuttle-app/api/shuttles?status=A",
+					"protocol": "http",
+					"host": [
+						"{{shuttle-app-uri}}"
+					],
+					"path": [
+						"shuttle-app",
+						"api",
+						"shuttles"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "A"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://{{shuttle-app-uri}}/shuttle-app/info Copy 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d620f1d-4f0e-4b7a-8f26-1596d222d6e1",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{shuttle-app-uri}}/shuttle-app/api/shuttle-routes",
+					"protocol": "http",
+					"host": [
+						"{{shuttle-app-uri}}"
+					],
+					"path": [
+						"shuttle-app",
+						"api",
+						"shuttle-routes"
+					]
+				}
+			},
+			"response": []
 		}
-	]
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "abbc462c-d219-488d-8baf-0a4d098e0623",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "898ccbba-0908-41c2-9206-bb84393001c2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
 }
