@@ -32,7 +32,7 @@ export class BannerDetailsComponent implements OnInit {
   possibleVehicles: Shuttle[] = [];
   selectedVehicle: Shuttle;
   baileyVehicle: Shuttle;
-  baileyRentalVehicle: Shuttle;
+  rileyVehicle: Shuttle;
 
   constructor(public gpsService: GPSService, public shuttleService: ShuttleService, public shuttleApi: ShuttleApiService,
               private authService: AuthService) {}
@@ -70,15 +70,15 @@ export class BannerDetailsComponent implements OnInit {
         if (vehicle.name === 'BAILEY') {
           this.baileyVehicle = vehicle;
         }
-        if (vehicle.name === 'BAILEY RENTAL') {
-          this.baileyRentalVehicle = vehicle;
+        if (vehicle.name === 'RILEY') {
+          this.rileyVehicle = vehicle;
         }
       }
       this.baileyButton = [
         { label: this.baileyVehicle.name, value: 'BAILEY' }
       ],
-      this.baileyRentalButton = [
-        { label: this.baileyRentalVehicle.name, value: 'BAILEY RENTAL' }
+      this.rileyButton = [
+        { label: this.rileyVehicle.name, value: 'RILEY' }
       ];
     });
   }
@@ -102,8 +102,8 @@ export class BannerDetailsComponent implements OnInit {
     if (name === 'BAILEY') {
       this.selectedVehicle = this.baileyVehicle;
     }
-    if (name === 'BAILEY RENTAL') {
-      this.selectedVehicle = this.baileyRentalVehicle;
+    if (name === 'RILEY') {
+      this.selectedVehicle = this.rileyVehicle;
     }
     this.gpsService.setTrackingVehicle(this.selectedVehicle.vehicleId);
     this.shuttleService.getDayInfo(this.date, this.selectedVehicle.vehicleId);
