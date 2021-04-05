@@ -37,5 +37,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                     : new ClassPathResource("/static/ui/index.html");
               }
             });
+
+    // akamai api gateway POC has a file in the static resources directory.
+    // it might need to be removed eventually.
+    registry
+        .addResourceHandler("/static/**/*")
+        .addResourceLocations("classpath:/static/")
+        .setCachePeriod(0);
   }
 }
