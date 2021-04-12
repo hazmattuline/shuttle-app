@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c0a04c68-06b9-4907-ae4a-9f0707bcc53e",
+		"_postman_id": "a1d24428-453f-4046-8c70-ea97a8c94250",
 		"name": "Shuttle app smoke tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "32e714aa-a349-4aa0-a44d-5c515548ad4a",
 								"exec": [
 									"//var jsonData = pm.response.json();",
 									"try{",
@@ -67,7 +66,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "d3478a61-c270-476f-878f-9f17a5bfefd6",
 								"exec": [
 									""
 								],
@@ -104,17 +102,17 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://dc2-svzsys02.ulinedm.com:11114/security-services/v2/auth",
+							"raw": "http://dc2-svzsys02.ulinedm.com:31114/security-services/v3/auth",
 							"protocol": "http",
 							"host": [
 								"dc2-svzsys02",
 								"ulinedm",
 								"com"
 							],
-							"port": "11114",
+							"port": "31114",
 							"path": [
 								"security-services",
-								"v2",
+								"v3",
 								"auth"
 							]
 						}
@@ -126,7 +124,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "141324ac-e968-4f6d-98e3-657ae555d42c",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -136,15 +133,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7dbddec6-062a-4413-ad49-75b3f4c53e1c",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "http://{{shuttle-app-uri}}/shuttle-app/info",
@@ -152,7 +147,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4d3b7997-7f94-49d7-9fe1-be65b5d7ac64",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
 							"",
@@ -187,7 +181,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1c0f0de6-a069-426b-b1cf-6ab1b9c13e8e",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
 							"",
@@ -228,7 +221,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6d620f1d-4f0e-4b7a-8f26-1596d222d6e1",
 						"exec": [
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
 							"",
@@ -272,7 +264,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "abbc462c-d219-488d-8baf-0a4d098e0623",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -282,13 +273,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "898ccbba-0908-41c2-9206-bb84393001c2",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
