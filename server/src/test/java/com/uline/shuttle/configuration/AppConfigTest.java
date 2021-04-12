@@ -10,15 +10,14 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 
 public class AppConfigTest {
 
-    @Mock
-    UlineRestTemplate restTemplate;
-    @Mock
-    UserResolver userResolver;
+  @Mock UlineRestTemplate restTemplate;
+  @Mock UserResolver userResolver;
 
-
-    @Test
-    public void testTokenInterceptor() {
-        AppConfig appConfig = new AppConfig();
-        Assert.assertNotNull(appConfig.tokenInterceptor(new UlineRestTemplate(new HttpComponentsClientHttpRequestFactory()), userResolver));
-    }
+  @Test
+  public void testTokenInterceptor() {
+    AppConfig appConfig = new AppConfig();
+    Assert.assertNotNull(
+        appConfig.tokenInterceptor(
+            new UlineRestTemplate(new HttpComponentsClientHttpRequestFactory()), userResolver));
+  }
 }
