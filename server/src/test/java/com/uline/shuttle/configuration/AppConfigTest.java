@@ -3,8 +3,8 @@ package com.uline.shuttle.configuration;
 import com.uline.ha.rest.UlineRestTemplate;
 import com.uline.security.service.UserResolver;
 import com.uline.shuttle.app.configuration.AppConfig;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 
@@ -16,7 +16,7 @@ public class AppConfigTest {
   @Test
   public void testTokenInterceptor() {
     AppConfig appConfig = new AppConfig();
-    Assert.assertNotNull(
+    Assertions.assertNotNull(
         appConfig.tokenInterceptor(
             new UlineRestTemplate(new HttpComponentsClientHttpRequestFactory()), userResolver));
   }

@@ -1,26 +1,25 @@
 package rest.models.requests;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class StagedRequest {
 
-  @ApiModelProperty(value = "Id of the data context this staged request belongs to")
+  @Schema(description = "Id of the data context this staged request belongs to")
   private String dataContextId;
 
-  @ApiModelProperty(value = "The previous state of the data being changed in the staged json")
+  @Schema(description = "The previous state of the data being changed in the staged json")
   private String originalJson;
 
-  @ApiModelProperty(value = "The service endpoint to apply the staged json with")
+  @Schema(description = "The service endpoint to apply the staged json with")
   private String returnServiceEndpoint;
 
-  @ApiModelProperty(
-      value = "The http method to use when making the http call to the service endpoint")
+  @Schema(description = "The http method to use when making the http call to the service endpoint")
   private String returnServiceMethod;
 
-  @ApiModelProperty(value = "The json to send to the service endpoint")
+  @Schema(description = "The json to send to the service endpoint")
   private String stagedJson;
 
-  @ApiModelProperty(value = "The comments submitted by the creator of this staged request")
+  @Schema(description = "The comments submitted by the creator of this staged request")
   private String stagedRequestText;
 
   public String getDataContextId() {

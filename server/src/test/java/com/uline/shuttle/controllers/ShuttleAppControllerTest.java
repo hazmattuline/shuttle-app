@@ -1,8 +1,6 @@
 package com.uline.shuttle.controllers;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,23 +8,19 @@ import com.uline.shuttle.app.controllers.ShuttleAppController;
 import com.uline.shuttle.app.services.ShuttleAppService;
 import com.uline.shuttle.app.services.StagedRequestService;
 import java.net.URI;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import rest.models.requests.DayRequest;
-import rest.models.requests.NoteRequest;
-import rest.models.requests.ShuttleRequest;
-import rest.models.requests.StagedRequest;
-import rest.models.requests.TripRequest;
+import rest.models.requests.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ShuttleAppControllerTest {
   @InjectMocks private ShuttleAppController shuttleAppController;
 
@@ -37,7 +31,7 @@ public class ShuttleAppControllerTest {
   private MockMvc mockMvc;
   private ObjectMapper objectMapper;
 
-  @Before
+  @BeforeEach
   public void setup() {
     mockMvc = MockMvcBuilders.standaloneSetup(shuttleAppController).build();
     objectMapper = new ObjectMapper();
