@@ -17,34 +17,16 @@
 	</properties>
 	
 	<dependencies>
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-webmvc-core</artifactId>
-			<version>1.2.33</version>
-		</dependency>
 
 		 <dependency>
 			<groupId>com.uline</groupId>
 			<artifactId>shuttle-client</artifactId>
 			<version>1.6.4</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
-			<version>5.7.2</version>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
 			<version>5.7.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-junit-jupiter</artifactId>
-			<version>3.11.0</version>
 			<scope>test</scope>
 		</dependency>
 

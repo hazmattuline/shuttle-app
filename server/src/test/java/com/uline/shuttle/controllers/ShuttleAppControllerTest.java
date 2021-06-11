@@ -1,6 +1,8 @@
 package com.uline.shuttle.controllers;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,7 +20,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import rest.models.requests.*;
+import rest.models.requests.DayRequest;
+import rest.models.requests.NoteRequest;
+import rest.models.requests.ShuttleRequest;
+import rest.models.requests.StagedRequest;
+import rest.models.requests.TripRequest;
 
 @ExtendWith(MockitoExtension.class)
 public class ShuttleAppControllerTest {
