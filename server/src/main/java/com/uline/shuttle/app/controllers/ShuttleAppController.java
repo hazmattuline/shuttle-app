@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.uline.common.metrics.ExecutionTime;
 import com.uline.shuttle.app.services.ShuttleAppService;
 import com.uline.shuttle.app.services.StagedRequestService;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import java.net.URI;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class ShuttleAppController {
   }
 
   @ExecutionTime("ShuttleAppController.changeStatus")
-  @ApiOperation(value = "change shuttle's status")
+  @Operation(summary = "change shuttle's status")
   @PatchMapping(value = "/shuttles/{id}/status")
   public ShuttleResponse changeStatus(
       @RequestBody ShuttleRequest shuttleRequest, @PathVariable("id") Integer id) {
@@ -52,14 +52,14 @@ public class ShuttleAppController {
   }
 
   @ExecutionTime("ShuttleAppController.enRoute")
-  @ApiOperation(value = "posting the coordinates and storing in a database")
+  @Operation(summary = "posting the coordinates and storing in a database")
   @PatchMapping(value = "/shuttles/{id}/coordinates")
   public ShuttleResponse enRoute(
       @PathVariable("id") Integer id, @RequestBody ShuttleRequest shuttleRequest) {
     return shuttleAppService.enRoute(id, shuttleRequest);
   }
 
-  @ApiOperation(value = "getting day from the database")
+  @Operation(summary = "getting day from the database")
   @GetMapping(value = "/shuttle-days")
   public List<DayResponse> getDay(
       @RequestParam(value = "date") String date,
@@ -68,14 +68,14 @@ public class ShuttleAppController {
   }
 
   @ExecutionTime("ShuttleAppController.getRoutes")
-  @ApiOperation(value = "getting the routes from the database")
+  @Operation(summary = "getting the routes from the database")
   @GetMapping(value = "/shuttle-routes")
   public List<RouteResponse> getRoutes() {
     return shuttleAppService.getRoutes();
   }
 
   @ExecutionTime("ShuttleAppController.getShuttlesStatus")
-  @ApiOperation(value = "getting the shuttles by status")
+  @Operation(summary = "getting the shuttles by status")
   @GetMapping(value = "/shuttles")
   public List<ShuttleResponse> getShuttlesStatus(
       @RequestParam(name = "status", required = false) String status) {
@@ -83,7 +83,7 @@ public class ShuttleAppController {
   }
 
   @ExecutionTime("ShuttleAppController.getTrip")
-  @ApiOperation(value = "getting the passenger amount details from the database")
+  @Operation(summary = "getting the passenger amount details from the database")
   @GetMapping(value = "/shuttle-trips")
   public TripResponse getTrip(
       @RequestParam(value = "date") String date,
@@ -92,28 +92,28 @@ public class ShuttleAppController {
   }
 
   @ExecutionTime("ShuttleAppController.postTrip")
-  @ApiOperation(value = "posting the trip details to the database")
+  @Operation(summary = "posting the trip details to the database")
   @PostMapping(value = "/shuttle-trips")
   public TripResponse postTrip(@RequestBody TripRequest shuttleDayRequest) {
     return shuttleAppService.postTrip(shuttleDayRequest);
   }
 
   @ExecutionTime("ShuttleAppController.submitDay")
-  @ApiOperation(value = "posting to the Shuttle Vehicle Day table")
+  @Operation(summary = "posting to the Shuttle Vehicle Day table")
   @PostMapping(value = "/shuttle-days")
   public DayResponse submitDay(@RequestBody DayRequest dayRequest) {
     return shuttleAppService.submitDay(dayRequest);
   }
 
   @ExecutionTime("ShuttleAppController.submitNote")
-  @ApiOperation(value = "posting note to database")
+  @Operation(summary = "posting note to database")
   @PostMapping(value = "/shuttle-notes")
   public NoteResponse submitNote(@RequestBody NoteRequest noteRequest) {
     return shuttleAppService.submitNote(noteRequest);
   }
 
   @ExecutionTime("ShuttleAppController.addDayRecord")
-  @ApiOperation(value = "sending record to CM to be staged")
+  @Operation(summary = "sending record to CM to be staged")
   @PostMapping(value = "/staged-requests/add-shuttle-days")
   public ResponseEntity<Void> addDayRecord(@RequestBody StagedRequest stagedRequest) {
 
@@ -123,7 +123,7 @@ public class ShuttleAppController {
   }
 
   @ExecutionTime("ShuttleAppController.addVehicle")
-  @ApiOperation(value = "sending record to CM to be staged")
+  @Operation(summary = "sending record to CM to be staged")
   @PostMapping(value = "/staged-requests/add-shuttle-vehicle")
   public ResponseEntity<Void> addVehicle(@RequestBody StagedRequest stagedRequest) {
 
@@ -133,7 +133,7 @@ public class ShuttleAppController {
   }
 
   @ExecutionTime("ShuttleAppController.updateDayRecord")
-  @ApiOperation(value = "sending record to CM to be staged")
+  @Operation(summary = "sending record to CM to be staged")
   @PostMapping(value = "/staged-requests/shuttle-days")
   public ResponseEntity<Void> updatedDayRecord(
       @RequestParam(value = "date") String date,
@@ -147,7 +147,7 @@ public class ShuttleAppController {
   }
 
   @ExecutionTime("ShuttleAppController.updateShuttle")
-  @ApiOperation(value = "sending shuttle change to CM to be staged")
+  @Operation(summary = "sending shuttle change to CM to be staged")
   @PostMapping(value = "/staged-requests/shuttle-vehicle/{id}")
   public ResponseEntity<Void> updateVehicle(
       @PathVariable("id") Integer id, @RequestBody StagedRequest stagedRequest)

@@ -5,15 +5,15 @@ import com.uline.shuttle.app.client.impl.ShuttleAppClientImpl;
 import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -29,7 +29,7 @@ import rest.models.response.RouteResponse;
 import rest.models.response.ShuttleResponse;
 import rest.models.response.TripResponse;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ShuttleAppClientTest {
 
   @InjectMocks ShuttleAppClientImpl shuttleAppClient;
@@ -38,7 +38,7 @@ public class ShuttleAppClientTest {
 
   ShuttleResponse shuttleResponse = new ShuttleResponse();
 
-  @Before
+  @BeforeEach
   public void setup() throws IllegalAccessException {
     FieldUtils.writeField(shuttleAppClient, "baseUrl", "http://shuttle-service", true);
     FieldUtils.writeField(
@@ -83,17 +83,17 @@ public class ShuttleAppClientTest {
 
     ShuttleResponse shuttleResponse = shuttleAppClient.changeStatus(shuttleRequest, 3);
 
-    Assert.assertNotNull(shuttleResponse);
-    Assert.assertEquals(
+    Assertions.assertNotNull(shuttleResponse);
+    Assertions.assertEquals(
         shuttleRequest.getLatitudeCoordinates(), shuttleResponse.getLatitudeCoordinates());
-    Assert.assertEquals(
+    Assertions.assertEquals(
         shuttleRequest.getLongitudeCoordinates(), shuttleResponse.getLongitudeCoordinates());
-    Assert.assertEquals(shuttleRequest.getVehicleId(), shuttleResponse.getVehicleId());
-    Assert.assertEquals(shuttleRequest.getStatus(), shuttleResponse.getStatus());
-    Assert.assertEquals("Bailey", shuttleResponse.getName());
-    Assert.assertEquals("X", shuttleResponse.getShuttleType());
-    Assert.assertEquals(Integer.valueOf(3), shuttleResponse.getPersonId());
-    Assert.assertEquals("N", shuttleResponse.getRentalIndicator());
+    Assertions.assertEquals(shuttleRequest.getVehicleId(), shuttleResponse.getVehicleId());
+    Assertions.assertEquals(shuttleRequest.getStatus(), shuttleResponse.getStatus());
+    Assertions.assertEquals("Bailey", shuttleResponse.getName());
+    Assertions.assertEquals("X", shuttleResponse.getShuttleType());
+    Assertions.assertEquals(Integer.valueOf(3), shuttleResponse.getPersonId());
+    Assertions.assertEquals("N", shuttleResponse.getRentalIndicator());
   }
 
   @Test
@@ -114,17 +114,17 @@ public class ShuttleAppClientTest {
 
     ShuttleResponse shuttleResponse = shuttleAppClient.enRoute(3, shuttleRequest);
 
-    Assert.assertNotNull(shuttleResponse);
-    Assert.assertEquals(
+    Assertions.assertNotNull(shuttleResponse);
+    Assertions.assertEquals(
         shuttleRequest.getLatitudeCoordinates(), shuttleResponse.getLatitudeCoordinates());
-    Assert.assertEquals(
+    Assertions.assertEquals(
         shuttleRequest.getLongitudeCoordinates(), shuttleResponse.getLongitudeCoordinates());
-    Assert.assertEquals(shuttleRequest.getVehicleId(), shuttleResponse.getVehicleId());
-    Assert.assertEquals(shuttleRequest.getStatus(), shuttleResponse.getStatus());
-    Assert.assertEquals("Bailey", shuttleResponse.getName());
-    Assert.assertEquals("X", shuttleResponse.getShuttleType());
-    Assert.assertEquals(Integer.valueOf(3), shuttleResponse.getPersonId());
-    Assert.assertEquals("N", shuttleResponse.getRentalIndicator());
+    Assertions.assertEquals(shuttleRequest.getVehicleId(), shuttleResponse.getVehicleId());
+    Assertions.assertEquals(shuttleRequest.getStatus(), shuttleResponse.getStatus());
+    Assertions.assertEquals("Bailey", shuttleResponse.getName());
+    Assertions.assertEquals("X", shuttleResponse.getShuttleType());
+    Assertions.assertEquals(Integer.valueOf(3), shuttleResponse.getPersonId());
+    Assertions.assertEquals("N", shuttleResponse.getRentalIndicator());
   }
 
   @Test
@@ -150,17 +150,18 @@ public class ShuttleAppClientTest {
 
     List<DayResponse> dayResponse1 = shuttleAppClient.getDay("10/10/20", 5);
 
-    Assert.assertNotNull(dayResponse1);
+    Assertions.assertNotNull(dayResponse1);
 
-    Assert.assertEquals(dayResponse1.get(0).getDate(), dayResponse.getDate());
-    Assert.assertEquals(dayResponse1.get(0).getDayId(), dayResponse.getDayId());
-    Assert.assertEquals(dayResponse1.get(0).getEndCondition(), dayResponse.getEndCondition());
-    Assert.assertEquals(dayResponse1.get(0).getEndMileage(), dayResponse.getEndMileage());
-    Assert.assertEquals(dayResponse1.get(0).getFuelCost(), dayResponse.getFuelCost());
-    Assert.assertEquals(dayResponse1.get(0).getFuelQuantity(), dayResponse.getFuelQuantity());
-    Assert.assertEquals(dayResponse1.get(0).getStartCondition(), dayResponse.getStartCondition());
-    Assert.assertEquals(dayResponse1.get(0).getStartMileage(), dayResponse.getStartMileage());
-    Assert.assertEquals(dayResponse1.get(0).getVehicleId(), dayResponse.getVehicleId());
+    Assertions.assertEquals(dayResponse1.get(0).getDate(), dayResponse.getDate());
+    Assertions.assertEquals(dayResponse1.get(0).getDayId(), dayResponse.getDayId());
+    Assertions.assertEquals(dayResponse1.get(0).getEndCondition(), dayResponse.getEndCondition());
+    Assertions.assertEquals(dayResponse1.get(0).getEndMileage(), dayResponse.getEndMileage());
+    Assertions.assertEquals(dayResponse1.get(0).getFuelCost(), dayResponse.getFuelCost());
+    Assertions.assertEquals(dayResponse1.get(0).getFuelQuantity(), dayResponse.getFuelQuantity());
+    Assertions.assertEquals(
+        dayResponse1.get(0).getStartCondition(), dayResponse.getStartCondition());
+    Assertions.assertEquals(dayResponse1.get(0).getStartMileage(), dayResponse.getStartMileage());
+    Assertions.assertEquals(dayResponse1.get(0).getVehicleId(), dayResponse.getVehicleId());
   }
 
   @Test
@@ -182,14 +183,15 @@ public class ShuttleAppClientTest {
 
     List<RouteResponse> routeResponses = shuttleAppClient.getRoutes();
 
-    Assert.assertNotNull(routeResponses);
+    Assertions.assertNotNull(routeResponses);
 
-    Assert.assertEquals(routeResponses.get(0).getFromWarehouse(), routeResponse.getFromWarehouse());
-    Assert.assertEquals(
+    Assertions.assertEquals(
+        routeResponses.get(0).getFromWarehouse(), routeResponse.getFromWarehouse());
+    Assertions.assertEquals(
         routeResponses.get(0).getFromWarehouseDoor(), routeResponse.getFromWarehouseDoor());
-    Assert.assertEquals(routeResponses.get(0).getId(), routeResponse.getId());
-    Assert.assertEquals(routeResponses.get(0).getToWarehouse(), routeResponse.getToWarehouse());
-    Assert.assertEquals(
+    Assertions.assertEquals(routeResponses.get(0).getId(), routeResponse.getId());
+    Assertions.assertEquals(routeResponses.get(0).getToWarehouse(), routeResponse.getToWarehouse());
+    Assertions.assertEquals(
         routeResponses.get(0).getToWarehouseDoor(), routeResponse.getToWarehouseDoor());
   }
 
@@ -206,18 +208,19 @@ public class ShuttleAppClientTest {
 
     List<ShuttleResponse> shuttleResponses = shuttleAppClient.getShuttlesStatus("A");
 
-    Assert.assertNotNull(shuttleResponses);
-    Assert.assertEquals(
+    Assertions.assertNotNull(shuttleResponses);
+    Assertions.assertEquals(
         shuttleResponses.get(0).getLatitudeCoordinates(), shuttleResponse.getLatitudeCoordinates());
-    Assert.assertEquals(
+    Assertions.assertEquals(
         shuttleResponses.get(0).getLongitudeCoordinates(),
         shuttleResponse.getLongitudeCoordinates());
-    Assert.assertEquals(shuttleResponses.get(0).getVehicleId(), shuttleResponse.getVehicleId());
-    Assert.assertEquals(shuttleResponses.get(0).getStatus(), shuttleResponse.getStatus());
-    Assert.assertEquals(shuttleResponses.get(0).getName(), shuttleResponse.getName());
-    Assert.assertEquals(shuttleResponses.get(0).getShuttleType(), shuttleResponse.getShuttleType());
-    Assert.assertEquals(shuttleResponses.get(0).getPersonId(), shuttleResponse.getPersonId());
-    Assert.assertEquals(
+    Assertions.assertEquals(shuttleResponses.get(0).getVehicleId(), shuttleResponse.getVehicleId());
+    Assertions.assertEquals(shuttleResponses.get(0).getStatus(), shuttleResponse.getStatus());
+    Assertions.assertEquals(shuttleResponses.get(0).getName(), shuttleResponse.getName());
+    Assertions.assertEquals(
+        shuttleResponses.get(0).getShuttleType(), shuttleResponse.getShuttleType());
+    Assertions.assertEquals(shuttleResponses.get(0).getPersonId(), shuttleResponse.getPersonId());
+    Assertions.assertEquals(
         shuttleResponses.get(0).getRentalIndicator(), shuttleResponse.getRentalIndicator());
   }
 
@@ -244,15 +247,16 @@ public class ShuttleAppClientTest {
 
     TripResponse tripResponse1 = shuttleAppClient.getTrip("10/10/20", 6);
 
-    Assert.assertNotNull(tripResponse1);
-    Assert.assertEquals(tripResponse.getActivityTimestamp(), tripResponse1.getActivityTimestamp());
-    Assert.assertEquals(tripResponse.getCurbCount(), tripResponse1.getCurbCount());
-    Assert.assertEquals(tripResponse.getDate(), tripResponse1.getDate());
-    Assert.assertEquals(tripResponse.getDayId(), tripResponse1.getDayId());
-    Assert.assertEquals(tripResponse.getId(), tripResponse1.getId());
-    Assert.assertEquals(tripResponse.getPassengerCount(), tripResponse1.getPassengerCount());
-    Assert.assertEquals(tripResponse.getRouteId(), tripResponse1.getRouteId());
-    Assert.assertEquals(tripResponse.getVehicleId(), tripResponse1.getVehicleId());
+    Assertions.assertNotNull(tripResponse1);
+    Assertions.assertEquals(
+        tripResponse.getActivityTimestamp(), tripResponse1.getActivityTimestamp());
+    Assertions.assertEquals(tripResponse.getCurbCount(), tripResponse1.getCurbCount());
+    Assertions.assertEquals(tripResponse.getDate(), tripResponse1.getDate());
+    Assertions.assertEquals(tripResponse.getDayId(), tripResponse1.getDayId());
+    Assertions.assertEquals(tripResponse.getId(), tripResponse1.getId());
+    Assertions.assertEquals(tripResponse.getPassengerCount(), tripResponse1.getPassengerCount());
+    Assertions.assertEquals(tripResponse.getRouteId(), tripResponse1.getRouteId());
+    Assertions.assertEquals(tripResponse.getVehicleId(), tripResponse1.getVehicleId());
   }
 
   @Test
@@ -286,13 +290,13 @@ public class ShuttleAppClientTest {
 
     TripResponse tripResponse1 = shuttleAppClient.postTrip(tripRequest);
 
-    Assert.assertNotNull(tripResponse1);
-    Assert.assertEquals(tripRequest.getCurbCount(), tripResponse1.getCurbCount());
-    Assert.assertEquals(tripRequest.getDate(), tripResponse1.getDate());
-    Assert.assertEquals(tripRequest.getId(), tripResponse1.getId());
-    Assert.assertEquals(tripRequest.getPassengerCount(), tripResponse1.getPassengerCount());
-    Assert.assertEquals(tripRequest.getRouteId(), tripResponse1.getRouteId());
-    Assert.assertEquals(tripRequest.getVehicleId(), tripResponse1.getVehicleId());
+    Assertions.assertNotNull(tripResponse1);
+    Assertions.assertEquals(tripRequest.getCurbCount(), tripResponse1.getCurbCount());
+    Assertions.assertEquals(tripRequest.getDate(), tripResponse1.getDate());
+    Assertions.assertEquals(tripRequest.getId(), tripResponse1.getId());
+    Assertions.assertEquals(tripRequest.getPassengerCount(), tripResponse1.getPassengerCount());
+    Assertions.assertEquals(tripRequest.getRouteId(), tripResponse1.getRouteId());
+    Assertions.assertEquals(tripRequest.getVehicleId(), tripResponse1.getVehicleId());
   }
 
   @Test
@@ -329,16 +333,17 @@ public class ShuttleAppClientTest {
 
     DayResponse dayResponse1 = shuttleAppClient.submitDay(dayRequest);
 
-    Assert.assertNotNull(dayResponse1);
-    Assert.assertEquals(dayRequest.getDate(), dayResponse1.getDate());
-    Assert.assertEquals(dayRequest.getEndCondition(), dayResponse1.getEndCondition());
-    Assert.assertEquals(Double.valueOf(dayRequest.getEndMileage()), dayResponse1.getEndMileage());
-    Assert.assertEquals(dayRequest.getFuelCost(), dayResponse1.getFuelCost());
-    Assert.assertEquals(dayRequest.getFuelQuantity(), dayResponse1.getFuelQuantity());
-    Assert.assertEquals(dayRequest.getStartCondition(), dayResponse1.getStartCondition());
-    Assert.assertEquals(dayRequest.getStartMileage(), dayResponse1.getStartMileage());
-    Assert.assertEquals(dayRequest.getVehicleId(), dayResponse1.getVehicleId());
-    Assert.assertEquals(Integer.valueOf(1), dayResponse1.getDayId());
+    Assertions.assertNotNull(dayResponse1);
+    Assertions.assertEquals(dayRequest.getDate(), dayResponse1.getDate());
+    Assertions.assertEquals(dayRequest.getEndCondition(), dayResponse1.getEndCondition());
+    Assertions.assertEquals(
+        Double.valueOf(dayRequest.getEndMileage()), dayResponse1.getEndMileage());
+    Assertions.assertEquals(dayRequest.getFuelCost(), dayResponse1.getFuelCost());
+    Assertions.assertEquals(dayRequest.getFuelQuantity(), dayResponse1.getFuelQuantity());
+    Assertions.assertEquals(dayRequest.getStartCondition(), dayResponse1.getStartCondition());
+    Assertions.assertEquals(dayRequest.getStartMileage(), dayResponse1.getStartMileage());
+    Assertions.assertEquals(dayRequest.getVehicleId(), dayResponse1.getVehicleId());
+    Assertions.assertEquals(Integer.valueOf(1), dayResponse1.getDayId());
   }
 
   @Test
@@ -367,12 +372,12 @@ public class ShuttleAppClientTest {
 
     NoteResponse noteResponse1 = shuttleAppClient.submitNote(noteRequest);
 
-    Assert.assertNotNull(noteResponse1);
-    Assert.assertEquals(noteRequest.getMessage(), noteResponse1.getMessage());
-    Assert.assertEquals(noteRequest.getDate(), noteResponse1.getDate());
-    Assert.assertEquals(noteRequest.getVehicleId(), noteResponse1.getVehicleId());
-    Assert.assertEquals(Integer.valueOf(1), noteResponse1.getDayId());
-    Assert.assertEquals(Integer.valueOf(5), noteResponse1.getId());
-    Assert.assertEquals(Integer.valueOf(1), noteResponse1.getSequenceNumber());
+    Assertions.assertNotNull(noteResponse1);
+    Assertions.assertEquals(noteRequest.getMessage(), noteResponse1.getMessage());
+    Assertions.assertEquals(noteRequest.getDate(), noteResponse1.getDate());
+    Assertions.assertEquals(noteRequest.getVehicleId(), noteResponse1.getVehicleId());
+    Assertions.assertEquals(Integer.valueOf(1), noteResponse1.getDayId());
+    Assertions.assertEquals(Integer.valueOf(5), noteResponse1.getId());
+    Assertions.assertEquals(Integer.valueOf(1), noteResponse1.getSequenceNumber());
   }
 }
