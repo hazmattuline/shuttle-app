@@ -24,7 +24,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   date: string;
   previousDriverSubscription: Subscription;
 
-  tripCache: Array<String>
+  tripCache: Array<string>
 
   routeH1ToH2: ShuttleRoute;
   routeH2ToH1: ShuttleRoute;
@@ -134,10 +134,10 @@ export class TripsComponent implements OnInit, OnDestroy {
     this.tripCache = JSON.parse(localStorage.getItem("tripCache"))
 
     if (this.tripCache == null){
-      this.tripCache= new Array<String>();
+      this.tripCache= new Array<string>();
     }
 
-    var tripInfo = {
+    let tripInfo = {
       shuttleId : this.gpsService.getShuttleId(),
       passengerNumber : this.passengerNumber,
       curbNumber : this.curbNumber,
@@ -147,12 +147,13 @@ export class TripsComponent implements OnInit, OnDestroy {
     }
 
     if (!this.isChangeLatest) {
-      this.shuttleService.createTrip(this.gpsService.getShuttleId(),
-      this.passengerNumber, this.curbNumber, routeId, this.date).subscribe
+      this.shuttleService.createTrip(tripInfo.shuttleId,
+      tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date).subscribe
 
-      ( success => { this.updateTripDisplay();  this.reset();} ,
+      ( success => { this.updateTripDisplay();  this.reset(); this.processCache();} ,
 
-          err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Store trip v2'});
+          err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Store trip'});
+          // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
           localStorage.setItem(tripInfo.time.toString(), JSON.stringify(tripInfo));
           this.tripCache.push(tripInfo.time.toString())
           localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
@@ -165,8 +166,48 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
       .subscribe
       ( success => {this.updateTripDisplay(); this.isChangeLatest = false; this.reset(); } ,
-      err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred'});})
+      err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Modify trip'});
+
+      // what if the trip worked?
+      })
     }
+}
+
+processCache(){
+  this.tripCache = JSON.parse(localStorage.getItem("tripCache"))
+
+  let conLost = false;
+
+  while (this.tripCache.length) {
+
+    let tripKey = this.tripCache.shift()
+
+    let tripInfo = JSON.parse(localStorage.getItem(tripKey));
+    // need to update with additional field once we set time on client side
+    this.shuttleService.createTrip(tripInfo.shuttleId,
+      tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date).subscribe
+
+    (success => {
+        this.updateTripDisplay();
+        this.reset();
+        localStorage.removeItem(tripKey) //remove key from local storage
+      },
+      err => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Connection Error Has Occurred - processCache'
+        });
+        conLost = true;
+        this.tripCache.push(tripKey); //need to replace if connection lost
+      }
+    )
+    if (conLost) {
+      localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
+      break;
+    }
+  }
+  localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
 }
 
 changeRoute(isH1toH2: boolean) {
