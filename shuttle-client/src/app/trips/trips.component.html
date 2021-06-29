@@ -44,12 +44,12 @@
           <button pButton type="button" label="H1" class="route" [ngClass] =  "this.isTowardsH2 ? '' : 'second-destination'" (click) = "changeRoute(true)"></button>
     </div>
     <div class="img-container center-vertically" *ngIf="!isTowardsH2" (click) = "toggleRoute()">
-        <img src="assets/point_left.png"  alt="picture">
+        <img src="assets/point_left.png"  alt="to H1">
     </div>
     <div class="img-container center-vertically" *ngIf="this.isTowardsH2" (click) = "toggleRoute()">
-        <img src="assets/point_right.png"  alt="picture" >
+        <img src="assets/point_right.png"  alt="to H2" >
     </div>
-    
+
     <div class="line center-vertically">
         <button pButton type="button" label="H2" class="route route-H2"  [ngClass] =  "this.isTowardsH2 ? 'second-destination' : ''" (click) = "changeRoute(false)"></button>
     </div>
@@ -66,7 +66,7 @@
      <div class="table-container">
         <p-table  [value]="trips" [style]="{width:'380px'}">
             <ng-template class = "top-of-table" pTemplate="header">
-                <tr class="table-padding">                   
+                <tr class="table-padding">
                     <th>Trip #</th>
                     <th>Route</th>
                     <th>Passengers</th>
@@ -83,6 +83,6 @@
             </ng-template>
         </p-table>
     </div>
-    
+
   </div>
 </div>

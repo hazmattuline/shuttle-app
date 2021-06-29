@@ -155,7 +155,7 @@ export class TripsComponent implements OnInit, OnDestroy {
 
       ( success => { this.updateTripDisplay();  this.reset(); this.processCache();} ,
 
-          err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Store trip'});
+          err => { //this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Store trip'});
           // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
           localStorage.setItem(tripInfo.time.toString(), JSON.stringify(tripInfo));
           this.tripCache.push(tripInfo.time.toString())
@@ -171,7 +171,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
       .subscribe
       ( success => {this.updateTripDisplay(); this.isChangeLatest = false; this.reset(); } ,
-      err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Modify trip'});
+      err => { //this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Modify trip'});
         //assuming if no connection last trip was cached - have to preserve timestamp
         this.lastTrip.passengerNumber = tripInfo.passengerNumber;
         this.lastTrip.curbNumber = tripInfo.curbNumber;
