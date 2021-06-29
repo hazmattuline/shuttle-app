@@ -25,6 +25,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   previousDriverSubscription: Subscription;
 
   tripCache: Array<string>
+  lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, routeId:number, date:string, time:number}
 
   routeH1ToH2: ShuttleRoute;
   routeH2ToH1: ShuttleRoute;
@@ -163,14 +164,27 @@ export class TripsComponent implements OnInit, OnDestroy {
           this.reset();
           })
 
+      this.lastTrip = tripInfo;
+
 
     } else if (this.isChangeLatest) {
       this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
       .subscribe
       ( success => {this.updateTripDisplay(); this.isChangeLatest = false; this.reset(); } ,
       err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Modify trip'});
-
-      // what if the trip regained connection during modify?
+        //assuming if no connection last trip was cached - have to preserve timestamp
+        this.lastTrip.passengerNumber = tripInfo.passengerNumber;
+        this.lastTrip.curbNumber = tripInfo.curbNumber;
+        this.lastTrip.routeId = tripInfo.routeId;
+        if (localStorage.getItem(this.lastTrip.time.toString()) != null) {
+          localStorage.setItem(this.lastTrip.time.toString(), JSON.stringify(this.lastTrip));
+        }
+        else{
+          //to handle when trip worked but modify lost connection would need separate cache list and processing method
+        }
+        this.updateTripDisplay();
+        this.isChangeLatest = false;
+        this.reset();
       })
     }
 }
