@@ -135,6 +135,7 @@ export class TripsComponent implements OnInit, OnDestroy {
 
     if (this.tripCache == null){
       this.tripCache= new Array<string>();
+      localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
     }
 
     let tripInfo = {
@@ -147,6 +148,7 @@ export class TripsComponent implements OnInit, OnDestroy {
     }
 
     if (!this.isChangeLatest) {
+      // will need to update with time field once we get the backend adjusted
       this.shuttleService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date).subscribe
 
@@ -168,7 +170,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       ( success => {this.updateTripDisplay(); this.isChangeLatest = false; this.reset(); } ,
       err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Modify trip'});
 
-      // what if the trip worked?
+      // what if the trip regained connection during modify?
       })
     }
 }
