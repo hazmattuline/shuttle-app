@@ -157,39 +157,40 @@ export class TripsComponent implements OnInit, OnDestroy {
       await this.shuttleService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date).subscribe
 
-      ( success => { this.updateTripDisplay();  this.reset(); this.processCache();} ,
+      ( success => { this.processCache();} ,
 
           err => { //this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Store trip'});
           // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
           localStorage.setItem(tripInfo.time.toString(), JSON.stringify(tripInfo));
           this.tripCache.push(tripInfo.time.toString())
           localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
-          this.updateTripDisplay();
-          this.reset();
+
           })
 
       this.lastTrip = tripInfo;
-
+      this.updateTripDisplay();
+      this.reset();
 
     } else if (this.isChangeLatest) {
-      this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
-      .subscribe
-      ( success => {this.updateTripDisplay(); this.isChangeLatest = false; this.reset(); } ,
-      err => { //this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Modify trip'});
-        //assuming if no connection last trip was cached - have to preserve timestamp
+      //check in cache first, if found update
+      if (localStorage.getItem(this.lastTrip.time.toString()) != null) {
         this.lastTrip.passengerNumber = tripInfo.passengerNumber;
         this.lastTrip.curbNumber = tripInfo.curbNumber;
         this.lastTrip.routeId = tripInfo.routeId;
-        if (localStorage.getItem(this.lastTrip.time.toString()) != null) {
-          localStorage.setItem(this.lastTrip.time.toString(), JSON.stringify(this.lastTrip));
-        }
-        else{
-          //to handle when trip worked but modify lost connection would need separate cache list and processing method
-        }
-        this.updateTripDisplay();
-        this.isChangeLatest = false;
-        this.reset();
-      })
+        localStorage.setItem(this.lastTrip.time.toString(), JSON.stringify(this.lastTrip));
+      } else {
+      // assume already exist and was sent out
+      await this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
+        .subscribe
+        (success => {
+            this.processCache();
+          },
+          err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Modification error - not in cache and no connection'});
+          })
+    }
+      this.updateTripDisplay();
+      this.isChangeLatest = false;
+      this.reset();
     }
 }
 
