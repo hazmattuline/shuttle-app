@@ -197,6 +197,11 @@ export class TripsComponent implements OnInit, OnDestroy {
 async processCache() {
   this.tripCache = JSON.parse(localStorage.getItem("tripCache"))
 
+  if (this.tripCache == null){
+    this.tripCache= new Array<string>();
+    localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
+  }
+
   if (this.tripCache.length > 0){
     this.messageService.add({
       severity: 'info',
