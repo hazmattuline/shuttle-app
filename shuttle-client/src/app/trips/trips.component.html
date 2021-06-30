@@ -36,7 +36,9 @@
     <div class="line bottom-line">
         <button pButton type="button" class="clear-button" label="CLR" (click) = "clearNumbers()"></button>
     </div>
-
+    <div class="line>">
+      <button pButton type="button" [label]="'Cache'" class = "pSelectButtonStyle format" (click) = "processCache()"></button>
+    </div>
   </div>
   <div class="column">
     <div class="first-line">
@@ -83,6 +85,5 @@
             </ng-template>
         </p-table>
     </div>
-
   </div>
 </div>

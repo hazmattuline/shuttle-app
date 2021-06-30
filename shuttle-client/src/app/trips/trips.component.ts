@@ -24,6 +24,10 @@ export class TripsComponent implements OnInit, OnDestroy {
   date: string;
   previousDriverSubscription: Subscription;
 
+  sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
+
   tripCache: Array<string>
   lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, routeId:number, date:string, time:number}
 
@@ -128,7 +132,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       return this.routeH2ToH1.id;
     }
   }
-  submitTripInfo() {
+  async submitTripInfo() {
     let routeId = this.findRoute();
     this.toggleRoute();
 
@@ -150,7 +154,7 @@ export class TripsComponent implements OnInit, OnDestroy {
 
     if (!this.isChangeLatest) {
       // will need to update with time field once we get the backend adjusted
-      this.shuttleService.createTrip(tripInfo.shuttleId,
+      await this.shuttleService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date).subscribe
 
       ( success => { this.updateTripDisplay();  this.reset(); this.processCache();} ,
@@ -189,24 +193,40 @@ export class TripsComponent implements OnInit, OnDestroy {
     }
 }
 
-processCache(){
+async processCache() {
   this.tripCache = JSON.parse(localStorage.getItem("tripCache"))
 
-  let conLost = false;
+  if (this.tripCache.length > 0){
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Attn:',
+      detail: 'Sending cached trips, please wait'
+    });
+  }
 
-  while (this.tripCache.length) {
+  let conLost = false;
+  let sentTrip = false;
+
+  while (!conLost && this.tripCache.length) {
 
     let tripKey = this.tripCache.shift()
 
     let tripInfo = JSON.parse(localStorage.getItem(tripKey));
+
+    // sending a trip while emptying the cache can break removing trip keys, this clears nulls
+    if (tripInfo == null){
+      localStorage.removeItem(tripKey);
+      continue;
+    }
     // need to update with additional field once we set time on client side
-    this.shuttleService.createTrip(tripInfo.shuttleId,
+    await this.sleep(75);
+    await this.shuttleService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date).subscribe
 
     (success => {
-        this.updateTripDisplay();
+        localStorage.removeItem(tripKey); //remove key from local storage
         this.reset();
-        localStorage.removeItem(tripKey) //remove key from local storage
+        sentTrip = true;
       },
       err => {
         this.messageService.add({
@@ -218,12 +238,19 @@ processCache(){
         this.tripCache.push(tripKey); //need to replace if connection lost
       }
     )
-    if (conLost) {
+    if (conLost){
       localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
-      break;
+      return;
     }
   }
   localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
+  if (sentTrip) {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'success',
+      detail: 'Ready for next trip'
+    });
+  }
 }
 
 changeRoute(isH1toH2: boolean) {
