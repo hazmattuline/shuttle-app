@@ -29,7 +29,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   }
 
   tripCache: Array<string>
-  lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, routeId:number, date:string, time:number}
+  lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, routeId:number, date:string, time:string}
 
   routeH1ToH2: ShuttleRoute;
   routeH2ToH1: ShuttleRoute;
@@ -149,20 +149,20 @@ export class TripsComponent implements OnInit, OnDestroy {
       curbNumber : this.curbNumber,
       routeId : routeId,
       date : this.date,
-      time : Date.now()
+      time : Date.now().toString()
     }
 
     if (!this.isChangeLatest) {
       // will need to update with time field once we get the backend adjusted
       await this.shuttleService.createTrip(tripInfo.shuttleId,
-      tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date).subscribe
+      tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.time).subscribe
 
       ( success => { this.processCache();} ,
 
           err => { //this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Store trip'});
           // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
-          localStorage.setItem(tripInfo.time.toString(), JSON.stringify(tripInfo));
-          this.tripCache.push(tripInfo.time.toString())
+          localStorage.setItem(tripInfo.time, JSON.stringify(tripInfo));
+          this.tripCache.push(tripInfo.time)
           localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
 
           })
@@ -173,11 +173,11 @@ export class TripsComponent implements OnInit, OnDestroy {
 
     } else if (this.isChangeLatest) {
       //check in cache first, if found update
-      if (localStorage.getItem(this.lastTrip.time.toString()) != null) {
+      if (localStorage.getItem(this.lastTrip.time) != null) {
         this.lastTrip.passengerNumber = tripInfo.passengerNumber;
         this.lastTrip.curbNumber = tripInfo.curbNumber;
         this.lastTrip.routeId = tripInfo.routeId;
-        localStorage.setItem(this.lastTrip.time.toString(), JSON.stringify(this.lastTrip));
+        localStorage.setItem(this.lastTrip.time, JSON.stringify(this.lastTrip));
       } else {
       // assume already exist and was sent out
       await this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
@@ -227,7 +227,7 @@ async processCache() {
     // need to update with additional field once we set time on client side
     await this.sleep(75);
     await this.shuttleService.createTrip(tripInfo.shuttleId,
-      tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date).subscribe
+      tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.time).subscribe
 
     (success => {
         localStorage.removeItem(tripKey); //remove key from local storage

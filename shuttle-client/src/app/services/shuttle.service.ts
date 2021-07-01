@@ -86,13 +86,14 @@ export class ShuttleService {
 
 
 
-  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDate: string): Observable<Trip> {
+  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDate: string, tripTime: string): Observable<Trip> {
     const trip: Trip = {
       vehicleId: tripVehicleId,
       passengerCount: tripPassengers,
       curbCount: tripCurb,
       date: tripDate,
       routeId: tripRouteId,
+      activityTimestamp: tripTime
     };
     return this.shuttleApi.submitTrip(trip);
   }
