@@ -221,18 +221,13 @@ async processCache() {
   let conLost = false;
   let sentTrip = false;
 
-  while (!conLost && this.tripCache.length) {
+  while (!conLost && this.tripCache.length > 0 ) {
 
-    let tripKey = this.tripCache.shift()
+    let tripKey = this.tripCache.shift();
+    this.tripCache.unshift(tripKey);
 
     let tripInfo = JSON.parse(localStorage.getItem(tripKey));
 
-    // sending a trip while emptying the cache can break removing trip keys, this clears nulls
-    if (tripInfo == null){
-      localStorage.removeItem(tripKey);
-      continue;
-    }
-    // need to update with additional field once we set time on client side
     await this.sleep(75);
     await this.shuttleService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.time).subscribe
@@ -241,15 +236,15 @@ async processCache() {
         localStorage.removeItem(tripKey); //remove key from local storage
         this.reset();
         sentTrip = true;
+        this.tripCache.shift();
       },
       err => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Connection Error Has Occurred - processCache'
+          detail: 'Connection Error Has Occurred - cannot sync'
         });
         conLost = true;
-        this.tripCache.push(tripKey); //need to replace if connection lost
       }
     )
     if (conLost){
