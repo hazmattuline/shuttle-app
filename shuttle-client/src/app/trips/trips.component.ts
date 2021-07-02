@@ -30,6 +30,7 @@ export class TripsComponent implements OnInit, OnDestroy {
 
   tripCache: Array<string>
   lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, routeId:number, date:string, time:string}
+  isCaching = false;
 
   routeH1ToH2: ShuttleRoute;
   routeH2ToH1: ShuttleRoute;
@@ -195,6 +196,13 @@ export class TripsComponent implements OnInit, OnDestroy {
 }
 
 async processCache() {
+
+  if (this.isCaching){
+    return;
+  }
+
+  this.isCaching = true; //used to prevent multiple of these from running at once.
+
   this.tripCache = JSON.parse(localStorage.getItem("tripCache"))
 
   if (this.tripCache == null){
@@ -246,6 +254,7 @@ async processCache() {
     )
     if (conLost){
       localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
+      this.isCaching = false;
       return;
     }
   }
@@ -257,6 +266,7 @@ async processCache() {
       detail: 'Ready for next trip'
     });
   }
+  this.isCaching = false;
 }
 
 changeRoute(isH1toH2: boolean) {
