@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://localhost:9087/shuttle-app/api'
+    apiUrl: 'http://localhost:9081/shuttle-app/api'
 }
