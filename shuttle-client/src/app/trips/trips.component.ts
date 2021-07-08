@@ -222,18 +222,17 @@ async processCache() {
 
   while (!conLost && this.tripCache.length) {
 
-
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Attn:',
-      detail: `TripCache is ${this.tripCache}, conlost : ${conLost}`
-    });
-
     let tripKey = this.tripCache.shift();
     this.tripCache.unshift(tripKey);
 
     let tripInfo = JSON.parse(localStorage.getItem(tripKey));
 
+    //Submitting trips while processing cache can cause nulls, this recovers
+    if (tripInfo == null){
+      this.tripCache.shift()
+      await this.sleep(75);
+      continue;
+    }
 
     this.shuttleService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
