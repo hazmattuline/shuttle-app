@@ -154,11 +154,10 @@ export class TripsComponent implements OnInit, OnDestroy {
     }
 
     if (!this.isChangeLatest) {
-      // will need to update with time field once we get the backend adjusted
       this.shuttleService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
 
-      ( success => { this.processCache();} ,
+      ( success => { if (!this.isCaching) { this.processCache();}} ,
 
           err => { //this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Store trip'});
           // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
@@ -173,18 +172,16 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.reset();
 
     } else if (this.isChangeLatest) {
-      //check in cache first, if found update
       if (localStorage.getItem(this.lastTrip.activityTimestamp) != null) {
         this.lastTrip.passengerNumber = tripInfo.passengerNumber;
         this.lastTrip.curbNumber = tripInfo.curbNumber;
         this.lastTrip.routeId = tripInfo.routeId;
         localStorage.setItem(this.lastTrip.activityTimestamp, JSON.stringify(this.lastTrip));
       } else {
-      // assume already exist and was sent out
        this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
         .subscribe
         (success => {
-            this.processCache();
+            if (!this.isCaching) { this.processCache();}
           },
           err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Modification error - not in cache and no connection'});
           })
@@ -201,6 +198,8 @@ async processCache() {
     return;
   }
 
+
+
   this.isCaching = true; //used to prevent multiple of these from running at once.
 
   this.tripCache = JSON.parse(localStorage.getItem("tripCache"))
@@ -210,7 +209,7 @@ async processCache() {
     localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
   }
 
-  if (this.tripCache.length > 0){
+  if (this.tripCache.length){
     this.messageService.add({
       severity: 'info',
       summary: 'Attn:',
@@ -221,14 +220,21 @@ async processCache() {
   let conLost = false;
   let sentTrip = false;
 
-  while (!conLost && this.tripCache.length > 0 ) {
+  while (!conLost && this.tripCache.length) {
+
+
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Attn:',
+      detail: `TripCache is ${this.tripCache}, conlost : ${conLost}`
+    });
 
     let tripKey = this.tripCache.shift();
     this.tripCache.unshift(tripKey);
 
     let tripInfo = JSON.parse(localStorage.getItem(tripKey));
 
-    await this.sleep(75);
+
     this.shuttleService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
 
@@ -242,7 +248,7 @@ async processCache() {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Connection Error Has Occurred - cannot sync'
+          detail: `Connection Error Has Occurred - cannot sync`
         });
         conLost = true;
       }
@@ -250,8 +256,9 @@ async processCache() {
     if (conLost){
       localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
       this.isCaching = false;
-      return;
+      break;
     }
+    await this.sleep(75);
   }
   localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
   if (sentTrip) {

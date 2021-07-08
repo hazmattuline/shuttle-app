@@ -7,6 +7,7 @@ public class TripRequest {
   private Integer vehicleId;
   private Integer id;
   private Integer routeId;
+  private String activityTimestamp;
 
   public Integer getCurbCount() {
     return curbCount;
@@ -32,6 +33,10 @@ public class TripRequest {
     return vehicleId;
   }
 
+  public String getActivityTimestamp() {
+    return activityTimestamp;
+  }
+
   public void setCurbCount(Integer curbCount) {
     this.curbCount = curbCount;
   }
@@ -54,5 +59,9 @@ public class TripRequest {
 
   public void setVehicleId(Integer vehicleId) {
     this.vehicleId = vehicleId;
+  }
+
+  public void setActivityTimestamp(String activityTimestamp) {
+    this.activityTimestamp = activityTimestamp;
   }
 }
