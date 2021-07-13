@@ -215,6 +215,12 @@ async processCache() {
       summary: 'Attn:',
       detail: 'Sending cached trips, please wait'
     });
+  } else {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Attn:',
+      detail: 'No trips to sync'
+    });
   }
 
   let conLost = false;
@@ -230,7 +236,7 @@ async processCache() {
     //Submitting trips while processing cache can cause nulls, this recovers
     if (tripInfo == null){
       this.tripCache.shift()
-      await this.sleep(75);
+      await this.sleep(100);
       continue;
     }
 
@@ -247,7 +253,7 @@ async processCache() {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: `Connection Error Has Occurred - cannot sync`
+          detail: `Connection Error Has Occurred`
         });
         conLost = true;
       }
@@ -260,7 +266,7 @@ async processCache() {
     await this.sleep(75);
   }
   localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
-  if (sentTrip) {
+  if (sentTrip && !conLost) {
     this.messageService.add({
       severity: 'success',
       summary: 'success',
