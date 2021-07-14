@@ -159,7 +159,7 @@ export class TripsComponent implements OnInit, OnDestroy {
 
       ( success => { if (!this.isCaching) { this.processCache();}} ,
 
-          err => { //this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred - Store trip'});
+          err => { this.messageService.add({severity: 'info', summary: 'Attn:', detail: 'No connection - Trip saved.'});
           // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
           localStorage.setItem(tripInfo.activityTimestamp, JSON.stringify(tripInfo));
           this.tripCache.push(tripInfo.activityTimestamp)
@@ -197,8 +197,6 @@ async processCache() {
   if (this.isCaching){
     return;
   }
-
-
 
   this.isCaching = true; //used to prevent multiple of these from running at once.
 
