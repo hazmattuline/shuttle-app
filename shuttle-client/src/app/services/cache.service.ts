@@ -3,7 +3,9 @@ import { MessageService} from "primeng/api";
 import {ShuttleService} from "./shuttle.service";
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CacheService implements OnInit {
     ngOnInit(): void {
         this.initializeTripCache();
