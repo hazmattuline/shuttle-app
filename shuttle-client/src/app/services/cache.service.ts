@@ -63,7 +63,7 @@ export class CacheService implements OnInit {
         await this.sleep(100);
         continue;
       }
-      if (tripInfo.isUpdate){
+      if (!tripInfo.isUpdate){
         this.shuttleService.createTrip(tripInfo.shuttleId,
           tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
 
