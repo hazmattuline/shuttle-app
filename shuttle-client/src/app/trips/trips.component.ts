@@ -21,7 +21,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   isCurb = false;
   trips: TripDisplay[] = [];
   isChangeLatest = false;
-  loadedRowId = -1;
+  loadedRowId: number;
   date: string;
   previousDriverSubscription: Subscription;
 
@@ -134,6 +134,10 @@ export class TripsComponent implements OnInit, OnDestroy {
   async submitTripInfo() {
     let routeId = this.findRoute();
     this.toggleRoute();
+
+    if (this.loadedRowId == null){
+      this.loadedRowId = -1;
+    }
 
     let tripInfo = {
       shuttleId : this.gpsService.getShuttleId(),
