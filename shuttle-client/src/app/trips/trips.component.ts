@@ -139,7 +139,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.loadedRowId = -1;
     }
 
-    let tripInfo = {
+    let tripInfo = { //pulls together all data needed for caching both trips and updates
       shuttleId : this.gpsService.getShuttleId(),
       passengerNumber : this.passengerNumber,
       curbNumber : this.curbNumber,
@@ -152,7 +152,7 @@ export class TripsComponent implements OnInit, OnDestroy {
 
     this.tripCache = this.cacheService.getCache(this.tripCacheKey)
 
-    if (!this.isChangeLatest) {
+    if (!this.isChangeLatest) { //new trip
       this.shuttleService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
 
@@ -169,9 +169,9 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.updateTripDisplay();
       this.reset();
 
-    } else if (this.isChangeLatest) {
+    } else if (this.isChangeLatest) { //update trip
       tripInfo.isUpdate = true;
-      if (this.cacheService.getCache(this.lastTrip.activityTimestamp) != null) {
+      if (this.lastTrip != null && this.cacheService.getCache(this.lastTrip.activityTimestamp) != null) { //checking for cached trip
         this.lastTrip.passengerNumber = tripInfo.passengerNumber;
         this.lastTrip.curbNumber = tripInfo.curbNumber;
         this.lastTrip.routeId = tripInfo.routeId;
@@ -183,7 +183,7 @@ export class TripsComponent implements OnInit, OnDestroy {
             if (!this.cacheService.nowCaching()) { this.processCache();}
           },
           err => { this.messageService.add({severity: 'info', summary: 'Attn:', detail: 'No connection - Update saved.'});
-            // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
+            // stores update in local storage, adds to trip cache list, and then maintains that in local storage
             this.cacheService.putCache(tripInfo.loadedRowId, tripInfo);
             this.tripCache.push(tripInfo.loadedRowId);
             this.cacheService.putCache(this.tripCacheKey, this.tripCache);
