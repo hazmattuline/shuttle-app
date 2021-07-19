@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
 import { GPSService } from '../services/gps.service';
 import { Subscription } from 'rxjs';
+import {CacheService} from "../services/cache.service";
 
 @Component({
   selector: 'app-startshift',
@@ -22,7 +23,7 @@ export class StartshiftComponent implements OnInit, OnDestroy {
   beginningOfDayForm: FormGroup;
   conditionSubscription: Subscription;
 
-  constructor(private fb: FormBuilder, private messageService: MessageService, private gpsService: GPSService, public shuttleService: ShuttleService) {
+  constructor(private fb: FormBuilder, private messageService: MessageService, private gpsService: GPSService, public shuttleService: ShuttleService, private cacheService: CacheService) {
 
     this.conditions = [
       {label: 'Good', value: 'GOOD'},
@@ -58,14 +59,15 @@ submitStartData() {
     this.messageService.add({ severity: 'error', summary: 'There are errors with the form, please review', detail: 'Too many digits, Try again' });
   } else {
   this.vehicleId = this.gpsService.getShuttleId();
-  this.shuttleService.createStartInfo(this.vehicleId, this.beginningOfDayForm.get('mileage').value, 
-  this.beginningOfDayForm.get('condition').value, this.date, this.beginningOfDayForm.get('comments').value, 
+  this.shuttleService.createStartInfo(this.vehicleId, this.beginningOfDayForm.get('mileage').value,
+  this.beginningOfDayForm.get('condition').value, this.date, this.beginningOfDayForm.get('comments').value,
   this.beginningOfDayForm.get('comments').disabled)
   .subscribe(comment => {
     if (!this.beginningOfDayForm.get('comments').disabled) {
       this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.beginningOfDayForm.get('comments').value);
     }
     this.messageService.add({severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
+    this.cacheService.processCache();
 
   } , err => {this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred'});
 } );

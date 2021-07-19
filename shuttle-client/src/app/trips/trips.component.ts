@@ -5,6 +5,7 @@ import { ShuttleApiService } from '../services/shuttle-api.service';
 import { ShuttleRoute } from '../models/shuttle-route.model';
 import { MessageService} from 'primeng/api';
 import { Subscription } from 'rxjs';
+import {CacheService} from "../services/cache.service";
 
 @Component({
   selector: 'app-trips',
@@ -24,19 +25,16 @@ export class TripsComponent implements OnInit, OnDestroy {
   date: string;
   previousDriverSubscription: Subscription;
 
-  sleep = (milliseconds) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds))
-  }
+  tripCacheKey = this.cacheService.getTripCacheKey();
+  tripCache = this.cacheService.getCache(this.tripCacheKey);
 
-  tripCache: Array<string>
   lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, routeId:number, date:string, activityTimestamp:string}
-  isCaching = false;
 
   routeH1ToH2: ShuttleRoute;
   routeH2ToH1: ShuttleRoute;
   isTowardsH2 = true;
 
-  constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService) { }
+  constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService, private cacheService: CacheService) { }
 
   getDate() {
     this.date = this.shuttleService.getDate();
@@ -137,34 +135,30 @@ export class TripsComponent implements OnInit, OnDestroy {
     let routeId = this.findRoute();
     this.toggleRoute();
 
-    this.tripCache = JSON.parse(localStorage.getItem("tripCache"))
-
-    if (this.tripCache == null){
-      this.tripCache= new Array<string>();
-      localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
-    }
-
     let tripInfo = {
       shuttleId : this.gpsService.getShuttleId(),
       passengerNumber : this.passengerNumber,
       curbNumber : this.curbNumber,
       routeId : routeId,
       date : this.date,
-      activityTimestamp : Date.now().toString()
+      activityTimestamp : Date.now().toString(),
+      isUpdate : false,
+      loadedRowId : this.loadedRowId.toString()
     }
+
+    this.tripCache = this.cacheService.getCache(this.tripCacheKey)
 
     if (!this.isChangeLatest) {
       this.shuttleService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
 
-      ( success => { if (!this.isCaching) { this.processCache();}} ,
+      ( success => { if (!this.cacheService.nowCaching()) { this.processCache();}} ,
 
           err => { this.messageService.add({severity: 'info', summary: 'Attn:', detail: 'No connection - Trip saved.'});
           // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
-          localStorage.setItem(tripInfo.activityTimestamp, JSON.stringify(tripInfo));
-          this.tripCache.push(tripInfo.activityTimestamp)
-          localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
-
+          this.cacheService.putCache(tripInfo.activityTimestamp, tripInfo);
+          this.tripCache.push(tripInfo.activityTimestamp);
+          this.cacheService.putCache(this.tripCacheKey, this.tripCache);
           })
 
       this.lastTrip = tripInfo;
@@ -172,18 +166,23 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.reset();
 
     } else if (this.isChangeLatest) {
-      if (localStorage.getItem(this.lastTrip.activityTimestamp) != null) {
+      tripInfo.isUpdate = true;
+      if (this.cacheService.getCache(this.lastTrip.activityTimestamp) != null) {
         this.lastTrip.passengerNumber = tripInfo.passengerNumber;
         this.lastTrip.curbNumber = tripInfo.curbNumber;
         this.lastTrip.routeId = tripInfo.routeId;
-        localStorage.setItem(this.lastTrip.activityTimestamp, JSON.stringify(this.lastTrip));
+        this.cacheService.putCache(this.lastTrip.activityTimestamp, this.lastTrip);
       } else {
        this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
         .subscribe
         (success => {
-            if (!this.isCaching) { this.processCache();}
+            if (!this.cacheService.nowCaching()) { this.processCache();}
           },
-          err => { this.messageService.add({severity: 'error', summary: 'Error', detail: 'Modification error - not in cache and no connection'});
+          err => { this.messageService.add({severity: 'info', summary: 'Attn:', detail: 'No connection - Update saved.'});
+            // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
+            this.cacheService.putCache(tripInfo.loadedRowId, tripInfo);
+            this.tripCache.push(tripInfo.loadedRowId);
+            this.cacheService.putCache(this.tripCacheKey, this.tripCache);
           })
     }
       this.updateTripDisplay();
@@ -193,85 +192,7 @@ export class TripsComponent implements OnInit, OnDestroy {
 }
 
 async processCache() {
-
-  if (this.isCaching){
-    return;
-  }
-
-  this.isCaching = true; //used to prevent multiple of these from running at once.
-
-  this.tripCache = JSON.parse(localStorage.getItem("tripCache"))
-
-  if (this.tripCache == null){
-    this.tripCache= new Array<string>();
-    localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
-  }
-
-  if (this.tripCache.length){
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Attn:',
-      detail: 'Sending cached trips, please wait'
-    });
-  } else {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Attn:',
-      detail: 'No trips to sync'
-    });
-  }
-
-  let conLost = false;
-  let sentTrip = false;
-
-  while (!conLost && this.tripCache.length) {
-
-    let tripKey = this.tripCache.shift();
-    this.tripCache.unshift(tripKey);
-
-    let tripInfo = JSON.parse(localStorage.getItem(tripKey));
-
-    //Submitting trips while processing cache can cause nulls, this recovers
-    if (tripInfo == null){
-      this.tripCache.shift()
-      await this.sleep(100);
-      continue;
-    }
-
-    this.shuttleService.createTrip(tripInfo.shuttleId,
-      tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
-
-    (success => {
-        localStorage.removeItem(tripKey); //remove key from local storage
-        this.reset();
-        sentTrip = true;
-        this.tripCache.shift();
-      },
-      err => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: `Connection Error Has Occurred`
-        });
-        conLost = true;
-      }
-    )
-    if (conLost){
-      localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
-      this.isCaching = false;
-      break;
-    }
-    await this.sleep(75);
-  }
-  localStorage.setItem("tripCache", JSON.stringify(this.tripCache))
-  if (sentTrip && !conLost) {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'success',
-      detail: 'Ready for next trip'
-    });
-  }
-  this.isCaching = false;
+  await this.cacheService.processCache()
 }
 
 changeRoute(isH1toH2: boolean) {

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
 import { GPSService } from '../services/gps.service';
 import { Subscription } from 'rxjs';
+import {CacheService} from "../services/cache.service";
 
 
 @Component({
@@ -23,7 +24,8 @@ export class EndshiftComponent implements OnInit, OnDestroy {
   conditionSubscription: Subscription;
 
   constructor(private fb: FormBuilder, public shuttleService: ShuttleService,
-              private gpsService: GPSService, private messageService: MessageService) {
+              private gpsService: GPSService, private messageService: MessageService,
+              private cacheService: CacheService) {
 
       this.conditions = [
         {label: 'Good', value: 'GOOD'},
@@ -74,6 +76,7 @@ ngOnInit() {
             this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.endOfDayForm.get('comments').value);
           }
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully' });
+          this.cacheService.processCache();
         }, () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred' }));
     }
     if(this.shuttleService.isShuttleActive) {
