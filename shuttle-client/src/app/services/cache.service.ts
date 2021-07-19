@@ -29,6 +29,8 @@ export class CacheService implements OnInit {
 
     this.isCaching = true; //used to prevent multiple of these from running at once.
 
+    this.initializeTripCache();
+
     this.tripCache = this.getCache(this.tripCacheKey);
 
     if (this.tripCache.length) {

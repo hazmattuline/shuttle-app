@@ -21,7 +21,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   isCurb = false;
   trips: TripDisplay[] = [];
   isChangeLatest = false;
-  loadedRowId: number;
+  loadedRowId = -1;
   date: string;
   previousDriverSubscription: Subscription;
 
