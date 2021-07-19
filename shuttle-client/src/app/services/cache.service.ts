@@ -1,7 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
-import { MessageService} from "primeng/api";
+import {MessageService} from "primeng/api";
 import {ShuttleService} from "./shuttle.service";
-
 
 @Injectable({
   providedIn: 'root'

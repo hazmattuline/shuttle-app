@@ -5,7 +5,7 @@ import { ShuttleApiService } from '../services/shuttle-api.service';
 import { ShuttleRoute } from '../models/shuttle-route.model';
 import { MessageService} from 'primeng/api';
 import { Subscription } from 'rxjs';
-import {CacheService} from "../services/cache.service";
+import { CacheService } from "../services/cache.service";
 
 @Component({
   selector: 'app-trips',
