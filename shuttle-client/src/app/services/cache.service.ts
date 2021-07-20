@@ -39,7 +39,7 @@ export class CacheService implements OnInit {
         summary: 'Attn:',
         detail: 'Sending cached trips, please wait'
       });
-    } else if (!verbose) {
+    } else if (verbose) {
       this.messageService.add({
         severity: 'success',
         summary: 'Attn:',
