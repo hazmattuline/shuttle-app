@@ -25,7 +25,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   date: string;
   previousDriverSubscription: Subscription;
 
-  lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, routeId:number, date:string, activityTimestamp:string, isUpdate:boolean,loadedRowId:string}
+  lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, routeId:number, date:string, activityTimestamp:string}
 
   routeH1ToH2: ShuttleRoute;
   routeH2ToH1: ShuttleRoute;
@@ -159,7 +159,7 @@ export class TripsComponent implements OnInit, OnDestroy {
         this.lastTrip.routeId = tripInfo.routeId;
         this.cacheService.putCache(this.lastTrip.activityTimestamp, this.lastTrip);
       } else {
-       this.shuttleService.modifyTrip(Number(this.lastTrip.loadedRowId), this.passengerNumber, this.curbNumber, routeId)
+       this.shuttleService.modifyTrip(Number(this.loadedRowId), this.passengerNumber, this.curbNumber, routeId)
         .subscribe
         (success => {
             if (!this.cacheService.nowCaching()) { this.processCache();}
