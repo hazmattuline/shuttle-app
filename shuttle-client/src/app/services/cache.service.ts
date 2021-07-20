@@ -14,14 +14,14 @@ export class CacheService implements OnInit {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
   }
 
-  tripCache: Array<string>
+  //tripCache: Array<string>
   tripCacheKey = "tripCache";
   isCaching = false;
 
   constructor(private messageService: MessageService, private shuttleService: ShuttleService) {
   }
 
-  async processCache() {
+  async processCache(verbose=false) {
 
     if (this.isCaching) {
       return;
@@ -31,15 +31,15 @@ export class CacheService implements OnInit {
 
     this.initializeTripCache();
 
-    this.tripCache = this.getCache(this.tripCacheKey);
+    let tripCache = this.getCache(this.tripCacheKey);
 
-    if (this.tripCache.length) {
+    if (tripCache.length) {
       this.messageService.add({
         severity: 'info',
         summary: 'Attn:',
         detail: 'Sending cached trips, please wait'
       });
-    } else {
+    } else if (!verbose) {
       this.messageService.add({
         severity: 'success',
         summary: 'Attn:',
@@ -50,16 +50,16 @@ export class CacheService implements OnInit {
     let conLost = false;
     let sentTrip = false;
 
-    while (!conLost && this.tripCache.length) {
+    while (!conLost && tripCache.length) {
 
-      let tripKey = this.tripCache.shift();
-      this.tripCache.unshift(tripKey);
+      let tripKey = tripCache.shift();
+      tripCache.unshift(tripKey);
 
       let tripInfo = this.getCache(tripKey);
 
       //Submitting trips while processing cache can cause nulls, this recovers
       if (tripInfo == null) {
-        this.tripCache.shift()
+        tripCache.shift()
         await this.sleep(100);
         continue;
       }
@@ -67,9 +67,7 @@ export class CacheService implements OnInit {
         this.shuttleService.createTrip(tripInfo.shuttleId,
           tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
 
-        (success => {
-            this.tripWorked(tripKey); //remove key from local storage only on success
-            sentTrip = true;
+        (success => { // no action needed
           },
           err => {
             this.messageService.add({
@@ -83,9 +81,7 @@ export class CacheService implements OnInit {
       } else {
         this.shuttleService.modifyTrip(tripInfo.loadedRowId, tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId)
           .subscribe
-          (success => {
-              this.tripWorked(tripKey); //remove key from local storage only on success
-              sentTrip = true;
+          (success => { // no action needed
             },
             err => { this.messageService.add({
               severity: 'error',
@@ -96,13 +92,14 @@ export class CacheService implements OnInit {
             })
       }
       if (conLost) {
-        this.putCache(this.tripCacheKey, this.tripCache);
-        this.isCaching = false;
         break;
       }
+      this.removeCache(tripKey);
+      tripCache.shift();
+      sentTrip = true;
       await this.sleep(100);
     }
-    this.putCache(this.tripCacheKey, this.tripCache);
+    this.putCache(this.tripCacheKey, tripCache);
     if (sentTrip && !conLost) {
       this.messageService.add({
         severity: 'success',
@@ -113,9 +110,11 @@ export class CacheService implements OnInit {
     this.isCaching = false;
   }
 
-  private tripWorked(key){
-    this.removeCache(key); //remove key from local storage only on success
-    this.tripCache.shift();
+  saveToTripCache(key, value){
+    let tripCache = this.getCache(this.tripCacheKey)
+    this.putCache(key, value);
+    tripCache.push(key)
+    this.putCache(this.tripCacheKey, tripCache);
   }
 
   putCache(key: string, value: any): void {
@@ -139,11 +138,10 @@ export class CacheService implements OnInit {
   }
 
   initializeTripCache(): void{
-    this.tripCache = this.getCache(this.tripCacheKey);
-
-    if (this.tripCache == null){
-      this.tripCache= new Array<string>();
-      this.putCache(this.tripCacheKey, this.tripCache);
+    let tripCache = this.getCache(this.tripCacheKey);
+    if (tripCache == null){
+      tripCache= new Array<string>();
+      this.putCache(this.tripCacheKey, tripCache);
     }
   }
 }

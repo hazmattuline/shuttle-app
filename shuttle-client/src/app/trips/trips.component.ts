@@ -3,7 +3,7 @@ import { GPSService } from '../services/gps.service';
 import { ShuttleService } from '../services/shuttle.service';
 import { ShuttleApiService } from '../services/shuttle-api.service';
 import { ShuttleRoute } from '../models/shuttle-route.model';
-import { MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { CacheService } from "../services/cache.service";
 
@@ -24,9 +24,6 @@ export class TripsComponent implements OnInit, OnDestroy {
   loadedRowId: number;
   date: string;
   previousDriverSubscription: Subscription;
-
-  tripCacheKey = this.cacheService.getTripCacheKey();
-  tripCache = this.cacheService.getCache(this.tripCacheKey);
 
   lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, routeId:number, date:string, activityTimestamp:string}
 
@@ -139,18 +136,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.loadedRowId = -1;
     }
 
-    let tripInfo = { //pulls together all data needed for caching both trips and updates
-      shuttleId : this.gpsService.getShuttleId(),
-      passengerNumber : this.passengerNumber,
-      curbNumber : this.curbNumber,
-      routeId : routeId,
-      date : this.date,
-      activityTimestamp : Date.now().toString(),
-      isUpdate : false,
-      loadedRowId : this.loadedRowId.toString()
-    }
-
-    this.tripCache = this.cacheService.getCache(this.tripCacheKey)
+    let tripInfo = this.getTripInfo(routeId)
 
     if (!this.isChangeLatest) { //new trip
       this.shuttleService.createTrip(tripInfo.shuttleId,
@@ -160,14 +146,10 @@ export class TripsComponent implements OnInit, OnDestroy {
 
           err => { this.messageService.add({severity: 'info', summary: 'Attn:', detail: 'No connection - Trip saved.'});
           // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
-          this.cacheService.putCache(tripInfo.activityTimestamp, tripInfo);
-          this.tripCache.push(tripInfo.activityTimestamp);
-          this.cacheService.putCache(this.tripCacheKey, this.tripCache);
+          this.cacheService.saveToTripCache(tripInfo.activityTimestamp, tripInfo);
           })
 
       this.lastTrip = tripInfo;
-      this.updateTripDisplay();
-      this.reset();
 
     } else if (this.isChangeLatest) { //update trip
       tripInfo.isUpdate = true;
@@ -184,70 +166,81 @@ export class TripsComponent implements OnInit, OnDestroy {
           },
           err => { this.messageService.add({severity: 'info', summary: 'Attn:', detail: 'No connection - Update saved.'});
             // stores update in local storage, adds to trip cache list, and then maintains that in local storage
-            this.cacheService.putCache(tripInfo.loadedRowId, tripInfo);
-            this.tripCache.push(tripInfo.loadedRowId);
-            this.cacheService.putCache(this.tripCacheKey, this.tripCache);
+            this.cacheService.saveToTripCache(tripInfo.loadedRowId, tripInfo);
           })
     }
-      this.updateTripDisplay();
       this.isChangeLatest = false;
-      this.reset();
     }
-}
-
-async processCache() {
-  await this.cacheService.processCache()
-}
-
-changeRoute(isH1toH2: boolean) {
-  if (isH1toH2) {
-    this.route = 'H1 > H2';
-    this.isTowardsH2 = true;
-  } else {
-    this.route = 'H1 < H2';
-    this.isTowardsH2 = false;
+    this.updateTripDisplay();
+    this.reset();
   }
-}
 
-toggleRoute() {
-  if (!this.isTowardsH2) {
-    this.route = 'H1 < H2';
-    this.isTowardsH2 = true;
-  } else {
-    this.route = 'H1 > H2';
-    this.isTowardsH2 = false;
+  getTripInfo(routeId){
+    return { //pulls together all data needed for caching both trips and updates
+      shuttleId : this.gpsService.getShuttleId(),
+      passengerNumber : this.passengerNumber,
+      curbNumber : this.curbNumber,
+      routeId : routeId,
+      date : this.date,
+      activityTimestamp : Date.now().toString(),
+      isUpdate : false,
+      loadedRowId : this.loadedRowId.toString()
+    }
   }
-}
 
-reloadRow() {
-  this.shuttleApiService.getTrip(this.date, this.gpsService.getShuttleId()).subscribe(loadedTrip => {
-    this.curbNumber = loadedTrip.curbCount;
-    this.passengerNumber = loadedTrip.passengerCount;
-    this.isCurb = false;
-    this.loadedRowId = loadedTrip.id;
-    if (loadedTrip.routeId === this.routeH1ToH2.id) {
-      this.changeRoute(true);
+  async processCache(verbose=false) {
+    await this.cacheService.processCache(verbose)
+  }
+
+  changeRoute(isH1toH2: boolean) {
+    if (isH1toH2) {
+      this.route = 'H1 > H2';
+      this.isTowardsH2 = true;
     } else {
-      this.changeRoute(false);
+      this.route = 'H1 < H2';
+      this.isTowardsH2 = false;
     }
-  });
-
-}
-
-loadRow() {
-  if (!this.isChangeLatest) {
-    this.isChangeLatest = true;
-    this.reloadRow();
-    this.toggleRoute();
-    this.tripNumber = this.previousTripNumber;
   }
-}
 
-public ngOnDestroy(): void {
-  if (this.previousDriverSubscription) {
-    this.previousDriverSubscription.unsubscribe();
+  toggleRoute() {
+    if (!this.isTowardsH2) {
+      this.route = 'H1 < H2';
+      this.isTowardsH2 = true;
+    } else {
+      this.route = 'H1 > H2';
+      this.isTowardsH2 = false;
+    }
   }
- }
+
+  reloadRow() {
+    this.shuttleApiService.getTrip(this.date, this.gpsService.getShuttleId()).subscribe(loadedTrip => {
+      this.curbNumber = loadedTrip.curbCount;
+      this.passengerNumber = loadedTrip.passengerCount;
+      this.isCurb = false;
+      this.loadedRowId = loadedTrip.id;
+      if (loadedTrip.routeId === this.routeH1ToH2.id) {
+        this.changeRoute(true);
+      } else {
+        this.changeRoute(false);
+      }
+    });
+
+  }
+
+  loadRow() {
+    if (!this.isChangeLatest) {
+      this.isChangeLatest = true;
+      this.reloadRow();
+      this.toggleRoute();
+      this.tripNumber = this.previousTripNumber;
+    }
+  }
+
+  public ngOnDestroy(): void {
+    if (this.previousDriverSubscription) {
+      this.previousDriverSubscription.unsubscribe();
+    }
+  }
 
 }
 
