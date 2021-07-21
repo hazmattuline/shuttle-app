@@ -92,12 +92,13 @@ export class CacheService implements OnInit {
             })
       }
       if (conLost) {
-        break;
+        return;
+      } else {
+        this.removeCache(tripKey);
+        tripCache.shift();
+        sentTrip = true;
+        await this.sleep(100);
       }
-      this.removeCache(tripKey);
-      tripCache.shift();
-      sentTrip = true;
-      await this.sleep(100);
     }
     this.putCache(this.tripCacheKey, tripCache);
     if (sentTrip && !conLost) {
