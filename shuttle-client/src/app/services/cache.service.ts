@@ -91,6 +91,11 @@ export class CacheService implements OnInit {
               conLost = true;
             })
       }
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Debug',
+        detail: `ConLost status is ${conLost}`
+      });
       if (conLost) {
         return;
       } else {
