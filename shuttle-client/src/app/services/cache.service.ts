@@ -50,6 +50,12 @@ export class CacheService implements OnInit {
     let conLost = false;
     let sentTrip = false;
 
+    let onSuccess = (tripKey) => {
+        this.removeCache(tripKey);
+        tripCache.shift();
+        sentTrip = true;
+      }
+
     while (!conLost && tripCache.length) {
 
       let tripKey = tripCache.shift();
@@ -67,7 +73,7 @@ export class CacheService implements OnInit {
         this.shuttleService.createTrip(tripInfo.shuttleId,
           tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
 
-        (success => { // no action needed
+        (success => { onSuccess(tripKey)
           },
           err => {
             this.messageService.add({
@@ -81,7 +87,7 @@ export class CacheService implements OnInit {
       } else {
         this.shuttleService.modifyTrip(tripInfo.loadedRowId, tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId)
           .subscribe
-          (success => { // no action needed
+          (success => { onSuccess(tripKey);
             },
             err => { this.messageService.add({
               severity: 'error',
@@ -91,19 +97,7 @@ export class CacheService implements OnInit {
               conLost = true;
             })
       }
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Debug',
-        detail: `ConLost status is ${conLost}`
-      });
-      if (conLost) {
-        return;
-      } else {
-        this.removeCache(tripKey);
-        tripCache.shift();
-        sentTrip = true;
-        await this.sleep(100);
-      }
+      await this.sleep(100);
     }
     this.putCache(this.tripCacheKey, tripCache);
     if (sentTrip && !conLost) {
