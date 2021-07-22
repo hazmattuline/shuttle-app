@@ -21,7 +21,7 @@ export class CacheService implements OnInit {
   constructor(private messageService: MessageService, private shuttleService: ShuttleService) {
   }
 
-  async processCache(verbose=false) {
+  async processCache() {
 
     if (this.isCaching) {
       return;
@@ -32,29 +32,14 @@ export class CacheService implements OnInit {
     this.initializeTripCache();
 
     let tripCache = this.getCache(this.tripCacheKey);
-
-    if (tripCache.length) {
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Attn:',
-        detail: 'Sending cached trips, please wait'
-      });
-    } else if (verbose) {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Attn:',
-        detail: 'No trips to sync'
-      });
-    }
-
     let conLost = false;
-    let sentTrip = false;
 
     let onSuccess = (tripKey) => {
         this.removeCache(tripKey);
         tripCache.shift();
-        sentTrip = true;
       }
+
+    let onFail = () => conLost = true;
 
     while (!conLost && tripCache.length) {
 
@@ -71,17 +56,12 @@ export class CacheService implements OnInit {
       }
       if (!tripInfo.isUpdate){
         this.shuttleService.createTrip(tripInfo.shuttleId,
-          tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
-
+          tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp)
+          .subscribe
         (success => { onSuccess(tripKey)
           },
           err => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: `Connection Error Has Occurred - Send cached trip`
-            });
-            conLost = true;
+            onFail();
           }
         )
       } else {
@@ -89,24 +69,13 @@ export class CacheService implements OnInit {
           .subscribe
           (success => { onSuccess(tripKey);
             },
-            err => { this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: `Connection Error Has Occurred - Update cached trip`
-            });
-              conLost = true;
+            err => {
+              onFail();
             })
       }
       await this.sleep(100);
     }
     this.putCache(this.tripCacheKey, tripCache);
-    if (sentTrip && !conLost) {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'success',
-        detail: 'Ready for next trip'
-      });
-    }
     this.isCaching = false;
   }
 

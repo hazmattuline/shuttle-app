@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ShuttleApiService } from './shuttle-api.service';
 import { Shuttle } from '../models/shuttle.model';
+import {CacheService} from "./cache.service";
 
 @Injectable()
 export class GPSService {
@@ -23,7 +24,7 @@ export class GPSService {
 
   private watchId: number;
   private gpsLocationTimer: any = null;
-  constructor(private shuttleApiService: ShuttleApiService) { }
+  constructor(private shuttleApiService: ShuttleApiService, private cacheService: CacheService) { }
 
   setTrackingVehicle(vehicleId: number) {
       this.shuttleId = vehicleId;
@@ -65,7 +66,7 @@ export class GPSService {
 
   private startGPSUpdateTimer() {
     this.gpsLocationTimer = setInterval(() => {
-      if (!document.hidden) 
+      if (!document.hidden)
       {
         this.sendShuttleCoordinates();
       }
@@ -79,7 +80,7 @@ export class GPSService {
         latitudeCoordinates: this.latestCoordinates.latitude,
         longitudeCoordinates: this.latestCoordinates.longitude
       };
-      this.shuttleApiService.sendShuttleCoordinates(shuttle).subscribe();
+      this.shuttleApiService.sendShuttleCoordinates(shuttle).subscribe(success => this.cacheService.processCache());
     }
   }
 

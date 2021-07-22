@@ -188,8 +188,8 @@ export class TripsComponent implements OnInit, OnDestroy {
     }
   }
 
-  async processCache(verbose=false) {
-    await this.cacheService.processCache(verbose)
+  async processCache() {
+    await this.cacheService.processCache()
   }
 
   changeRoute(isH1toH2: boolean) {
