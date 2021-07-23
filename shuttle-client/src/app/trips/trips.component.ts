@@ -144,7 +144,7 @@ export class TripsComponent implements OnInit, OnDestroy {
 
       ( success => { if (!this.cacheService.nowCaching()) { this.processCache();}} ,
 
-          err => { this.messageService.add({severity: 'info', summary: 'Attn:', detail: 'No connection - Trip saved.'});
+          err => {
           // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
           this.cacheService.saveToTripCache(tripInfo.activityTimestamp, tripInfo);
           })
@@ -164,7 +164,7 @@ export class TripsComponent implements OnInit, OnDestroy {
         (success => {
             if (!this.cacheService.nowCaching()) { this.processCache();}
           },
-          err => { this.messageService.add({severity: 'info', summary: 'Attn:', detail: 'No connection - Update saved.'});
+          err => {
             // stores update in local storage, adds to trip cache list, and then maintains that in local storage
             this.cacheService.saveToTripCache(tripInfo.loadedRowId, tripInfo);
           })
