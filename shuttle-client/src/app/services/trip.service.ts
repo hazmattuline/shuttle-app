@@ -95,6 +95,14 @@ export class TripService implements OnInit {
     return this.tripCacheKey;
   }
 
+  exists(key:string){
+    return this.cacheService.getCache(key);
+  }
+
+  update(key:string, value:any){
+    this.cacheService.putCache(key,value);
+  }
+
   initializeTripCache(): void{
     let tripCache = this.cacheService.getCache(this.tripCacheKey);
     if (tripCache == null){

@@ -5,7 +5,6 @@ import { ShuttleApiService } from '../services/shuttle-api.service';
 import { ShuttleRoute } from '../models/shuttle-route.model';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { CacheService } from "../services/cache.service";
 import {TripService} from "../services/trip.service";
 
 @Component({
@@ -32,7 +31,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   routeH2ToH1: ShuttleRoute;
   isTowardsH2 = true;
 
-  constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService, private tripService:TripService, private cacheService: CacheService) { }
+  constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService, private tripService:TripService) { }
 
   getDate() {
     this.date = this.shuttleService.getDate();
@@ -154,11 +153,11 @@ export class TripsComponent implements OnInit, OnDestroy {
 
     } else if (this.isChangeLatest) { //update trip
       tripInfo.isUpdate = true;
-      if (this.lastTrip != null && this.cacheService.getCache(this.lastTrip.activityTimestamp) != null) { //checking for cached trip
+      if (this.lastTrip != null && this.tripService.exists(this.lastTrip.activityTimestamp) != null) { //checking for cached trip
         this.lastTrip.passengerNumber = tripInfo.passengerNumber;
         this.lastTrip.curbNumber = tripInfo.curbNumber;
         this.lastTrip.routeId = tripInfo.routeId;
-        this.cacheService.putCache(this.lastTrip.activityTimestamp, this.lastTrip);
+        this.tripService.update(this.lastTrip.activityTimestamp, this.lastTrip);
       } else {
        this.tripService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
         .subscribe
