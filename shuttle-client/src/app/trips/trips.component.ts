@@ -139,7 +139,7 @@ export class TripsComponent implements OnInit, OnDestroy {
     let tripInfo = this.getTripInfo(routeId)
 
     if (!this.isChangeLatest) { //new trip
-      this.shuttleService.createTrip(tripInfo.shuttleId,
+      this.cacheService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
 
       ( success => { if (!this.cacheService.nowCaching()) { this.processCache();}} ,
@@ -159,7 +159,7 @@ export class TripsComponent implements OnInit, OnDestroy {
         this.lastTrip.routeId = tripInfo.routeId;
         this.cacheService.putCache(this.lastTrip.activityTimestamp, this.lastTrip);
       } else {
-       this.shuttleService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
+       this.cacheService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
         .subscribe
         (success => {
             if (!this.cacheService.nowCaching()) { this.processCache();}

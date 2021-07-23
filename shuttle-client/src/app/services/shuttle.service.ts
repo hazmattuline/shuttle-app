@@ -1,4 +1,4 @@
-import { Injectable, SkipSelf, Optional } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { ShuttleApiService } from './shuttle-api.service';
 import { Trip } from '../models/trip.model';
 import { Day } from '../models/day.model';
@@ -7,10 +7,13 @@ import {  Observable } from 'rxjs';
 import { TripDisplay } from '../trips/trips.component';
 import { GPSService } from './gps.service';
 import { switchMap, map } from 'rxjs/operators';
+import {CacheService} from "./cache.service";
 
 @Injectable()
 export class ShuttleService {
-  constructor( private shuttleApi: ShuttleApiService, @Optional() private gpsService: GPSService) {}
+  constructor(private shuttleApi: ShuttleApiService, private cacheService: CacheService, @Optional() private gpsService: GPSService) {
+  }
+
   date = new Date();
   isAccordionTopDisabled = true;
   startMileage: number;
@@ -25,11 +28,11 @@ export class ShuttleService {
     return undefined;
   }
 
-   getDate() {
+  getDate() {
     return ShuttleService.getDateISOStringForDate(this.date);
-   }
+  }
 
-   createStartInfo(startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string, isCommentDisabled: boolean): Observable<Day> {
+  createStartInfo(startVehicleId: number, mileage: number, condition: string, startDate: string, comments: string, isCommentDisabled: boolean): Observable<Day> {
     const day: Day = {
       vehicleId: startVehicleId,
       startMileage: mileage,
@@ -48,8 +51,8 @@ export class ShuttleService {
     this.shuttleApi.sendComment(comment).subscribe();
   }
 
-    createEndInfo(endVehicleId: number, mileage: number, condition: string,
-                  quantity: number, cost: number, endDate: string, comments: string, isCommentDisabled: boolean ): Observable<Day> {
+  createEndInfo(endVehicleId: number, mileage: number, condition: string,
+                quantity: number, cost: number, endDate: string, comments: string, isCommentDisabled: boolean): Observable<Day> {
     const day: Day = {
       vehicleId: endVehicleId,
       endMileage: mileage,
@@ -62,14 +65,18 @@ export class ShuttleService {
   }
 
   getDayInfo(date, vehicleId) {
-    this.shuttleApi.getDayInfo(date, vehicleId).subscribe(dayInfo => {this.setMileage(dayInfo); },
-    err => {this.startMileage = 0.0; });
+    this.shuttleApi.getDayInfo(date, vehicleId).subscribe(dayInfo => {
+        this.setMileage(dayInfo);
+      },
+      err => {
+        this.startMileage = 0.0;
+      });
   }
 
   loadPreviousDriverInfo(): Observable<Trip> {
     return this.gpsService.shuttleIdObservable.pipe(
       switchMap((vehicleId => this.shuttleApi.getTrip(this.getDate(), this.gpsService.getShuttleId())
-      .pipe(map(trip => trip)))));
+        .pipe(map(trip => trip)))));
   }
 
   setMileage(dayInfo) {
@@ -82,29 +89,5 @@ export class ShuttleService {
 
   getMileage() {
     return this.startMileage;
-  }
-
-
-
-  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDate: string, tripTime: string): Observable<Trip> {
-    const trip: Trip = {
-      vehicleId: tripVehicleId,
-      passengerCount: tripPassengers,
-      curbCount: tripCurb,
-      date: tripDate,
-      routeId: tripRouteId,
-      activityTimestamp: tripTime
-    };
-    return this.shuttleApi.submitTrip(trip);
-  }
-
-  modifyTrip(tripId: number, tripPassengers: number, tripCurb: number, tripRouteId: number): Observable<Trip> {
-    const trip: Trip = {
-      passengerCount: tripPassengers,
-      curbCount: tripCurb,
-      id: tripId,
-      routeId: tripRouteId
-    };
-    return this.shuttleApi.submitTrip(trip);
   }
 }

@@ -1,6 +1,8 @@
 import {Injectable, OnInit} from '@angular/core';
 import {MessageService} from "primeng/api";
-import {ShuttleService} from "./shuttle.service";
+import {Observable} from "rxjs";
+import {Trip} from "../models/trip.model";
+import {ShuttleApiService} from "./shuttle-api.service";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,7 @@ export class CacheService implements OnInit {
   tripCacheKey = "tripCache";
   isCaching = false;
 
-  constructor(private messageService: MessageService, private shuttleService: ShuttleService) {
+  constructor(private messageService: MessageService, private shuttleApi:ShuttleApiService) {
   }
 
   async processCache() {
@@ -55,7 +57,7 @@ export class CacheService implements OnInit {
         continue;
       }
       if (!tripInfo.isUpdate){
-        this.shuttleService.createTrip(tripInfo.shuttleId,
+        this.createTrip(tripInfo.shuttleId,
           tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp)
           .subscribe
         (success => { onSuccess(tripKey)
@@ -65,7 +67,7 @@ export class CacheService implements OnInit {
           }
         )
       } else {
-        this.shuttleService.modifyTrip(tripInfo.loadedRowId, tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId)
+        this.modifyTrip(tripInfo.loadedRowId, tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId)
           .subscribe
           (success => { onSuccess(tripKey);
             },
@@ -113,4 +115,27 @@ export class CacheService implements OnInit {
       this.putCache(this.tripCacheKey, tripCache);
     }
   }
+
+  createTrip(tripVehicleId: number, tripPassengers: number, tripCurb: number, tripRouteId: number, tripDate: string, tripTime: string): Observable<Trip> {
+    const trip: Trip = {
+      vehicleId: tripVehicleId,
+      passengerCount: tripPassengers,
+      curbCount: tripCurb,
+      date: tripDate,
+      routeId: tripRouteId,
+      activityTimestamp: tripTime
+    };
+    return this.shuttleApi.submitTrip(trip);
+  }
+
+  modifyTrip(tripId: number, tripPassengers: number, tripCurb: number, tripRouteId: number): Observable<Trip> {
+    const trip: Trip = {
+      passengerCount: tripPassengers,
+      curbCount: tripCurb,
+      id: tripId,
+      routeId: tripRouteId
+    };
+    return this.shuttleApi.submitTrip(trip);
+  }
 }
+
