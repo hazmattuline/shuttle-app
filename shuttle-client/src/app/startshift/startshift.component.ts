@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
 import { GPSService } from '../services/gps.service';
 import { Subscription } from 'rxjs';
-import {CacheService} from "../services/cache.service";
+import {TripService} from "../services/trip.service";
 
 @Component({
   selector: 'app-startshift',
@@ -23,7 +23,7 @@ export class StartshiftComponent implements OnInit, OnDestroy {
   beginningOfDayForm: FormGroup;
   conditionSubscription: Subscription;
 
-  constructor(private fb: FormBuilder, private messageService: MessageService, private gpsService: GPSService, public shuttleService: ShuttleService, private cacheService: CacheService) {
+  constructor(private fb: FormBuilder, private messageService: MessageService, private gpsService: GPSService, public shuttleService: ShuttleService, private tripService: TripService) {
 
     this.conditions = [
       {label: 'Good', value: 'GOOD'},
@@ -67,7 +67,7 @@ submitStartData() {
       this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.beginningOfDayForm.get('comments').value);
     }
     this.messageService.add({severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
-    this.cacheService.processCache();
+    this.tripService.processCachedTrips();
 
   } , err => {this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred'});
 } );

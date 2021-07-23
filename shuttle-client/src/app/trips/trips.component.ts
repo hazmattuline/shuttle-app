@@ -6,6 +6,7 @@ import { ShuttleRoute } from '../models/shuttle-route.model';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { CacheService } from "../services/cache.service";
+import {TripService} from "../services/trip.service";
 
 @Component({
   selector: 'app-trips',
@@ -31,7 +32,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   routeH2ToH1: ShuttleRoute;
   isTowardsH2 = true;
 
-  constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService, private cacheService: CacheService) { }
+  constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService, private tripService:TripService, private cacheService: CacheService) { }
 
   getDate() {
     this.date = this.shuttleService.getDate();
@@ -139,14 +140,14 @@ export class TripsComponent implements OnInit, OnDestroy {
     let tripInfo = this.getTripInfo(routeId)
 
     if (!this.isChangeLatest) { //new trip
-      this.cacheService.createTrip(tripInfo.shuttleId,
+      this.tripService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
 
-      ( success => { if (!this.cacheService.nowCaching()) { this.processCache();}} ,
+      ( success => { if (!this.tripService.nowCaching()) { this.processCache();}} ,
 
           err => {
           // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
-          this.cacheService.saveToTripCache(tripInfo.activityTimestamp, tripInfo);
+          this.tripService.saveToTripCache(tripInfo.activityTimestamp, tripInfo);
           })
 
       this.lastTrip = tripInfo;
@@ -159,14 +160,14 @@ export class TripsComponent implements OnInit, OnDestroy {
         this.lastTrip.routeId = tripInfo.routeId;
         this.cacheService.putCache(this.lastTrip.activityTimestamp, this.lastTrip);
       } else {
-       this.cacheService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
+       this.tripService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
         .subscribe
         (success => {
-            if (!this.cacheService.nowCaching()) { this.processCache();}
+            if (!this.tripService.nowCaching()) { this.processCache();}
           },
           err => {
             // stores update in local storage, adds to trip cache list, and then maintains that in local storage
-            this.cacheService.saveToTripCache(tripInfo.loadedRowId, tripInfo);
+            this.tripService.saveToTripCache(tripInfo.loadedRowId, tripInfo);
           })
     }
       this.isChangeLatest = false;
@@ -189,7 +190,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   }
 
   async processCache() {
-    await this.cacheService.processCache()
+    await this.tripService.processCachedTrips()
   }
 
   changeRoute(isH1toH2: boolean) {
