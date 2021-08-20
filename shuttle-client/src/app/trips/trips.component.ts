@@ -29,7 +29,9 @@ export class TripsComponent implements OnInit, OnDestroy {
 
   routeH1ToH2: ShuttleRoute;
   routeH2ToH1: ShuttleRoute;
-  isTowardsH2 = true;
+  isTowardsH1 = true;
+  isTowardsH2 = false;
+  isTowardsP = false;
   destination = 'H1';
 
   constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService, private tripService:TripService) { }
@@ -129,6 +131,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       return this.routeH2ToH1.id;
     }
   }
+
   async submitTripInfo() {
     let routeId = this.findRoute();
     this.toggleRoute();
@@ -193,13 +196,24 @@ export class TripsComponent implements OnInit, OnDestroy {
     await this.tripService.processCachedTrips()
   }
 
-  changeRoute(isH1toH2: boolean) {
-    if (isH1toH2) {
-      this.route = 'H1 > H2';
-      this.isTowardsH2 = true;
-    } else {
+  changeRoute(route: string) {
+    if (route == 'H1') {
       this.route = 'H1 < H2';
+      this.isTowardsH1 = true;
       this.isTowardsH2 = false;
+      this.isTowardsP = false;
+    }
+    if (route == 'H2') {
+      this.route = 'H1 > H2';
+      this.isTowardsH1 = false;
+      this.isTowardsH2 = false;
+      this.isTowardsP = false;
+    }
+    if (route == 'P'){
+      this.isTowardsH1 = false;
+      this.isTowardsH2 = false;
+      this.isTowardsP = true;
+
     }
   }
 
@@ -220,9 +234,9 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.isCurb = false;
       this.loadedRowId = loadedTrip.id;
       if (loadedTrip.routeId === this.routeH1ToH2.id) {
-        this.changeRoute(true);
+        this.changeRoute('H1');
       } else {
-        this.changeRoute(false);
+        this.changeRoute('H2');
       }
     });
 
