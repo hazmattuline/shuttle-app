@@ -20,7 +20,7 @@
     top:8px;
     left: 234px;
   }
-  
+
   .Status {
     width: 60px;
     height: 23px;
@@ -62,7 +62,7 @@
   }
 
   ::ng-deep body .ui-selectbutton .ui-button.ui-state-active {
-    
+
     background-color: #127cb5;
     border-color: #127cb5;
     color: #ffffff;
@@ -74,7 +74,7 @@
     color: #127cb5;
     transition: background-color 0.2s;
 }
-    
+
     .format ::ng-deep .ui-button-text {
       margin-top: 5.5px;
       letter-spacing: 0.5px;
@@ -82,8 +82,8 @@
   }
     .forToggle ::ng-deep .ui-widget {
       font-size: 20px;
-    } 
-   
+    }
+
 
     .Top-BG-Copy-2 {
         width: 1px;
@@ -147,16 +147,21 @@ p-button{
 }
 
 .pSelectButtonStyle{
-    margin-right: 1%;
-    margin-left: 1%;
+    margin-right:1%;
+    margin-left: 2%;
     position: relative;
     top: 11px;
 
 }
 
+.column{
+  width: 55%;
+  text-align: center;
+}
+
 
 .Label-Copy {
-    width: 52px;
+    width: 30px;
     height: 21px;
     font-family: Arial;
     font-size: 18px;
@@ -183,13 +188,13 @@ p-button{
     letter-spacing: normal;
     color: #625f5c;
     position: relative;
-    left: 710px;
+    left: 680px;
     bottom: 135px;
   }
 
   .toggle {
       position: relative;
-      left: 638px;
+      left: 605px;
       bottom: 105px;
   }
 

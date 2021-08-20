@@ -30,6 +30,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   routeH1ToH2: ShuttleRoute;
   routeH2ToH1: ShuttleRoute;
   isTowardsH2 = true;
+  destination = 'H1';
 
   constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService, private tripService:TripService) { }
 

@@ -4,11 +4,21 @@
     text-align: center !important;
   }
 
-  .row { 
-    padding: 28px 0 26px 0;
+  .left{
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .right{
+    text-align: left !important;
+  }
+
+  .row {
+    padding: 18px 0 26px 0;
     height: 376px;
   }
-  
+
   /* Clear floats after the columns */
   .row:after {
     content: "";
@@ -17,7 +27,8 @@
   }
 
   .first-line {
-    margin-bottom: 34px;
+    margin-bottom: 10px;
+    font-size: 21px;
   }
 
   .number-pad {
@@ -50,8 +61,8 @@
   }
 
   .table-container {
-    display: flex;
-    justify-content: center;
+    display: inline-block;
+    justify-content: left;
   }
 
   .table-padding > th {
@@ -69,7 +80,7 @@
   .table-container > ::ng-deep .ui-table table {
     width: 396px !important;
     left: 600px !important;
-    float: right;
+    float: bottom;
     }
 
     ::ng-deep .ui-table table {
@@ -102,8 +113,10 @@
     letter-spacing: normal;
     text-align: center;
     color: #ffffff;
-    margin-right: -10px !important;
+    margin-right: 0px !important;
   }
+
+
 
   .route-H2 {
     margin-left:10px !important;
@@ -114,6 +127,11 @@
   }
 
   .second-destination {
+    color: rgb(18, 124, 181);
+    background-color: white;
+  }
+
+  .third-destination {
     color: rgb(18, 124, 181);
     background-color: white;
   }
@@ -135,14 +153,17 @@
     padding-left: 5px;
     padding-right: 5px;
     display:inline-block;
-    
+
     /*height: 50px;*/
    /*position: relative;*/
   }
 
   .around-start {
-    padding-left: 35px;
     display: inline-block;
+    float: left;
+    width: 497px;
+    padding-bottom: 20px;
+    padding-top: 20px;
   }
 
   .start-button {
@@ -163,26 +184,27 @@
 
   .input-container {
     /* float: left; */
-    float: right;
+    float: left;
     font-family: Arial;
     font-size: 21px;
     font-weight: normal;
     font-style: normal;
     font-stretch: normal;
     line-height: normal;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     letter-spacing: normal;
-    text-align: center;
+    text-align: left;
     justify-content: center;
     align-items: center;
     color: #2e2925;
     position: relative;
+    padding-right: 30px;
     /*display: inline-flex;*/
-    
+
   }
 
   input {
-    width: 261px !important;
+    width: 120px !important;
     height: 48px !important;
     border-radius: 2px;
     border: solid 1px #797979;
@@ -195,19 +217,19 @@
     line-height: normal;
     letter-spacing: normal;
     text-align: right !important;
-    color: #2e2925;  
+    color: #2e2925;
   }
 
   .passenger-input {
-    left: 600px;
-    bottom: 350px;
-    padding-bottom: 20px !important;
+    left: 60px;
+    bottom: 35px;
+    padding-bottom: 10px !important;
   }
 
   .curb-input {
-    left: 600px;
-    bottom: 436px;
-    padding-bottom: 20px;
+    left: 60px;
+    bottom: 43px;
+    padding-bottom: 10px;
   }
 
   tr {
@@ -234,7 +256,7 @@
     background-color: #d9dee3;
   }
 
-  /* td, th { 
+  /* td, th {
     border-left: solid 1px black !important;
     border-bottom: solid 1px black !important;
     border-right: solid 1px black !important;
@@ -279,6 +301,10 @@
   font-size: 18px;
   text-align: right;
   width: 300px;
+}
+
+.fix{
+  padding-top: 5px;
 }
 
 

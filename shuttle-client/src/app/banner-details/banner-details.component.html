@@ -1,7 +1,7 @@
 <meta name="viewport" content="width=1024, user-scalable=no" />
 
 <div class="Rectangle">
-    <div class="Vehicles">Vehicles</div> 
+    <div class="Vehicles">Vehicles</div>
     <div class="Status">Status</div>
     <div class="Login">Driver/Login</div>
 </div>
@@ -9,27 +9,28 @@
 <p-menu #appMenu [popup]="true" [model]="items"></p-menu>
 
 <div class="background">
-  <p-selectButton class="pSelectButtonStyle format" [options]="baileyButton" [(ngModel)]="selectedType" (onChange)=" changeSelectedVehicle('BAILEY')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle format" [options]="baileyRentalButton" [(ngModel)]="selectedType" (onChange)=" changeSelectedVehicle('BAILEY RENTAL')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle format" [options]="rileyButton" [(ngModel)]="selectedType"  (onChange)=" changeSelectedVehicle('RILEY')"></p-selectButton>
-  <p-selectButton class="pSelectButtonStyle format" [options]="rileyRentalButton" [(ngModel)]="selectedType"  (onChange)=" changeSelectedVehicle('RILEY RENTAL')"></p-selectButton>
-
+  <div class="column">
+    <p-selectButton class="pSelectButtonStyle format" [options]="baileyButton" [(ngModel)]="selectedType" (onChange)=" changeSelectedVehicle('BAILEY')"></p-selectButton>
+    <p-selectButton class="pSelectButtonStyle format" [options]="baileyRentalButton" [(ngModel)]="selectedType" (onChange)=" changeSelectedVehicle('BAILEY RENTAL')"></p-selectButton>
+    <p-selectButton class="pSelectButtonStyle format" [options]="rileyButton" [(ngModel)]="selectedType"  (onChange)=" changeSelectedVehicle('RILEY')"></p-selectButton>
+    <p-selectButton class="pSelectButtonStyle format" [options]="rileyRentalButton" [(ngModel)]="selectedType"  (onChange)=" changeSelectedVehicle('RILEY RENTAL')"></p-selectButton>
+  </div>
   <div class="Top-BG-Copy-2"></div>
-  <div class="Label-Copy">Offline</div>
+  <div class="Label-Copy"></div>
 
   <div class="toggle">
       <p-inputSwitch [(ngModel)]="this.shuttleService.isShuttleActive"  class="forToggle"  switchColor="#ffffff"  color="#127cb5"  (click)="pressToggle()" [disabled]="isToggleDisabled"></p-inputSwitch>
   </div>
-  
+
 
   <div class="Label">Online</div>
-  
+
   <div class="Top-BG-Copy-3"></div>
   <div class="Driver">{{driverName}}</div>
   <div class="gear"><i class="pi pi-cog" (click)="openMenu(appMenu, $event)"></i></div>
 
- 
-  
+
+
 </div>
 
 
