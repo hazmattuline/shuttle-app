@@ -27,7 +27,7 @@
   }
 
   .first-line {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-size: 21px;
   }
 
@@ -304,7 +304,10 @@
 }
 
 .fix{
-  padding-top: 5px;
+  padding-top: 8px;
+  font-family: "Arial Rounded MT", "Arial";
+  font-weight: 400;
+  font-size: 24px;
 }
 
 
