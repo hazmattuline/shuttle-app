@@ -6,8 +6,8 @@
 
   .left{
 
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 25px;
+    padding-bottom: 25px;
   }
 
   .right{
@@ -15,8 +15,8 @@
   }
 
   .row {
-    padding: 18px 0 26px 0;
-    height: 376px;
+    padding: 17px 0 17px 0;
+    height: 384px;
   }
 
   /* Clear floats after the columns */
@@ -27,8 +27,19 @@
   }
 
   .first-line {
+    margin-bottom: 5px;
+    font-size: 21px;
+  }
+
+  .second-line {
     margin-bottom: 15px;
     font-size: 21px;
+    height:48px;
+  }
+
+  .third-line {
+    margin-bottom: 25px;
+    height: 78px;
   }
 
   .number-pad {
@@ -98,7 +109,6 @@
 
   .route {
     display: flex;
-    margin-top: -4px;
     justify-content: center !important;
     /*min-width: unset !important;*/
     border-radius: 500% !important;
@@ -116,14 +126,8 @@
     margin-right: 0px !important;
   }
 
-
-
-  .route-H2 {
-    margin-left:10px !important;
-  }
-
   ::ng-deep body .ui-widget {
-    font-family: "Avant Garde Demi";
+    font-family: "Avant Garde Medium";
   }
 
   .second-destination {
@@ -162,18 +166,17 @@
     display: inline-block;
     float: left;
     width: 497px;
-    padding-bottom: 20px;
-    padding-top: 20px;
+    margin-bottom: 25px;
   }
 
   .start-button {
-    width: 164px;
+    width: 168px;
     display: inline-block;
     height: 48px !important;
     border-radius: 8px;
     background-color: #528233 !important;
     font-size: 24px;
-    font-weight: normal;
+    font-weight: 500;
     font-style: normal;
     font-stretch: normal;
     line-height: 0.83;
@@ -191,20 +194,19 @@
     font-style: normal;
     font-stretch: normal;
     line-height: normal;
-    margin-bottom: 30px;
     letter-spacing: normal;
     text-align: left;
     justify-content: center;
     align-items: center;
     color: #2e2925;
     position: relative;
-    padding-right: 30px;
-    /*display: inline-flex;*/
+    margin-right: 30px !important;
+    height: 24px;
 
   }
 
   input {
-    width: 120px !important;
+    width: 114px !important;
     height: 48px !important;
     border-radius: 2px;
     border: solid 1px #797979;
@@ -218,6 +220,9 @@
     letter-spacing: normal;
     text-align: right !important;
     color: #2e2925;
+    padding-right: 6px !important;
+    padding-top: 8px !important;
+    margin-top: 5px;
   }
 
   .passenger-input {
@@ -287,6 +292,14 @@
     padding-bottom: 20px;
 }
 
+  .line-button {
+    display: inline-block;
+    height: 48px !important;
+    width: 48px !important;
+    margin-right: 30px;
+
+  }
+
 .bottom-line {
   padding-bottom: 0;
 }
@@ -309,14 +322,6 @@
   font-weight: 400;
   font-size: 24px;
 }
-
-
-
-
-
-
-
-
   .clear-button {
     width: 140px;
     height: 60px;

@@ -41,8 +41,8 @@
     <div class="first-line">
       Destination
     </div>
-    <div class="first-line">
-    <div class="line center-vertically">
+    <div class="second-line">
+    <div class="line-button">
           <button pButton type="button" label="H1" class="route fix" [ngClass] =  "this.isTowardsH1 ? '' : 'second-destination'" (click) = "changeRoute('H1')"></button>
     </div>
     <!--<div class="img-container center-vertically" *ngIf="!isTowardsH2" (click) = "toggleRoute()">
@@ -52,18 +52,18 @@
         <img src="assets/point_right.png"  alt="to H2" >
     </div>-->
 
-    <div class="line center-vertically">
-        <button pButton type="button" label="H2" class="route route-H2 fix"  [ngClass] =  "this.isTowardsH2 ? '' : 'second-destination'" (click) = "changeRoute('H2')"></button>
+    <div class="line-button">
+        <button pButton type="button" label="H2" class="route fix"  [ngClass] =  "this.isTowardsH2 ? '' : 'second-destination'" (click) = "changeRoute('H2')"></button>
     </div>
 
-      <div class="line center-vertically">
-        <button pButton type="button" label="P" class="route route-H2 fix"  [ngClass] =  "this.isTowardsP ? '' : 'second-destination'" (click) = "changeRoute('P')"></button>
+      <div class="line-button">
+        <button pButton type="button" label="P" class="route fix"  [ngClass] =  "this.isTowardsP ? '' : 'second-destination'" (click) = "changeRoute('P')"></button>
       </div>
     </div>
-     <div style = "text-align: left">
+     <div class = third-line>
        <div class="input-boxes">
-         <div class="input-container center-vertically">Passengers   <br> <input type="button"  class="passenger-input" pInputText [ngClass] =  "isCurb ? 'normal-input' : 'show-input normal-input'" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/></div>
-         <div class="input-container center-vertically">On Curb     <br> <input type="button" class="curb-input" pInputText [ngClass] =  "isCurb ? 'show-input normal-input' : 'normal-input'" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/></div>
+         <div class="input-container">Passengers   <br> <input type="button"  class="passenger-input" pInputText [ngClass] =  "isCurb ? 'normal-input' : 'show-input normal-input'" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/></div>
+         <div class="input-container">On Curb     <br> <input type="button" class="curb-input" pInputText [ngClass] =  "isCurb ? 'show-input normal-input' : 'normal-input'" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/></div>
        </div>
 
      </div>

@@ -206,7 +206,7 @@ export class TripsComponent implements OnInit, OnDestroy {
     if (route == 'H2') {
       this.route = 'H1 > H2';
       this.isTowardsH1 = false;
-      this.isTowardsH2 = false;
+      this.isTowardsH2 = true;
       this.isTowardsP = false;
     }
     if (route == 'P'){
