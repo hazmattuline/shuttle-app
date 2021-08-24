@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="column left">
+  <div class="column col-left">
     <div class="line">
           <button pButton class="number-pad" (click) = "submitNumber(1)">1</button>
     </div>
@@ -37,7 +37,7 @@
         <button pButton type="button" class="clear-button" label="CLR" (click) = "clearNumbers()"></button>
     </div>
   </div>
-  <div class="column right">
+  <div class="column col-right">
     <div class="first-line">
       Destination
     </div>
@@ -72,7 +72,7 @@
       </div>
 
      <div class="table-container">
-        <p-table  [value]="trips" [style]="{width:'380px'}">
+        <p-table class="table" [value]="trips" [style]="{width:'392px'}">
             <ng-template class = "top-of-table" pTemplate="header">
                 <tr class="table-padding">
                     <th>Trip #</th>
@@ -83,8 +83,8 @@
             </ng-template>
             <ng-template pTemplate="body" let-trip>
                 <tr (click)="loadRow()" class="table-padding table-body">
-                    <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.tripNumber}}</td>
-                    <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.route}}</td>
+                  <td class="left" [style] = "{textAlign:'left'}" [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.tripNumber}}</td>
+                    <td class="left" [style] = "{textAlign:'left'}" [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.route}}</td>
                     <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.passengers}}</td>
                     <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.curb}}</td>
                 </tr>

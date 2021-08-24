@@ -19,7 +19,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   previousTripNumber = 0;
   route = 'H1 > H2';
   isCurb = false;
-  trips: TripDisplay[] = [];
+  trips: TripDisplay[] = [] //[{tripNumber:1, route:'Test', passengers:0, curb:0}];
   isChangeLatest = false;
   loadedRowId: number;
   date: string;
