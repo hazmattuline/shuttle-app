@@ -5,12 +5,13 @@
   }
 
   .left{
-
+    width: 55%;
     padding-top: 25px;
     padding-bottom: 25px;
   }
 
   .right{
+    width: 45%;
     text-align: left !important;
   }
 
