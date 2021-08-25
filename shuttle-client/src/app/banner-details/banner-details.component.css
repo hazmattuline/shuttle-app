@@ -76,9 +76,9 @@
 }
 
     .format ::ng-deep .ui-button-text {
-      margin-top: 8px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
+      line-height: 2.5;
   }
     .forToggle ::ng-deep .ui-widget {
       font-size: 20px;
