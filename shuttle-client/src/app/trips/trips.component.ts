@@ -155,7 +155,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.loadedRowId = -1;
     }
 
-    let tripInfo = this.getTripInfo(route.id)
+    let tripInfo = this.getTripInfo(route)
 
     if (!this.isChangeLatest) { //new trip
       this.submitTrip(tripInfo)
@@ -285,7 +285,6 @@ export class TripsComponent implements OnInit, OnDestroy {
       return {whse:label, door:'FRONT'}
     }
   }
-
 
   reloadRow() {
     this.shuttleApiService.getTrip(this.date, this.gpsService.getShuttleId()).subscribe(loadedTrip => {
