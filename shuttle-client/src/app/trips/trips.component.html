@@ -43,21 +43,15 @@
     </div>
     <div class="second-line">
     <div class="line-button">
-          <button pButton type="button" label="H1" class="route fix" [ngClass] =  "this.isTowardsH1 ? '' : 'second-destination'" (click) = "changeRoute('H1')"></button>
+          <button pButton type="button" label="H1" class="route fix" [ngClass] =  "this.towardsH1 ? '' : 'second-destination'" (click) = "changeRoute('H1')"></button>
     </div>
-    <!--<div class="img-container center-vertically" *ngIf="!isTowardsH2" (click) = "toggleRoute()">
-        <img src="assets/point_left.png"  alt="to H1">
-    </div>
-    <div class="img-container center-vertically" *ngIf="this.isTowardsH2" (click) = "toggleRoute()">
-        <img src="assets/point_right.png"  alt="to H2" >
-    </div>-->
 
     <div class="line-button">
-        <button pButton type="button" label="H2" class="route fix"  [ngClass] =  "this.isTowardsH2 ? '' : 'second-destination'" (click) = "changeRoute('H2')"></button>
+        <button pButton type="button" label="H2" class="route fix"  [ngClass] =  "this.towardsH2 ? '' : 'second-destination'" (click) = "changeRoute('H2')"></button>
     </div>
 
       <div class="line-button">
-        <button pButton type="button" label="P" class="route fix"  [ngClass] =  "this.isTowardsP ? '' : 'second-destination'" (click) = "changeRoute('P')"></button>
+        <button pButton type="button" label="P" class="route fix"  [ngClass] =  "this.towardsP ? '' : 'second-destination'" (click) = "changeRoute('P')"></button>
       </div>
     </div>
      <div class = third-line>

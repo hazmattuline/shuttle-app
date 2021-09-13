@@ -17,22 +17,26 @@ export class TripsComponent implements OnInit, OnDestroy {
   curbNumber = 0;
   tripNumber = 1;
   previousTripNumber = 0;
-  route = 'H1 > H2';
+  route = '';
   isCurb = false;
-  trips: TripDisplay[] = [] //[{tripNumber:1, route:'Test', passengers:0, curb:0}];
+  trips: TripDisplay[] = []
   isChangeLatest = false;
   loadedRowId: number;
   date: string;
   previousDriverSubscription: Subscription;
 
+  routes: ShuttleRoute[] = [];
+
+  towardsH1 = false;
+  towardsP = false;
+  towardsH2 = true;
+
+
   lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, routeId:number, date:string, activityTimestamp:string}
 
-  routeH1ToH2: ShuttleRoute;
-  routeH2ToH1: ShuttleRoute;
-  isTowardsH1 = true;
-  isTowardsH2 = false;
-  isTowardsP = false;
-  destination = 'H1';
+  destination:{whse:string, door:string} = {whse:'H2', door:'FRONT'};
+  currentLocation:{whse:string, door:string} = {whse: 'H1', door:'FRONT'};
+  previousLocation:string = null;
 
   constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService, private tripService:TripService) { }
 
@@ -44,16 +48,11 @@ export class TripsComponent implements OnInit, OnDestroy {
     this.trips = [tripDisplay];
   }
 
-  makeRoutes() {
+  makeRoutes(){
     this.shuttleApiService.getRouteOptions().subscribe(routeList => {
-      for (let route of routeList) {
-        if ( route.fromWarehouse === 'H2' && route.toWarehouse === 'H1') {
-          this.routeH2ToH1 = route;
-        } else if (route.fromWarehouse === 'H1' && route.toWarehouse === 'H2') {
-          this.routeH1ToH2 = route;
-        }
+      this.routes = routeList;
       }
-    });
+    );
   }
 
   ngOnInit() {
@@ -61,7 +60,7 @@ export class TripsComponent implements OnInit, OnDestroy {
     this.makeRoutes();
     this.previousDriverSubscription = this.shuttleService.loadPreviousDriverInfo().subscribe(previousTrip => {
       if (previousTrip != null && previousTrip.passengerCount != null) {
-              const lastRoute = (this.isTowardsH2) ? 'H1 > H2' : 'H1 < H2';
+              const lastRoute = 'TBD';
               const previousDriverTrip = {
                 tripNumber: 0,
                 route: lastRoute,
@@ -124,23 +123,27 @@ export class TripsComponent implements OnInit, OnDestroy {
     }
   }
 
-  findRoute() {
-    if (this.isTowardsH2) {
-      return this.routeH1ToH2.id;
-    } else {
-      return this.routeH2ToH1.id;
+  findRoute(){
+    let cl = this.currentLocation
+    let des = this.destination
+    for (let route of this.routes){
+      if (cl.whse === route.fromWarehouse && cl.door === route.fromWarehouseDoor
+        && des.whse === route.toWarehouse && des.door === route.toWarehouseDoor){
+        return route
+      }
     }
   }
 
   async submitTripInfo() {
-    let routeId = this.findRoute();
-    this.toggleRoute();
+    let route = this.findRoute();
+
+    this.route = this.getRouteString(route);
 
     if (this.loadedRowId == null){
       this.loadedRowId = -1;
     }
 
-    let tripInfo = this.getTripInfo(routeId)
+    let tripInfo = this.getTripInfo(route.id)
 
     if (!this.isChangeLatest) { //new trip
       this.tripService.createTrip(tripInfo.shuttleId,
@@ -163,7 +166,7 @@ export class TripsComponent implements OnInit, OnDestroy {
         this.lastTrip.routeId = tripInfo.routeId;
         this.tripService.update(this.lastTrip.activityTimestamp, this.lastTrip);
       } else {
-       this.tripService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, routeId)
+       this.tripService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, route.id)
         .subscribe
         (success => {
             if (!this.tripService.nowCaching()) { this.processCache();}
@@ -196,36 +199,58 @@ export class TripsComponent implements OnInit, OnDestroy {
     await this.tripService.processCachedTrips()
   }
 
-  changeRoute(route: string) {
-    if (route == 'H1') {
-      this.route = 'H1 < H2';
-      this.isTowardsH1 = true;
-      this.isTowardsH2 = false;
-      this.isTowardsP = false;
-    }
-    if (route == 'H2') {
-      this.route = 'H1 > H2';
-      this.isTowardsH1 = false;
-      this.isTowardsH2 = true;
-      this.isTowardsP = false;
-    }
-    if (route == 'P'){
-      this.isTowardsH1 = false;
-      this.isTowardsH2 = false;
-      this.isTowardsP = true;
-
+  changeRoute(label:string) {
+    this.destination = this.decodeWarehouse(label);
+    switch (label) {
+      case 'P':
+        this.clearTowards()
+        this.towardsP = true;
+        break;
+      case 'H1':
+        this.clearTowards()
+        this.towardsH1 = true;
+        break;
+      case 'H2':
+        this.clearTowards()
+        this.towardsH2 = true;
+        break;
     }
   }
 
-  toggleRoute() {
-    if (!this.isTowardsH2) {
-      this.route = 'H1 < H2';
-      this.isTowardsH2 = true;
-    } else {
-      this.route = 'H1 > H2';
-      this.isTowardsH2 = false;
+  clearTowards(){
+    this.towardsH1 = false;
+    this.towardsH2 = false;
+    this.towardsP = false;
+  }
+
+  getRouteString(route: ShuttleRoute){
+    let start = this.encodeWarehouse(route.fromWarehouse, route.fromWarehouseDoor)
+    let end = this.encodeWarehouse(route.toWarehouse, route.toWarehouseDoor)
+
+    return `${start} > ${end}`
+  }
+
+  encodeWarehouse(whse:string, door:string){
+    if (whse === 'H1' && door === 'PARK'){
+      return 'P'
+    }
+    else{
+      return whse;
     }
   }
+
+  decodeWarehouse(label:string){
+    if (label === 'P'){
+      return {whse:'H1', door:'PARK'}
+    }
+    if (label === 'H1'){
+      return {whse:label, door:'FRONT'}
+    }
+    if (label === 'H2'){
+      return {whse:label, door:'FRONT'}
+    }
+  }
+
 
   reloadRow() {
     this.shuttleApiService.getTrip(this.date, this.gpsService.getShuttleId()).subscribe(loadedTrip => {
@@ -233,11 +258,11 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.passengerNumber = loadedTrip.passengerCount;
       this.isCurb = false;
       this.loadedRowId = loadedTrip.id;
-      if (loadedTrip.routeId === this.routeH1ToH2.id) {
-        this.changeRoute('H1');
-      } else {
-        this.changeRoute('H2');
-      }
+      //if (loadedTrip.routeId === this.routeH1ToH2.id) {
+        //this.changeRoute({whse:'H1');
+     // } else {
+        //this.changeRoute('H2');
+     // }
     });
 
   }
@@ -246,7 +271,6 @@ export class TripsComponent implements OnInit, OnDestroy {
     if (!this.isChangeLatest) {
       this.isChangeLatest = true;
       this.reloadRow();
-      this.toggleRoute();
       this.tripNumber = this.previousTripNumber;
     }
   }
