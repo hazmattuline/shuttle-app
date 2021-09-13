@@ -17,7 +17,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   curbNumber = 0;
   tripNumber = 1;
   previousTripNumber = 0;
-  route = '';
+  routeString = 'P > H2';
   isCurb = false;
   trips: TripDisplay[] = []
   isChangeLatest = false;
@@ -32,11 +32,10 @@ export class TripsComponent implements OnInit, OnDestroy {
   towardsH2 = true;
 
 
-  lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, routeId:number, date:string, activityTimestamp:string}
+  lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, route:ShuttleRoute, date:string, activityTimestamp:string}
 
-  destination:{whse:string, door:string} = {whse:'H2', door:'FRONT'};
-  currentLocation:{whse:string, door:string} = {whse: 'H1', door:'FRONT'};
-  previousLocation:string = null;
+  destination: {whse:string, door:string} = {whse:'H2', door:'FRONT'};
+  currentLocation: {whse:string, door:string} = {whse: 'H1', door:'FRONT'};
 
   constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService, private tripService:TripService) { }
 
@@ -103,7 +102,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   updateTripDisplay() {
     const trip: TripDisplay = {
       tripNumber: this.tripNumber,
-      route: this.route,
+      route: this.routeString,
       passengers: this.passengerNumber,
       curb: this.curbNumber,
     };
@@ -115,7 +114,7 @@ export class TripsComponent implements OnInit, OnDestroy {
         this.trips.shift();
       }
     }
-    if (this.tripNumber === this.previousTripNumber) {
+    if (this.lastTrip.route.toWarehouse === 'H2') {
       this.tripNumber++;
     } else {
       this.tripNumber++;
@@ -137,7 +136,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   async submitTripInfo() {
     let route = this.findRoute();
 
-    this.route = this.getRouteString(route);
+    this.routeString = this.getRouteString(route);
 
     if (this.loadedRowId == null){
       this.loadedRowId = -1;
@@ -147,7 +146,7 @@ export class TripsComponent implements OnInit, OnDestroy {
 
     if (!this.isChangeLatest) { //new trip
       this.tripService.createTrip(tripInfo.shuttleId,
-      tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp).subscribe
+      tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.route.id, tripInfo.date, tripInfo.activityTimestamp).subscribe
 
       ( success => { if (!this.tripService.nowCaching()) { this.processCache();}} ,
 
@@ -163,7 +162,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       if (this.lastTrip != null && this.tripService.exists(this.lastTrip.activityTimestamp) != null) { //checking for cached trip
         this.lastTrip.passengerNumber = tripInfo.passengerNumber;
         this.lastTrip.curbNumber = tripInfo.curbNumber;
-        this.lastTrip.routeId = tripInfo.routeId;
+        this.lastTrip.route.id = tripInfo.route.id;
         this.tripService.update(this.lastTrip.activityTimestamp, this.lastTrip);
       } else {
        this.tripService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, route.id)
@@ -182,12 +181,12 @@ export class TripsComponent implements OnInit, OnDestroy {
     this.reset();
   }
 
-  getTripInfo(routeId){
+  getTripInfo(route){
     return { //pulls together all data needed for caching both trips and updates
       shuttleId : this.gpsService.getShuttleId(),
       passengerNumber : this.passengerNumber,
       curbNumber : this.curbNumber,
-      routeId : routeId,
+      route : route,
       date : this.date,
       activityTimestamp : Date.now().toString(),
       isUpdate : false,
@@ -258,11 +257,11 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.passengerNumber = loadedTrip.passengerCount;
       this.isCurb = false;
       this.loadedRowId = loadedTrip.id;
-      //if (loadedTrip.routeId === this.routeH1ToH2.id) {
-        //this.changeRoute({whse:'H1');
-     // } else {
-        //this.changeRoute('H2');
-     // }
+      for (let route of this.routes) {
+        if (loadedTrip.routeId === route.id){
+          this.changeRoute(this.encodeWarehouse(route.toWarehouse, route.toWarehouseDoor))
+        }
+      }
     });
 
   }
