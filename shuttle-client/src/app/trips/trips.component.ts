@@ -29,13 +29,13 @@ export class TripsComponent implements OnInit, OnDestroy {
 
   towardsH1 = false;
   towardsP = false;
-  towardsH2 = true;
+  towardsH2 = false;
 
 
   lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, route:ShuttleRoute, date:string, activityTimestamp:string}
 
-  destination: {whse:string, door:string} = {whse:'H2', door:'FRONT'};
-  currentLocation: {whse:string, door:string} = {whse: 'H1', door:'FRONT'};
+  destination: {whse:string, door:string} = null;
+  currentLocation: {whse:string, door:string} = {whse: 'H1', door:'PARK'};
 
   constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService, private tripService:TripService) { }
 
@@ -97,6 +97,8 @@ export class TripsComponent implements OnInit, OnDestroy {
     this.passengerNumber = 0;
     this.curbNumber = 0;
     this.isCurb = false;
+    this.clearTowards()
+    this.destination = null;
   }
 
   updateTripDisplay() {
@@ -134,6 +136,17 @@ export class TripsComponent implements OnInit, OnDestroy {
   }
 
   async submitTripInfo() {
+
+    // Null Destination check
+    if (this.tripIsNull()){
+      return;
+    }
+
+    // Destination equals current location check
+    if (this.destinationIsCurrent()){
+      return;
+    }
+
     let route = this.findRoute();
 
     this.routeString = this.getRouteString(route);
@@ -145,27 +158,39 @@ export class TripsComponent implements OnInit, OnDestroy {
     let tripInfo = this.getTripInfo(route.id)
 
     if (!this.isChangeLatest) { //new trip
-      this.tripService.createTrip(tripInfo.shuttleId,
-      tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.route.id, tripInfo.date, tripInfo.activityTimestamp).subscribe
-
-      ( success => { if (!this.tripService.nowCaching()) { this.processCache();}} ,
-
-          err => {
-          // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
-          this.tripService.saveToTripCache(tripInfo.activityTimestamp, tripInfo);
-          })
-
-      this.lastTrip = tripInfo;
+      this.submitTrip(tripInfo)
 
     } else if (this.isChangeLatest) { //update trip
-      tripInfo.isUpdate = true;
-      if (this.lastTrip != null && this.tripService.exists(this.lastTrip.activityTimestamp) != null) { //checking for cached trip
-        this.lastTrip.passengerNumber = tripInfo.passengerNumber;
-        this.lastTrip.curbNumber = tripInfo.curbNumber;
-        this.lastTrip.route.id = tripInfo.route.id;
-        this.tripService.update(this.lastTrip.activityTimestamp, this.lastTrip);
-      } else {
-       this.tripService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, route.id)
+      this.updateTrip(tripInfo)
+    }
+    this.currentLocation = this.destination
+    this.updateTripDisplay();
+    this.reset();
+  }
+
+  submitTrip(tripInfo){
+    this.tripService.createTrip(tripInfo.shuttleId,
+      tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.route.id, tripInfo.date, tripInfo.activityTimestamp).subscribe
+
+    ( success => { if (!this.tripService.nowCaching()) { this.processCache();}} ,
+
+      err => {
+        // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
+        this.tripService.saveToTripCache(tripInfo.activityTimestamp, tripInfo);
+      })
+
+    this.lastTrip = tripInfo;
+  }
+
+  updateTrip(tripInfo){
+    tripInfo.isUpdate = true;
+    if (this.lastTrip != null && this.tripService.exists(this.lastTrip.activityTimestamp) != null) { //checking for cached trip
+      this.lastTrip.passengerNumber = tripInfo.passengerNumber;
+      this.lastTrip.curbNumber = tripInfo.curbNumber;
+      this.lastTrip.route.id = tripInfo.route.id;
+      this.tripService.update(this.lastTrip.activityTimestamp, this.lastTrip);
+    } else {
+      this.tripService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, tripInfo.route.id)
         .subscribe
         (success => {
             if (!this.tripService.nowCaching()) { this.processCache();}
@@ -175,10 +200,21 @@ export class TripsComponent implements OnInit, OnDestroy {
             this.tripService.saveToTripCache(tripInfo.loadedRowId, tripInfo);
           })
     }
-      this.isChangeLatest = false;
+    this.isChangeLatest = false;
+  }
+
+  tripIsNull(){
+    if (this.destination == null){
+      this.messageService.add({severity:'info', summary:'No Destination', detail:'Please select a destination'})
+      return true;
     }
-    this.updateTripDisplay();
-    this.reset();
+  }
+
+  destinationIsCurrent(){
+    if (this.destination.whse == this.currentLocation.whse && this.destination.door == this.currentLocation.door){
+      this.messageService.add({severity:'info', summary:'Destination is current location', detail:'Please select a different destination or edit previous trip'})
+      return true;
+    }
   }
 
   getTripInfo(route){
@@ -263,7 +299,6 @@ export class TripsComponent implements OnInit, OnDestroy {
         }
       }
     });
-
   }
 
   loadRow() {
@@ -288,6 +323,8 @@ export interface TripDisplay {
   passengers: number;
   curb: number;
 }
+
+
 
 
 
