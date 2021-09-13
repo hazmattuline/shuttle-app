@@ -118,9 +118,6 @@ export class TripsComponent implements OnInit, OnDestroy {
     }
     if (this.lastTrip.route.toWarehouse === 'H2') {
       this.tripNumber++;
-    } else {
-      this.tripNumber++;
-      this.previousTripNumber++;
     }
   }
 
