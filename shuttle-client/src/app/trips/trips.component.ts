@@ -16,7 +16,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   passengerNumber = 0;
   curbNumber = 0;
   tripNumber = 1;
-  previousTripNumber = 0;
+  previousTripNumber = 1;
   routeString = 'P > H2';
   isCurb = false;
   trips: TripDisplay[] = []
@@ -117,7 +117,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       }
     }
     if (this.lastTrip.route.toWarehouse === 'H2') {
-      this.tripNumber++;
+      this.previousTripNumber++;
     }
   }
 
@@ -177,6 +177,9 @@ export class TripsComponent implements OnInit, OnDestroy {
       })
 
     this.lastTrip = tripInfo;
+    if (tripInfo.route.toWarehouse == 'H2') {
+      this.tripNumber++
+    }
   }
 
   updateTrip(tripInfo){
