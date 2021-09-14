@@ -292,6 +292,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       for (let route of this.routes) {
         if (loadedTrip.routeId === route.id){
           this.changeRoute(this.encodeWarehouse(route.toWarehouse, route.toWarehouseDoor))
+          this.currentLocation = {whse:route.fromWarehouse,door:route.fromWarehouseDoor}
         }
       }
     });
