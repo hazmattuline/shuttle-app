@@ -57,7 +57,7 @@ export class TripService implements OnInit {
       }
       if (!tripInfo.isUpdate){
         this.createTrip(tripInfo.shuttleId,
-          tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId, tripInfo.date, tripInfo.activityTimestamp)
+          tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.route.id, tripInfo.date, tripInfo.activityTimestamp)
           .subscribe
           (success => { onSuccess(tripKey)
             },
@@ -66,7 +66,7 @@ export class TripService implements OnInit {
             }
           )
       } else {
-        this.modifyTrip(tripInfo.loadedRowId, tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.routeId)
+        this.modifyTrip(tripInfo.loadedRowId, tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.route.id)
           .subscribe
           (success => { onSuccess(tripKey);
             },
