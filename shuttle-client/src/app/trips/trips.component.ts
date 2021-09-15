@@ -299,14 +299,23 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.loadedRowId = loadedTrip.id;
       for (let route of this.routes) {
         if (loadedTrip.routeId === route.id){
-          this.changeRoute(this.encodeWarehouse(route.toWarehouse, route.toWarehouseDoor))
-          this.currentLocation = {whse:route.fromWarehouse,door:route.fromWarehouseDoor}
-          if (this.towardsH2){
-            this.tripNumber--
-          }
+          this.reloadRoute(route)
         }
       }
+    }, error => { // For if offline, default to saved last trip if possible
+      if (this.lastTrip != null) {
+        let route = this.lastTrip.route
+        this.reloadRoute(route)
+      }
     });
+  }
+
+  reloadRoute(route:ShuttleRoute){
+    this.changeRoute(this.encodeWarehouse(route.toWarehouse, route.toWarehouseDoor))
+    this.currentLocation = {whse: route.fromWarehouse, door: route.fromWarehouseDoor}
+    if (this.towardsH2){
+      this.tripNumber--
+    }
   }
 
   loadRow() {
