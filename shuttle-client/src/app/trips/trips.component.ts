@@ -311,6 +311,9 @@ export class TripsComponent implements OnInit, OnDestroy {
       }
     }, error => { // For if offline, default to saved last trip if possible
       if (this.lastTrip != null) {
+        this.curbNumber = this.lastTrip.curbNumber;
+        this.passengerNumber = this.lastTrip.passengerNumber;
+        this.isCurb = false;
         let route = this.lastTrip.route
         this.reloadRoute(route)
       }
