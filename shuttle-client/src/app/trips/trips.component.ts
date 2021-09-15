@@ -192,7 +192,7 @@ export class TripsComponent implements OnInit, OnDestroy {
     if (this.lastTrip != null && this.tripService.exists(this.lastTrip.activityTimestamp) != null) { //checking for cached trip
       this.lastTrip.passengerNumber = tripInfo.passengerNumber;
       this.lastTrip.curbNumber = tripInfo.curbNumber;
-      this.lastTrip.route.id = tripInfo.route.id;
+      this.lastTrip.route = tripInfo.route;
       this.tripService.update(this.lastTrip.activityTimestamp, this.lastTrip);
     } else {
       this.tripService.modifyTrip(this.loadedRowId, this.passengerNumber, this.curbNumber, tripInfo.route.id)
