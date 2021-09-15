@@ -26,6 +26,8 @@ export class TripsComponent implements OnInit, OnDestroy {
 
   routes: ShuttleRoute[] = [];
 
+  waitForRoutes = true;
+
   towardsH1 = false;
   towardsP = false;
   towardsH2 = false;
@@ -49,6 +51,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   makeRoutes(){
     this.shuttleApiService.getRouteOptions().subscribe(routeList => {
       this.routes = routeList;
+      this.waitForRoutes = false;
       }
     );
   }
@@ -56,9 +59,11 @@ export class TripsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getDate();
     this.makeRoutes();
+    while (this.waitForRoutes) {
+      //Need to wait for routes to populate
+    }
     this.previousDriverSubscription = this.shuttleService.loadPreviousDriverInfo().subscribe(previousTrip => {
       if (previousTrip != null && previousTrip.passengerCount != null) {
-              console.log(JSON.stringify(previousTrip)) //Remove this once bug is fixed
               let route:ShuttleRoute = this.getRouteFromID(previousTrip.routeId)
               const lastRouteString = this.getRouteString(route);
               const previousDriverTrip = {

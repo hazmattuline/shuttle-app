@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { TripsComponent } from './trips.component';
 import { NO_ERRORS_SCHEMA } from "@angular/core";
@@ -8,6 +8,7 @@ import {HttpClient, HttpHandler} from "@angular/common/http";
 import {ShuttleApiService} from "../services/shuttle-api.service";
 import {TripService} from "../services/trip.service";
 import {ShuttleService} from "../services/shuttle.service";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('TripsComponent', () => {
   let component: TripsComponent;
