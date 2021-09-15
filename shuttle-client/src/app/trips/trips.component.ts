@@ -5,7 +5,7 @@ import { ShuttleApiService } from '../services/shuttle-api.service';
 import { ShuttleRoute } from '../models/shuttle-route.model';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import {TripService} from "../services/trip.service";
+import { TripService } from "../services/trip.service";
 
 @Component({
   selector: 'app-trips',
@@ -59,7 +59,7 @@ export class TripsComponent implements OnInit, OnDestroy {
     this.makeRoutes();
     this.previousDriverSubscription = this.shuttleService.loadPreviousDriverInfo().subscribe(previousTrip => {
       if (previousTrip != null && previousTrip.passengerCount != null) {
-              const lastRoute = 'TBD';
+              const lastRoute = this.getRouteString(this.routes[previousTrip.routeId]);
               const previousDriverTrip = {
                 tripNumber: 0,
                 route: lastRoute,
