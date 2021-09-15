@@ -71,6 +71,7 @@ export class TripsComponent implements OnInit, OnDestroy {
           passengers: previousTrip.passengerCount,
           curb: previousTrip.curbCount,
         };
+        this.currentLocation = {whse:route.toWarehouse, door:route.toWarehouseDoor}
         this.changeTripDisplayed(previousDriverTrip);
       } else {
         this.trips = [];
