@@ -48,35 +48,34 @@ export class TripsComponent implements OnInit, OnDestroy {
     this.trips = [tripDisplay];
   }
 
-  makeRoutes(){
-    this.shuttleApiService.getRouteOptions().subscribe(routeList => {
-      this.routes = routeList;
-      this.waitForRoutes = false;
-      }
-    );
+  async makeRoutes(){
+    return this.shuttleApiService.getRouteOptions().toPromise()
   }
 
   ngOnInit() {
     this.getDate();
-    this.makeRoutes();
-    while (this.waitForRoutes) {
-      //Need to wait for routes to populate
-    }
+    this.makeRoutes().then((routeList) => {
+      this.routes = routeList;
+      this.getPreviousTrip()
+    });
+  }
+
+  getPreviousTrip(){
     this.previousDriverSubscription = this.shuttleService.loadPreviousDriverInfo().subscribe(previousTrip => {
       if (previousTrip != null && previousTrip.passengerCount != null) {
-              let route:ShuttleRoute = this.getRouteFromID(previousTrip.routeId)
-              const lastRouteString = this.getRouteString(route);
-              const previousDriverTrip = {
-                tripNumber: 1,
-                route: lastRouteString,
-                passengers: previousTrip.passengerCount,
-                curb: previousTrip.curbCount,
-              };
-              this.changeTripDisplayed(previousDriverTrip);
-    } else {
-      this.trips = [];
-    }
-  });
+        let route:ShuttleRoute = this.getRouteFromID(previousTrip.routeId)
+        const lastRouteString = this.getRouteString(route);
+        const previousDriverTrip = {
+          tripNumber: 1,
+          route: lastRouteString,
+          passengers: previousTrip.passengerCount,
+          curb: previousTrip.curbCount,
+        };
+        this.changeTripDisplayed(previousDriverTrip);
+      } else {
+        this.trips = [];
+      }
+    })
   }
 
   getRouteFromID(routeID:number){
