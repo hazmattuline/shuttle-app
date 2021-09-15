@@ -61,7 +61,7 @@ export class TripsComponent implements OnInit, OnDestroy {
               let route:ShuttleRoute = this.getRouteFromID(previousTrip.routeId)
               const lastRouteString = this.getRouteString(route);
               const previousDriverTrip = {
-                tripNumber: 0,
+                tripNumber: 1,
                 route: lastRouteString,
                 passengers: previousTrip.passengerCount,
                 curb: previousTrip.curbCount,
@@ -165,6 +165,9 @@ export class TripsComponent implements OnInit, OnDestroy {
     } else if (this.isChangeLatest) { //update trip
       this.updateTrip(tripInfo)
     }
+    if (tripInfo.route.toWarehouse == 'H2') {
+      this.tripNumber++
+    }
     this.currentLocation = this.destination
     this.updateTripDisplay();
     this.reset();
@@ -182,9 +185,6 @@ export class TripsComponent implements OnInit, OnDestroy {
       })
 
     this.lastTrip = tripInfo;
-    if (tripInfo.route.toWarehouse == 'H2') {
-      this.tripNumber++
-    }
   }
 
   updateTrip(tripInfo){
