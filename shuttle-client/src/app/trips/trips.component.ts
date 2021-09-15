@@ -59,10 +59,11 @@ export class TripsComponent implements OnInit, OnDestroy {
     this.makeRoutes();
     this.previousDriverSubscription = this.shuttleService.loadPreviousDriverInfo().subscribe(previousTrip => {
       if (previousTrip != null && previousTrip.passengerCount != null) {
-              const lastRoute = this.getRouteString(this.routes[previousTrip.routeId]);
+              let route:ShuttleRoute = this.getRouteFromID(previousTrip.routeId)
+              const lastRouteString = this.getRouteString(route);
               const previousDriverTrip = {
                 tripNumber: 0,
-                route: lastRoute,
+                route: lastRouteString,
                 passengers: previousTrip.passengerCount,
                 curb: previousTrip.curbCount,
               };
@@ -71,6 +72,14 @@ export class TripsComponent implements OnInit, OnDestroy {
       this.trips = [];
     }
   });
+  }
+
+  getRouteFromID(routeID:number){
+    for (let route of this.routes){
+      if (route.id === routeID){
+        return route;
+      }
+    }
   }
 
   submitNumber(inputNumber: number) {
