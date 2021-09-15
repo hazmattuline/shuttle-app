@@ -16,7 +16,6 @@ export class TripsComponent implements OnInit, OnDestroy {
   passengerNumber = 0;
   curbNumber = 0;
   tripNumber = 1;
-  previousTripNumber = 1;
   routeString = 'P > H2';
   isCurb = false;
   trips: TripDisplay[] = []
@@ -124,9 +123,6 @@ export class TripsComponent implements OnInit, OnDestroy {
       if (this.trips.length > 1) {
         this.trips.shift();
       }
-    }
-    if (this.lastTrip.route.toWarehouse === 'H2') {
-      this.previousTripNumber++;
     }
   }
 
@@ -307,7 +303,6 @@ export class TripsComponent implements OnInit, OnDestroy {
           this.currentLocation = {whse:route.fromWarehouse,door:route.fromWarehouseDoor}
           if (this.towardsH2){
             this.tripNumber--
-            this.previousTripNumber--
           }
         }
       }
@@ -318,7 +313,6 @@ export class TripsComponent implements OnInit, OnDestroy {
     if (!this.isChangeLatest) {
       this.isChangeLatest = true;
       this.reloadRow();
-      this.tripNumber = this.previousTripNumber;
     }
   }
 
