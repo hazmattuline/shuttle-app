@@ -37,6 +37,14 @@ describe('TripsComponent', () => {
     expect(response).toEqual('P')
   })
 
+  it('Should provide the correct route when given an ID', () => {
+    component.routes = [{id:1,toWarehouse:"H2",fromWarehouse:"H1",toWarehouseDoor:"FRONT",fromWarehouseDoor:"FRONT"},{id:2,toWarehouse:"H1",fromWarehouse:"H2",toWarehouseDoor:"FRONT",fromWarehouseDoor:"FRONT"},{id:3,toWarehouse:"H1",fromWarehouse:"H1",toWarehouseDoor:"PARK",fromWarehouseDoor:"FRONT"},{id:4,toWarehouse:"H1",fromWarehouse:"H1",toWarehouseDoor:"FRONT",fromWarehouseDoor:"PARK"},{id:5,toWarehouse:"H1",fromWarehouse:"H2",toWarehouseDoor:"PARK",fromWarehouseDoor:"FRONT"},{id:6,toWarehouse:"H2",fromWarehouse:"H1",toWarehouseDoor:"FRONT",fromWarehouseDoor:"PARK"}]
+
+    let route = component.getRouteFromID(3)
+
+    expect(route).toEqual({id:3,toWarehouse:"H1",fromWarehouse:"H1",toWarehouseDoor:"PARK",fromWarehouseDoor:"FRONT"})
+  })
+
   it('should take destination and current location and return a route', () => {
     component.routes = [{id: 4, fromWarehouseDoor:"FRONT", toWarehouseDoor:"FRONT", toWarehouse:'H2', fromWarehouse:'H1'}]
     component.currentLocation = {whse:'H1',door:'FRONT'}

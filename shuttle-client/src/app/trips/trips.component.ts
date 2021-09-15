@@ -58,6 +58,7 @@ export class TripsComponent implements OnInit, OnDestroy {
     this.makeRoutes();
     this.previousDriverSubscription = this.shuttleService.loadPreviousDriverInfo().subscribe(previousTrip => {
       if (previousTrip != null && previousTrip.passengerCount != null) {
+              console.log(JSON.stringify(previousTrip)) //Remove this once bug is fixed
               let route:ShuttleRoute = this.getRouteFromID(previousTrip.routeId)
               const lastRouteString = this.getRouteString(route);
               const previousDriverTrip = {
