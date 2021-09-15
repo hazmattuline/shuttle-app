@@ -16,7 +16,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   passengerNumber = 0;
   curbNumber = 0;
   tripNumber = 1;
-  routeString = 'P > H2';
+  routeString = '';
   isCurb = false;
   trips: TripDisplay[] = []
   isChangeLatest = false;
@@ -264,6 +264,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   }
 
   getRouteString(route: ShuttleRoute){
+    if (route == null) return JSON.stringify(this.routes)
     let start = this.encodeWarehouse(route.fromWarehouse, route.fromWarehouseDoor)
     let end = this.encodeWarehouse(route.toWarehouse, route.toWarehouseDoor)
 
