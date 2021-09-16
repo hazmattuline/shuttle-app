@@ -6,6 +6,7 @@ import { ShuttleRoute } from '../models/shuttle-route.model';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { TripService } from "../services/trip.service";
+import {Trip} from "../models/trip.model";
 
 @Component({
   selector: 'app-trips',
@@ -33,7 +34,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   towardsH2 = false;
 
 
-  lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, route:ShuttleRoute, date:string, activityTimestamp:string}
+  lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, route:ShuttleRoute, date:string, activityTimestamp:string, loadedRowId: string}
 
   destination: {whse:string, door:string} = null;
   currentLocation: {whse:string, door:string} = {whse: 'H1', door:'PARK'};
@@ -72,11 +73,24 @@ export class TripsComponent implements OnInit, OnDestroy {
           curb: previousTrip.curbCount,
         };
         this.currentLocation = {whse:route.toWarehouse, door:route.toWarehouseDoor}
+        this.setPreviousTrip(previousTrip, route)  //Properly loads last trip
         this.changeTripDisplayed(previousDriverTrip);
       } else {
         this.trips = [];
       }
     })
+  }
+
+  setPreviousTrip(trip:Trip, route: ShuttleRoute){
+    this.lastTrip = {
+      shuttleId: trip.vehicleId,
+      passengerNumber: trip.passengerCount,
+      curbNumber: trip.curbCount,
+      route: route,
+      date: trip.date,
+      activityTimestamp: trip.activityTimestamp,
+      loadedRowId: trip.id.toString()
+    }
   }
 
   getRouteFromID(routeID:number){
@@ -208,7 +222,12 @@ export class TripsComponent implements OnInit, OnDestroy {
           },
           err => {
             // stores update in local storage, adds to trip cache list, and then maintains that in local storage
-            this.tripService.saveToTripCache(tripInfo.loadedRowId, tripInfo);
+            if (tripInfo.loadedRowId == -1){  //checks last trip on update if fails to load
+              if (this.lastTrip != null){
+                tripInfo.loadedRowId = this.lastTrip.loadedRowId
+              }
+            }
+              this.tripService.saveToTripCache(tripInfo.loadedRowId, tripInfo);
           })
     }
     this.isChangeLatest = false;
@@ -314,6 +333,9 @@ export class TripsComponent implements OnInit, OnDestroy {
         this.curbNumber = this.lastTrip.curbNumber;
         this.passengerNumber = this.lastTrip.passengerNumber;
         this.isCurb = false;
+        if (this.lastTrip.loadedRowId != null) {
+          this.loadedRowId = Number(this.lastTrip.loadedRowId)
+        }
         let route = this.lastTrip.route
         this.reloadRoute(route)
       }
