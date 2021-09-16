@@ -194,10 +194,12 @@ export class TripsComponent implements OnInit, OnDestroy {
   }
 
   submitTrip(tripInfo){
+    let returnedRow = tripInfo.loadedRowId
     this.tripService.createTrip(tripInfo.shuttleId,
       tripInfo.passengerNumber, tripInfo.curbNumber, tripInfo.route.id, tripInfo.date, tripInfo.activityTimestamp).subscribe
 
-    ( success => { if (!this.tripService.nowCaching()) { this.processCache();}} ,
+    ( success => { if (!this.tripService.nowCaching()) { this.processCache();
+      returnedRow = success.id}} ,
 
       err => {
         // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
@@ -205,6 +207,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       })
 
     this.lastTrip = tripInfo;
+    this.lastTrip.loadedRowId = returnedRow.toString()
   }
 
   updateTrip(tripInfo){
