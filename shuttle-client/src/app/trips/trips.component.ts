@@ -204,6 +204,7 @@ export class TripsComponent implements OnInit, OnDestroy {
       err => {
         // stores trip in local storage, adds to trip cache list, and then maintains that in local storage
         this.tripService.saveToTripCache(tripInfo.activityTimestamp, tripInfo);
+        this.lastTrip.loadedRowId = null;
       })
   }
 
@@ -223,11 +224,15 @@ export class TripsComponent implements OnInit, OnDestroy {
           err => {
             // stores update in local storage, adds to trip cache list, and then maintains that in local storage
             if (tripInfo.loadedRowId == -1){  //checks last trip on update if fails to load
-              if (this.lastTrip != null){
+              if (this.lastTrip != null && this.lastTrip.loadedRowId != null){
                 tripInfo.loadedRowId = this.lastTrip.loadedRowId
-              }
+                this.tripService.saveToTripCache(tripInfo.loadedRowId, tripInfo);
+              } //Else discord the update
             }
+            else{
               this.tripService.saveToTripCache(tripInfo.loadedRowId, tripInfo);
+            }
+
           })
     }
     this.isChangeLatest = false;
