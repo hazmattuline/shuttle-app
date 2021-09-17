@@ -227,7 +227,7 @@ export class TripsComponent implements OnInit, OnDestroy {
               if (this.lastTrip != null && this.lastTrip.loadedRowId != null){
                 tripInfo.loadedRowId = this.lastTrip.loadedRowId
                 this.tripService.saveToTripCache(tripInfo.loadedRowId, tripInfo);
-              } //Else discord the update
+              } // Else discord the update because we have no valid rowID to update
             }
             else{
               this.tripService.saveToTripCache(tripInfo.loadedRowId, tripInfo);
@@ -240,14 +240,14 @@ export class TripsComponent implements OnInit, OnDestroy {
 
   tripIsNull(){
     if (this.destination == null){
-      this.messageService.add({severity:'info', summary:'No Destination', detail:'Please select a destination'})
+      this.messageService.add({severity:'error', summary:'Select a destination.', life: 3500})
       return true;
     }
   }
 
   destinationIsCurrent(){
     if (this.destination.whse == this.currentLocation.whse && this.destination.door == this.currentLocation.door){
-      this.messageService.add({severity:'info', summary:'Destination is current location', detail:'Please select a different destination or edit previous trip'})
+      this.messageService.add({severity:'error', summary:'Destination can not be the same as current location.', life: 3500})
       return true;
     }
   }
