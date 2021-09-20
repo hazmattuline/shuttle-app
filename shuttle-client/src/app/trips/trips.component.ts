@@ -240,14 +240,14 @@ export class TripsComponent implements OnInit, OnDestroy {
 
   tripIsNull(){
     if (this.destination == null){
-      this.messageService.add({severity:'error', summary: 'Error', detail:'Select a destination.', life: 3500})
+      this.messageService.add({key:'tripError', severity:'error', summary: 'Alert', detail:'Select a destination.', life: 3500})
       return true;
     }
   }
 
   destinationIsCurrent(){
     if (this.destination.whse == this.currentLocation.whse && this.destination.door == this.currentLocation.door){
-      this.messageService.add({severity:'error', summary:'Error', detail:'Destination can not be the same as current location.', life: 3500})
+      this.messageService.add({key:'tripError', severity:'error', summary:'Alert', detail:'Destination can not be the same as current location.', life: 3500})
       return true;
     }
   }

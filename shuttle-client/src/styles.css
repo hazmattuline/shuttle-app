@@ -14,11 +14,11 @@
     .small {
       width: 150px;
     }
-  
+
     .medium {
       width: 250px;
     }
-  
+
     .form-footer {
       display: flex;
       justify-content: flex-end;
@@ -28,7 +28,7 @@
       button {
           margin-left: 18px;
       }
-    
+
       .table-actions {
         display: flex;
         justify-content: flex-end;
@@ -48,7 +48,7 @@
         td.table-menu {
           text-align: center;
         }
-        
+
         td.table-menu .table-menu {
           cursor: pointer;
         }
@@ -61,7 +61,7 @@
           margin: 0px;
           font-family: "Arial Regular";
         }
-      
+
         .form-footer {
           display: flex;
           justify-content: flex-end;
@@ -75,4 +75,12 @@
             overflow-wrap: break-word;
             word-break: break-word;
           }
-        
+
+.custom-toast .ui-toast {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+}
+
