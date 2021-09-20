@@ -87,18 +87,18 @@
   text-align: left;
 }
 
-:host ::ng-deep body .ui-toast .ui-toast-message.ui-toast-message-error {
+::ng-deep body .ui-toast .ui-toast-message.ui-toast-message-error {
   background-color: #FFF5F6;
   border: 1px solid;
   border-radius: 2px;
   color: #da3f52;
 }
 
-:host ::ng-deep .ui-toast .ui-toast-message-content{
+::ng-deep .ui-toast .ui-toast-message-content{
   padding:0em;
 }
 
-:host ::ng-deep .custom-toast .ui-toast-close-icon{
+::ng-deep .custom-toast .ui-toast-close-icon{
   color:#666666;
   float:right;
 }
