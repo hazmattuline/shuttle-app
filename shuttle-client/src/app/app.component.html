@@ -1,10 +1,12 @@
 <router-outlet></router-outlet>
 <p-toast class="custom-toast" [style]="{}"></p-toast>
-<p-toast position="center" key="tripError">
+<p-toast class="custom-toast" key="tripError">
   <ng-template let-message pTemplate="message">
     <div class="p-flex p-flex-column" style="flex: 1">
-      <div class="p-text-center">
-        <em class="fas fa-exclamation-circle" style="font-size: 20px"></em>
+      <i class="fas fa-exclamation-circle" style="font-size: 20px"></i>
+    </div>
+    <div class="p-flex p-flex-column" style="flex: 1">
+      <div class="p-text-left">
         <h4>{{message.summary}}</h4>
         <p>{{message.detail}}</p>
       </div>
