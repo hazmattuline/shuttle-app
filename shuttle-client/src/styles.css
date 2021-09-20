@@ -87,21 +87,17 @@
   text-align: left;
 }
 
-::ng-deep body .ui-toast .ui-toast-message .ui-toast-message-error {
+.custom-toast .ui-toast .ui-toast-message .ui-toast-message-error {
   background-color: #FFF5F6;
   border: 1px solid;
   border-radius: 2px;
   color: #da3f52;
 }
 
-::ng-deep .ui-toast-message-content{
-  padding:0em;
-}
-
-::ng-deep body .ui-toast .ui-toast-message .ui-toast-close-icon.pi.pi-times:before {
+.custom-toast .ui-toast .ui-toast-message .ui-toast-close-icon.pi.pi-times:before {
   content: "";
   color: #666666;
-  line-height: 60px;
+  line-height: 50px;
 }
 
 
