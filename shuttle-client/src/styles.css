@@ -94,6 +94,10 @@
   color: #da3f52;
 }
 
+.custom-toast .ui-toast .ui-toast-message-content {
+  padding: 0em;
+}
+
 .custom-toast .ui-toast .ui-toast-message .ui-toast-close-icon.pi.pi-times:before {
   content: "";
   color: #666666;
