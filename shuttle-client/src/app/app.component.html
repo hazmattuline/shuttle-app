@@ -2,11 +2,13 @@
 <p-toast class="custom-toast" [style]="{}"></p-toast>
 <p-toast class="custom-toast" key="tripError">
   <ng-template let-message pTemplate="message">
-    <div class="p-flex p-flex-column" style="flex: 1">
-      <i class="fa fa-exclamation-circle fa-pull-left" style="font-size: 20px;color:#DA3F52;"></i>
+    <div class="column" style="float:left;width:3%">
+      <span class="fa fa-exclamation-circle fa-pull-left" style="font-size: 20px;color:#DA3F52;"></span>
+    </div>
+    <div class="column" style="float:left;width:97%">
       <div class="p-text-left">
-        <h4>{{message.summary}}</h4>
-        <p>{{message.detail}}</p>
+        <strong>{{message.summary}}</strong>
+        <br>{{message.detail}}
       </div>
     </div>
   </ng-template>
