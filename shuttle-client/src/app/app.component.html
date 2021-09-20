@@ -2,13 +2,12 @@
 <p-toast class="custom-toast" [style]="{}"></p-toast>
 <p-toast class="custom-toast" key="tripError">
   <ng-template let-message pTemplate="message">
-    <div class="column" style="float:left;padding-left: 15px;padding-top: 10px; padding-right:16px">
+    <div class="column" style="float:left;padding-left: 24px;padding-top: 19px; padding-right:24px">
       <span class="fa fa-exclamation-circle fa-pull-left" style="font-size: 20px;color:#DA3F52;"></span>
     </div>
-    <div class="column" style="float:left;width:max-content">
-      <div class="p-text-left" style="padding-bottom: 12px;padding-top: 8px;padding-right:38px;">
-        <strong>{{message.summary}}</strong>
-        <br>{{message.detail}}
+    <div class="column" style="float:left;">
+      <div>
+        {{message.detail}}
       </div>
     </div>
   </ng-template>
