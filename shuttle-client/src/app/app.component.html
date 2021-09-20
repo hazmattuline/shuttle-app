@@ -1,12 +1,12 @@
 <router-outlet></router-outlet>
 <p-toast class="custom-toast" [style]="{}"></p-toast>
-<p-toast class="custom-toast" key="tripError">
+<p-toast class="custom-toast" [style]="{padding:'0px'}" key="tripError">
   <ng-template let-message pTemplate="message">
     <div class="column" style="float:left;padding-left: 24px;padding-top: 19px; padding-right:24px;padding-bottom:19px;">
       <span class="fa fa-exclamation-circle fa-pull-left" style="font-size: 20px;color:#DA3F52;"></span>
     </div>
     <div class="column" style="float:left;text-align:left;">
-      <span style="padding-top: 20px; padding-bottom: 20px;">
+      <span style="padding-top: 20px; padding-bottom: 20px;color:#2E2925;position:relative;top:-50%;">
         {{message.detail}}
       </span>
     </div>
