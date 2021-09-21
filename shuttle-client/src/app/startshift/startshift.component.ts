@@ -55,7 +55,7 @@ ngOnInit() {
 
 submitStartData() {
   if (this.beginningOfDayForm.errors) {
-    this.messageService.add({ key:'error', severity: 'error', summary: 'There are errors with the form, please review', detail: 'Too many digits, Try again' });
+    this.messageService.add({ key:'error', severity: 'error', summary: 'There are errors with the form, please review.', detail: 'Too many digits, Try again.' });
   } else {
   this.vehicleId = this.gpsService.getShuttleId();
   this.shuttleService.createStartInfo(this.vehicleId, this.beginningOfDayForm.get('mileage').value,
@@ -65,7 +65,7 @@ submitStartData() {
     if (!this.beginningOfDayForm.get('comments').disabled) {
       this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.beginningOfDayForm.get('comments').value);
     }
-    this.messageService.add({ key:'success', severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
+    this.messageService.add({ key:'success', severity: 'success', summary: 'Success', detail: 'Saved Successfully.'});
   });
 }
 }
