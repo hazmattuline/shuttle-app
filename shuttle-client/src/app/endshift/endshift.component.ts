@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
 import { GPSService } from '../services/gps.service';
 import { Subscription } from 'rxjs';
-import {TripService} from "../services/trip.service";
 
 
 @Component({
@@ -24,8 +23,7 @@ export class EndshiftComponent implements OnInit, OnDestroy {
   conditionSubscription: Subscription;
 
   constructor(private fb: FormBuilder, public shuttleService: ShuttleService,
-              private gpsService: GPSService, private messageService: MessageService,
-              private tripService: TripService) {
+              private gpsService: GPSService, private messageService: MessageService) {
 
       this.conditions = [
         {label: 'Good', value: 'GOOD'},
@@ -61,7 +59,7 @@ ngOnInit() {
   submitEndData() {
 
     if (this.endOfDayForm.errors) {
-      this.messageService.add({ severity: 'error', summary: 'There are errors with the form, please review', detail: 'Too many digits, Try again' });
+      this.messageService.add({ key: 'error', severity: 'error', summary: 'There are errors with the form, please review', detail: 'Too many digits, Try again' });
     } else {
       this.vehicleId = this.gpsService.getShuttleId();
       this.shuttleService.createEndInfo(this.vehicleId,
@@ -75,9 +73,8 @@ ngOnInit() {
           if (!this.endOfDayForm.get('comments').disabled) {
             this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.endOfDayForm.get('comments').value);
           }
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved Successfully' });
-          this.tripService.processCachedTrips();
-        }, () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred' }));
+          this.messageService.add({ key: 'success', severity: 'success', summary: 'Success', detail: 'Saved Successfully' });
+        });
     }
     if(this.shuttleService.isShuttleActive) {
       this.shuttleService.isShuttleActive = false;
