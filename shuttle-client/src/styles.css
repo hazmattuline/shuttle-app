@@ -86,6 +86,7 @@
   font-family: Arial, Helvetica, sans-serif;
   text-align: left;
   pointer-events: none;
+
 }
 
 .custom-toast .ui-toast .ui-toast-message .ui-toast-message-error {
@@ -104,6 +105,7 @@
   color: #666666;
   line-height: 50px;
   margin-right: 5px;
+  pointer-events: auto;
 }
 
 
