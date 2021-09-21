@@ -52,7 +52,7 @@ export class TripService implements OnInit {
       //Submitting trips while processing cache can cause nulls, this recovers
       if (tripInfo == null) {
         tripCache.shift()
-        await this.sleep(100);
+        await this.sleep(200);
         continue;
       }
       if (!tripInfo.isUpdate){
@@ -74,7 +74,7 @@ export class TripService implements OnInit {
               onFail();
             })
       }
-      await this.sleep(100);
+      await this.sleep(200);
     }
     this.cacheService.putCache(this.tripCacheKey, tripCache);
     this.isCaching = false;
