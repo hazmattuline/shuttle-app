@@ -1,24 +1,24 @@
 <router-outlet></router-outlet>
 <p-toast [style]="{marginTop:'80px'}"></p-toast>
-<p-toast class="custom-toast" [style]="{padding:'0px'}" key="success">
+<p-toast class="custom-toast" key="success">
   <ng-template let-message pTemplate="message">
-    <div class="column" style="float:left;padding-left: 24px;padding-top: 19px; padding-right:24px;padding-bottom:19px;">
-      <span class="fa fa-check fa-pull-left" style="font-size: 20px;color:#80a368;"></span>
+    <div class="column custom-toast-left-col">
+      <span class="fa fa-check fa-pull-left custom-toast-check"></span>
     </div>
-    <div class="column" style="float:left;text-align:left;">
-      <span style="padding-top: 20px; padding-bottom: 20px;color:#2E2925;line-height:60px;">
+    <div class="column">
+      <span class="custom-toast-message">
         {{message.detail}}
       </span>
     </div>
   </ng-template>
 </p-toast>
-<p-toast class="custom-toast" [style]="{padding:'0px'}" key="error">
+<p-toast class="custom-toast" key="error">
   <ng-template let-message pTemplate="message">
-    <div class="column" style="float:left;padding-left: 24px;padding-top: 19px; padding-right:24px;padding-bottom:19px;">
-      <span class="fa fa-exclamation-circle fa-pull-left" style="font-size: 20px;color:#DA3F52;"></span>
+    <div class="column custom-toast-left-col">
+      <span class="fa fa-exclamation-circle fa-pull-left custom-toast-alert"></span>
     </div>
-    <div class="column" style="float:left;text-align:left;">
-      <span style="padding-top: 20px; padding-bottom: 20px;color:#2E2925;line-height:60px;">
+    <div class="column">
+      <span class="custom-toast-message">
         {{message.detail}}
       </span>
     </div>
