@@ -7,13 +7,13 @@
 }
 
 .trip-container {
-  text-align:center; 
-  margin: 0 auto; 
+  text-align:center;
+  margin: 0 auto;
   width: 656px;
 }
 
 .trip-label {
-  display: block; 
+  display: block;
   text-align: left;
   width: 100px;
 }
@@ -24,14 +24,14 @@
     width: 120px;
     height: 34px;
   }
-  
-  .switch input 
-  { 
+
+  .switch input
+  {
     opacity: 0;
     width: 0;
     height: 0;
   }
-  
+
   .slider {
     position: absolute;
     cursor: pointer;
@@ -43,7 +43,7 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
-  
+
   .slider:before {
     position: absolute;
     content: "";
@@ -55,31 +55,31 @@
     -webkit-transition: .4s;
     transition: .4s;
   }
-  
+
   input:checked + .slider {
     background-color: rgb(62, 0, 206);
   }
-  
+
   input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
   }
-  
+
   input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
   }
-  
+
   /* Rounded sliders */
   .slider.round {
     border-radius: 34px;
   }
-  
+
   .slider.round:before {
     border-radius: 50%;
   }
 
-  .button 
+  .button
   {
     background-color: rgb(33, 243, 121);;
     border: none;
@@ -92,7 +92,7 @@
     margin: 4px 2px;
     cursor: pointer;
   }
-  
+
 
   .accordion-tab-styling {
     width: 994px !important;
@@ -108,7 +108,7 @@
   }
 
   ::ng-deep body .ui-accordion .ui-accordion-header a {
-    height: 60px; 
+    height: 60px;
     width: 1024px;
     font-family: Arial;
   font-size: 21px;
@@ -118,6 +118,14 @@
   letter-spacing: normal;
   background-color: #f8f8f8;
   color: #2e2925;
+  }
+
+  ::ng-deep body .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    background-color: #127cb5;
+    border: #969492;
+    color: #ffffff;
+    font-weight: bold;
+    letter-spacing: 1px;
   }
 
   ::ng-deep .pi-chevron-right:before {
@@ -137,13 +145,13 @@
     content: "" !important;
   }
 
-  
-.button:hover 
+
+.button:hover
 {
   background-color: rgb(174, 224, 179);
   color: white;
 }
-table 
+table
 {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -155,8 +163,8 @@ table
   height: 34px;
 }
 
-.switch input 
-{ 
+.switch input
+{
   opacity: 0;
   width: 0;
   height: 0;
@@ -209,7 +217,7 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.button 
+.button
 {
   background-color: rgb(33, 243, 121);;
   border: none;
@@ -224,12 +232,12 @@ input:checked + .slider:before {
 }
 
 
-.button:hover 
+.button:hover
 {
 background-color: rgb(174, 224, 179);
 color: white;
 }
-table 
+table
 {
 font-family: arial, sans-serif;
 border-collapse: collapse;
@@ -237,7 +245,7 @@ margin-top: 50px;
 right:40px;
 }
 
-td, th 
+td, th
 {
 text-align: left;
 padding: 8px;

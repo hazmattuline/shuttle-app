@@ -4,11 +4,22 @@
     text-align: center !important;
   }
 
-  .row { 
-    padding: 28px 0 26px 0;
-    height: 376px;
+  .col-left{
+    width: 55%;
+    padding-top: 25px;
+    padding-bottom: 25px;
   }
-  
+
+  .col-right{
+    width: 45%;
+    text-align: left !important;
+  }
+
+  .row {
+    padding: 17px 0 17px 0;
+    height: 384px;
+  }
+
   /* Clear floats after the columns */
   .row:after {
     content: "";
@@ -17,7 +28,19 @@
   }
 
   .first-line {
-    margin-bottom: 34px;
+    margin-bottom: 5px;
+    font-size: 21px;
+  }
+
+  .second-line {
+    margin-bottom: 15px;
+    font-size: 21px;
+    height:48px;
+  }
+
+  .third-line {
+    margin-bottom: 25px;
+    height: 78px;
   }
 
   .number-pad {
@@ -50,8 +73,8 @@
   }
 
   .table-container {
-    display: flex;
-    justify-content: center;
+    display: inline-block;
+    justify-content: left;
   }
 
   .table-padding > th {
@@ -69,15 +92,17 @@
   .table-container > ::ng-deep .ui-table table {
     width: 396px !important;
     left: 600px !important;
-    float: right;
+    float: bottom;
     }
 
     ::ng-deep .ui-table table {
       table-layout: unset;
+
     }
 
     .table-container > ::ng-deep body .ui-table {
       left: 200px !important;
+
     }
 
    .table-style {
@@ -87,7 +112,6 @@
 
   .route {
     display: flex;
-    margin-top: -4px;
     justify-content: center !important;
     /*min-width: unset !important;*/
     border-radius: 500% !important;
@@ -102,18 +126,19 @@
     letter-spacing: normal;
     text-align: center;
     color: #ffffff;
-    margin-right: -10px !important;
-  }
-
-  .route-H2 {
-    margin-left:10px !important;
+    margin-right: 0px !important;
   }
 
   ::ng-deep body .ui-widget {
-    font-family: "Avant Garde Demi";
+    font-family: "Avant Garde Medium";
   }
 
   .second-destination {
+    color: rgb(18, 124, 181);
+    background-color: white;
+  }
+
+  .third-destination {
     color: rgb(18, 124, 181);
     background-color: white;
   }
@@ -135,54 +160,57 @@
     padding-left: 5px;
     padding-right: 5px;
     display:inline-block;
-    
+
     /*height: 50px;*/
    /*position: relative;*/
   }
 
   .around-start {
-    padding-left: 35px;
     display: inline-block;
+    float: left;
+    width: 497px;
+    margin-bottom: 25px;
   }
 
   .start-button {
-    width: 164px;
+    width: 168px;
     display: inline-block;
     height: 48px !important;
     border-radius: 8px;
     background-color: #528233 !important;
     font-size: 24px;
-    font-weight: normal;
+    font-weight: 500;
     font-style: normal;
     font-stretch: normal;
     line-height: 0.83;
     letter-spacing: normal;
     text-align: center;
     color: #ffffff;
+    border-color: #528233 !important;
   }
 
   .input-container {
     /* float: left; */
-    float: right;
+    float: left;
     font-family: Arial;
     font-size: 21px;
     font-weight: normal;
     font-style: normal;
     font-stretch: normal;
     line-height: normal;
-    margin-bottom: 40px;
     letter-spacing: normal;
-    text-align: center;
+    text-align: left;
     justify-content: center;
     align-items: center;
     color: #2e2925;
     position: relative;
-    /*display: inline-flex;*/
-    
+    margin-right: 30px !important;
+    height: 24px;
+
   }
 
   input {
-    width: 261px !important;
+    width: 114px !important;
     height: 48px !important;
     border-radius: 2px;
     border: solid 1px #797979;
@@ -195,26 +223,29 @@
     line-height: normal;
     letter-spacing: normal;
     text-align: right !important;
-    color: #2e2925;  
+    color: #2e2925;
+    padding-right: 6px !important;
+    padding-top: 8px !important;
+    margin-top: 5px;
   }
 
   .passenger-input {
-    left: 600px;
-    bottom: 350px;
-    padding-bottom: 20px !important;
+    left: 60px;
+    bottom: 35px;
+    padding-bottom: 10px !important;
   }
 
   .curb-input {
-    left: 600px;
-    bottom: 436px;
-    padding-bottom: 20px;
+    left: 60px;
+    bottom: 43px;
+    padding-bottom: 10px;
   }
 
   tr {
     width: 396px;
     height: 36px;
     border-radius: 2px;
-    border: solid 1px #797979;
+    border: 1px solid #797979 !important;
     font-family: Arial;
     font-size: 18px;
     font-weight: normal;
@@ -226,6 +257,10 @@
     color: #2e2925;
   }
 
+  .left {
+    text-align:left !important;
+  }
+
   td {
     background-color: #ffffff;
   }
@@ -234,7 +269,7 @@
     background-color: #d9dee3;
   }
 
-  /* td, th { 
+  /* td, th {
     border-left: solid 1px black !important;
     border-bottom: solid 1px black !important;
     border-right: solid 1px black !important;
@@ -245,8 +280,8 @@
   } */
 
   th   {
-    color: #575656 !important;
-    background-color: #d9d7d7 !important;
+    color: #2E2925 !important;
+    background-color: #d9dee3 !important;
   }
 
   .highlight-row {
@@ -260,10 +295,18 @@
 
   .line {
     white-space: nowrap;
-    display:inline-block;
+    display:inline-grid;
     padding-right: 20px;
     padding-bottom: 20px;
 }
+
+  .line-button {
+    display: inline-block;
+    height: 48px !important;
+    width: 48px !important;
+    margin-right: 30px;
+
+  }
 
 .bottom-line {
   padding-bottom: 0;
@@ -281,13 +324,13 @@
   width: 300px;
 }
 
-
-
-
-
-
-
-
+.fix{
+  padding-top: 9px;
+  padding-left: 2px;
+  font-family: "Arial Rounded MT", "Arial";
+  font-weight: 400;
+  font-size: 24px;
+}
   .clear-button {
     width: 140px;
     height: 60px;
@@ -295,7 +338,6 @@
     box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.2);
     border: solid 1px #003366;
     background-color: #ffffff;
-    padding: unset !important;
     font-family: Arial;
     font-size: 24px;
     font-weight: normal;
@@ -305,5 +347,14 @@
     letter-spacing: normal;
     text-align: center;
     color: #43586d;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
+
+  /*.border{*/
+  /*  border: 1px solid #797979 !important;*/
+  /*  border-radius: 2px !important;*/
+  /*  border-spacing: 0px;*/
+  /*  box-shadow:none;*/
+  /*}*/
 

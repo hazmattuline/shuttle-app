@@ -33,6 +33,7 @@ import { MenuModule, Menu } from 'primeng/menu';
 import { UccLoginModule } from 'common-component-lib';
 import { UccLoginComponent } from 'common-component-lib';
 import {adminRoutesNames} from './admin/admin.routes.names';
+import {ShuttleService} from "./services/shuttle.service";
 
 
 const httpInterceptorProviders = [
@@ -96,7 +97,8 @@ const appRoutes: Routes =
   providers: [
     DatePipe,
     MessageService,
-    httpInterceptorProviders
+    httpInterceptorProviders,
+    ShuttleService
   ],
   bootstrap: [AppComponent]
 })

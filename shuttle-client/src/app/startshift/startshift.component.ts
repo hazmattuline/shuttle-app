@@ -55,20 +55,18 @@ ngOnInit() {
 
 submitStartData() {
   if (this.beginningOfDayForm.errors) {
-    this.messageService.add({ severity: 'error', summary: 'There are errors with the form, please review', detail: 'Too many digits, Try again' });
+    this.messageService.add({ key:'error', severity: 'error', summary: 'There are errors with the form, please review.', detail: 'Too many digits, Try again.' });
   } else {
   this.vehicleId = this.gpsService.getShuttleId();
-  this.shuttleService.createStartInfo(this.vehicleId, this.beginningOfDayForm.get('mileage').value, 
-  this.beginningOfDayForm.get('condition').value, this.date, this.beginningOfDayForm.get('comments').value, 
+  this.shuttleService.createStartInfo(this.vehicleId, this.beginningOfDayForm.get('mileage').value,
+  this.beginningOfDayForm.get('condition').value, this.date, this.beginningOfDayForm.get('comments').value,
   this.beginningOfDayForm.get('comments').disabled)
   .subscribe(comment => {
     if (!this.beginningOfDayForm.get('comments').disabled) {
       this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.beginningOfDayForm.get('comments').value);
     }
-    this.messageService.add({severity: 'success', summary: 'Success', detail: 'Saved Successfully'});
-
-  } , err => {this.messageService.add({severity: 'error', summary: 'Error', detail: 'Connection Error Has Occurred'});
-} );
+    this.messageService.add({ key:'success', severity: 'success', summary: 'Success', detail: 'Saved Successfully.'});
+  });
 }
 }
 

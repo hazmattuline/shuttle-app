@@ -1,2 +1,26 @@
 <router-outlet></router-outlet>
-<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<p-toast [style]="{marginTop:'80px'}"></p-toast>
+<p-toast class="custom-toast" key="success">
+  <ng-template let-message pTemplate="message">
+    <div class="column custom-toast-left-col">
+      <span class="fa fa-check fa-pull-left custom-toast-check"></span>
+    </div>
+    <div class="column">
+      <span class="custom-toast-message">
+        {{message.detail}}
+      </span>
+    </div>
+  </ng-template>
+</p-toast>
+<p-toast class="custom-toast" key="error">
+  <ng-template let-message pTemplate="message">
+    <div class="column custom-toast-left-col">
+      <span class="fa fa-exclamation-circle fa-pull-left custom-toast-alert"></span>
+    </div>
+    <div class="column">
+      <span class="custom-toast-message">
+        {{message.detail}}
+      </span>
+    </div>
+  </ng-template>
+</p-toast>

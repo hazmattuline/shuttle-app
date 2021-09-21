@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="column">
+  <div class="column col-left">
     <div class="line">
           <button pButton class="number-pad" (click) = "submitNumber(1)">1</button>
     </div>
@@ -36,37 +36,39 @@
     <div class="line bottom-line">
         <button pButton type="button" class="clear-button" label="CLR" (click) = "clearNumbers()"></button>
     </div>
-
   </div>
-  <div class="column">
+  <div class="column col-right">
     <div class="first-line">
-    <div class="line center-vertically">
-          <button pButton type="button" label="H1" class="route" [ngClass] =  "this.isTowardsH2 ? '' : 'second-destination'" (click) = "changeRoute(true)"></button>
+      Destination
     </div>
-    <div class="img-container center-vertically" *ngIf="!isTowardsH2" (click) = "toggleRoute()">
-        <img src="assets/point_left.png"  alt="picture">
+    <div class="second-line">
+    <div class="line-button">
+          <button pButton type="button" label="H1" class="route fix" [ngClass] =  "this.towardsH1 ? '' : 'second-destination'" (click) = "changeRoute('H1')"></button>
     </div>
-    <div class="img-container center-vertically" *ngIf="this.isTowardsH2" (click) = "toggleRoute()">
-        <img src="assets/point_right.png"  alt="picture" >
+
+    <div class="line-button">
+        <button pButton type="button" label="H2" class="route fix"  [ngClass] =  "this.towardsH2 ? '' : 'second-destination'" (click) = "changeRoute('H2')"></button>
     </div>
-    
-    <div class="line center-vertically">
-        <button pButton type="button" label="H2" class="route route-H2"  [ngClass] =  "this.isTowardsH2 ? 'second-destination' : ''" (click) = "changeRoute(false)"></button>
+
+      <div class="line-button">
+        <button pButton type="button" label="P" class="route fix"  [ngClass] =  "this.towardsP ? '' : 'second-destination'" (click) = "changeRoute('P')"></button>
+      </div>
     </div>
-  <div class="around-start">
-     <button pButton type="button" [label]="isChangeLatest ? 'Update' : 'Start'" class = "start-button center-vertically" (click) = "submitTripInfo()"></button>
-    </div>
-    </div>
-     <div style = "text-align: center">
-     <div class="input-boxes">
-     <div class="input-container center-vertically">Passengers:   <input type="button"  class="passenger-input" pInputText [ngClass] =  "isCurb ? 'normal-input' : 'show-input normal-input'" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/></div><br> <br>
-     <div class="input-container center-vertically">On Curb:      <input type="button" class="curb-input" pInputText [ngClass] =  "isCurb ? 'show-input normal-input' : 'normal-input'" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/></div> <br>
+     <div class = third-line>
+       <div class="input-boxes">
+         <div class="input-container">Passengers   <br> <input type="button"  class="passenger-input" pInputText [ngClass] =  "isCurb ? 'normal-input' : 'show-input normal-input'" (click)="setIsCurb(false)" value="{{this.passengerNumber}}" readonly/></div>
+         <div class="input-container">On Curb     <br> <input type="button" class="curb-input" pInputText [ngClass] =  "isCurb ? 'show-input normal-input' : 'normal-input'" (click)="setIsCurb(true)" value = "{{this.curbNumber}}" readonly/></div>
+       </div>
+
      </div>
-     </div>
+      <div class="around-start">
+        <button pButton type="button" [label]="isChangeLatest ? 'Update' : 'Start'" class = "start-button center-vertically" (click) = "submitTripInfo()"></button>
+      </div>
+
      <div class="table-container">
-        <p-table  [value]="trips" [style]="{width:'380px'}">
+        <p-table class="table" [value]="trips" [style]="{width:'392px'}">
             <ng-template class = "top-of-table" pTemplate="header">
-                <tr class="table-padding">                   
+                <tr class="table-padding">
                     <th>Trip #</th>
                     <th>Route</th>
                     <th>Passengers</th>
@@ -75,14 +77,15 @@
             </ng-template>
             <ng-template pTemplate="body" let-trip>
                 <tr (click)="loadRow()" class="table-padding table-body">
-                    <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.tripNumber}}</td>
-                    <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.route}}</td>
+                  <td class="left" [style] = "{textAlign:'left'}" [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.tripNumber}}</td>
+                    <td class="left" [style] = "{textAlign:'left'}" [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.route}}</td>
                     <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.passengers}}</td>
                     <td [ngClass] =  "isChangeLatest ? 'highlight-row' : ''">{{trip.curb}}</td>
                 </tr>
             </ng-template>
         </p-table>
     </div>
-    
   </div>
 </div>
+
+
