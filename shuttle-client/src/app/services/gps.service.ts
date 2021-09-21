@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable} from 'rxjs';
+import {Injectable, OnDestroy} from '@angular/core';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 import { ShuttleApiService } from './shuttle-api.service';
 import { Shuttle } from '../models/shuttle.model';
 import {TripService} from "./trip.service";
 
 @Injectable()
-export class GPSService {
+export class GPSService implements OnDestroy{
   private latestCoordinates: Coordinates = null;
   private shuttle: Shuttle = null;
   private shuttleId: number = null;
@@ -15,6 +15,8 @@ export class GPSService {
 
   private _shuttleId: BehaviorSubject<number> = new BehaviorSubject(null);
   public shuttleIdObservable: Observable<number> = this._shuttleId.asObservable();
+
+  private subscription:Subscription
 
   private options = {
     enableHighAccuracy: true,
@@ -80,7 +82,7 @@ export class GPSService {
         latitudeCoordinates: this.latestCoordinates.latitude,
         longitudeCoordinates: this.latestCoordinates.longitude
       };
-      this.shuttleApiService.sendShuttleCoordinates(shuttle).subscribe(success => this.tripService.processCachedTrips());
+      this.subscription = this.shuttleApiService.sendShuttleCoordinates(shuttle).subscribe(success => this.tripService.processCachedTrips());
     }
   }
 
@@ -91,6 +93,12 @@ export class GPSService {
   errorHandler(err) {
     if (err.code === 1) {
       // access is denied
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 
