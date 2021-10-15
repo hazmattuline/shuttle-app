@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { TripService } from "../services/trip.service";
 import {Trip} from "../models/trip.model";
+import {StartShiftService} from "../services/start-shift.service";
 
 @Component({
   selector: 'app-trips',
@@ -39,7 +40,12 @@ export class TripsComponent implements OnInit, OnDestroy {
   destination: {whse:string, door:string} = null;
   currentLocation: {whse:string, door:string} = {whse: 'H1', door:'PARK'};
 
-  constructor(private messageService: MessageService, private gpsService: GPSService, private shuttleApiService: ShuttleApiService, public shuttleService: ShuttleService, private tripService:TripService) { }
+  constructor(private messageService: MessageService,
+              private gpsService: GPSService,
+              private shuttleApiService: ShuttleApiService,
+              public shuttleService: ShuttleService,
+              private tripService:TripService,
+              private startShiftService:StartShiftService) { }
 
   getDate() {
     this.date = this.shuttleService.getDate();
@@ -158,6 +164,12 @@ export class TripsComponent implements OnInit, OnDestroy {
   }
 
   async submitTripInfo() {
+
+    // Trying to submit a trip without submitting start shift info
+    if (!this.startShiftService.startShiftExistsToday()){
+      this.messageService.add({key:'error', severity:'error', summary: 'Alert', detail:'Fill in Start Shift Information', life: 3500})
+      return;
+    }
 
     // Null Destination check
     if (this.tripIsNull()){

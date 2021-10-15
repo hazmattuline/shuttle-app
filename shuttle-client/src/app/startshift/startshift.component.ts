@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ShuttleService } from '../services/shuttle.service';
 import { GPSService } from '../services/gps.service';
 import { Subscription } from 'rxjs';
+import {StartShiftService} from "../services/start-shift.service";
 
 @Component({
   selector: 'app-startshift',
@@ -22,7 +23,7 @@ export class StartshiftComponent implements OnInit, OnDestroy {
   beginningOfDayForm: FormGroup;
   conditionSubscription: Subscription;
 
-  constructor(private fb: FormBuilder, private messageService: MessageService, private gpsService: GPSService, public shuttleService: ShuttleService) {
+  constructor(private fb: FormBuilder, private messageService: MessageService, private gpsService: GPSService, private startShiftService: StartShiftService, public shuttleService: ShuttleService) {
 
     this.conditions = [
       {label: 'Good', value: 'GOOD'},
@@ -66,6 +67,7 @@ submitStartData() {
       this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.beginningOfDayForm.get('comments').value);
     }
     this.messageService.add({ key:'success', severity: 'success', summary: 'Success', detail: 'Saved Successfully.'});
+    this.startShiftService.saveStartShiftDate()
   });
 }
 }

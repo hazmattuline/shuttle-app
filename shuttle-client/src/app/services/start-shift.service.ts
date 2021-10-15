@@ -13,8 +13,11 @@ export class StartShiftService implements OnInit{
   dateToday: string | null = null
 
   ngOnInit(): void {
-        this.dateToday = this.shuttleService.getDate()
-        this.cacheService.putCache(this.todayKey, this.dateToday)
+        let date = this.shuttleService.getDate()
+        if (date) {
+          this.dateToday = date;
+          this.cacheService.putCache(this.todayKey, this.dateToday)
+        }
     }
 
   constructor(private cacheService: CacheService, private shuttleService: ShuttleService) {
