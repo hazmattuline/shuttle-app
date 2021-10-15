@@ -94,7 +94,7 @@
 }
 
 .custom-toast .ui-toast-message-success {
-  background-color: #80a368 !important;
+  background-color: #F5FAF2 !important;
 }
 
 .custom-toast .ui-toast .ui-toast-message-content {
@@ -116,7 +116,7 @@
 
 .custom-toast-check{
   font-size: 20px !important;
-  color:#F5FAF2;
+  color:#80a368;
 }
 
 .custom-toast-alert{
