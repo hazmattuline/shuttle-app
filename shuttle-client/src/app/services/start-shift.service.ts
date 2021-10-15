@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import {CacheService} from "./cache.service";
 import {startShiftCacheKey} from "../core/constants/cacheKey.constant";
@@ -7,20 +7,20 @@ import {ShuttleService} from "./shuttle.service";
 @Injectable({
   providedIn: 'root'
 })
-export class StartShiftService implements OnInit{
+export class StartShiftService{
 
   todayKey: string = 'today'
-  dateToday: string | null = null
 
-  ngOnInit(): void {
+  initializeCache(): void {
         let date = this.shuttleService.getDate()
         if (date) {
-          this.dateToday = date;
-          this.cacheService.putCache(this.todayKey, this.dateToday)
+          this.cacheService.putCache(this.todayKey, date)
         }
     }
 
-  constructor(private cacheService: CacheService, private shuttleService: ShuttleService) {
+  constructor(private cacheService: CacheService,
+              private shuttleService: ShuttleService) {
+    this.initializeCache()
   }
 
   saveStartShiftDate():void{
@@ -30,11 +30,11 @@ export class StartShiftService implements OnInit{
 
   startShiftExistsToday():boolean{
     let lastDate = this.cacheService.getCache(startShiftCacheKey);
+    console.log(lastDate)
     let todayDate = this.cacheService.getCache(this.todayKey)
+    console.log(todayDate)
 
-    if (lastDate && todayDate && lastDate === todayDate){
-      return true;
-    }
-    return false;
+    return lastDate && todayDate && lastDate === todayDate;
+
   }
 }

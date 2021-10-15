@@ -2,7 +2,7 @@
   html{background-color: rgb(225, 226, 227);}
 
   .ui-fluid > .form-input:first-child {
-    margin-top: 0px;
+    margin-top: 0;
   }
 
   .form-input {
@@ -58,7 +58,7 @@
           font-size: 18px;
           color: #969492;
           padding: 32px 32px;
-          margin: 0px;
+          margin: 0;
           font-family: "Arial Regular";
         }
 
@@ -98,7 +98,7 @@
 }
 
 .custom-toast .ui-toast .ui-toast-message-content {
-  padding: 0em !important;
+  padding: 0 !important;
 }
 
 .custom-toast .ui-toast .ui-toast-message .ui-toast-close-icon.pi.pi-times:before {
@@ -116,7 +116,7 @@
 
 .custom-toast-check{
   font-size: 20px !important;
-  color:#80a368;
+  color:#F5FAF2;
 }
 
 .custom-toast-alert{

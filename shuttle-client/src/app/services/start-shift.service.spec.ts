@@ -3,24 +3,26 @@ import {TestBed} from '@angular/core/testing';
 import { StartShiftService } from './start-shift.service';
 import {CacheService} from "./cache.service";
 import {ShuttleService} from "./shuttle.service";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('StartShiftService', () => {
   let startShiftService: StartShiftService;
-  let mockShuttleService;
+  let shuttleService: ShuttleService
   let mockCacheService;
-  let dateString = '10/15/2021'
+  let dateString;
 
   beforeEach(() => {
-    mockShuttleService = jasmine.createSpyObj(['getDate'])
     mockCacheService = jasmine.createSpyObj(['getCache', 'putCache'])
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
         {provide: CacheService, useValue: mockCacheService},
-        {provide: ShuttleService, useValue: mockShuttleService}
+        ShuttleService,
       ]
     });
     startShiftService = TestBed.get(StartShiftService)
-    mockShuttleService.getDate.and.returnValue(dateString);
+    shuttleService = TestBed.get(ShuttleService)
+    dateString = shuttleService.getDate()
     mockCacheService.getCache.and.returnValue(dateString);
   });
 
@@ -28,10 +30,7 @@ describe('StartShiftService', () => {
     expect(startShiftService).toBeTruthy();
   });
 
-  it('should get the date on Init and call cacheService', (done) => {
-    startShiftService.ngOnInit()
-    done();
-    expect(startShiftService.dateToday).toEqual(dateString)
+  it('should call cacheService on init', () => {
     expect(mockCacheService.putCache).toHaveBeenCalledTimes(1)
   })
 
