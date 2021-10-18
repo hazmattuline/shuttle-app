@@ -91,4 +91,8 @@ export class ShuttleService {
   getMileage() {
     return this.startMileage;
   }
+
+  setActiveIndex(num:number){
+    this.activeIndex = num;
+  }
 }
