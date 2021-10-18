@@ -120,7 +120,6 @@ export class BannerDetailsComponent implements OnInit {
     } else {
       this.shuttleService.isAccordionTopDisabled = true;
       this.shuttleService.isShuttleActive = false;
-      this.shuttleService.activeIndex = null;
     }
     this.shuttleService.isEndOfDayDisabled = false;
    }
