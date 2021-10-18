@@ -67,7 +67,7 @@ submitStartData() {
       this.shuttleService.createCommentInfo(this.vehicleId, this.date, this.beginningOfDayForm.get('comments').value);
     }
     this.messageService.add({ key:'success', severity: 'success', summary: 'Success', detail: 'Saved Successfully.'});
-    this.startShiftService.saveStartShiftDate()
+    this.startShiftService.saveStartShiftDate(this.vehicleId)
   });
 }
 }

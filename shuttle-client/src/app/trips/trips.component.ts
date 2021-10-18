@@ -166,7 +166,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   async submitTripInfo() {
 
     // Trying to submit a trip without submitting start shift info
-    if (!this.startShiftService.startShiftExistsToday()){
+    if (!this.startShiftService.startShiftExistsToday(this.gpsService.getShuttleId())){
       this.messageService.add({key:'error', severity:'error', summary: 'Alert', detail:'Fill in Start Shift Information', life: 3500})
       return;
     }

@@ -10,6 +10,7 @@ import {ShuttleService} from "./shuttle.service";
 export class StartShiftService{
 
   todayKey: string = 'today'
+  vehicleKey: string = 'vehicle'
 
   initializeCache(): void {
         let date = this.shuttleService.getDate()
@@ -23,18 +24,19 @@ export class StartShiftService{
     this.initializeCache()
   }
 
-  saveStartShiftDate():void{
+  saveStartShiftDate(vehicleId:number):void{
     let date = this.shuttleService.getDate()
     this.cacheService.putCache(startShiftCacheKey, date)
+    this.cacheService.putCache(this.vehicleKey, vehicleId)
   }
 
-  startShiftExistsToday():boolean{
+  startShiftExistsToday(vehicleId:number):boolean{
     let lastDate = this.cacheService.getCache(startShiftCacheKey);
-    console.log(lastDate)
     let todayDate = this.cacheService.getCache(this.todayKey)
-    console.log(todayDate)
+    let lastVehicle = this.cacheService.getCache((this.vehicleKey))
 
-    return lastDate && todayDate && lastDate === todayDate;
+    //makes sure the date is today and that the vehicleId matches
+    return lastDate && todayDate && (lastDate === todayDate) && (lastVehicle === vehicleId);
 
   }
 }

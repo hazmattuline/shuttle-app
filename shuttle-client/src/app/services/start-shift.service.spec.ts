@@ -10,6 +10,11 @@ describe('StartShiftService', () => {
   let shuttleService: ShuttleService
   let mockCacheService;
   let dateString;
+  let vehicleId = 2;
+  let cache;
+
+
+
 
   beforeEach(() => {
     mockCacheService = jasmine.createSpyObj(['getCache', 'putCache'])
@@ -23,7 +28,16 @@ describe('StartShiftService', () => {
     startShiftService = TestBed.get(StartShiftService)
     shuttleService = TestBed.get(ShuttleService)
     dateString = shuttleService.getDate()
-    mockCacheService.getCache.and.returnValue(dateString);
+
+    cache = {
+      'startShiftCache': dateString,
+      'today' : dateString,
+      'vehicle' : vehicleId
+    };
+
+    mockCacheService.getCache.and.callFake(function(key){
+      return cache[key]
+    });
   });
 
   it('should be created', () => {
@@ -35,9 +49,24 @@ describe('StartShiftService', () => {
   })
 
   it('should return true when saved today date matches the current date', () =>{
-    const response = startShiftService.startShiftExistsToday()
+
+    const response = startShiftService.startShiftExistsToday(vehicleId)
 
     expect(response).toEqual(true)
-    expect(mockCacheService.getCache).toHaveBeenCalledTimes(2)
+    expect(mockCacheService.getCache).toHaveBeenCalledTimes(3)
+  })
+
+  it('should return false when saved date does not match current date', () => {
+    cache['startShiftCache'] = '10/17/2021'
+
+    const response = startShiftService.startShiftExistsToday(vehicleId)
+
+    expect(response). toEqual(false)
+  })
+
+  it('should return false when saved vehicle does not match current vehicle', () =>{
+    const response = startShiftService.startShiftExistsToday(vehicleId+1)
+
+    expect(response). toEqual(false)
   })
 });
