@@ -68,6 +68,7 @@ submitStartData() {
     }
     this.messageService.add({ key:'success', severity: 'success', summary: 'Success', detail: 'Saved Successfully.'});
     this.startShiftService.saveStartShiftDate(this.vehicleId)
+    this.shuttleService.activeIndex = 1;
   });
 }
 }

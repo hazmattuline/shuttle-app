@@ -116,9 +116,11 @@ export class BannerDetailsComponent implements OnInit {
       this.shuttleService.isAccordionTopDisabled = false;
       this.gpsService.handleAlreadyActive(this.selectedVehicle);
       this.shuttleService.isShuttleActive = true;
+      this.shuttleService.activeIndex = 0;
     } else {
       this.shuttleService.isAccordionTopDisabled = true;
       this.shuttleService.isShuttleActive = false;
+      this.shuttleService.activeIndex = null;
     }
     this.shuttleService.isEndOfDayDisabled = false;
    }
