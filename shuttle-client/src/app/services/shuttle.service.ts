@@ -16,6 +16,7 @@ export class ShuttleService {
 
   date = new Date();
   isAccordionTopDisabled = true;
+  activeIndex: number = null;
   startMileage: number;
   isEndOfDayDisabled = true;
   isShuttleActive: boolean;
@@ -89,5 +90,9 @@ export class ShuttleService {
 
   getMileage() {
     return this.startMileage;
+  }
+
+  setActiveIndex(num:number){
+    this.activeIndex = num;
   }
 }

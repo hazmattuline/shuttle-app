@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {Trip} from "../models/trip.model";
 import {ShuttleApiService} from "./shuttle-api.service";
@@ -7,10 +7,7 @@ import {CacheService} from "./cache.service";
 @Injectable({
   providedIn: 'root'
 })
-export class TripService implements OnInit {
-  ngOnInit(): void {
-    this.initializeTripCache();
-  }
+export class TripService {
 
   sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -20,6 +17,7 @@ export class TripService implements OnInit {
   isCaching = false;
 
   constructor(private shuttleApi:ShuttleApiService, private cacheService:CacheService) {
+    this.initializeTripCache()
   }
 
   async processCachedTrips() {
