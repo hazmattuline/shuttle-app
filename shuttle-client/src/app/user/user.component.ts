@@ -102,8 +102,8 @@ export class UserComponent implements OnInit, OnDestroy {
   }
 
   private setPlacement(marker: ElementRef<any>, shuttle: Shuttle) {
-    this.renderer.setStyle(marker, 'top', `${shuttle.yPixelCoordinate - (ShuttleIconHeight / 2)}px`);
-    this.renderer.setStyle(marker, 'left', `${shuttle.xPixelCoordinate - (ShuttleIconWidth / 2)}px`);
+    this.renderer.setStyle(marker, 'top', `${(shuttle.yPixelCoordinate/1.18 - (ShuttleIconHeight/5) + 85)}px`);
+    this.renderer.setStyle(marker, 'left', `${(shuttle.xPixelCoordinate/1.09 - (ShuttleIconWidth/5) )+ 40}px`);
   }
 
 

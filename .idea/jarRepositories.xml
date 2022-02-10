@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="ibm-maven-repo" />
+      <option name="name" value="ibm-maven-repo" />
+      <option name="url" value="http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/maven/repository/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jcenter" />
+      <option name="name" value="jcenter" />
+      <option name="url" value="http://jcenter.bintray.com" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="artifactory-ulinedm-snapshots" />
+      <option name="name" value="artifactory-ulinedm-snapshots" />
+      <option name="url" value="http://artifactory.ulinedm.com/artifactory/libs-snapshot" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="local-release" />
+      <option name="name" value="libs-release-local" />
+      <option name="url" value="http://artifactory.ulinedm.com/artifactory/libs-release-local" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="artifactory-jcenter" />
+      <option name="name" value="artifactory-jcenter" />
+      <option name="url" value="http://artifactory.ulinedm.com/artifactory/jcenter/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="spring-snapshots" />
+      <option name="name" value="Spring Snapshots" />
+      <option name="url" value="https://repo.spring.io/libs-snapshot" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="local-snapshot" />
+      <option name="name" value="libs-snapshot-local" />
+      <option name="url" value="http://artifactory.ulinedm.com/artifactory/libs-snapshot-local" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="snapshots" />
+      <option name="name" value="libs-snapshot" />
+      <option name="url" value="http://artifactory.ulinedm.com/artifactory/libs-snapshot" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="tess-maven-repo" />
+      <option name="name" value="TESS-Maven-Repo" />
+      <option name="url" value="http://artifactory.ulinedm.com/artifactory/TESS-Maven-Repo" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="release" />
+      <option name="name" value="libs-release" />
+      <option name="url" value="http://artifactory.ulinedm.com/artifactory/libs-release" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="terracotta-releases" />
+      <option name="name" value="terracotta-releases" />
+      <option name="url" value="http://www.terracotta.org/download/reflector/releases" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="spring-milestones" />
+      <option name="name" value="Spring Milestones" />
+      <option name="url" value="https://repo.spring.io/milestone" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="artifactory-ulinedm-releases" />
+      <option name="name" value="artifactory-ulinedm-releases" />
+      <option name="url" value="http://artifactory.ulinedm.com/artifactory/libs-release" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+  </component>
+</project>
