@@ -102,10 +102,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://dc2-svzsys02.ulinedm.com:31114/security-services/v3/auth",
+							"raw": "http://dc2-svzdev02.ulinedm.com:31114/security-services/v3/auth",
 							"protocol": "http",
 							"host": [
-								"dc2-svzsys02",
+								"dc2-svzdev02",
 								"ulinedm",
 								"com"
 							],
