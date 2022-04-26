@@ -33,6 +33,7 @@ export class TripsComponent implements OnInit, OnDestroy {
   towardsH1 = false;
   towardsP = false;
   towardsH2 = false;
+  towardsH3 = false
 
 
   lastTrip: {shuttleId:number, passengerNumber:number, curbNumber:number, route:ShuttleRoute, date:string, activityTimestamp:string, loadedRowId: string}
@@ -296,6 +297,10 @@ export class TripsComponent implements OnInit, OnDestroy {
         this.clearTowards()
         this.towardsH2 = true;
         break;
+      case 'H3':
+        this.clearTowards();
+        this.towardsH3 = true;
+        break;
     }
   }
 
@@ -303,6 +308,7 @@ export class TripsComponent implements OnInit, OnDestroy {
     this.towardsH1 = false;
     this.towardsH2 = false;
     this.towardsP = false;
+    this.towardsH3 = false
   }
 
   getRouteString(route: ShuttleRoute){
@@ -330,6 +336,9 @@ export class TripsComponent implements OnInit, OnDestroy {
       return {whse:label, door:'FRONT'}
     }
     if (label === 'H2'){
+      return {whse:label, door:'FRONT'}
+    }
+    if (label === 'H3'){
       return {whse:label, door:'FRONT'}
     }
   }
